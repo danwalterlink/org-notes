@@ -1,0 +1,114 @@
+* Docker Container Deployments
+  :PROPERTIES:
+  :CUSTOM_ID: docker-container-deployments
+  :END:
+
+** Bookstack Deployment
+   :PROPERTIES:
+   :CUSTOM_ID: bookstack-deployment
+   :END:
+
+#+BEGIN_SRC sh
+  sudo docker run -d --net bookstack_nw  -v 'bookstack_db' -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_DATABASE=bookstack -e MYSQL_USER=bookstack -e MYSQL_PASSWORD=secret  --name="bookstack_db"  mysql:5.7.21
+  sudo docker run -d --net bookstack_nw  -v 'bookstack_app' -e DB_HOST=bookstack_db:3306 -e DB_DATABASE=bookstack -e DB_USERNAME=bookstack -e DB_PASSWORD=secret -e APP_URL=http://192.168.1.166/books -p 8093:80  --name="bookstack_app"  solidnerd/bookstack:0.27.4-1
+#+END_SRC
+
+#+caption: nginx reverse proxy #+BEGIN_SRC conf location /books/ {
+rewrite ^/books/(.*) /$1 break; proxy_pass http://192.168.1.166:8093;
+proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto https; } #+END_SRC
+
+** Confluence Deployment
+   :PROPERTIES:
+   :CUSTOM_ID: confluence-deployment
+   :END:
+
+To launch container: #+BEGIN_SRC shell sudo docker run -e
+ATL_TOMCAT_CONTEXTPATH=/confluence -v
+~/.dockerimages/confluence:/var/atlassian/application-data/confluence
+--name="confluence" -d -p 8090:8090 -p 8091:8091
+atlassian/confluence-server #+END_SRC
+
+The _{ATL_TOMCAT_CONTEXTPATH} is required when running behind a reverse
+proxy.
+
+Reverse proxy config: #+BEGIN_EXAMPLE location /confluence {
+client_max_body_size 100m; proxy_set_header X-Forwarded-Host $host;
+proxy_set_header X-Forwarded-Server $host; proxy_set_header
+X-Forwarded-For $proxy_add_x_forwarded_for; proxy_pass
+http://192.168.1.177:8090; } #+END_EXAMPLE
+
+** Gitlab Deployment
+   :PROPERTIES:
+   :CUSTOM_ID: gitlab-deployment
+   :END:
+
+#+BEGIN_SRC sh
+  sudo docker run --detach --publish 8082:80 --publish 24:22 --name gitlab --restart always --volume ~/.dockerimages/gitlab/config:/etc/gitlab:Z --volume ~/.dockerimages/gitlab/logs:/var/log/gitlab:Z --volume ~/.dockerimages/gitlab/data:/var/opt/gitlab:Z gitlab/gitlab-ce:latest
+#+END_SRC
+
+** Jenkins Deployment
+   :PROPERTIES:
+   :CUSTOM_ID: jenkins-deployment
+   :END:
+
+Initial setup will require a password that's logged in the container,
+run =sudo docker logs jenkins= to retrieve it.
+
+=sudo docker run --name jenkins -d -p 8092:8080 -p 50000:50000 -v ~/.dockerimages/jenkins/data:/var/jenkins_home jenkins=
+
+** NextCloud Deployment
+   :PROPERTIES:
+   :CUSTOM_ID: nextcloud-deployment
+   :END:
+
+First step is to deploy the mariadb instance, followed by the nextcloud
+container
+
+#+BEGIN_SRC sh
+  sudo docker run -d -p 3306:3306 -v db:/var/lib/mysql --name nextcloud_db -e MYSQL_ROOT_PASSWORD=pass1234 -e MYSQL_DATABASE=nextcloud mariadb
+  sudo docker run -d -v nextcloud:/var/www/html --name nextcloud -p 8080:80 --link nextcloud_db:db nextcloud
+#+END_SRC
+
+** Phabricator Deployment
+   :PROPERTIES:
+   :CUSTOM_ID: phabricator-deployment
+   :END:
+
+Use the yaml file below for the =docker-compose.yml= file, and then
+after execution run =sudo docker exec -it container
+/opt/bitnami/phabricator/bin/config set phabricator.base-uri
+"http://address"=
+
+#+BEGIN_EXAMPLE
+  version: '2'
+  services:
+    mariadb:
+      image: 'bitnami/mariadb:10.3'
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+        - MARIADB_EXTRA_FLAGS=--local-infile=0
+        - MARIADB_USER=root
+        - MARIADB_PASSWORD=pass1234
+      volumes:
+        - 'mariadb_data:/bitnami'
+    phabricator:
+      image: 'bitnami/phabricator:2020'
+      ports:
+        - '8081:80'
+        - '443:443'
+      volumes:
+        - 'phabricator_data:/bitnami'
+      depends_on:
+        - mariadb
+      environment:
+        - PHABRICATOR_HOST=192.168.1.244
+        - PHABRICATOR_USERNAME=nick
+        - PHABRICATOR_PASSWORD=test1234
+  volumes:
+    mariadb_data:
+      driver: local
+    phabricator_data:
+      driver: local
+#+END_EXAMPLE

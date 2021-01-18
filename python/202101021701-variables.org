@@ -1,0 +1,52 @@
+#+title: variables
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 17:01]
+
+Variables for [[[[file:202101171320-python.org][python]]]] allows on to assign a data type to an object.
+
+** Constants
+
+Fixed Values such as numbers, letters and strings, are called constants
+because their value does not change, constants are written in all
+capital letters and underscores separating the words.
+
+** global variables
+
+#+BEGIN_EXAMPLE
+  x = 50
+
+  def func():
+      global x
+      # REASSIGN GLOBAL X FROM DEF
+      x = 'NEW VALUE'
+      return(f'I changed the value of x to {x}')
+
+  func()
+
+  I changed the value of x to NEW VALUE
+#+END_EXAMPLE
+
+** legb rule
+
+The LEGB rule is the order Python looks for variables:
+
+*** L:Local
+
+Names assigned in any way within a function (=def= or =lambda=), and not
+declated global in that function.
+
+*** E:Enclosing
+
+Names in the local scope of any and all enlcosing functions (=def= or
+=lambda=), from inner to outer.
+
+*** G:Global (module)
+
+Names assigned at the top-levl of a module file, or declared global in a
+=def= within the file.
+
+*** B:Build-in (Python)
+
+Names preassigned in the built-in names module: =open=, =range=,
+=SyntaxError=,...

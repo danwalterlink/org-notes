@@ -1,0 +1,76 @@
+#+title: python modules
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 17:01]
+#+roam_tags: programming
+
+[[[[file:202101171320-python.org][python]]]] modules are in similar terms to what modular programming aims to
+achieve, by providing seperated packages or modules that aim to accomplish a
+specific task while minimizing the dependency requirements.
+
+* Modules for Python
+
+Modules are pieces of code that other people have written to fulfill
+common tasks, such as generating random numbers, performing mathematical
+operations, etc. The basic way to use a module is to add
+=import module_name= at the top of your code, and then using
+=module\_name.var= to access functions and values with the name var in
+the module.
+
+For example, the following example uses the random module to generate
+random numbers:
+
+#+BEGIN_EXAMPLE
+  import random
+  from math import pi
+  from math import sqrt as square_root
+
+  for i in range(5):
+     value = random.randint(1, 6)
+     print(value)
+#+END_EXAMPLE
+
+There are three main types of modules in Python, those you write
+yourself, those you install from external sources, and those that are
+preinstalled with Python.
+
+** Available Modules
+
+The last type is called the standard library, and contains many useful
+modules. Some of the standard library's useful modules include:
+
+- string
+- re,
+- datetime
+- math
+- random
+- os
+- multiprocessing
+- subprocess
+- socket
+- email
+- json
+- doctest
+- unittest
+- pdb
+- argparse and sys
+
+Tasks that can be done by the standard library include string parsing,
+data serialization, testing, debugging and manipulating dates, emails,
+command line arguments, and much more!
+
+** Importing modules
+
+Import by typing out =import modulename as alias=. Some things to keep
+in mind:
+
+1. Case sensitive
+2. Anything in italics is a placeholder for specific information that
+   you'll supply in your own code.
+3. Anything in square brackets is optional
+4. Never type the square brackets in your code
+
+#+BEGIN_SRC python
+  import csv as csvproc
+  import csv
+#+END_SRC

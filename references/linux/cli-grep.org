@@ -1,0 +1,10 @@
+* Grep Command
+  :PROPERTIES:
+  :CUSTOM_ID: grep-command
+  :END:
+
+** Limit results by file type
+
+#+BEGIN_SRC sh
+  grep -inr --include \*.txt 'search term'
+#+END_SRC

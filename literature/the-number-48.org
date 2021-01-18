@@ -1,0 +1,14 @@
+* The number 4.18
+  :PROPERTIES:
+  :CUSTOM_ID: the-number-4.18
+  :END:
+
+There is something about the water's energy level being 4.18 being key
+to what allows the earth to thrive in life.
+
+Specific heat of water is 1 & not 4.18. By definition specific heat is
+the amount of heat in calories required to raise temperature of one gram
+of water through one degree centigrade. So 1 gram of water requires 1
+calorie of heat to raise its temperature through 1 degree centigrade &
+the formula is :mxsxt = calories of heat where m is the mass of water, s
+is the specific heat & t is rise in temperature.

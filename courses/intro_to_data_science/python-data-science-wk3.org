@@ -1,0 +1,1112 @@
+#+title: More Data Processing with Pandas
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
+
+* Merging DataFrames :ATTACH:
+:PROPERTIES:
+:ID:       09236a81-a665-466c-92d8-319b1119ee72
+:END:
+
+When we just want a list of all the data combined from two data sets,
+this is database terminology is known as /full outer join/, and in set
+terminology this is known as a /union/.
+
+- Here's what our initial two DataFrames may look like:
+  [[file:../../.attach/09/236a81-a665-466c-92d8-319b1119ee72/pic_1609088545393.png]]
+- Here's a demonstration of what that full outer join would look like:
+  [[file:../../.attach/09/236a81-a665-466c-92d8-319b1119ee72/pic_1609088480408.png]]
+
+Now the other piece is what's referred to as the /inner join/, or in set
+terminology the /intersection/. This is where the two datasets align and
+provide column data from both datasets on an index. This is very similar
+to doing a lookup across two CSV files, and the matching column header
+between your two datasources are your /inner join/.
+[[file:../../.attach/09/236a81-a665-466c-92d8-319b1119ee72/pic_1609088797848.png]]
+
+So merging DataFrames is similar to doing a lookup, you need to call the
+=merge()= function followed by passing in the two DataFrames you want to
+merge, the type of join, and then your left and right indexes.
+
+- Outer join
+
+  #+BEGIN_SRC python :results output code :exports both
+import pandas as pd
+
+staff_df = pd.DataFrame([{'Name': 'Kelly', 'Role': 'Director of HR'}, {'Name': 'Sally', 'Role': 'Course liasion'}, {'Name': 'James', 'Role': 'Grader'}])
+staff_df = staff_df.set_index('Name')
+student_df = pd.DataFrame([{'Name': 'James', 'School': 'Business'}, {'Name': 'Mike', 'School': 'Law'}, {'Name': 'Sally', 'School': 'Engineering'}])
+student_df = student_df.set_index('Name')
+
+school_df = pd.merge(staff_df, student_df, how='outer', left_index=True, right_index=True)
+print(school_df)
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_src python
+                   Role       School
+  Name
+  James          Grader     Business
+  Kelly  Director of HR          NaN
+  Mike              NaN          Law
+  Sally  Course liasion  Engineering
+  #+end_src
+
+- inner join
+
+  #+BEGIN_SRC python :results output code :exports both
+import pandas as pd
+
+staff_df = pd.DataFrame([{'Name': 'Kelly', 'Role': 'Director of HR'}, {'Name': 'Sally', 'Role': 'Course liasion'}, {'Name': 'James', 'Role': 'Grader'}])
+staff_df = staff_df.set_index('Name')
+student_df = pd.DataFrame([{'Name': 'James', 'School': 'Business'}, {'Name': 'Mike', 'School': 'Law'}, {'Name': 'Sally', 'School': 'Engineering'}])
+student_df = student_df.set_index('Name')
+
+school_df = pd.merge(staff_df, student_df, how='inner', left_index=True, right_index=True)
+print(school_df)
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_src python
+                   Role       School
+  Name
+  Sally  Course liasion  Engineering
+  James          Grader     Business
+  #+end_src
+
+- right join
+
+  #+BEGIN_SRC python :results output code :exports both
+import pandas as pd
+
+staff_df = pd.DataFrame([{'Name': 'Kelly', 'Role': 'Director of HR'}, {'Name': 'Sally', 'Role': 'Course liasion'}, {'Name': 'James', 'Role': 'Grader'}])
+staff_df = staff_df.set_index('Name')
+student_df = pd.DataFrame([{'Name': 'James', 'School': 'Business'}, {'Name': 'Mike', 'School': 'Law'}, {'Name': 'Sally', 'School': 'Engineering'}])
+student_df = student_df.set_index('Name')
+
+school_df = pd.merge(staff_df, student_df, how='right', left_index=True, right_index=True)
+print(school_df)
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_src python
+                   Role       School
+  Name
+  James          Grader     Business
+  Mike              NaN          Law
+  Sally  Course liasion  Engineering
+  #+end_src
+
+- left join
+
+  #+BEGIN_SRC python :results output code :exports both
+import pandas as pd
+
+staff_df = pd.DataFrame([{'Name': 'Kelly', 'Role': 'Director of HR'}, {'Name': 'Sally', 'Role': 'Course liasion'}, {'Name': 'James', 'Role': 'Grader'}])
+staff_df = staff_df.set_index('Name')
+student_df = pd.DataFrame([{'Name': 'James', 'School': 'Business'}, {'Name': 'Mike', 'School': 'Law'}, {'Name': 'Sally', 'School': 'Engineering'}])
+student_df = student_df.set_index('Name')
+
+school_df = pd.merge(staff_df, student_df, how='left', left_index=True, right_index=True)
+print(school_df)
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_src python
+                   Role       School
+  Name
+  Kelly  Director of HR          NaN
+  Sally  Course liasion  Engineering
+  James          Grader     Business
+  #+end_src
+
+- Now another thing you can do is you can merge the two DataFrames by
+  using the =on== clause which allows you to pick what column are
+  present in the two DataFrames and they should match up too.
+
+  #+BEGIN_SRC python :results output code :exports both
+import pandas as pd
+
+staff_df = pd.DataFrame([{'Name': 'Kelly', 'Role': 'Director of HR'}, {'Name': 'Sally', 'Role': 'Course liasion'}, {'Name': 'James', 'Role': 'Grader'}])
+staff_df = staff_df.set_index('Name')
+student_df = pd.DataFrame([{'Name': 'James', 'School': 'Business'}, {'Name': 'Mike', 'School': 'Law'}, {'Name': 'Sally', 'School': 'Engineering'}])
+student_df = student_df.set_index('Name')
+
+school_df = pd.merge(staff_df, student_df, how='outer', on='Name')
+print(school_df)
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_src python
+                   Role       School
+  Name
+  Kelly  Director of HR          NaN
+  Sally  Course liasion  Engineering
+  James          Grader     Business
+  Mike              NaN          Law
+  #+end_src
+
+** Dealing with Missing or Conflicting Data in DataFrame merges
+
+So now what happens whenever we have missing data, or conflicting data
+between the two DataFrames and what happens to that data whenever we
+merge the two together? Well Pandas is smart enough that it appends an
+**_x** or **_y** to the data, the **_x** being the left DataFrame and
+the **_y** being the right DataFrame. Let's have a look at an example:
+
+#+BEGIN_SRC python
+  staff_df = pd.DataFrame([{'Name': 'Kelly', 'Role': 'Director of HR'}, {'Name': 'Sally', 'Role': 'Course liasion'}, {'Name': 'James', 'Role': 'Grader'}])
+  staff_df = staff_df.set_index('Name')
+
+  student_df = pd.DataFrame([{'Name': 'James', 'School': 'Business', 'Role': 'Masters'}, {'Name': 'Mike', 'School': 'Law', 'Role': 'Bachelors'}, {'Name': 'Sally', 'School': 'Engineering', 'Role': 'PHD'}])
+  student_df = student_df.set_index('Name')
+
+  school_df = pd.merge(staff_df, student_df, how='outer', on='Name')
+
+  #                Role_x       School     Role_y
+  # Name                                         
+  # Kelly  Director of HR          NaN        NaN
+  # Sally  Course liasion  Engineering        PHD
+  # James          Grader     Business    Masters
+  # Mike              NaN          Law  Bachelors
+#+END_SRC
+
+** Joining DataFrames on multiple Indexes or Columns
+
+So another common issue is that you may need to combine on two indexes,
+or two columns to ensure you get a 100% guaranteeed match. Take for
+instance you have two dataframes, where you have a *first_name* and
+*last_name* columns. Obviously if you were to merge just on the
+first_name, you would find that your data does not line up correctly. So
+the solution is to do a merge on both first_name *and* last_name.
+
+#+BEGIN_SRC python
+  staff_df = pd.DataFrame([{'First Name': 'Kelly', 'Last Name': 'Brooks', 'Role': 'Director of HR'}, {'First Name': 'Sally', 'Last Name': 'Wild', 'Role': 'Course liasion'}, {'First Name': 'Kelly', 'Last Name': 'Miles', 'Role': 'Grader'}])
+  staff_df = staff_df.set_index('First Name')
+
+  student_df = pd.DataFrame([{'First Name': 'Kelly', 'Last Name': 'Brooks', 'School': 'Business'}, {'First Name': 'Sally', 'Last Name': 'Martin', 'School': 'Law'}, {'First Name': 'Kelly', 'Last Name': 'Miles', 'School': 'Engineering'}])
+  student_df = student_df.set_index('First Name')
+
+  school_df = pd.merge(staff_df, student_df, how='outer', on=['First Name','Last Name'])
+  print(school_df)
+
+  #            Last Name            Role       School
+  # First Name                                       
+  # Kelly         Brooks  Director of HR     Business
+  # Sally           Wild  Course liasion          NaN
+  # Kelly          Miles          Grader  Engineering
+  # Sally         Martin             NaN          Law
+#+END_SRC
+
+** Getting a list of all your data with Concat DataFrames
+
+So it's also possible to output a list of all your data using
+=.concat()= method. This allows you to output a list of all your data.
+
+#+BEGIN_SRC python
+  staff_df = pd.DataFrame([{'First Name': 'Kelly', 'Last Name': 'Brooks', 'Role': 'Director of HR'}, {'First Name': 'Sally', 'Last Name': 'Wild', 'Role': 'Course liasion'}, {'First Name': 'Kelly', 'Last Name': 'Miles', 'Role': 'Grader'}])
+  staff_df = staff_df.set_index('First Name')
+
+  student_df = pd.DataFrame([{'First Name': 'Kelly', 'Last Name': 'Brooks', 'School': 'Business'}, {'First Name': 'Sally', 'Last Name': 'Martin', 'School': 'Law'}, {'First Name': 'Kelly', 'Last Name': 'Miles', 'School': 'Engineering'}])
+  student_df = student_df.set_index('First Name')
+
+  frames = [staff_df, student_df]
+  print(pd.concat(frames))
+#+END_SRC
+
+Will output something like the below:
+
+#+BEGIN_EXAMPLE
+             Last Name            Role       School
+  First Name                                       
+  Kelly         Brooks  Director of HR          NaN
+  Sally           Wild  Course liasion          NaN
+  Kelly          Miles          Grader          NaN
+  Kelly         Brooks             NaN     Business
+  Sally         Martin             NaN          Law
+  Kelly          Miles             NaN  Engineering
+#+END_EXAMPLE
+
+* Pandas Idioms
+Essentially it describes that there's several ways to tackle a problem with
+coding, but some are more appropriate than others. The best solutions to
+tackling a problem are celebrated as Idiomatic Python, and in Pandas terminology
+it's known as *pandorable*.
+
+** Chaining Methods
+
+General idea is that every method chained on the object, will return a
+reference to that object. The benefit is you can condense all these
+methods into one line, or one statement. For a test, we are going to do
+a multi index on /State/ and /City/, along with only returning values
+with a *SUMLEV=50*.
+
+#+BEGIN_SRC python
+  df = (df.where(df['SUMLEV']==50).dropna().set_index(['STNAME', 'CTYNAME']).rename(columns={'CENSUS2010POP': 'Census 2010 Population'}))
+#+END_SRC
+
+One thing that you do need to keep in mind is the performance impact
+this can have, so if we run this through with =timeit= we can get a
+pretty clear idea just what method works the best, and IMHO I would
+choose performance over stylistic or whatever others go for.
+
+#+BEGIN_SRC python
+  def df_cleaner():
+      global df
+
+      return (df.where(df['SUMLEV']==50).dropna().set_index(['STNAME', 'CTYNAME']))
+
+  timeit.timeit(df_cleaner, number=10)
+  # 0.11273210099898279
+
+  def df_cleaner2():
+      global df
+      new_df = df[df['SUMLEV']==50]
+      return new_df.set_index(['STNAME', 'CTYNAME'])
+
+  timeit.timeit(df_cleaner2, number=10)
+  # 0.037991184974089265
+#+END_SRC
+
+** Using apply to run a function against DataFrame
+
+Using the =.apply()= function is a good way to run a function against
+each data field, and return the values back to the DataFrame.
+
+#+BEGIN_SRC python
+  import pandas as pd
+  import numpy as np
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week2/census.csv")
+  # df = (df.where(df['SUMLEV']==50).dropna().set_index(['STNAME', 'CTYNAME']).rename(columns={'CENSUS2010POP': 'Census 2010 Population'}))
+
+  # print(df.head())
+
+  def min_max(row):
+      data = row[['POPESTIMATE2010', 'POPESTIMATE2011', 'POPESTIMATE2012', 'POPESTIMATE2013', 'POPESTIMATE2014']]
+      return pd.Series({'min': np.min(data), 'max': np.max(data)})
+
+  print(df.apply(min_max, axis='columns').head())
+#+END_SRC
+
+Another method of doing this:
+
+#+BEGIN_SRC python
+  def min_max(row):
+      data = row[['POPESTIMATE2010', 'POPESTIMATE2011', 'POPESTIMATE2012', 'POPESTIMATE2013', 'POPESTIMATE2014']]
+      row['max'] = np.max(data)
+      row['max'] = np.min(data)
+      return row
+
+  print(df.apply(min_max, axis='columns').head())
+#+END_SRC
+
+Or we can use lambda:
+
+#+BEGIN_SRC python
+  rows = ['POPESTIMATE2010', 'POPESTIMATE2011', 'POPESTIMATE2012', 'POPESTIMATE2013', 'POPESTIMATE2014']
+  print(df.apply(lambda x: np.max(x[rows]), axis=1).head())
+#+END_SRC
+
+* Using Groups
+
+Sometimes we would like to understand data by looking at it at a group
+level, or a parent column. In this instance when looking at census data,
+we would like to look at population data by the entire State by taking
+the sum of each county.
+
+#+BEGIN_SRC python
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week2/census.csv")
+  df = (df.where(df['SUMLEV']==50))
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week2/census.csv")
+  df = (df.where(df['SUMLEV']==50))
+
+  def state_average1():
+      for state in df['STNAME'].unique():
+              avg = np.average(df.where(df['STNAME']==state).dropna()['CENSUS2010POP'])
+              avg = str(avg)
+              print(f"Counties in state {state}, have an average population of {avg}.")
+
+  print(timeit.timeit(state_average1, number=10))
+  # Counties in state Washington, have an average population of 172424.10256410256.
+  # Counties in state West Virginia, have an average population of 33690.8.
+  # Counties in state Wisconsin, have an average population of 78985.91666666667.
+  # Counties in state Wyoming, have an average population of 24505.478260869564.
+
+  # 4.914774221018888
+#+END_SRC
+
+Now let's approach this in a different way, and run a similar comparison
+in time to see which method works better:
+
+#+BEGIN_SRC python
+  def state_average2():
+      for group, frame in df.groupby('STNAME'):
+          avg = np.average(frame['CENSUS2010POP'])
+          print(f"Counties in state {group}, have an average population of {avg}.")
+
+  print(timeit.timeit(state_average2, number=10))
+  # Counties in state Washington, have an average population of 172424.10256410256.
+  # Counties in state West Virginia, have an average population of 33690.8.
+  # Counties in state Wisconsin, have an average population of 78985.91666666667.
+  # Counties in state Wyoming, have an average population of 24505.478260869564.
+
+  # 0.06991373305208981
+#+END_SRC
+
+Another example is splitting up our DataFrame into sections, and
+processing them by bits:
+
+#+BEGIN_SRC python
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week2/census.csv")
+  df = df.set_index('STNAME')
+
+  def batch_number(item):
+      if item[0]<'M':
+          return 0
+      if item[0]<'Q':
+          return 1
+      return 2
+
+  def process_batch():
+      for group, frame in df.groupby(batch_number):
+          print(f'There are {len(frame)} records in group {group} for processing.')
+
+  print(timeit.timeit(process_batch, number=10))
+  # There are 1196 records in group 0 for processing.
+  # There are 1154 records in group 1 for processing.
+  # There are 843 records in group 2 for processing.
+
+  # 0.020540098077617586
+#+END_SRC
+
+** Aggregating and returning results
+
+Aggregating will essentially return a single value per column. We'll
+take for example some airbnb listings, and see if we can find aggregated
+prices by room type.
+
+#+BEGIN_SRC python
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week3/listings.csv")
+  df.reset_index()
+  print(df.groupby('room_type').agg({'price':np.nanmean}))
+#+END_SRC
+
+And we get the following results:
+
+#+BEGIN_EXAMPLE
+                        price
+  room_type                  
+  Entire home/apt  170.664796
+  Hotel room       131.751773
+  Private room      93.714836
+  Shared room      105.000000
+#+END_EXAMPLE
+
+Here's another example where we =groupby()= multiple columns, and run
+multiple calculations against our results using aggregation.
+
+#+BEGIN_SRC python
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week3/listings.csv")
+  df.reset_index()
+  print(df.groupby(['neighbourhood','room_type']).agg({'price':(np.nanmean,np.nanstd), 'reviews_per_month':(np.nanmean,np.nanstd)}).dropna())
+  print(df.groupby(['room_type','neighbourhood']).agg({'price':(np.nanmean,np.nanstd), 'reviews_per_month':(np.nanmean,np.nanstd)}).dropna())
+#+END_SRC
+
+Which returns the results:
+
+#+BEGIN_EXAMPLE
+                                        price             reviews_per_month          
+                                      nanmean      nanstd           nanmean    nanstd
+  neighbourhood   room_type                                                          
+  Bijlmer-Centrum Entire home/apt  122.132075   71.616510          0.571429  0.807204
+                  Private room      69.211538   42.911828          1.256667  1.441018
+  Bijlmer-Oost    Entire home/apt  136.250000   68.994890          0.265882  0.314451
+                  Private room      75.017544   75.798014          0.980600  0.998087
+  Bos en Lommer   Entire home/apt  132.124176   64.272154          0.337960  0.279762
+  ...                                     ...         ...               ...       ...
+  Westerpark      Shared room      115.666667   66.605806          0.175000  0.219203
+  Zuid            Entire home/apt  191.313076  168.243086          0.356322  0.542333
+                  Hotel room       114.277778  126.209352          2.161333  2.612412
+                  Private room     106.298246  145.245921          1.307577  2.165443
+                  Shared room       70.000000    7.071068          1.135000  1.576848
+
+                                               price             reviews_per_month           
+                                             nanmean      nanstd           nanmean     nanstd
+  room_type       neighbourhood                                                              
+  Entire home/apt Bijlmer-Centrum         122.132075   71.616510          0.571429   0.807204
+                  Bijlmer-Oost            136.250000   68.994890          0.265882   0.314451
+                  Bos en Lommer           132.124176   64.272154          0.337960   0.279762
+                  Buitenveldert - Zuidas  168.946237  189.924387          0.302384   0.621458
+                  Centrum-Oost            198.889483  141.786953          0.601310   0.940591
+  ...                                            ...         ...               ...        ...
+  Shared room     Noord-West               64.500000   67.175144          1.385000   0.997021
+                  Oud-Oost                102.500000  116.672619         19.175000  27.075119
+                  Slotervaart              56.500000   33.234019          2.235000   2.623366
+                  Westerpark              115.666667   66.605806          0.175000   0.219203
+                  Zuid                     70.000000    7.071068          1.135000   1.576848
+#+END_EXAMPLE
+
+** Transformation results by group
+
+So the different between =.transformation()= and =.agg()= is that
+transformation will return an object the same size as the group, this
+essentially returns the object back as a new DataFrame.
+
+#+BEGIN_SRC python
+  # define what columns we want to transform
+  petal = ['petal_length', 'petal_width']
+  sepal = ['sepal_length', 'sepal_width']
+  iris.columns = [x.lower().strip() for x in iris.columns]
+
+  # run our transformation
+  cols=['petal_width', 'petal_length', 'species']
+  transform_df = iris[cols].groupby('species').transform(np.nanmean)
+  transform_df.rename({'petal_width':'petal_width_mean', 'petal_length':'petal_length_mean'}, axis='columns', inplace=True)
+
+  iris = iris.merge(transform_df, left_index=True, right_index=True)
+  iris['petal_length_diff'] = np.absolute(iris['petal_length']-iris['petal_length_mean'])
+  iris['petal_width_diff'] = np.absolute(iris['petal_width']-iris['petal_width_mean'])
+  iris
+#+END_SRC
+
+And finally, we get the following results:
+
+#+BEGIN_EXAMPLE
+       sepal_length  sepal_width  petal_length  petal_width    species  petal_width_mean  petal_length_mean  petal_length_diff  petal_width_diff
+  0             5.1          3.5           1.4          0.2     setosa             0.246              1.462              0.062             0.046
+  1             4.9          3.0           1.4          0.2     setosa             0.246              1.462              0.062             0.046
+  2             4.7          3.2           1.3          0.2     setosa             0.246              1.462              0.162             0.046
+  3             4.6          3.1           1.5          0.2     setosa             0.246              1.462              0.038             0.046
+  4             5.0          3.6           1.4          0.2     setosa             0.246              1.462              0.062             0.046
+  ..            ...          ...           ...          ...        ...               ...                ...                ...               ...
+  145           6.7          3.0           5.2          2.3  virginica             2.026              5.552              0.352             0.274
+  146           6.3          2.5           5.0          1.9  virginica             2.026              5.552              0.552             0.126
+  147           6.5          3.0           5.2          2.0  virginica             2.026              5.552              0.352             0.026
+  148           6.2          3.4           5.4          2.3  virginica             2.026              5.552              0.152             0.274
+  149           5.9          3.0           5.1          1.8  virginica             2.026              5.552              0.452             0.226
+#+END_EXAMPLE
+
+** Filter results in groupby statements
+
+So we can use the =.filter()= method, which will allow us to use boolean
+mask to return only those items that return True. For our example we are
+going to look for only species which have a *petal_width* of *1.0* or
+greater than.
+
+#+BEGIN_SRC python
+  iris.groupby('species').filter(lambda x: np.nanmean(x['petal_width'])>1.0)
+  print(iris)
+#+END_SRC
+
+And finally we get the results:
+
+#+BEGIN_EXAMPLE
+       sepal_length  sepal_width  petal_length  petal_width     species  petal_width_mean  petal_length_mean  petal_length_diff  petal_width_diff
+  50            7.0          3.2           4.7          1.4  versicolor             1.326              4.260              0.440             0.074
+  51            6.4          3.2           4.5          1.5  versicolor             1.326              4.260              0.240             0.174
+  52            6.9          3.1           4.9          1.5  versicolor             1.326              4.260              0.640             0.174
+  53            5.5          2.3           4.0          1.3  versicolor             1.326              4.260              0.260             0.026
+  54            6.5          2.8           4.6          1.5  versicolor             1.326              4.260              0.340             0.174
+  ..            ...          ...           ...          ...         ...               ...                ...                ...               ...
+  145           6.7          3.0           5.2          2.3   virginica             2.026              5.552              0.352             0.274
+  146           6.3          2.5           5.0          1.9   virginica             2.026              5.552              0.552             0.126
+  147           6.5          3.0           5.2          2.0   virginica             2.026              5.552              0.352             0.026
+  148           6.2          3.4           5.4          2.3   virginica             2.026              5.552              0.152             0.274
+  149           5.9          3.0           5.1          1.8   virginica             2.026              5.552              0.452             0.226
+#+END_EXAMPLE
+
+** Using the Apply Function on groupby statements
+
+The =.apply()= function essentially lets you pass in a function to be
+called and return results grouped by the argument you passed. So in our
+instance, we are defining a new function that'll find the average
+*reviews_per_month* to our =avg= variable, and then we define a new
+column in our dataset called *reviews_per_month_average* and we subtract
+it from our *reviews_per_month* and return this back as a value for our
+new column.
+
+#+BEGIN_SRC python
+  import pandas as pd
+  import numpy as np
+
+  airbnb = pd.read_csv('./courses/intro_to_data_science/week3/listings.csv')
+  def calc_mean_review_scores(group):
+      avg=np.nanmean(group["reviews_per_month"])
+      group["reviews_per_month_average"]=np.abs(avg-group["reviews_per_month"])
+      return group
+
+  airbnb = airbnb.groupby('room_type').apply(calc_mean_review_scores)
+  print(airbnb.fillna(0.0))
+#+END_SRC
+
+Results:
+
+#+BEGIN_EXAMPLE
+               id                                               name    host_id  host_name  neighbourhood_group                           neighbourhood  latitude  longitude  ... price  minimum_nights  number_of_reviews  last_review reviews_per_month  calculated_host_listings_count  availability_365  reviews_per_month_average
+  0          2818           Quiet Garden View Room & Super Fast WiFi       3159     Daniel                  0.0  Oostelijk Havengebied - Indische Buurt  52.36575    4.94142  ...    59               3                278   2020-02-14              1.95                               1               123                   0.472221
+  1         20168       Studio with private bathroom in the centre 1      59484  Alexander                  0.0                            Centrum-Oost  52.36509    4.89354  ...   236               1                339   2020-04-09              2.58                               2                 3                   1.102221
+  2         25428    Lovely apt in City Centre (w.lift) near Jordaan      56142       Joan                  0.0                            Centrum-West  52.37297    4.88339  ...   125              14                  5   2020-02-09              0.14                               1                33                   0.261228
+  3         27886  Romantic, stylish B&B houseboat in canal district      97647       Flip                  0.0                            Centrum-West  52.38761    4.89188  ...   135               2                219   2020-07-25              2.01                               1               219                   0.532221
+  4         28871                            Comfortable double room     124245      Edwin                  0.0                            Centrum-Oost  52.36610    4.88953  ...    75               2                336   2020-09-20              2.68                               2               346                   1.202221
+  ...         ...                                                ...        ...        ...                  ...                                     ...       ...        ...  ...   ...             ...                ...          ...               ...                             ...               ...                        ...
+  18517  46938808                                      NiceAmsterdam  379294518  Elizabeth                  0.0                            Centrum-Oost  52.36978    4.91443  ...   330               3                  0            0              0.00                               1               362                   0.000000
+  18518  46940774           Fantastic Apartment with beautiful views  279181956      Ramon                  0.0                            Centrum-Oost  52.36404    4.87967  ...   350               4                  0            0              0.00                               1                21                   0.000000
+  18519  46944602                        cozy apartment in amsterdam  375398295     Danila                  0.0                 De Pijp - Rivierenbuurt  52.34071    4.90854  ...    60              28                  0            0              0.00                               2               346                   0.000000
+  18520  46953753           Great luxurious apartment in city centre  379498141       Lisa                  0.0                            Centrum-Oost  52.36003    4.89317  ...    67               2                  0            0              0.00                               1               179                   0.000000
+  18521  46960026         Classic houseboat in Amsterdam city centre  213284349     Jochum                  0.0  Oostelijk Havengebied - Indische Buurt  52.37701    4.91797  ...    96               2                  0            0              0.00                               2                89                   0.000000
+#+END_EXAMPLE
+
+* Scales in pandas
+So what exactly are ratios? Ratios are the definition of the data of statistical
+data you could be dealing with, and breaks up those numbers into types to
+describe expectations of the data. These are important to know for Pandas and
+data scientist related activities since they will often help you determine how
+to handle. Pandas also has a slew of functions to deal with converting these
+measurement scales.
+
+1. Ratio Scale:
+   1. Units are equally spaced.
+   2. mathematical operations of =+-/*= are all valid.
+   3. eg: height and weight.
+
+2. Interval Scale:
+   1. Units are equally spaced.
+   2. But there is no true zero, no clear abscence of value.
+   3. mathematical operations such as =*/= are not valid.
+   4. An example would be the temperature, since temperature is always a
+      present variable and always has a reading, and the value of 0 has a
+      meaning beyond the lack of a value.
+
+3. Ordinal Scale:
+   1. the order of units is important, but are not equally spaced.
+   2. Letter grades are a good example, such as =A+= or =A=.
+
+4. Nominal Scale: (Pandas referes to as "Categorial Data")
+   1. Categories of data, but the categories have no order with respect
+      to one another.
+   2. eg: names of teams.
+
+** Dealing with Ordinal Scale datatypes
+So in this example we want to take a list of grades and put them into an order which makes sense. For example, we know that a grade of "A" is greater than "B". So we need to define our own Categorical Dtype to make this work.
+
+#+BEGIN_SRC python :results output code :exports both
+import pandas as pd
+
+df = pd.DataFrame(['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-'], index=['great', 'great', 'great', 'good', 'good', 'good', 'ok', 'ok', 'ok', 'fair', 'fair', 'fair'], columns=['Grades'])
+
+# Creating our own category
+my_category=pd.CategoricalDtype(categories=['D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ordered=True)
+grades=df['Grades'].astype(my_category)
+print(grades[grades>'C'])
+#+END_SRC
+
+#+RESULTS:
+#+begin_src python
+great    A+
+great     A
+great    A-
+good     B+
+good      B
+good     B-
+ok       C+
+Name: Grades, dtype: category
+Categories (12, object): ['D-' < 'D' < 'D+' < 'C-' ... 'B+' < 'A-' < 'A' < 'A+']
+#+end_src
+
+** Converting Scale datatype from interval or ratio to categorical
+So sometimes we may want to convert something on the interval or ratio scale, over to the categorical data scale. This may seem counter intuitive since you'll be limited what operators you can run with this scale type, but it seems like this is a must for [[[[file:../../../202101021925-machine_learning.org][machine learning]]]]. In this instance, we are going to use a method called =.cut()= to create 10 bins from our census2010 data for each state.
+
+The pandas definition for =.cut()= is: *"Use cut when you need to segment and sort data values into bins. This function is also useful for going from a continuous variable to a categorical variable. For example, cut could convert ages to groups of age ranges. Supports binning into an equal number of bins, or a pre-specified array of bins."*
+
+#+begin_src python :results output code :exports both
+import numpy as np
+import pandas as pd
+
+df=pd.read_csv("../week2/census.csv")
+df=df[df['SUMLEV']==50]
+df=df.set_index('STNAME').groupby(level=0)['CENSUS2010POP'].agg(np.average)
+print(df)
+new_df=pd.cut(df,10)
+print(new_df)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+STNAME
+Alabama                  71339.343284
+Alaska                   24490.724138
+Arizona                 426134.466667
+Arkansas                 38878.906667
+California              642309.586207
+Colorado                 78581.187500
+Connecticut             446762.125000
+Delaware                299311.333333
+District of Columbia    601723.000000
+Florida                 280616.567164
+Georgia                  60928.635220
+Hawaii                  272060.200000
+Idaho                    35626.863636
+Illinois                125790.509804
+Indiana                  70476.108696
+Iowa                     30771.262626
+Kansas                   27172.552381
+Kentucky                 36161.391667
+Louisiana                70833.937500
+Maine                    83022.562500
+Maryland                240564.666667
+Massachusetts           467687.785714
+Michigan                119080.000000
+Minnesota                60964.655172
+Mississippi              36186.548780
+Missouri                 52077.626087
+Montana                  17668.125000
+Nebraska                 19638.075269
+Nevada                  158855.941176
+New Hampshire           131647.000000
+New Jersey              418661.619048
+New Mexico               62399.363636
+New York                312550.032258
+North Carolina           95354.830000
+North Dakota             12690.396226
+Ohio                    131096.636364
+Oklahoma                 48718.844156
+Oregon                  106418.722222
+Pennsylvania            189587.746269
+Rhode Island            210513.400000
+South Carolina          100551.391304
+South Dakota             12336.060606
+Tennessee                66801.105263
+Texas                    98998.271654
+Utah                     95306.379310
+Vermont                  44695.785714
+Virginia                 60111.293233
+Washington              172424.102564
+West Virginia            33690.800000
+Wisconsin                78985.916667
+Wyoming                  24505.478261
+Name: CENSUS2010POP, dtype: float64
+STNAME
+Alabama                   (11706.087, 75333.413]
+Alaska                    (11706.087, 75333.413]
+Arizona                 (390320.176, 453317.529]
+Arkansas                  (11706.087, 75333.413]
+California              (579312.234, 642309.586]
+Colorado                 (75333.413, 138330.766]
+Connecticut             (390320.176, 453317.529]
+Delaware                (264325.471, 327322.823]
+District of Columbia    (579312.234, 642309.586]
+Florida                 (264325.471, 327322.823]
+Georgia                   (11706.087, 75333.413]
+Hawaii                  (264325.471, 327322.823]
+Idaho                     (11706.087, 75333.413]
+Illinois                 (75333.413, 138330.766]
+Indiana                   (11706.087, 75333.413]
+Iowa                      (11706.087, 75333.413]
+Kansas                    (11706.087, 75333.413]
+Kentucky                  (11706.087, 75333.413]
+Louisiana                 (11706.087, 75333.413]
+Maine                    (75333.413, 138330.766]
+Maryland                (201328.118, 264325.471]
+Massachusetts           (453317.529, 516314.881]
+Michigan                 (75333.413, 138330.766]
+Minnesota                 (11706.087, 75333.413]
+Mississippi               (11706.087, 75333.413]
+Missouri                  (11706.087, 75333.413]
+Montana                   (11706.087, 75333.413]
+Nebraska                  (11706.087, 75333.413]
+Nevada                  (138330.766, 201328.118]
+New Hampshire            (75333.413, 138330.766]
+New Jersey              (390320.176, 453317.529]
+New Mexico                (11706.087, 75333.413]
+New York                (264325.471, 327322.823]
+North Carolina           (75333.413, 138330.766]
+North Dakota              (11706.087, 75333.413]
+Ohio                     (75333.413, 138330.766]
+Oklahoma                  (11706.087, 75333.413]
+Oregon                   (75333.413, 138330.766]
+Pennsylvania            (138330.766, 201328.118]
+Rhode Island            (201328.118, 264325.471]
+South Carolina           (75333.413, 138330.766]
+South Dakota              (11706.087, 75333.413]
+Tennessee                 (11706.087, 75333.413]
+Texas                    (75333.413, 138330.766]
+Utah                     (75333.413, 138330.766]
+Vermont                   (11706.087, 75333.413]
+Virginia                  (11706.087, 75333.413]
+Washington              (138330.766, 201328.118]
+West Virginia             (11706.087, 75333.413]
+Wisconsin                (75333.413, 138330.766]
+Wyoming                   (11706.087, 75333.413]
+Name: CENSUS2010POP, dtype: category
+Categories (10, interval[float64]): [(11706.087, 75333.413] < (75333.413, 138330.766] <
+                                     (138330.766, 201328.118] < (201328.118, 264325.471] < ... <
+                                     (390320.176, 453317.529] < (453317.529, 516314.881] <
+                                     (516314.881, 579312.234] < (579312.234, 642309.586]]
+#+end_src
+* pivot tables with pandas
+Pivot tables are ways of summarizing data in a DataFrame for a particular reason, and makes heavy use of the =.agg()= function we've been using. A pivot table in itself is a DataFrame; and it also tends to provide marginal data as well, the sums of each column.
+
+#+begin_src python :results output code :exports both
+import numpy as np
+import pandas as pd
+
+df=pd.read_csv("./cwurData.csv")
+
+# So here we are going to create a ranking category
+# with world ranking 1 - 100 being first tier,
+# second tier being 101 - 200, third tier being
+# 201 - 300, and 301+ other top universities. This
+# new ranking will be passed into the DataFrame as
+# a new column.
+
+def create_category(ranking):
+    if (ranking >= 1) & (ranking <= 100):
+        return "First Tier Top University"
+    elif (ranking >= 101) & (ranking <= 200):
+        return "Second Tier Top University"
+    elif (ranking >= 201) & (ranking <= 300):
+        return "Third Tier Top University"
+    else:
+        return "Other Top University"
+
+df['Rank_Level']=df['world_rank'].apply(lambda x: create_category(x))
+
+new_df=df.pivot_table(values='score', index='country', columns='Rank_Level', aggfunc=[np.mean, np.max], margins=True)
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', -1)
+print(f"# First we will take a look at our pivot tables output: \n{new_df.head()}\n")
+
+print(f"# Next we will stack the results so that our Ranking_Level are part of the rows: \n{new_df.stack().head()}\n")
+
+print(f"# Finally we can unstack our dataframe back to its original state: \n{new_df.unstack().head()}")
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+# First we will take a look at our pivot tables output:
+                                mean                                                                                                           amax
+Rank_Level First Tier Top University Other Top University Second Tier Top University Third Tier Top University        All First Tier Top University Other Top University Second Tier Top University Third Tier Top University    All
+country
+Argentina  NaN                        44.672857           NaN                        NaN                        44.672857 NaN                        45.66               NaN                        NaN                        45.66
+Australia   47.9425                   44.645750            49.2425                    47.285000                 45.825517  51.61                     45.97                50.40                      47.47                     51.61
+Austria    NaN                        44.864286           NaN                         47.066667                 45.139583 NaN                        46.29               NaN                         47.78                     47.78
+Belgium     51.8750                   45.081000            49.0840                    46.746667                 47.011000  52.03                     46.21                49.73                      47.14                     52.03
+Brazil     NaN                        44.499706            49.5650                   NaN                        44.781111 NaN                        46.08                49.82                     NaN                        49.82
+
+# Next we will stack the results so that our Ranking_Level are part of the rows:
+                                           mean   amax
+country   Rank_Level
+Argentina Other Top University        44.672857  45.66
+          All                         44.672857  45.66
+Australia First Tier Top University   47.942500  51.61
+          Other Top University        44.645750  45.97
+          Second Tier Top University  49.242500  50.40
+
+# Finally we can unstack our dataframe back to its original state:
+      Rank_Level                 country
+mean  First Tier Top University  Argentina   NaN
+                                 Australia    47.9425
+                                 Austria     NaN
+                                 Belgium      51.8750
+                                 Brazil      NaN
+dtype: float64
+#+end_src
+
+* Date and Time Functionality with Pandas
+So Pandas has 4 classes for handling dates and time;
+1. Timestamp
+2. DatetimeIndex
+3. Period
+4. PeriodIndex
+
+** Timestamps with Pandas
+
+So we'll start off by first looking at *Timestamps* in it's most basic form.
+#+begin_src python :results output code :exports both
+import pandas as pd
+
+day_of_week=pd.Timestamp("2020/09/19 11:53:23AM")
+print(day_of_week)
+if day_of_week.isoweekday() <= 5:
+    print(f"# This date falls on a week day.")
+else:
+    print(f"# This date falls on the weekend.")
+print(f"# The time in seconds is {day_of_week.second}")
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+2020-09-19 11:53:23
+# This date falls on the weekend.
+# The time in seconds is 23
+#+end_src
+
+** Period date ranges with Pandas
+
+Suppose you were interested in a span of time that you wanted to search through, this is where the Period function comes into play.
+
+#+begin_src python :results output code :exports both
+import pandas as pd
+
+print(pd.Period('06/2016'))
+print(f"# Let's say we want to add +5 months to the date string 2016-02... {pd.Period('02/2016') + 5}")
+print(f"# Or let's add 21 days...{pd.Period('06/12/2019') + 21}")
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+2016-06
+# Let's say we want to add +5 months to the date string 2016-02... 2016-07
+# Or let's add 21 days...2019-07-03
+#+end_src
+
+** PeriodIndex and DatetimeIndex with Pandas
+The index of a timestamp in a Series or DataFrame is a DatetimeIndex, here's an example of passing a Timestamp for each value.
+
+#+begin_src python :results output code :exports both
+import pandas as pd
+
+t1=pd.Series(list('abc'), [pd.Timestamp('2016-09-01'), pd.Timestamp('2016-09-02'), pd.Timestamp('2016-09-03')])
+print(t1)
+print(f"# First we print the type of object, which is a series: {type(t1)}\n# Next we print out the type from our index {type(t1.index)}\n")
+
+print("# Now we take a look at the Period function and its data type.")
+t2=pd.Series(list('def'), [pd.Period('2016-09'), pd.Period('2016-10'), pd.Period('2016-11')])
+print(t2)
+print(f"# First we print the type of object, which is a series: {type(t2)}\n# Next we print out the type from our index {type(t2.index)}")
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+2016-09-01    a
+2016-09-02    b
+2016-09-03    c
+dtype: object
+# First we print the type of object, which is a series: <class 'pandas.core.series.Series'>
+# Next we print out the type from our index <class 'pandas.core.indexes.datetimes.DatetimeIndex'>
+
+# Now we take a look at the Period function and its data type.
+2016-09    d
+2016-10    e
+2016-11    f
+Freq: M, dtype: object
+# First we print the type of object, which is a series: <class 'pandas.core.series.Series'>
+# Next we print out the type from our index <class 'pandas.core.indexes.period.PeriodIndex'>
+#+end_src
+
+** Converting to Datetime
+Now let's say we have a list of Timestamps in strings that we want to convert over to Datetimes.
+
+#+begin_src python :results output code :exports both
+import pandas as pd
+import numpy as np
+
+d1=['2 June 2013', 'Aug 29 2014', '2015-06-26', '7/12/16']
+
+ts3=pd.DataFrame(np.random.randint(10, 100, (4, 2)), index=d1, columns=list('ab'))
+print(f"# First we look at how our data looks with the random strings of dates: \n{ts3}\n")
+
+ts3.index=pd.to_datetime(ts3.index)
+print(f"# Now we look at how our data looks after converting our strings to datetime: \n{ts3}")
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+# First we look at how our data looks with the random strings of dates:
+              a   b
+2 June 2013  95  22
+Aug 29 2014  99  75
+2015-06-26   36  34
+7/12/16      40  62
+
+# Now we look at how our data looks after converting our strings to datetime:
+             a   b
+2013-06-02  95  22
+2014-08-29  99  75
+2015-06-26  36  34
+2016-07-12  40  62
+#+end_src
+
+** Offset Timestamps
+
+So Offset gives you a bit more flexibility in managing time by being able to
+recognize things like; end of month, business day, semi month begin, etc.
+
+#+begin_src python :results output code :exports both
+import pandas as pd
+
+print(f"# Returns the day of week in the range of 1-7: {pd.Timestamp('9/4/2016').weekday()}")
+print(f"# Or we can add a week from the current date 9/4/2016: {pd.Timestamp('9/4/2016') + pd.offsets.Week()}")
+print(f"# We can also print out the end of month, for instance with 07/13/2016: {pd.Timestamp('7/13/2016') + pd.offsets.MonthEnd()}")
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+# Returns the day of week in the range of 1-7: 6
+# Or we can add a week from the current date 9/4/2016: 2016-09-11 00:00:00
+# We can also print out the end of month, for instance with 07/13/2016: 2016-07-31 00:00:00
+#+end_src
+
+** Using Date Range to search between periods
+
+Date Range allows you to look between two date ranges, say you want to look at a
+bi-weekly report, or statistics for the month. In the following example we will
+provide ~periods=9~ which tells it how many iterations we wanat of our
+~freq='2W-SUN~.
+
+#+caption: pandas date range returning every 2 weeks on Sunday
+#+begin_src python :results output code :exports both
+import pandas as pd
+
+dates = pd.date_range('10-01-2016', periods=9, freq='2W-SUN')
+print(dates)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+DatetimeIndex(['2016-10-02', '2016-10-16', '2016-10-30', '2016-11-13',
+               '2016-11-27', '2016-12-11', '2016-12-25', '2017-01-08',
+               '2017-01-22'],
+              dtype='datetime64[ns]', freq='2W-SUN')
+#+end_src
+
+In this next example we look at printing out every *business day* for the next 9
+iterations.
+
+#+caption: Pandas date range returning the next 9 business days.
+#+begin_src python :results output code :exports both
+import pandas as pd
+
+dates = pd.date_range('10-01-2016', periods=9, freq='B')
+print(dates)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+DatetimeIndex(['2016-10-03', '2016-10-04', '2016-10-05', '2016-10-06',
+               '2016-10-07', '2016-10-10', '2016-10-11', '2016-10-12',
+               '2016-10-13'],
+              dtype='datetime64[ns]', freq='B')
+#+end_src
+
+Or in this instance you can do *quarterly*, and return the next 12 quarters.
+
+#+caption: Pandas date range returning the next 12 quarters beginning in JUNE.
+#+begin_src python :results output code :exports both
+import pandas as pd
+
+dates = pd.date_range('10-01-2016', periods=12, freq='QS-JUN')
+print(dates)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+DatetimeIndex(['2016-12-01', '2017-03-01', '2017-06-01', '2017-09-01',
+               '2017-12-01', '2018-03-01', '2018-06-01', '2018-09-01',
+               '2018-12-01', '2019-03-01', '2019-06-01', '2019-09-01'],
+              dtype='datetime64[ns]', freq='QS-JUN')
+#+end_src
+
+So now we're going to add our bi-weekly Sunday's to a DataFrame to look at our
+data.
+
+#+begin_src python :results output code :exports both
+import pandas as pd
+import numpy as np
+
+dates = pd.date_range('10-01-2016', periods=9, freq='2W-SUN')
+df = pd.DataFrame({'Count 1': 100 + np.random.randint(-5, 10, 9).cumsum(), 'Count 2': 120 + np.random.randint(-5, 10, 9)}, index=dates)
+print(df.head())
+print(f"\n# Return the difference between our two date ranges: \n{df.diff()}")
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+            Count 1  Count 2
+2016-10-02      104      121
+2016-10-16      109      121
+2016-10-30      116      126
+2016-11-13      119      127
+2016-11-27      125      122
+
+# Return the difference between our two date ranges:
+            Count 1  Count 2
+2016-10-02      NaN      NaN
+2016-10-16      5.0      0.0
+2016-10-30      7.0      5.0
+2016-11-13      3.0      1.0
+2016-11-27      6.0     -5.0
+2016-12-11     -4.0     -3.0
+2016-12-25      2.0      9.0
+2017-01-08      3.0     -1.0
+2017-01-22      5.0     -1.0
+#+end_src
+
+Another means of looking at our data is by resamping and performing a mean
+count. TODO Read up more on resampling and update this section to cover in more
+detail.
+
+#+begin_src python :results output code :exports both
+import pandas as pd
+import numpy as np
+
+dates = pd.date_range('10-01-2016', periods=9, freq='2W-SUN')
+df = pd.DataFrame({'Count 1': 100 + np.random.randint(-5, 10, 9).cumsum(), 'Count 2': 120 + np.random.randint(-5, 10, 9)}, index=dates)
+print(df.resample('M').mean())
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+            Count 1     Count 2
+2016-10-31    105.0  122.666667
+2016-11-30    114.5  123.000000
+2016-12-31    115.5  127.000000
+2017-01-31    120.5  121.500000
+#+end_src
+
+In this example we are goign to use slicing against our Datetime Index:
+
+#+begin_src python :results output code :exports both
+import pandas as pd
+import numpy as np
+
+dates = pd.date_range('10-01-2016', periods=9, freq='2W-SUN')
+df = pd.DataFrame({'Count 1': 100 + np.random.randint(-5, 10, 9).cumsum(), 'Count 2': 120 + np.random.randint(-5, 10, 9)}, index=dates)
+
+print("# Print everything for 2017: \n")
+print(df['2017'])
+print("\n# In this example we are going to print just DEC 2016: \n")
+print(df['2016-12'])
+print("\n# Or in this example we slice starting at 2016, and use the colon (:) to include everything after it.")
+print(df['2016':])
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+# Print everything for 2017:
+
+            Count 1  Count 2
+2017-01-08      125      123
+2017-01-22      127      124
+
+# In this example we are going to print just DEC 2016:
+
+            Count 1  Count 2
+2016-12-11      122      122
+2016-12-25      123      126
+
+# Or in this example we slice starting at 2016, and use the colon (:) to include everything after it.
+            Count 1  Count 2
+2016-10-02      103      126
+2016-10-16      109      123
+2016-10-30      108      121
+2016-11-13      111      121
+2016-11-27      114      122
+2016-12-11      122      122
+2016-12-25      123      126
+2017-01-08      125      123
+2017-01-22      127      124
+#+end_src

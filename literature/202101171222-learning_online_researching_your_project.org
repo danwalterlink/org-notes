@@ -1,0 +1,57 @@
+#+title: Learning Online: Researching your Project
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 12:22]
+#+source: https://www.futurelearn.com/courses/searching-and-researching/48/steps/916939
+
+* Preparing for your research
+
+Researching online can be difficult, you're faced with uncertainty of your
+sources, and question how accurate their information may be. This is most
+definitely a challenge in today's world, the [[[[file:../fleeting/202101171225-age_of_false_information.org][age of false information]]]].
+
+Part of the issue which we must tackle, is the fact that [[[[file:../202101171230-search_engines.org][search engines]]]] are
+great for finding articles which are popular, or getting the most hits. That
+doesn't always mean that it's going to be the best source for you though. The
+other issue with search engines, is that they rely on being able to crawl pages
+to index them in their search engine, when not all websites are able to be
+crawled.
+
+So the key thing, is to learn how to use other sources beyond just a search
+engine. This includes some of the following sites we have listed below, but
+nevermore you should always reach out and find other reputable sites.
+- [[https://scholar.google.com/][Google Scholar]] :: a free Google service which allows you to access millions of
+  academic journals.
+- [[https://books.google.co.uk/][Google Books]] :: a free service offering full and partial access to online
+  books.
+- [[https://www.worldcat.org/][WorldCat.org: The World's Largest Library Catalog]] :: a service which allows
+  you to search library collections worldwide.
+- [[https://www.researchgate.net/][ResearchGate | Find and share research]] :: a networking service for researchers
+  to share and browse publications.
+- [[https://www.microsoft.com/en-us/research/project/academic/][Microsoft Academic - Microsoft Research]] :: a database of article and publications.
+- [[https://www.bing.com/images/trending?FORM=ILPTRD][Bing]] :: Bing Images
+- [[https://www.google.com/imghp?hl=en][Google Images]] :: Google Image search engine
+
+So this comes down to a matter of being creative, and using the right keywords
+to narrow down your search to find what it is you're looking for. You would also
+want to consider exploring your question in a different context to answer some
+unknown answers.
+
+When considering a source, one should also look into that sources reputation to
+see if they have a positive reputation for providing accurate information, or
+maybe they have a tendency of publishing non-validated information that lacks
+testing.
+
+In addition, there are some other database sites that can help or aid you in
+your research:
+- [[https://wok.mimas.ac.uk/][Web of Science Service for UK Education - Home Page]]
+- [[https://www.scopus.com/search/form.uri?display=basic][Scopus]]
+- [[https://www.ncbi.nlm.nih.gov/pubmed/][PubMed]]
+- [[https://www.jstor.org/][JSTOR Home]]
+
+* Critiquing your sources
+
+To help yourself find the right sources, one would need to apply [[[[file:critical-thinking.org][The Process
+of Critical Thinking]]]] which is for one to ask their-selves the right questions
+when reviewing that source, and not just unconditionally accepting what they
+tell you.

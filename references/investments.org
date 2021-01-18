@@ -1,0 +1,590 @@
+#+title: Investments
+#+roam_tags: 
+
+* Forex Trading
+:PROPERTIES:
+:ID:       c40a68ff-c8a9-4b49-b607-6fab5c575738
+:END:
+** Back-end testing
+Back-testing is a common term used in trading that simply means “testing a
+trading system through historical data."
+
+Why is it that a system that sounds good does not work once you start trading
+it? The answer is fit; if a system does not fit your view of the markets, your
+approach to trading, your ability to execute trades, it will not make money for
+you. A system must fit with your understanding of the markets.
+
+What this translates to, if you do not like trading a certain pair, or at a
+certain time-scale, then you simply do not like it. You cannot force yourself to
+trade with those in hopes it'll work out.
+
+Experts know what to do, in fact, because their expert behavior is automatic.
+They do not think about what they do, they just do it. Novices spend a lot of
+time thinking about the procedures, setting things up correctly, and so forth.
+Experts spend time thinking about how they interpret information—a very
+different approach.
+
+Experts are concerned with Market Biofeedback, and novice traders are concerned
+with understanding the system rules.
+
+The choice is yours; you may decide to join the group of struggling traders who
+jump from system to system, never really finding comfort with any trading
+system, or you may decide to join the successful traders, the profitable group
+who spend time back-testing their systems.
+** Calculators
+*** Gap Calculator
+| Entry Price | PIPS | Final Point | Price  |
+|-------------+------+-------------+--------|
+|       86694 |  100 |       86794 | #ERROR |
+#+TBLFM: $3=$1+$2::$4=$3*.$1
+*** Price Calculator
+Plug in your price into the first column, and the amount of pips in the 2nd
+column.
+#+NAME: pricecalc
+| PAIR   | PIPS Earnings | PIPS Losses |  PRICE |  Units |    Profit |    Losses | Risk/Reward Ratio |
+|--------+---------------+-------------+--------+--------+-----------+-----------+-------------------|
+| NZDCAD |           100 |          50 | .86694 | 121298 | 10515809. | 5257904.4 |               0.5 |
+| NZDCAD |           300 |         100 | .86694 | 121298 | 31547426. | 10515809. |        0.33333333 |
+| EURUSD |           500 |         150 | 1.0325 |  76000 | 39235000. | 11770500. |               0.3 |
+#+TBLFM: $6=$2*$5*$4::$7=$3*$5*$4::$8=$3/$2
+*** Price Finder
+Your pips will be (1) decimal place
+|   Entry |  Buy TP |   Buy SL | Sell TP |  Sell SL |
+|---------+---------+----------+---------+----------|
+| 0.69209 | 0.69509 |  0.69089 | 0.68909 |  0.69329 |
+| 122.395 | 122.398 | 122.3938 | 122.392 | 122.3962 |
+| 0.86948 | 0.87248 |  0.86828 | 0.86648 |  0.87068 |
+#+TBLFM: $2=$1+0.0030::$3=$1-0.0012::$4=$1-0.0030::$5=$1+0.0012
+
+*** Corresponding Calculator
+** calculators to help with trading
+*** Starting Table
+#+name: var
+| Entry Price |  Units |
+|-------------+--------|
+|      .62514 | 100000 |
+*** Take Profit & Stop Loss
+#+name: longprofits
+|----------+--------+---------+---------|
+| Long TP  | 0.6281 | Profits |  296.00 |
+| Long SL  | 0.6239 | Losses  | -124.00 |
+| Short TP | 0.6221 | Profits |  296.00 |
+| Short SL | 0.6263 | Losses  | -124.00 |
+|----------+--------+---------+---------|
+#+TBLFM: @1$2=remote(var,@2$1) + 0.0030;%0.4f::@1$4=(remote(var,@2$2) * @1$2) - (remote(var,@2$1) * remote(var,@2$2));%0.2f::@2$2=remote(var,@2$1) - 0.0012;%0.4f::@2$4=(remote(var,@2$2) * @2$2) - (remote(var,@2$1) * remote(var,@2$2));%0.2f::@3$2=remote(var,@2$1) - 0.0030;%0.4f::@3$4=(remote(var,@2$2) * @1$2) - (remote(var,@2$1) * remote(var,@2$2));%0.2f::@4$2=remote(var,@2$1) + 0.0012;%0.4f::@4$4=(remote(var,@2$2) * @2$2) - (remote(var,@2$1) * remote(var,@2$2));%0.2f
+*** S&R Calcuator
+|     S1 |     S2 |     R1 |     R2 | Movement Area |
+|--------+--------+--------+--------+---------------|
+| .64815 | .64123 | .65304 | .65884 |               |
+*** Performance
+*** Estimate Future
+#+CAPTION: 20k account
+| Earnings |
+|----------|
+|      435 |
+|     -180 |
+|     -173 |
+|      487 |
+|     -168 |
+|     -193 |
+|      452 |
+|     -183 |
+|     -153 |
+|      458 |
+|     -168 |
+|     -167 |
+|      448 |
+|----------|
+|   895.00 |
+#+TBLFM: $LR1=vsum(@I..II);%0.2f
+
+#+CAPTION: 100k account
+| Earnings |
+|----------|
+|     2018 |
+|     -900 |
+|     2300 |
+|     -768 |
+|     -812 |
+|     2148 |
+|     -650 |
+|     -712 |
+|     2095 |
+|     -834 |
+|     -623 |
+|     2148 |
+|----------|
+|  5410.00 |
+#+TBLFM: @14$1=vsum(@I..II);%0.2f
+** high volatility pairs
++ AUDCHF
++ NZDUSD
++ NZDCHF
++ NZDCAD
+** Kangaroo tail
+** Key points to remember
+First and foremost, price is the most important indicator of all. All indicators
+are derived from price.
+
+Knowing one’s personality in trading.
+
+Line charts help find S&R zones.
+
+It is also the reason why most naked traders find it much easier to trade
+reversal set-ups than breakouts. Reversal set-ups are based on the market
+turning around at a zone, and breakouts are based on the market trading beyond a
+zone.
+
+All of the naked-trading strategies in this book have three parts: The first is
+to identify the support and resistance zones, the second is to wait for the
+market to reach one of these zones, and the third is to take a trade once a
+catalyst prints on one of these zones.
+
+The fact is that with the trillions of dollars that float each hour through the
+currency markets, prices reach certain levels and stop. One can try to figure
+out why they stop rising or stop falling. But the job of the trader is to
+observe accurately where the price is and where it came from. Price zones
+provide the naked truth about market sentiment.
+
+Most forex traders have three preconceptions about successful trading. These are
+the three myths of successful trading, and the structure of this book is based
+on each of these myths.
+1. Myth 1: Successful trading must be indicator based. The first part of this
+   book dispels this myth.
+2. Myth 2: Successful trading must be complex. The second part of this book is
+   about naked trading systems.
+3. Myth 3: Successful trading is dependent on the trading system. This is
+   probably the most widely held belief among traders. This is precisely why
+   there are thousands of trading systems on the market, all promising great
+   riches to the brave traders who pony up the money for the next Holy Grail.
+
+All traders experience losing trades. However, naked traders take responsibility
+for losing trades.
+
+Interestingly, the difference between a terrible-system trader and a bad-market
+trader is often conscientiousness.
+
+So how might you avoid falling into the terrible system or bad-market groups?
+What might you do to change your fate? You may want to carefully consider
+adopting naked trading. Trading naked means trading without indicators, and
+removing indicators from your chart will make it difficult to adopt the attitude
+of the terrible-system trader. Also, if you decide to trade naked you will be
+trading on price action or the market movements. You could blame the market for
+a string of losing trades as a naked trader, but that would be a bit like
+blaming the river for being wet.
+
+** Market Biofeedback
+
+Why is it important to pay attention to the market biofeedback? Because you will
+learn more from Market Biofeedback than you will learn from any guru, any
+trading book, or any online course.
+
+Market Biofeedback involves two distinct domains, The first is how the market
+reacts (price action) after you enter your trade, and the second is how you
+react to the price action in the market after you enter your trade. Both parts
+of the Market Biofeedback equation are needed for you to get a clear picture of
+what you are learning, and more importantly, what you should learn, from your
+trading experiences.
+
+Here are the important questions to answer as you record Market Biofeedback:
++ Where has the market moved since I entered my trade?
++ If I looked at the market now, would I take the same trade?
++ How do I feel about my trade?
++ What do I like about this trade now?
++ What do I dislike about this trade now?
++ On a scale of 1 (poor decision) to 10 (great decision), where would I rank this trade now?
++ If I were not in a trade now, would I take the opposite trade?
+
+** Strategy Planning
+:LOGBOOK:
+- Note taken on [2019-12-11 Wed 00:21] \\
+  An example equation for uncertainty. The 3.4cm is the circumference of the ball.
+  0.2cm is the smallest number they can get down to for accuracy.
+  Relative uncertainty = (0.2 cm ÷ 3.4 cm) × 100% = 5.9%
+  #+BEGIN_SRC python
+x = 0.2
+y = 3.4
+
+z = (x / y) * 100
+
+return(z)
+  #+END_SRC
+
+  #+RESULTS: python_percentage
+  : 5.88235294118
+
+    #+BEGIN_SRC elisp
+(* 100(/ 0.2 3.4))
+  #+END_SRC
+
+  #+RESULTS: lisp_percentage
+  : 5.882352941176471
+
+  The value can therefore be quoted as 3.4 cm ± 5.9%.
+- Note taken on [2019-12-11 Wed 00:19] \\
+  To calculate uncertainty, we could look at volatility of the market subtracted
+  from our stop loss to come up with our *uncertain* grey area of where we do not
+  know what the market will do, and possibly divide that into the remaining of our
+  total gain PIPS to formulate a % of how uncertain that trade is to be a success.
+:END:
+The idea is *probability*. The probability of getting at least 1 out of 4 wins
+is favorable when you use this in conjuction with *trends, indicators, patterns
+and economic news*. But this begs the question of *uncertainty* and what are the
+chances of it having an impact on our win to loss ratios? I stumbled upon this
+[[https://sciencing.com/how-to-calculate-uncertainty-13710219.html][article]] which provided some hard numbers that I am looking for.
+
+Example calculation
+#+ATTR_LATEX: :float nil
+#+BEGIN_SRC python
+vol = 18
+loss = 9
+gain = 30
+
+final = (gain - vol) / loss
+
+return(final)
+#+END_SRC
+
+Ideally we would want a *1:3* win to loss ratio. So out of 4 trades, we can
+suffer 3 losses and 1 win but still turn a profit by having our profits higher
+than our losses. To find this we will have to run a simple calculation:
+
+#+CAPTION: Calculating gains
+| Gaining PIPS | Loosing PIPS | Loss Ratio | Position | Difference $ | % Remainder |
+|--------------+--------------+------------+----------+--------------+-------------|
+|           30 |            9 |          3 |     1.35 |         4.05 |           3 |
+|           30 |            8 |          3 |     1.35 |         8.10 |           6 |
+#+TBLFM: $5=($1*1.35)-($2*$3*1.35);%0.2f::$6=$1-($2*$3)
+
+With this example, we can see by setting our limit to 30 pips and stop loss to 9
+pips, we can suffer 3 losses which would equate to 27 pips but win at least 1
+trade at 30 pips would mean we gained 3 pips. Those 3 pips being $4.05 for the
+trade.
+
+This gives us a 25% chance of coming out with a winning, or 1 in 4 chances. To
+increase chances we can use our indicators, patterns and economic news. In
+addition we should also set trades close to Support & Resistance levels to
+either reverse and continue a trend.
+
+The next piece is how to calculate our uncertainty in a trade. So our
+uncertainty level is going to be when we don't need what a market is going to
+do, when does this happen?
++ When it stalls out
++ In the middle of a trend
++ False Reversals
+
+So how do we measure uncertainty in these areas? Well for stall outs we could
+look at the average pip movement for a given pair, minus our target pip goal and
+the remainder would be our "uncertain" area of what the market will do.
+
+Once this is set, we can set trades using leverage and adjust unit sizes to
+adjust our risk/reward percentages. Example, we place a buy order for 100k units
+at 1.35 and sell at 1.38 for a profit of $3,000. In addition, we take 3 losses
+for a total of 27 PIPS where we place buy orders at 1.35 and our Stop Limits
+close at 1.323 for a loss of $2,700 but would still leave us with a $300 profit.
+
+|  Units | PIPS | Price Entry |   Price Exit |   Profit |
+|--------+------+-------------+--------------+----------|
+| 100000 |   30 |        1.35 |         1.38 |  3000.00 |
+| 100000 |  -27 |        1.35 |        1.323 | -2700.00 |
+|--------+------+-------------+--------------+----------|
+|        |      |             | Final Profit |     300. |
+#+TBLFM: $5=($1*$4)-($1*$3);%0.02f::@4$5=@2$5+@3$5
+
+The next step is figuring out margin levels, and what margins to set trades to
+for 4 open trades to ensure all 4 trades will have the same gain/loss numbers.
+**** Why do trades tend to go the opposite direction?
+More often than not, it seems like trades will want to push in the other
+direction. Why is that? What's causing this and what am I missing?
+*** Long Range
+#+CAPTION: The Ratio Numbers
+| Gaining PIPS | Loosing PIPS | Loss Ratio | Position | Difference $ |
+|--------------+--------------+------------+----------+--------------|
+|          500 |          200 |          2 |     1.35 |       135.00 |
+|          400 |           70 |          5 |     1.35 |        67.50 |
+#+TBLFM: $5=($1*1.35)-($2*$3*1.35);%0.2f
+*** Mid-Long Range
+The idea /probability/ is key to understanding that we *will* lose trades and we
+*must* lose trades in order to be succesful. It's inevitable... So it then
+raises the question. *How do we trade efficiently out weighing our wins to
+losses?*.
+
+#+CAPTION: The Ratio Numbers
+| Gaining PIPS | Loosing PIPS | Loss Ratio | Position | Difference $ |
+|--------------+--------------+------------+----------+--------------|
+|          100 |           50 |          2 |     1.35 |         0.00 |
+|          100 |           45 |          2 |     1.35 |        13.50 |
+|          100 |           40 |          2 |     1.35 |        27.00 |
+|          100 |           39 |          2 |     1.35 |        29.70 |
+|          100 |           38 |          2 |     1.35 |        32.40 |
+|          100 |           35 |          2 |     1.35 |        40.50 |
+|          100 |           30 |          3 |     1.35 |        13.50 |
+|          100 |           25 |          4 |     1.35 |         0.00 |
+#+TBLFM: $5=($1*1.35)-($2*$3*1.35);%0.2f
+*** Mid range
+The only issue with this strategy is the 100 pips, which can cause for long
+trades at times. We could go for a shorter pip range, but it opens the door to
+false positives when we have a volatile market. I think the key here for short
+trades will be *multiple indicators* + *check trends* + *economic strength*.
+#+CAPTION: Mid Range Ratios
+| Gaining PIPS | Loosing PIPS | Loss Ratio | Position | Difference $ |
+|--------------+--------------+------------+----------+--------------|
+|           60 |           19 |          3 |     1.35 |         4.05 |
+|           60 |           18 |          3 |     1.35 |         8.10 |
+|           60 |           17 |          3 |     1.35 |        12.15 |
+|           60 |           16 |          3 |     1.35 |        16.20 |
+|           60 |           15 |          4 |     1.35 |         0.00 |
+|           50 |           11 |          4 |     1.35 |         8.10 |
+|           50 |           12 |          4 |     1.35 |         2.70 |
+|           50 |           13 |          3 |     1.35 |        14.85 |
+|           50 |           14 |          3 |     1.35 |        10.80 |
+|           50 |           15 |          3 |     1.35 |         6.75 |
+|           50 |           16 |          3 |     1.35 |         2.70 |
+|           50 |           17 |          2 |     1.35 |        21.60 |
+|           50 |           18 |          2 |     1.35 |        18.90 |
+|           50 |           19 |          2 |     1.35 |        16.20 |
+|           50 |           20 |          2 |     1.35 |        13.50 |
+#+TBLFM: $5=($1*1.35)-($2*$3*1.35);%0.2f
+*** Low Range
+#+CAPTION: Lower PIPS
+| Gaining PIPS | Loosing PIPS | Loss Ratio | Position | Difference $ |
+|--------------+--------------+------------+----------+--------------|
+|           30 |           19 |          1 |     1.35 |        14.85 |
+|           30 |           18 |          1 |     1.35 |        16.20 |
+|           30 |           17 |          1 |     1.35 |        17.55 |
+|           30 |           16 |          1 |     1.35 |        18.90 |
+|           30 |           14 |          2 |     1.35 |         2.70 |
+|           30 |           13 |          2 |     1.35 |         5.40 |
+|           30 |           12 |          2 |     1.35 |         8.10 |
+|           30 |           11 |          2 |     1.35 |        10.80 |
+|           30 |            9 |          3 |     1.35 |         4.05 |
+|           30 |            8 |          3 |     1.35 |         8.10 |
+|           30 |            7 |          4 |     1.35 |         2.70 |
+|           30 |            4 |          7 |     1.35 |         2.70 |
+#+TBLFM: $5=($1*1.35)-($2*$3*1.35);%0.2f
+** Support and Resistance Zones
+I will call these support and resistance zones by one word— zones. The eight
+important characteristics of zones are as follows:
+1. Zones are an area, not a price point.
+2. Zones are like fine wine; they get better with age.
+3. Zones are spots on the chart where price reverses, repeatedly.
+4. Zones may be extreme highs or lows on the chart.
+5. Zones are where naked traders find trading opportunities.
+6. Support and resistance zones rarely need to be modified.
+7. Line charts help naked traders find zones.
+8. Zones are often seen by many traders.
+
+However, the naked trader will not take a trade unless price has reached a zone.
+This is the first step (price reaching a zone) for the naked trader, when
+setting up a trade.
+
+Key points to tracking zones:
+1. Start with a higher timeframe chart.
+2. Use a line chart to find the zones on the chart.
+3. Ignore minor zones.
+
+FIVE TIPS FOR FINDING ZONES:
+1. If you are having difficulty identifying the zones on your chart, the easiest
+   solution is to load a line chart.
+2. If you have too many zones drawn your chart, then you will probably
+   experience two likely problems. The first problem is that you will notice
+   many trade opportunities. If you are trading the daily chart and notice that
+   you have a trade nearly every day, you probably have too many zones drawn on
+   your chart.
+3. It often becomes very difficult to determine precisely where a zone should be
+   drawn. This is the nature of the zone. The zone is squishy, it is fat, it
+   identifies an area on the chart, and not a specific point.
+4. The fourth problem that many traders come up against when drawing zones is
+   that the market seems to disregard zones. When this occurs, our trusty friend
+   the line chart can often come to the rescue.
+5. If the market trades beyond the zone it does not mean that the market has
+   broken the zone. This is an important and critical point for the naked
+   trader. Remember zones are beer bellies, they are squishy, they are fat, and
+   they consist of a wide range on the chart.
+** The big shadow
+*My questions*:
+1. Why big shadows?
+2. Couldn't big shadows just form at a smaller time scale?
+3. Whose to say a big shadow on the 5-min, 15-min, 30-min, 1-hr or daily chart
+   is the big shadow that'll cause it to trend up or down?
+   1. I could easily have a big shadow that forms on the 5-min chart, but it
+      would be false positive cause we all know 5-min can fluxuate fast and see
+      a lot of chatter.
+4. If we are always looking for the bigger candle stick, then we are always
+   expecting the market to become more active with bigger expectations on price movement.
+
+Ideally, the big shadow should have the greatest range of the previous five
+candlesticks.
+
+For example, if you would like to enter a sell trade on a bearish big shadow,
+you may consider placing your sell stop below the low of the big-shadow
+candlestick. Likewise, for those bullish big shadows, place a buy stop a few
+pips above the high of the big-shadow candlestick. If the market moves in the
+expected direction, your buy stop order will be triggered.
+
+However, if the closing price is not in the correct location for the
+big-shadow candlestick, the trade may fail miserably.
+
+The ideal closing price for a bullish big shadow candlestick is the high. The
+big-shadow candlestick has a very good chance of success if the candlestick
+closes on the high.
+
+The closer the closing price is to the high for the bullish big-shadow
+candlestick, the better the trade signal.
+
+#+CAPTION: Example of a big shadow with a bad closing price
+TODO: Add example image.
+
+The big-shadow trade is easy to identify, and it often signals a critical turning point in the market. Here are the rules associated with the big shadow
+trade:
+1. Big shadows are two-candlestick formations.
+2. The second candlestick of the formation is the big-shadow candlestick.
+3. The big-shadow candlestick has a higher high and a lower low than the previous
+   candlestick.
+4. Big shadows must print on the zones.
+5. Big shadows print at extreme highs or extreme lows.
+6. Bearish big-shadow candlesticks have a closing price near the low.
+7. Bullish big-shadow candlesticks have a closing price near the high.
+8. Big-shadow candlesticks have wider ranges than the nearby candlesticks.
+9. For bullish big shadows, the stop loss is placed a few pips below the low of
+   the big-shadow candlestick.
+10. For bearish big shadows, the stop loss is placed a few pips above the high of
+    the big-shadow candlestick.
+11. The very best big-shadow candlesticks have room to the left.
+
+There are also several optimal characteristics that the best big shadows
+share; these features include:
+1. The two-candlestick formation prints at an extreme high or low on the chart
+   where the market has not traded in at least seven candlesticks.  The
+   big-shadow candlestick has a greater range than the previous 10 candlesticks.
+2. For bullish big shadows, the candlestick following the bullish bigshadow
+   triggers the buy stop order placed above the high of the big-shadow
+   candlestick.
+3. For bearish big shadows, the candlestick following the bearish big shadow
+   triggers the sell stop order placed below the low of the bigshadow
+   candlestick.
+4. For bullish big shadows, the closing price for the big-shadow candlestick is
+   within a few pips of the high.
+5. For bearish big shadows, the closing price for the big-shadow candlestick is
+   within a few pips of the low.
+** The catalyst pattern
+A very simple and extremely powerful catalyst is the last-kiss trade.
+
+The first step of the last-kiss trade is to identify the consolidation zone. One
+way to visualize a consolidation zone is to draw a box on the chart. This box
+will contain the choppy movements of the directionless market.
+
+The important thing to remember here is that the box, which contains the market
+activity, is formed by both a support zone and a resistance zone.
+
+A close examination of a typical, standard breakout trade may be in order. The
+typical breakout strategy will follow a series of events. First, the market
+consolidates, and a box is drawn around the consolidation. Second, the market
+pushes beyond either the support zone or the resistance zone to trigger a trade.
+
+#+CAPTION: Example of consolidation market conditions
+TODO: Add example image
+
+The last kiss is a catalyst specifically designed to avoid the fake-out. If you
+have traded breakout systems in the past, you know how often these fake-outs
+will occur. Although the last kiss is not guaranteed to avoid all fake-outs, it
+will provide you with a valuable method of filtering out many of the very worst
+fake-outs that fizzle quickly. The last-kiss trade is a simple method that
+confirms the validity of the breakout signal, and it is based on a sound
+naked-trading principle. This is known as the retouch principle.
+
+However, a true breakout—those trades that extend beyond the consolidation box
+and then keep travelling—will often move back to the support and resistance
+zones for a retouch. The last-kiss trade is a specific subset of the breakout
+trade. Not every breakout trade is a last-kiss trade, but every last-kiss trade
+is a breakout trade.
+
+#+CAPTION: Example of a last kiss breakout
+TODO: Add example image.
+
+One very simple exit for profitable last-kiss trades is to exit the trade at
+the next zone.
+
+The last-kiss trade is a nice way to trade high-probability breakout trades.
+Here are the steps for the last-kiss trade:
+1. Wait for price to consolidate in a box between two zones.
+2. The box should have at least two touches on both zones.
+3. Wait for price to break beyond one of the zones.
+4. Once price returns back to the consolidation box, wait for the market to
+   print a last-kiss candlestick on the edge of the box.
+5. For sell trades, a sell stop is placed below the low of the last-kiss
+   candlestick, and for buy trades, a buy stop is placed above the high of the
+   last-kiss candlestick.
+6. Emergency stop loss is placed in the midpoint of the consolidation box.
+7. The profit target is the nearest zone
+** trade diary
+| Date       | Pair   |  Units | Entry Price | Closing Price |     Pips | Earnings |
+|------------+--------+--------+-------------+---------------+----------+----------|
+| 12/06/2019 | EURGBP |  10000 |     0.84987 |       0.84329 |  0.00658 |    65.80 |
+| 12/06/2019 | NZDCAD | 120687 |     0.86942 |       0.86930 |  0.00012 |    14.48 |
+| 12/12/2019 | NZDCAD | 121298 |     0.86690 |       0.86848 | -0.00158 |  -191.65 |
+| 12/12/2019 | AUDUSD |  54166 |     0.69209 |       0.68907 |  0.00302 |   163.58 |
+| 12/12/2019 | EURJPY |  45000 |     122.395 |       122.396 | -0.00100 |   -45.00 |
+| 12/12/2019 | GBPCHF |  70000 |     1.32614 |       1.32734 | -0.00120 |   -84.00 |
+| 12/13/2019 | EURUSD |  90000 |     1.11840 |       1.11542 |  0.00298 |   268.20 |
+| 12/13/2019 | AUDUSD |  65000 |     0.68736 |       0.68713 |  0.00023 |    14.95 |
+| 12/13/2019 | GBPAUD |  90000 |     1.94221 |       1.94343 | -0.00122 |  -109.80 |
+| 12/13/2019 | GBPAUD |  95003 |     1.94190 |       1.93878 |  0.00312 |   296.41 |
+| 12/15/2019 | NZDCHF |  65000 |     0.65014 |       0.64982 |  0.00032 |    20.80 |
+| 12/15/2019 | EURCAD |  90000 |     1.46272 |       1.46352 | -0.00080 |   -72.00 |
+| 12/16/2019 | EURCAD |  90000 |     1.46948 |       1.46754 |  0.00194 |   174.60 |
+| 12/16/2019 | NZDUSD |  65000 |     0.65781 |       0.65730 |  0.00051 |    33.15 |
+| 12/16/2019 | NZDUSD |  65000 |     0.65635 |       0.65757 | -0.00122 |   -79.30 |
+| 12/17/2019 | EURCAD |  90000 |     1.46380 |       1.46151 |  0.00229 |   206.10 |
+| 12/17/2019 | NZDCHF |  65000 |     0.64446 |       0.64568 | -0.00122 |   -79.30 |
+| 12/17/2019 | NZDCHF |  95000 |     1.45931 |       1.46021 | -0.00090 |   -85.50 |
+|------------+--------+--------+-------------+---------------+----------+----------|
+| Total      |        |        |             |               |  0.00000 |   511.52 |
+#+TBLFM: $6=$4-$5;%0.5f::$7=($3*$4)-($3*$5);%0.2f::$LR7=vsum(@I..II);%0.2f
+** Wammies and Moolahs
+Some general tips on wammies and moolahs:
+1. Choose the set-ups with many candlesticks between touches. Six candlesticks
+   between touches is nice to see, but 20 candlesticks between touches is better.
+2. Take trades with catalysts on the second touch. If the second touch is a big
+   shadow or a kangaroo tail, the odds are probably strongly in your favor.
+3. Pick trades that have a second touch much further from the zone. Figure 7.13
+   is a great example of this type of trade. The second touch is a full 22 pips
+   lower than the first touch, suggesting that the market is running out of
+   steam.
+4. Only choose wammies and moolahs that are in strong, well-defined zones. If the
+   zone is not an important one, then the market may only trade away from the
+   zone briefly before breaking beyond the zone.
+5. Find set-ups that have very few zones nearby. This will enable you to place a
+   profit target very far from the entry price and maximize profits.
+6. Trade those wammies and moolahs that have “room to the left.” This idea is
+   covered in the kangaroo tail chapter (Chapter 8). Major reversals often occur
+   at places on the chart with very little price action to the left of the trade
+   set-up.
+*** Wammies
+These are the seven important characteristics of the wammie pattern.
+1. The market touches the support zone twice.
+2. The second touch is higher than the first touch.
+3. There are at least six candlesticks between touches.
+4. The market prints a bullish candlestick on the second touch.
+5. The trade is entered with a buy stop a few pips above the bullish candlestick.
+6. The stop loss is placed a few pips below the first (lower) touch.
+7. The profit target is the next zone above the wammie.
+
+#+CAPTION: Wammie setup
+TODO: Add example image.
+*** Moolahs
+These are the seven important characteristics of the moolah pattern.
+1. The market touches the resistance zone twice.
+2. The second touch is lower than the first touch.
+3. There are at least six candlesticks between touches.
+4. The market prints a bearish candlestick after the second touch.
+5. The trade is entered with a sell stop a few pips below the bearish
+   candlestick.
+6. The stop loss is placed a few pips above the first (higher) touch.
+7. The profit target is the next zone below the moolah.
+
+#+CAPTION: Moolah setup
+TODO: Add example image.
+* Property Investments
+Looks good on the outside, but can be an over-burden with maintenance and a large sum of cash is required to stay on-top of repairs and gaps of tenants.
+

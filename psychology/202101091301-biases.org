@@ -1,0 +1,5 @@
+#+title: biases
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-09 13:01]
+#+roam_tags: decision_making

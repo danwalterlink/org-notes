@@ -1,0 +1,12 @@
+*.html
+**/*.html
+**/*.pdf
+*.dir-locals.el
+**/.dir-locals.el
+**/.ob-jupyter/
+**/archives.org
+.git/
+*/.git/
+**/secrets.org
+gtd/tickler.org
+roam.db

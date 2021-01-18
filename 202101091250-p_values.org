@@ -1,0 +1,5 @@
+#+title: p-values
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-09 12:50]
+#+roam_tags: statistics

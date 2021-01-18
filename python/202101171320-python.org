@@ -1,0 +1,205 @@
+#+title: python
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 13:20]
+#+roam_tags:
+
+Python is a [[[[file:../programming/202101161003-programming_language.org][programming language]]]], that's heavily focused on
+[[[[file:../programming/202101171440-object_oriented_programming.org][object-oriented programming]]]].
+
+Online Sources:
+- https://www.codecademy.com/learn/learn-python-3
+- https://en.wikibooks.org/wiki/Python_Programming
+- https://www.sololearn.com/Course/Python/
+
+#+BEGIN_QUOTE
+For a large programming project to be successful, it is essential to abide by
+the Don't Repeat Yourself, or DRY, principle. We've already looked at one way of
+doing this: by using loops. In this module, we will explore two more: functions
+and modules.
+#+END_QUOTE
+
+* Casting
+The user explicitly changes the data type
+
+* Data Types
+ There are four collection data type in the python programming language.
+- [[lists]] :: is a collection which is ordered and changeable. Allows duplicate members, lists are enclosed in =[]=.
+- [[tuples]] :: is a collection which is ordered and un-changeable. Allows duplicate members, tuples are written with =()=.
+- [[sets]] :: is a collection which is unordered and un-indexed. No duplicate members are allowed, sets are written in ={}=.
+- [[dictionaries]] :: is a collection which is unordered, changeable and indexed. No duplicate members, dictionaries are written in squigly brackets with key:value pairs ={key:value}=.
+- [[strings]] :: are basically quoted characters that are treated verbatim, and are enclosed in =""=.
+* Interpreter
+- Interprets the code we give it, usually from a .py file with instructions to run.
+- Normally installed under =/usr/local/bin/python3.9=
+
+* Keywords
+Python has a set of keywords that are reserved words that cannot be used as
+variable names, function names, or any other identifiers:
+
+- *and:* A logical operator
+- *as:* To create an alias
+- *assert:* For debugging
+- *break:* To break out of a loop
+- *class:* To define a class
+- *continue:* To continue to the next iteration of a loop
+- *def:* To define a function
+- *del:* To delete an object
+- *elif:* Used in conditional statements, same as else if
+- *else:* Used in conditional statements
+- *except:* Used with exceptions, what to do when an exception occurs
+- *False:* Boolean value, result of comparison operations
+- *finally:* Used with exceptions, a block of code that will be executed
+  no matter if there is an exception or not
+- *for:* To create a for loop
+- *from:* To import specific parts of a module
+- *global:* To declare a global variable
+- *if:* To make a conditional statement
+- *import:* To import a module
+- *in:* To check if a value is present in a list, tuple, etc.
+- *is:* To test if two variables are equal
+- *lambda:* To create an anonymous function
+- *None:* Represents a null value
+- *nonlocal:* To declare a non-local variable
+- *not:* A logical operator
+- *or:* A logical operator
+- *pass:* A null statement, a statement that will do nothing
+- *raise:* To raise an exception
+- *return:* To exit a function and return a value
+- *True:* Boolean value, result of comparison operations
+- *try:* To make a try...except statement
+- *while:* To create a while loop
+- *with:* Used to simplify exception handling
+- *yield:* To end a function, returns a generator
+* Methods
+python contains python methods much like one would expect in an object oriented
+programming language.
+
+** List Methods
+- *append():* Adds an element at the end of the list
+- *clear():* Removes all the elements from the list
+- *copy():* Returns a copy of the list
+- *count():* Returns the number of elements with the specified value
+- *extend():* Add the elements of a list (or any iterable), to the end
+  of the current list
+- *index():* Returns the index of the first element with the specified
+  value
+- *insert():* Adds an element at the specified position
+- *pop():* Removes the element at the specified position
+- *remove():* Removes the item with the specified value
+- *reverse():* Reverses the order of the list
+- *sort():* Sorts the list
+** String Methods
+:PROPERTIES:
+:ID:       f943b0db-5b9b-46aa-91bc-691cb5f90c86
+:END:
+- *capitalize():* Converts the first character to upper case
+- *casefold():* Converts string into lower case
+- *center():* Returns a centered string
+- *count():* Returns the number of times a specified value occurs in a
+  string
+- *encode():* Returns an encoded version of the string
+- *endswith():* Returns true if the string ends with the specified value
+- *expandtabs():* Sets the tab size of the string
+- *find():* Searches the string for a specified value and returns the
+  position of where it was found
+- *format():* Formats specified values in a string
+- *format_map():* Formats specified values in a string
+- *index():* Searches the string for a specified value and returns the
+  position of where it was found
+- *isalnum():* Returns True if all characters in the string are
+  alphanumeric
+- *isalpha():* Returns True if all characters in the string are in the
+  alphabet
+- *isdecimal():* Returns True if all characters in the string are
+  decimals
+- *isdigit():* Returns True if all characters in the string are digits
+- *isidentifier():* Returns True if the string is an identifier
+- *islower():* Returns True if all characters in the string are lower
+  case
+- *isnumeric():* Returns True if all characters in the string are
+  numeric
+- *isprintable():* Returns True if all characters in the string are
+  printable
+- *isspace():* Returns True if all characters in the string are
+  whitespaces
+- *istitle():* Returns True if the string follows the rules of a title
+- *isupper():* Returns True if all characters in the string are upper
+  case
+- *join():* Joins the elements of an iterable to the end of the string
+- *ljust():* Returns a left justified version of the string
+- *lower():* Converts a string into lower case
+- *lstrip():* Returns a left trim version of the string
+- *maketrans():* Returns a translation table to be used in translations
+- *partition():* Returns a tuple where the string is parted into three
+  parts
+- *replace():* Returns a string where a specified value is replaced with
+  a specified value
+- *rfind():* Searches the string for a specified value and returns the
+  last position of where it was found
+- *rindex():* Searches the string for a specified value and returns the
+  last position of where it was found
+- *rjust():* Returns a right justified version of the string
+- *rpartition():* Returns a tuple where the string is parted into three
+  parts
+- *rsplit():* Splits the string at the specified separator, and returns
+  a list
+- *rstrip():* Returns a right trim version of the string
+- *split():* Splits the string at the specified separator, and returns a
+  list
+- *splitlines():* Splits the string at line breaks and returns a list
+- *startswith():* Returns true if the string starts with the specified
+  value
+- *strip():* Returns a trimmed version of the string
+- *swapcase():* Swaps cases, lower case becomes upper case and vice
+  versa
+- *title():* Converts the first character of each word to upper case
+- *translate():* Returns a translated string
+- *upper():* Converts a string into upper case
+- *zfill():* Fills the string with a specified number of 0 values at the
+  beginning
+
+And here are some example use cases for methods:
+
+1. Return characters in UPPER case.
+
+   #+BEGIN_EXAMPLE
+     x = 'hello world'
+     print(x.upper())
+     # HELLO WORLD
+   #+END_EXAMPLE
+
+2. Return characters in LOWER case
+
+   #+BEGIN_EXAMPLE
+     x = "HELLO"
+     print(x.lower())
+     # hello
+   #+END_EXAMPLE
+
+3. Strip whitespaces from beginning and end
+
+   #+BEGIN_EXAMPLE
+     x = ' hello world '
+     return(x.strip())
+     # hello world
+   #+END_EXAMPLE
+
+4. Splitting strings by character
+
+   #+BEGIN_EXAMPLE
+     x = "Hello, World"
+     print(x.split(","))
+     # ['Hello', 'World']
+   #+END_EXAMPLE
+
+5. String formats
+* Syntax
+Python is super easy compared to most other languages when it comes to syntax,
+there's no crazy brackets, parenthesis, or other things you need to enclosure
+expressions or statements in. But instead, it's mostly off of indentation.
+
+#+BEGIN_SRC python
+if 5 > 2:
+    print("Five is greater than two.")
+#+END_SRC

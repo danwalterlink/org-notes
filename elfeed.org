@@ -1,0 +1,10 @@
+#+TITLE: Elfeed
+
+* FEEDS :elfeed:
+** EMACS :emacs:
+*** https://melpa.org/updates.rss :packages:
+*** https://www.reddit.com/r/orgmode/.rss :reddit:
+*** https://www.reddit.com/r/emacs/.rss :reddit:
+** Games :games:
+*** Videos :videos:
+**** https://www.youtube.com/feeds/videos.xml?channel_id=UCsB0LwkHPWyjfZ-JwvtwEXw

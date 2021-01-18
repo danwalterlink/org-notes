@@ -1,0 +1,33 @@
+#+title: anxiety leading towards learning disabilities
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 13:13]
+#+roam_tags: anxiety learning disabilities adhd
+
+* Learning Disabilities caused by Anxiety
+It is important to understand the differences between [[permanent/learning-disabilities]], [[permanent/adhd]] and [[permanent/anxiety]] in order to guide effective and individualized treatment.
+
+1. Learning Disabilities: Treatments for Learning Disabilities typically focus on specific and direct remedial instruction, as well as classroom accommodations to support academic achievement.
+2. ADHD: Common treatments for ADHD are the use of stimulant or nonstimulant medications, as well as behavioural strategies and parent training, which do not target the maladaptive thinking associated with anxiety.
+3. Anxiety: Anxiety interventions typically include anti-anxiety medications and counselling (i.e., CBT, exposure therapy), which often do not target the brain-based problems associated with ADHD.
+
+** Understanding the overlap between Anxiety, ADHD, and LDs
+Although LDs, ADHD, and Anxiety are separate and distinct disorders, there are some similarities between the three. Teasing apart the disorders can be challenging and confusing. The following chart outlines a few of the common symptoms associated with LD, ADHD and anxiety.
+
+*** Fidgeting/Restlessness
+- Anxiety :: Anxious/nervous energy (e.g. pacing, leg shaking, etc.); physiological symptoms (e.g. heart pounding and sweating)
+- ADHD :: Brain is not sending signals that help slow down or support the body in not moving.
+- Learning Disabilities :: Not following or understanding instructions/boredom in the classroom which can increase movement.
+
+*** Difficulty sustaining attention
+- Anxiety :: Mind is focused on worries or fears which makes it difficult to maintain focus and sustain attention.
+- ADHD :: Difficulty ignoring external stimuli such as sights, noises, peers.
+- Learning Disabilities :: Processing speed and working memory overload. If you can't remember what your teacher said or you are not understanding the task, you can appear inattentive.
+
+*** Difficulty finishing school work
+- Anxiety :: Typically aware of social situation, but have difficulty managing anxious emotions, which can cause difficulties in peer relationships (i.e., fearful to engage). This can give off the impression that the child does not want to interact socially, which can result in the child being excluded from social settings; difficulty following conversations if their mind is consumed with worrying thoughts.
+- ADHD :: Difficulty with planning and organization - which can prevent students from handing in their school work on time.
+- Learning Disabilities :: Influence of processing speed and working memory; not knowing where/ how to begin; difficulty understanding materials Difficulty with friendships and social interactions
+- Anxiety :: Typically aware of social situation, but have difficulty managing anxious emotions, which can cause difficulties in peer relationships (i.e., fearful to engage). This can give off the impression that the child does not want to interact socially, which can result in the child being excluded from social settings; difficulty following conversations if their mind is consumed with worrying thoughts.
+- ADHD :: Difficulty understanding social nuances, as well as the social cues of others; difficulty planning and organizing social events; difficulty processing social conversations; difficulty remembering what others said if not paying attention
+- Learning Disabilities :: Difficulty planning and organizing social events; difficulty processing social conversations; difficulty remembering what others said, etc.

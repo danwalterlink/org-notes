@@ -1,0 +1,73 @@
+* Your mind is not confined to your brain, or even your body!
+  :PROPERTIES:
+  :CUSTOM_ID: your-mind-is-not-confined-to-your-brain-or-even-your-body
+  :END:
+
+Source =
+https://getpocket.com/explore/item/scientists-say-your-mind-isn-t-confined-to-your-brain-or-even-your-body?utm_source=pocket-newtab
+
+** My thoughts
+   :PROPERTIES:
+   :CUSTOM_ID: my-thoughts
+   :END:
+
+In the article they are trying to defin just what our brain is, but more
+deeply, they are talking about what makes
+[[file:../fleeting/consciousness.org][Consciousness]] what it is or how
+is it defined? They go on the compare it to a /shoreline/, and how one
+would describe a shoreline as being sand or ocean? But the answer is
+/both/. Because a shoreline requires /both/ ocean and sand
+[[Mind:%20A%20Journey%20to%20the%20Heart%20of%20Being%20Human][https://www.amazon.com/Mind-Journey-Heart-Being-Human/dp/039371053X]]
+
+#+BEGIN_QUOTE
+  But growing evidence shows that the mind goes far beyond the physical
+  workings of your brain.
+#+END_QUOTE
+
+A key component they came up with from the book about the mind is:
+
+#+BEGIN_QUOTE
+  the emergent self-organizing process, both embodied and relational,
+  that regulates energy and information flow within and among us.
+#+END_QUOTE
+
+** Mathematics
+   :PROPERTIES:
+   :CUSTOM_ID: mathematics
+   :END:
+
+"The definition has since been supported by research across the
+sciences, but much of the original idea came from mathematics. Siegel
+realized the mind meets the mathematical definition of a complex system
+in that it's open (can influence things outside itself), chaos capable
+(which simply means it's roughly randomly distributed), and non-linear
+(which means a small input leads to large and difficult to predict
+result).
+
+In math, complex systems are self-organizing, and Siegel believes this
+idea is the foundation to mental health. Again borrowing from the
+mathematics, optimal self-organization is: flexible, adaptive, coherent,
+energized, and stable. This means that without optimal
+self-organization, you arrive at either chaos or rigidity---a notion
+that, Siegel says, fits the range of symptoms of mental health
+disorders.
+
+** State of a healthy mind
+   :PROPERTIES:
+   :CUSTOM_ID: state-of-a-healthy-mind
+   :END:
+
+Finally, self-organization demands linking together differentiated ideas
+or, essentially, integration. And Siegel says integration---whether
+that's within the brain or within society---is the foundation of a
+healthy mind.
+
+Siegel says he wrote his book now because he sees so much misery in
+society, and he believes this is partly shaped by how we perceive our
+own minds. He talks of doing research in Namibia, where people he spoke
+to attributed their happiness to a sense of belonging.
+
+In other words, even perceiving our mind as simply a product of our
+brain, rather than relations, can make us feel more isolated. And to
+appreciate the benefits of interrelations, you simply have to open your
+mind."

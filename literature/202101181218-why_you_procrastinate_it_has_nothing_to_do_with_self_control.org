@@ -1,0 +1,43 @@
+#+title: Why You Procrastinate (It Has Nothing to Do With Self-Control)
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 12:18]
+#+roam_tags: psychology
+#+source: https://www.nytimes.com/2019/03/25/smarter-living/why-you-procrastinate-it-has-nothing-to-do-with-self-control.html
+
+[[[[file:../psychology/202101091511-procastinate.org][procastinate]]]] is putting off what needs to be done, while knowingly
+doing so. It seems that there could be a link to negative moods and
+procastinating, which is why it seems we're aware of what we are doing is bad,
+but we avoid it anyways. It's essentially a way to deal with, or cope with the
+set of negative emotions that come about with completing that task.
+
+It's thought of, that [[[[file:../psychology/202101091511-procastinate.org][procastinate]]]] is an issue with [[[[file:../psychology/202101181225-emotion_regulation.org][emotion regulation]]]],
+rather than time management. It could be tied back to something unpleasant of
+the task, but it can also be tied back to a deeper profound feeling, such as
+[[file:../psychology/202101181227-self_doubt.org][self-doubt]], [[file:../psychology/202101181227-low_self_esteem.org][low self-esteem]], [[file:../psychology/202101181227-anxiety.org][anxiety]] or [[file:../psychology/202101181228-insecurity.org][insecurity]].
+
+In fact, there’s an entire body of research dedicated to the ruminative,
+self-blaming thoughts many of us tend to have in the wake of [[[[file:../psychology/202101091511-procastinate.org][procastination]]]],
+which are known as [[[[file:../psychology/202101181230-procrastinatory_cognitions.org][procrastinatory cognitions]]]]. The thoughts we have about
+procrastination typically exacerbate our distress and stress, which contribute
+to further procrastination, Dr. Sirois said.
+
+The tendency of one to fall in a cycle of procastinating becomes even more
+plausible, since the act or [[[[file:../psychology/202101091511-procastinate.org][procastinating]]]], provides us an immediately
+relief, and due to our basic [[[[file:../psychology/202101181234-behaviorism.org][behaviorism]]]] which rewards us for something, we
+tend to do it again.
+
+Over time, chronic [[[[file:../psychology/202101091511-procastinate.org][procastination]]]] has not only productivity costs, but
+measurably destructive effects on our mental and physical health, including
+chronic stress, general psychological distress and low life satisfaction,
+symptoms of depression and anxiety, poor health behaviors, chronic illness and
+even hypertension and cardiovascular disease.
+
+Procrastination is a perfect example of present [[[[file:../psychology/202101091301-biases.org][biases]]]], our hard-wired
+tendency to prioritize short-term needs ahead of long-term ones.
+
+Dr. Hershfield’s research has shown that, on a neural level, we perceive our
+[[[[file:../fleeting/202101181241-future_selves.org][future selves]]]] more like strangers than as parts of ourselves. When we
+[[[[file:../psychology/202101091511-procastinate.org][procastinate]]]], parts of our brains actually think that the tasks we’re
+putting off — and the accompanying negative feelings that await us on the other
+side — are somebody else’s problem.

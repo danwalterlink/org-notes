@@ -1,0 +1,58 @@
+#+title: os
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 17:00]
+
+The "OS" [[[[file:202101021701-python_modules.org][python modules]]]] is what allows python to interact with the
+operating system.
+
+* File exist
+
+#+BEGIN_EXAMPLE
+  import os
+  os.path.exists("test.txt")
+
+  True
+#+END_EXAMPLE
+
+* os functions
+
+- *chdir():* to change the directory.
+- *getcwd():* returns the current working directory(CWD) in which the
+  user is currently.
+- *listdir():* It returns a list of files and the folders in the current
+  directory.
+- *mkdir():*
+- *makedirs():*
+- *rmdir():*
+- *removedirs():*
+- *remove():*
+- *rename():*
+- *system():* executing a shell command.
+- *popen():* os.popen(command[, mode[, bufsize]]) : it opens a pipe to
+  or from command. It returns an open file object connected to the pipe,
+  which can be read or written depending on whether the mode is 'r'
+  (default) or 'w'.
+- *close():* Close file descriptor fd.
+- *walk():* it is a generator that yields a couple of three values as it
+  is walking the directory tree and for each directory that it traverses
+  and produces the directory path, the direct within that path and the
+  files within that path. It is useful to keep track of all the
+  directories.
+- *os.getgid(), os.getuid(), os.getpid(), and os.stat(): getgid():*
+  returns the real group id for the current process. The getuid()
+  function returns the current process's user id and getpid() returns
+  real process id of the current process. The os.stat() function returns
+  the list of details about the file or the directory name given in the
+  argument.
+- *error:* It is environment error class for I/O errors and OSError and
+  is raised when any function returns any system-related error. Each of
+  the or module functions returns these errors when any invalid or
+  inaccessible file is triggered in the line-of-code.
+- *stat():*
+- *name:* This is the name of the imported operating system dependent
+  module. Some of the registered module are -- 'posix', 'nt', 'os2',
+  'ce', 'java' and 'riscos'.
+- *environ:* It is known as the value of an object which returns all the
+  directories of all user environment variables .E.g. 'HOME'-directory
+  environment variables

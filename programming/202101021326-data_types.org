@@ -1,0 +1,23 @@
+#+title: data type
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 13:26]
+#+roam_tags: programming datatypes
+
+In computer science and [[[[file:202101161933-computer_programming.org][computer programming]]]], a data type or simply type is
+an attribute of data which tells the compiler or interpreter how the programmer
+intends to use the data. Most programming languages support basic data types of
+integer numbers (of varying sizes), floating-point numbers (which approximate
+real numbers), characters and Booleans. A data type constrains the values that
+an expression, such as a variable or a function, might take. This data type
+defines the operations that can be done on the data, the meaning of the data,
+and the way values of that type can be stored. A data type provides a set of
+values from which an expression (i.e. variable, function, etc.) may take its
+values.
+
+The data types to know are:
+1. String
+2. Character
+3. Integer
+4. Float
+5. Boolean

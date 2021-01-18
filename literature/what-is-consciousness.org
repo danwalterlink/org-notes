@@ -1,0 +1,47 @@
+* What is Consciousness?
+  :PROPERTIES:
+  :CUSTOM_ID: what-is-consciousness
+  :END:
+
+Source =
+https://www.scientificamerican.com/article/what-is-consciousness/
+
+- Binocular Rivalry is the alteration of two images being perceived by
+  your left or right eye, and your brain unable to determine which it's
+  looking at.
+
+  - two dissimilar images are presented to each eye, and perception
+    alternates between them.
+  - a popular tool for studying perception and awareness because
+    perception changes, even when physical stimulus does not. For this
+    reason, rivalry is a popular method for studying the neural
+    correlates of visual consciousness.
+
+- primary Visual Cortex does not register what it's seeing
+- Qualia is also referred to these experiences we define as
+  consciousness
+- Daniel Dennet of Tufts University
+
+  - find the existence of consciousness such an intolerable affront to
+    what they believe should be a meaningless universe of matter and the
+    void that they declare it to be an illusion. That is, they either
+    deny that qualia exist or argue that they can never be meaningfully
+    studied by science.
+
+- Neural Correlates Of Consciousness defined as the minimal neuronal
+  mechanisms jointly sufficient for any specific conscious experience
+- Cerebellum, the little brain
+
+  - It is what coordinates complex motor movements, and allow us to do
+    things like playing the piano, typing, ice skating. Yet if your
+    cerebellum is damaged, it does not affect your consciousness.
+  - It has the most neurons, counting as high as 69 billion, four times
+    the amount than what is in your entire brain.
+
+- subjective experience
+
+  - refers to the emotional impact of an experience, as opposed to the
+    objective experience. You know what you should feel, but you
+    experience something else based off your emotions.
+
+See Also: [[[file:neural-correlates-of-consciousness]]]

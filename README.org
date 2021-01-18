@@ -1,0 +1,19 @@
+#+TITLE: Readme
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
+
+Hey there, and welcome to my little corner of space, where I share a little bit
+of what I have learned over the course of my time in this world as I share and
+try connecting the dots using the Zettelkasten note-taking method.
+
+The ultimate goal :dart: of this repository is to remain my primary source of
+storing all of my knowledge. Hopefully over time this will grow to something
+that really shows the power of how Zettelkasten works.
+
+[[file:.attach/roam.png]]
+
+* Interested in my configuration?
+
+I'm using EMACS, with org-mode, DOOM-Emacs distro and org-roam to make all of
+this work. If you are interested in my configuration, you can head over here to
+check it out -> [[https://github.com/nmartin84/.doom.d][nmartin84/.doom.d]]

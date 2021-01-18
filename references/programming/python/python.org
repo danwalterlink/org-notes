@@ -1,0 +1,1144 @@
+#+title: python
+
+* NOTES
+** common principles
+*** resources
+- [[https://www.codecademy.com/learn/learn-python-3]]
+- [[https://en.wikibooks.org/wiki/Python_Programming]]
+- [[https://www.sololearn.com/Course/Python/]]
+*** dry or wet
+For a large programming project to be successful, it is essential to abide by the *Don't Repeat Yourself*, or DRY, principle. We've already looked at one way of doing this: by using loops. In this module, we will explore two more: functions and modules.
+*** constants
+*Fixed Values* such as numbers, letters and strings, are called constants because their value *does not* change.
+** object and data structure basics
+*** i/o with basic files
+**** opening files with python
+Opening a file is possible, you just need to use the correct function to do so, such as ~myfile = open("filename.txt", "w")~. It's also possible to pass a 2nd argument to specifcy how to open the file, such as =w= for *write mode*, =r= for *read mode* and =wb= for *binary write mode*. It's also possible you can add extra modes by using a *PLUS(+)* sign.
+#+BEGIN_SRC python
+myfile = open('myfile.txt')
+#+END_SRC
+
+**** reading from a file
+NOTE: When you read a file, the cursor will move to the end of the file, so if you want to re-read the contents of that file you *must* put the cursor back to the start. Once you have a file open, you can read the contents of that file with ~cont = file.read()~, and then print that content with ~print(cont)~. In addition, with ~file.read~ you can pass an argument that's a integer, which tells it to only read xx number of bytes from the file.
+#+BEGIN_SRC python
+myfile = open('myfile.txt')
+return myfile.read()
+#+END_SRC
+
+To read from each line, use the ~.readlines~ method. ~file.readlines()~.
+#+BEGIN_SRC python :results code
+myfile = open('myfile.txt')
+return myfile.readlines()
+#+END_SRC
+
+**** closing a file
+:PROPERTIES:
+:ID:       ec06b6c6-8294-4d46-a643-6dce707e99f1
+:END:
+Once you are done with a file you need to close it using the ~.close~ method. This is import because once you are done you need to close the file. For example:
+~filename.close()~.
+#+BEGIN_SRC python
+myfile = open('myfile.txt')
+return myfile.read()
+myfile.close()
+#+END_SRC
+
+One way to ensure files are closed once you are done using them is to use the *try:* and *finally:* blocks.
+#+BEGIN_SRC python
+try:
+   f = open("filename.txt")
+   print(f.read())
+finally:
+   f.close()
+#+END_SRC
+
+Another method of making sure a file gets closed is by using the *with:* block, this creates a temporary variable (often called *f*), which is only accessible in the indented block of the *with* statement.
+#+BEGIN_SRC python
+try:
+with open("test.txt") as f:
+ print(f.read())
+final:
+ print("Error")
+#+END_SRC
+
+**** better way of opening and closing files
+use the with block to do any file operations that you need:
+#+BEGIN_SRC python
+with open('myfile.txt') as my_file:
+    contents = my_file.read()
+#+END_SRC
+
+**** writing to files
+It's not any different than opening or reading a file, you'll use the ~.write~ method to write contents followed by what you want to write.
+#+BEGIN_SRC python
+with open('myfile.txt',mode="w") as my_file:
+    my_file.write('This is my first string')
+#+END_SRC
+
+And then to write or append to a file you can do a litlte something like this:
+#+BEGIN_SRC python
+with open('myfile.txt',mode="a") as my_file:
+    my_file.write('\nMy New String')
+#+END_SRC
+
+#+BEGIN_SRC python
+with open('myfile.txt',mode='r') as my_file:
+    return my_file.read()
+#+END_SRC
+
+To write a file, use the function ~file.write("Contents written to file")~. When a file is opened in *write mode*, its contents are erased and the new contents take their place. If you want to get a message indicating how much was written to a file, you can call ~file.write(msg)~.
+
+*** none (or null)
+This is similar to *null* in that it returns nothing, false, no data... An example of this is ~print(None)~ or ~None == None~.
+** comparison operators
+Operators allow you to perform various types of functions on data, like multiplying, checking if true or false, adding, comparisons and more. Below are some tables with available operators you can use.
+
+#+CAPTION: Arithmetic Operators
+| Operator | Description    | Example |
+|----------+----------------+---------|
+| +        | Addition       | 1+1=2   |
+| -        | Subtraction    | 3-2=1   |
+| *        | Multiplication | 3*3=9   |
+| /        | Division       | 10/5=2  |
+| %        | Modules        | 11%5=1  |
+| **       | Exponent       | 3**2=9  |
+| //       | Floor division | 11//5=2 |
+
+
+#+CAPTION: Comparison Operators
+| Operator | Description             |
+|----------+-------------------------|
+| <        | Less than               |
+| <=       | Less than or equal to   |
+| >        | Greater than            |
+| >=       | Great than or equal to  |
+| ==       | Equal to                |
+| !=       | Not equal to            |
+| is       | Object Identity         |
+| is not   | Negated Object Identity |
+
+#+CAPTION: Boolean operators
+| Operator | Code Example | What it determines    |
+|----------+--------------+-----------------------|
+| or       | x or y       | Either x or y is true |
+| and      | x and y      | Both x and y are true |
+| not      | not x        | x is not full         |
+*** equality operator
+#+BEGIN_SRC python
+return 1 == 1
+#+END_SRC
+
+#+BEGIN_SRC python
+return 'string' == 'string'
+#+END_SRC
+
+*** not equal operator
+#+BEGIN_SRC python
+return 1 != 2
+#+END_SRC
+
+*** great than
+#+BEGIN_SRC python
+return 2 > 1
+#+END_SRC
+
+*** less than
+#+BEGIN_SRC python
+return 2 < 3
+#+END_SRC
+
+*** great than or equal to
+#+BEGIN_SRC python
+return 2 >= 2
+#+END_SRC
+
+*** less than or equal to
+#+BEGIN_SRC python
+return 5 <= 5
+#+END_SRC
+
+*** =and, or not= logical operators to combine comparison operators
+#+BEGIN_SRC python
+return (1 < 2) and (3 > 2)
+#+END_SRC
+
+#+BEGIN_SRC python
+return (1 < 2) or (3 < 2)
+#+END_SRC
+
+#+BEGIN_SRC python
+return not (1 == 1)
+#+END_SRC
+
+*** the percent sign
+The % symbol in Python is called the Modulo Operator. It returns the remainder of dividing the left hand operand by right hand operand. It's used to get the remainder of a division problem.
+*** in statement
+Another way to get back a boolean result
+#+begin_src python :results code
+fruit = 'banana'
+return 'n' in fruit
+#+end_src
+
+#+begin_src python
+True
+#+end_src
+
+** statements
+*** useful operators
+Here are a list of common operators to make life easier in python
+
+**** lists
+#+BEGIN_SRC python :results html
+return (list(range(10)))
+#+END_SRC
+
+**** printing indexes
+***** using the .format method
+#+BEGIN_SRC python
+index_count = 0
+for letter in 'abcde':
+    print('At index {} the letter is {}.'.format(index_count,letter))
+    index_count = += 1
+#+END_SRC
+
+***** an easier method
+Another way of doing this:
+#+BEGIN_SRC python
+index_count = 0
+word = 'abcde'
+for x in word:
+    print(word[index_count])
+    index_count += 1
+#+END_SRC
+
+***** enumerate
+And yet another way, and maybe a more interesting way is using *enumerate*. This
+is slightly different in that it prints our key and value pairs. Enumerate being
+an iterable object, like a list of values, or dictionary, something that you
+want to run a function against each item in that list.
+
+#+begin_src python :results output code :exports both
+word = 'abcde'
+for item in enumerate(word):
+    print(item)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+(0, 'a')
+(1, 'b')
+(2, 'c')
+(3, 'd')
+(4, 'e')
+#+end_src
+
+Another example
+#+BEGIN_SRC python :results output code :exports both
+word = 'abcde'
+for key,value in enumerate(word):
+    print(key)
+    print(value)
+    print('\n')
+#+END_SRC
+
+#+RESULTS:
+#+begin_src python
+0
+a
+
+
+1
+b
+
+
+2
+c
+
+
+3
+d
+
+
+4
+e
+
+
+#+end_src
+
+***** zip function
+The zip function essentially zips, or stitches together two lists so that they co-exist.
+#+BEGIN_SRC python
+numbers = '1,2,3'
+bignums = '100,200,300'
+strings = 'a,b,c'
+
+for items in zip(numbers,bignums,strings):
+   return print(items)
+#+END_SRC
+
+***** checking if a value exist
+Very simple way to check if a value exist in the item you're testing.
+#+BEGIN_SRC python
+num = 'a,b,c'
+'a' in num
+#+END_SRC
+
+For conditional checks with dictionaries, check out the condition checks against dictionaries section.
+
+***** min and max values
+#+BEGIN_SRC python
+nums = [100,200,300,5000,6000,11000]
+min(nums)
+max(nums)
+#+END_SRC
+
+***** shuffle
+Shuffle will basically randomize your list
+#+BEGIN_SRC python
+mylist = [1,2,3,4,5]
+shuffle(mylist)
+#+END_SRC
+
+***** randint
+random integer, well as you would expect, gives you a random number
+#+BEGIN_SRC python
+randint(0,100)
+#+END_SRC
+
+***** input
+getting user input, NOTE input will always capture data as a *string* and you must convert to another  data type you need.
+#+BEGIN_SRC python
+input('Enter a number: ')
+favnum = input('Enter a number: ')
+float(favnum)
+int(favnum)
+#+END_SRC
+
+**** list comprehension
+This is a useful method where you'd normally run a *for* loop with *.append* to create a list.
+#+BEGIN_SRC python :results code
+mystring = 'hello'
+mylist = [letter for letter in mystring]
+return mylist
+#+END_SRC
+
+#+begin_src python
+['h', 'e', 'l', 'l', 'o']
+#+end_src
+
+***** mathematical operations
+Another intersting key piece is mathematical operations
+#+BEGIN_SRC python :results code
+mylist = [num**2 for num in range(0,11)]
+return mylist
+#+END_SRC
+
+#+begin_src python
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+#+end_src
+
+***** ranges
+You can also add if checks  to a list comprehension
+#+BEGIN_SRC python :results code
+mylist = [num for num in range(0,11) if num%2==0]
+return mylist
+#+END_SRC
+
+#+begin_src python
+[0, 2, 4, 6, 8, 10]
+#+end_src
+
+***** calculating fahrenheit
+Here's an example of calculating the temperature
+#+BEGIN_SRC python :results code
+cels = [0,10,20,34.5]
+fah = [(1.8*temp + 32) for temp in cels]
+return fah
+#+END_SRC
+
+#+begin_src python
+[32.0, 50.0, 68.0, 94.1]
+#+end_src
+
+***** if and else statements
+So another situation is you may want to run a *if* and *elif* condition within your list comprehension, this is *NOT RECOMMENDED* because it can be hard to read, but it's possible.
+#+BEGIN_SRC python :results code
+results = [x if x%2==0 else 'ODD' for x in range(0,11)]
+return results
+#+END_SRC
+
+#+begin_src python
+[0, 'ODD', 2, 'ODD', 4, 'ODD', 6, 'ODD', 8, 'ODD', 10]
+#+end_src
+
+***** creating nested loops
+#+BEGIN_SRC python :results code
+mylist = []
+for x in [2,4,6]:
+    for y in [100,200,300]:
+        mylist.append(x*y)
+return mylist
+#+END_SRC
+
+#+begin_src python
+[200, 400, 600, 400, 800, 1200, 600, 1200, 1800]
+#+end_src
+
+And to apply this to a list comprehension:
+#+BEGIN_SRC python :results code
+mylist = [x*y for x in [2,4,6] for y in [100,200,300]]
+return mylist
+#+END_SRC
+
+#+begin_src python
+[200, 400, 600, 400, 800, 1200, 600, 1200, 1800]
+#+end_src
+
+** inbox
+*** files
+**** processing files
+#+BEGIN_SRC python
+myfile = open('file.txt')
+for i in myfile:
+    print(i)
+#+END_SRC
+
+***** building a line counter
+#+BEGIN_SRC python
+fhand = open('file.txt')
+count = 0
+for line in fhand:
+    count = count + 1
+print('Line Count:', count)
+#+END_SRC
+
+***** if line equals
+#+BEGIN_SRC python
+fhand = open('file.txt')
+for line in fhand:
+    if line.startswith('From:'):
+        return(line[6:100])
+#+END_SRC
+
+***** stripping whitespace
+:PROPERTIES:
+:ID:       2aac4de7-80d5-4b44-9e59-33bdf0410e0b
+:END:
+You can use the method ~.rstrip()~ to remove whitespaces from a string.
+#+BEGIN_SRC python
+x = 'text data '
+print(x.rstrip())
+#+END_SRC
+*** adding to dictionary values even if key does not exist
+#+BEGIN_SRC python
+counts = dict()
+names = ['csev', 'cwen', 'csev', 'zqian', 'cwen']
+for name in names:
+    if name not in counts:
+        counts[name] = 1
+    else:
+        counts[name] = counts[name] + 1
+print(counts)
+#+END_SRC
+
+Alternatively, there is an easier method to add to your dictionary using ~.get~.
+#+BEGIN_SRC python
+counts = dict()
+names = ['csev', 'cwen', 'csev', 'zqian', 'cwen']
+for name in names:
+    counts[name] = counts.get(name, 0) #name = key in dic, 0 = default value if not found.
+print(counts)
+#+END_SRC
+*** count words in a block of text
+#+BEGIN_SRC python
+counts = dict()
+print('Enter a line of text:')
+line = input('')
+
+words = line.split()
+
+print('Words:', words)
+
+print('Counting...')
+for word in words:
+    counts[word] = counts.get(word,0) + 1
+print('Counts', counts)
+#+END_SRC
+
+*** for loop to go through all entries in dictionary
+#+BEGIN_SRC python
+counts = {'chuck':1,'fred':42,'jan':100}
+for key in counts:
+    print(key, counts[key])
+#+END_SRC
+
+*** retrieving list of keys and values from dictionaries
+#+BEGIN_SRC python
+counts = {'chuck':1,'fred':42,'jan':100}
+print(list(counts))
+# ['chuck', 'fred', 'jan']
+print(jjj.keys())
+# ['chuck', 'fred', 'jan']
+print(jjj.values())
+# [1, 42, 100]
+print(jjj.items())
+# [('chuck', 1), ('fred', 42), ('jan', 100)]
+#+END_SRC
+
+*** for loop dictionaries and two iteration variables
+#+BEGIN_SRC python
+counts = {'chuck':1,'fred':42,'jan':100}
+for aaa,bbb in jjj.items():
+    print(aaa, bbb)
+#+END_SRC
+*** what you need for regex
+You'll usually need to import the regex library ~import re~, then ~re.search()~ and ~find()~.
+The following should help you get the basics.
++ ^ matches the beginning of a line
++ $ matches the end of a line
++ . matches any character
++ \s matches whitespace
++ \S matches any non-whitespace character
++ * repeats a character zero or more times
++ *? repeats a character zero or more times (non-greedy)
++ + repeats a character one or more times
++ +? repeats a character one of more times (non-greedy)
++ [aeious] Matches a single character in the listed set
++ [^XYZ] matches a singel character not in the listed set
++ [a-z0-9] the set of characters can include a range
++ ( Indicates where string extraction is to start
++ ) Indicates where string extraction will stop
+*** regex to extract data
+#+BEGIN_SRC python
+import re
+x = 'My 2 favorite numbers are 19 and 42'
+return re.findall('[0-9]+',x)
+#+END_SRC
+*** greedy matching
+#+BEGIN_SRC python
+import re
+x = 'From: Using the: character'
+y = re.findall('^F.+:', x) # Returns 'From: Using the:' cause it matches as much as possible.
+y = re.findall('^F.+?:', x) # Is not greedy, and only returns the first matching string.
+return(y)
+#+END_SRC
+*** extracting email addresses
+#+BEGIN_SRC python :results code
+import re
+lin = 'nick.martin@uct.ac.za'
+y = re.findall('@(\w.+)*',lin)
+return(y)
+#+END_SRC
+
+#+begin_src python
+['uct.ac.za']
+#+end_src
+*** connecting with sockets
+For more information check out the link http://docs.python.org/library/socket.html
+#+BEGIN_SRC python
+import socket
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect( ('data.pr4e.org', 80) )
+cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\n\n'.encode()
+mysock.send(cmd)
+
+while True:
+    data = mysock.recv(512)
+    if (len(data) < 1):
+        break
+    print(data.decode())
+mysock.close()
+#+END_SRC
+*** to find original numeric value for letter
+#+BEGIN_SRC python :results code
+print(ord('H'))
+#+END_SRC
+
+#+begin_src python
+72
+#+end_src
+*** unicode strings
+In python 3+ all strings are treated as unicode.
+*** socket decoding to determine byte level
+Everything inside pyton3 will be utf-8, but outside you never know what you're dealing with. So the ~.decode~ method is used to determine what it is and ~.encode~ to send it back in it's correct format.
+*** retrieving http web pages the easy way with urllib
+urllib takes care of some of the tidious steps for retrieving an html document for us.
+#+BEGIN_SRC python :results code
+import urllib.request, urllib.parse, urllib.error
+
+fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+for line in fhand:
+    print(line.decode().strip())
+#+END_SRC
+
+#+begin_src python
+But soft what light through yonder window breaks
+#+end_src
+*** scraping the web with beautifulsoup
+Download beautifulsoup: [[https://pypi.python.org/pypi/beautifulsoup4]]. Then import libraries:
+#+BEGIN_SRC python :results code
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup
+
+url = 'http://www.dr-chuck.com/page1.htm'
+html = urllib.request.urlopen(url).read()
+soup = BeautifulSoup(html, 'html.parser')
+
+tags = soup('a')
+for tag in tags:
+    return(tag.get('href', None))
+#+END_SRC
+
+#+RESULTS:
+#+begin_src python
+#+end_src
+
+#+begin_src python
+page1.htm
+#+end_src
+*** ssl handshaking
+#+BEGIN_SRC python
+import urllib.request, urllib.parse, urllib.error
+from urllib.request import Request, urlopen
+from bs4 import BeautifulSoup
+import ssl
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+class AppURLopener(urllib.request.FancyURLopener):
+    version = "Mozilla/5.0"
+
+opener = AppURLopener()
+response = opener.open('http://httpbin.org/user-agent')
+
+url = input('Enter - ')
+html = urllib.request.urlopen(url, context=ctx).read()
+soup = BeautifulSoup(req, 'html.parser')
+
+tags = soup('a')
+for tag in tags:
+    return(tag.get('href', None))
+#+END_SRC
+*** xml handling :ATTACH:
+:PROPERTIES:
+:ID:       419557ec-806f-4683-8ab8-a7f5ebf2c4c7
+:END:
+[[attachment:xml.png]]
+*** xml validation
+With python there's a way to validate the xml data to make sure the data is good, and not bad data.
+*** multiline strings
+Importing multiline strings requires ~'''~ before the start and ~'''~ at the end. This will essentially enclose your multiline string inside this block and tell Python to treat this as one string.
+#+BEGIN_SRC python
+import xml.etree.ElementTree as ET
+data = ''' <person>
+<name>Chuck</name>
+<phone type="intl">
+ +1 734 303 4456
+</phone>
+<email hide="yes"/>
+</person>
+'''
+#+END_SRC
+*** json data
+#+BEGIN_SRC python
+import json
+data = ''' {
+ "name" : "Chuck",
+ "phone" : {
+  "type" : "intl",
+  "number" : "+1 734 303 4456"
+  },
+ "email" : {
+  "hide" : "yes"
+  }
+}'''
+
+info = json.loads(data)
+print('Name:',info["name"])
+print('Hide:',info["email"]["hide"])
+#+END_SRC
+*** retrieving google maps api and passing into while loop
+#+BEGIN_SRC python
+import urllib.request, urllib.parse, urllib.error
+import json
+
+serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
+
+while True:
+    address = input('Enter Location: ')
+    if len(address) < 1: break
+
+    url = serviceurl + urllib.parse.urlencode({'address': address}) # url.encode is what takes the spaces, and turns them into %20 and makes the name URL friendly. This also concatenates your serviceurl + search string into a URL friendly format.
+
+    print('Retrieving', url)
+    uh = urllib.request.urlopen(url)
+    data = uh.read().decode()
+    print('Retrieved', len(data), 'characters')
+
+    try:
+        js = json.loads(data)
+    except:
+        js = None
+
+    if not js or 'status' not in js or js['status'] != 'OK':
+        print('====Failure to retrieve ====')
+        print(data)
+        continue
+
+    lat = js["results"][0]["geometry"]["location"]["lat"]
+    lng = js["results"][0]["geometry"]["location"]["lat"]
+    print('lat', lat, 'lng', lng)
+    location = js['results'][0]['formatted_addess']
+    print(location)
+#+END_SRC
+*** creating object defined classes :ATTACH:
+:PROPERTIES:
+:ID:       91f9f26e-5736-483a-89a6-64a84d64b71c
+:END:
+Python is an object oriented language, and classes are one way of creating these objects... You take a bunch of instructions, with variables and whatever else you need, and wrap it up into a ~class~.
+[[attachment:_20201008_220831classes.png]]
+*** defining new classes
+#+BEGIN_SRC python
+class PartyAnimal:
+    x = 0
+
+    def party(self):
+        self.x = self.x + 1
+        print("So far",self.x)
+
+an = PartyAnimal()
+
+an.party()
+#+END_SRC
+*** constructor :ATTACH:
+:PROPERTIES:
+:ID:       0cf0c8db-e2c2-41cd-81a6-fc249d9ddff6
+:END:
+called when an object is created
+#+BEGIN_SRC python
+def __init__(self):
+    print('I am constructed')
+
+    def party(self):
+        self.x = self.x + 1
+        print('So far',self.x)
+#+END_SRC
+[[attachment:_20201008_230232constructor.png]]
+
+*** destructor :ATTACH:
+:PROPERTIES:
+:ID:       89fdbb03-41ea-427b-af0d-983ca3e0ced6
+:END:
+Once everything is ran, unless we are setting something to a new value, the
+destuctor will release everything from memory.
+#+BEGIN_SRC python
+def __del__(self):
+    print('i am destructed', self.x)
+#+END_SRC
+[[attachment:_20201008_230324constructor_destructorr.png]]
+
+*** self
+#+BEGIN_SRC python
+class car():
+
+    # init method or constructor
+    def __init__(self, model, color):
+        self.model = model
+        self.color = color
+
+    def show(self):
+        print("Model is", self.model )
+        print("color is", self.color )
+
+# both objects have different self which
+# contain their attributes
+audi = car("audi a4", "blue")
+ferrari = car("ferrari 488", "green")
+
+audi.show()     # same output as car.show(audi)
+ferrari.show()  # same output as car.show(ferrari)
+
+# Behind the scene, in every instance method
+# call, python sends the instances also with
+# that method call like car.show(audi)
+#+END_SRC
+
+#+RESULTS:
+*** subclass
+more specialized versions of a class, which *inherit* attributes and behaviors
+from their parent classes, and can introduce their own. Example being:
+- Parent class = Animal
+  + Sub class = Dog
+  + Sub class = Cat
+  + Sub class + Bird
+*** extending a class :ATTACH:
+:PROPERTIES:
+:ID:       d8997582-23c1-44df-9257-e33f4db7b6c2
+:END:
+[[attachment:_20201008_232700class_extend.png]]
+
+#+BEGIN_SRC python
+class PartyAnimal:
+    x = 0
+    name = ''
+    def __init__(self, nam):
+        self.name = nam
+        print(self.name,"constructed")
+
+    def party(self):
+        self.x = self.x + 1
+        print(self.name,"party count",self.x)
+
+class FootballFan(PartyAnimal):
+    points = 0
+    def touchdown(self):
+        self.points = self.points + 7
+        self.party()
+        print(self.name,"points",self.points)
+    # everything in this class gets extended to what PartyAnimal already had defined.
+#+END_SRC
+*** Lambda Expression
+So lambda expressions are anonymous functions that aren't defined and callable
+outside of the code block.
+
+#+BEGIN_SRC python :results code
+square = lambda num: num ** 2
+
+mynums = [1,2,3]
+
+return list(map(lambda num:num**2,mynums))
+#+END_SRC
+
+#+begin_src python
+[1, 4, 9]
+#+end_src
+
+Another example of running lambda against a filter function:
+#+BEGIN_SRC python :results code
+mynums = [1,2,3,4,5,6]
+return list(filter(lambda num:num%2 == 0,mynums))
+#+END_SRC
+
+#+begin_src python
+[2, 4, 6]
+#+end_src
+
+Here's another example using strings, and only returning the first index of a
+dictionary.
+#+BEGIN_SRC python :results code
+names = ['Linda', 'Harry', 'Robert']
+return list(map(lambda name:name,names))
+#+END_SRC
+
+#+begin_src python
+['Linda', 'Harry', 'Robert']
+#+end_src
+*** connecting sqlite database and creating table
+:PROPERTIES:
+:ID:       7d0ec946-1f48-4746-8caa-fad003fac22d
+:END:
+The =?= in the code, is essentially a safe measure for SQL statements. Because
+your variable could end up being passed literally to the SQL statement. Check
+out [[google:sql injections]].
+#+BEGIN_SRC python
+import sqlite3
+conn = sqlite3.connect('emaildb.sqlite')
+cur = conn.cursor()
+
+cur.execute('DROP TABLE IF EXISTS Counts')
+
+cur.execute('CREATE TABLE Counts (email TEXT, count INTEGER)')
+
+fname = input('Enter file name: ')
+if (len(fname)) < 1): fname = 'mbox-short.txt'
+fh = open(fname)
+for line in fh:
+    if not line.startswith('From: '): continue
+    pieces = line.split()
+    email = pieces[1]
+    cur.execute('SELECT count FROM Counts WHERE email = ? ', (email,)) #<<cur.execute>>
+    row = cur.fetchone()
+    if row is None:
+        cur.execute('INSERT INTO COunts (email, count) VALUES (?, 1)', (email,))
+    else:
+        cur.execute('UPDATE Counts SET count = count + 1 WHERE email = ?', (email,))
+    conn.commit()
+
+sqlstr = 'SELECT email, count FROM Counts ORDER BY count DESC LIMIT 10'
+
+for row in cur.execute(sqlstr):
+    print(str(row[0]), row[1])
+
+cur.close()
+#+END_SRC
+
+What is =conn.cursor()= and how does it work in conjuction with the =cur.fetchone()=
+in relation to the ~row = cur.fetchone()~ and ~if row is None:~? So cur.fetchone()
+is fetching the cur.execute method that was called just before it.
+*** building data models with databases :ATTACH:
+:PROPERTIES:
+:ID:       1853fc14-19c2-4ea5-a636-8e0ae67099a7
+:END:
+-----
+The way I was taught, to start at the right place, was to think about the thing
+that is the most essential to this application. What is the one-sentence
+description of this application? And in this application, it's a thing that
+manages tracks.
+- Drawing a picture of the data objects for our applicationa nd then figuring out how to represent the objects and their relationships.
+  + [[attachment:_20201019_190825screenshot.png]]
+- Basic rule: Don't put the same string data in twice - use a relationship instead.
+- When there is one thing in teh "real world" there should be one copy of that thing in the database.
+
+Essentially to create this *link* that points to a table field, we have to add an
+=id= data type. This will give each unique item and *id* number that only exist for
+each entry. Now to better understand this, we have to understand some basic
+metadata types for tables.
+- =primary key= = primary key for every row in the table, also the *end* of the arrow.
+- =foreign key= = starting point of the arrow.
+- =logical key= = may use to lookup row from outside this application, such as in a *WHERE* clause.
+- [[attachment:_20201019_193255screenshot.png]]
+
+When we create the table, we tend to create the ends of the arrows before the
+starts of the arrows.
+- [[attachment:_20201019_194440screenshot.png]]
+
+The =JOIN= operation is what's going to allow you to pull this data together,
+using the foreign ID fields you created earlier.
+- The JOIN clause will look something like this: ~select Album.title, Artist.name from Album join Artist on Album.artist_id = Artist.id~.
+- [[attachment:_20201019_202010screenshot.png]]
+
+#+begin_src python :tangle db-music.py :comments link
+import xml.etree.ElementTree as ET
+import sqlite3
+
+conn = sqlite3.connect('trackdb.sqlite')
+cur = conn.cursor()
+
+# Make some fresh tables using executescript()
+cur.executescript('
+DROP TABLE IF EXIST Artist;
+DROP TABLE IF EXIST Album;
+DROP TABLE IF EXIST Track;
+
+CREATE TABLE Artist (
+ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ name TEXT UNIQUE
+);
+
+CREATE TABLE Album (
+ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ artist_id INTEGER,
+ title TEXT UNIQUE
+);
+
+CREATE TABLE Track (
+ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ title TEXT UNIQUE,
+ album_id INTEGER,
+ len INTEGER, rating INTEGER, count INTEGER
+);
+')
+
+
+fname = input('Enter itunes export.xml file: ')
+if ( len(fname) < 1 ) : fname = 'Library.xml'
+
+def lookup(d, key):
+    found = False
+    for child in d:
+        if found : return child.text
+        if child.tag == 'key' and child.text == key :
+            found = True
+    return None
+
+stuff = ET.parse(fname)
+all = stuff.findall('dict/dict/dict')
+print('Dict count:', len(all))
+for entry in all:
+    if ( lookup(entry, 'Track ID') is None ) : continue
+
+    name = lookup(entry, 'Name')
+    artist = lookup(entry, 'Arist')
+    album = lookup(entry, 'Album')
+    count = lookup(entry, 'Play Count')
+    rating = lookup(entry, 'Rating')
+    length = lookup(entry, 'Total Time')
+
+    if name is None or arist is None or album is None :
+        continue
+
+    print(name, artist, album, count, rating, length)
+
+    cur.execute('INSERT OR IGNORE INTO Artist (name) VALUES ( ? )', ( artist, ) )
+    cur.execute('SELECT id FROM Artist WHERE name = ? ', (artist, ))
+    artist_id = cur.fetchone()[0]
+
+    cur.execute('INSERT OR IGNORE INTO Album (title, artist_id) VALUES ( ?, ? )' (album, artist_id ) )
+    cur.execute('SELECT id FROM Album WHERE title = ? ', (album, ))
+    album_id = cur.fetchone()[0]
+    cur.execute('INSERT OR REPLACE INTO Track (title, album_id, len, rating, count) VALUES ( ?, ?, ?, ?, ? )', ( name, album_id, length, rating, count ) )
+
+    conn.commit()
+#+end_src
+*** many to many relations with databases                                     :ATTACH:
+:PROPERTIES:
+:ID:       1283e732-c00f-4293-8bf2-4fe0054c491e
+:END:
+So it looks like for many to many relations, for example:
+- Artists --> Multiple Albums
+- Albums --> Multiple Artists
+
+To create something like this, we would create a *junction* table which
+essentially acts as a junction between two tables to link everything up: \\
+[[attachment:_20201022_201725screenshot.png]]
+
+Here's how we will join these tables together: \\
+[[attachment:_20201022_213545screenshot.png]]
+
+Example python script to use a many to many relational database:
+#+BEGIN_SRC python :tangle manytomany.py :comments link
+import json
+import sqlite3
+
+conn = sqlite3.connect('rosterdb.sqlite')
+cur = conn.cursor()
+
+# Do some setup
+cur.executescript('DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Member;
+DROP TABLE IF EXISTS Course;
+
+CREATE TABLE User (
+ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ name TEXT UNIQUE
+);
+
+CREATE TABLE Course (
+ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ title TEXT UNIQUE
+);
+
+CREATE TABLE Member (
+ user_id INTEGER,
+ course_id INTEGER,
+ role INTEGER,
+ PRIMARY KEY (user_id, course_id)
+)')
+
+fname = input('Enter file name: ')
+if len(fname) < 1:
+    fname = 'roster_data_sample.json'
+
+str_data = open(fname).read()
+json_data = json.loads(str_data)
+
+for entry in json_data:
+    name = entry[0];
+    title = entry[1];
+
+    print((name, title))
+
+    cur.execute('INSERT OR IGNORE INTO User (name) VALUES ( ? )', ( name, ) )
+    cur.execute('SELECT id FROM User WHERE name = ? ', (name, ))
+    user_id = cur.fetchone()[0]
+
+    cur.execute('INSERT OR IGNORE INTO Course (title) VALUES ( ? )', ( title, ) )
+    cur.execute('SELECT id FROM Course WHERE name = ? ', (title, ))
+    user_id = cur.fetchone()[0]
+
+    cur.execute('INSERT OR REPLACE INTO Member (user_id, course_id) VALUES ( ?, ? )', ( user_id, course_id ) )
+
+    conn.commit()
+#+END_SRC
+*** creating multi app for geodata with google maps api                       :ATTACH:
+:PROPERTIES:
+:ID:       fd64bab2-6ed9-4eb9-aa5f-40f06472e557
+:END:
+[[attachment:_20201022_221613screenshot.png]]
+*** geodata load data example
+An example of taking google maps data, and parsing it back to a sqlite database
+and then feeding it to a JS and HTML file to display locations.
+#+BEGIN_SRC python :tangle geoload.py :comments link
+import urllib.request, urllib.parse, urllib.error
+import http
+import sqlite3
+import json
+import time
+import ssl
+import sys
+
+api_key = False
+# If you have a Google Places API key, enter it here
+# api_key = 'AIzaSy___IDByT70'
+
+if api_key is False:
+    api_key = 42
+    serviceurl = "http://py4e-data.dr-chuck.net/json?"
+else :
+    serviceurl = "https://maps.googleapis.com/maps/api/geocode/json?"
+
+# Additional detail for urllib
+# http.client.HTTPConnection.debuglevel = 1
+
+conn = sqlite3.connect('geodata.sqlite')
+cur = conn.cursor()
+
+cur.execute('''
+CREATE TABLE IF NOT EXISTS Locations (address TEXT, geodata TEXT)''')
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+fh = open("where.data")
+count = 0
+for line in fh:
+    if count > 200 :
+        print('Retrieved 200 locations, restart to retrieve more')
+        break
+
+    address = line.strip()
+    print('')
+    cur.execute("SELECT geodata FROM Locations WHERE address= ?",
+        (memoryview(address.encode()), ))
+
+    try:
+        data = cur.fetchone()[0]
+        print("Found in database ",address)
+        continue
+    except:
+        pass
+
+    parms = dict()
+    parms["address"] = address
+    if api_key is not False: parms['key'] = api_key
+    url = serviceurl + urllib.parse.urlencode(parms)
+
+    print('Retrieving', url)
+    uh = urllib.request.urlopen(url, context=ctx)
+    data = uh.read().decode()
+    print('Retrieved', len(data), 'characters', data[:20].replace('\n', ' '))
+    count = count + 1
+
+    try:
+        js = json.loads(data)
+    except:
+        print(data)  # We print in case unicode causes an error
+        continue
+
+    if 'status' not in js or (js['status'] != 'OK' and js['status'] != 'ZERO_RESULTS') :
+        print('==== Failure To Retrieve ====')
+        print(data)
+        break
+
+    cur.execute('''INSERT INTO Locations (address, geodata)
+            VALUES ( ?, ? )''', (memoryview(address.encode()), memoryview(data.encode()) ) )
+    conn.commit()
+    if count % 10 == 0 :
+        print('Pausing for a bit...')
+        time.sleep(5)
+
+print("Run geodump.py to read the data from the database so you can vizualize it on a map.")
+#+END_SRC

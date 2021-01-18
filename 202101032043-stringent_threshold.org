@@ -1,0 +1,5 @@
+#+title: stringent threshold
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-03 20:43]
+#+roam_tags: hypothesis

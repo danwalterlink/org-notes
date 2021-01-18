@@ -1,0 +1,243 @@
+#+title: built-in functions
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 16:57]
+
+* Python Functions
+The following are [[[[file:202101172028-python_functions.org][python functions]]]] that are built into the language.
+
+- *abs():* Returns the absolute value of a number
+- *all():* Returns True if all items in an iterable object are true
+- *any():* Returns True if any item in an iterable object is true
+- *ascii():* Returns a readable version of an object. Replaces
+  none-ascii characters with escape character
+- *bin():* Returns the binary version of a number
+- *bool():* Returns the boolean value of the specified object
+- *bytearray():* Returns an array of bytes
+- *bytes():* Returns a bytes object
+- *callable():* Returns True if the specified object is callable,
+  otherwise False
+- *chr():* Returns a character from the specified Unicode code.
+- *classmethod():* Converts a method into a class method
+- *compile():* Returns the specified source as an object, ready to be
+  executed
+- *complex():* Returns a complex number
+- *delattr():* Deletes the specified attribute (property or method) from
+  the specified object
+- *dict():* Returns a dictionary (Array)
+- *dir():* Returns a list of the specified object's properties and
+  methods
+- *divmod():* Returns the quotient and the remainder when argument1 is
+  divided by argument2
+- *enumerate():* Takes a collection (e.g. a tuple) and returns it as an
+  enumerate object
+- *eval():* Evaluates and executes an expression
+- *exec():* Executes the specified code (or object)
+- *filter():* Use a filter function to exclude items in an iterable
+  object
+- *float():* Returns a floating point number
+- *format():* Formats a specified value
+- *frozenset():* Returns a frozenset object
+- *getattr():* Returns the value of the specified attribute (property or
+  method)
+- *globals():* Returns the current global symbol table as a dictionary
+- *hasattr():* Returns True if the specified object has the specified
+  attribute (property/method)
+- *hash():* Returns the hash value of a specified object
+- *help():* Executes the built-in help system
+- *hex():* Converts a number into a hexadecimal value
+- *id():* Returns the id of an object
+- *input():* Allowing user input
+- *int():* Returns an integer number
+- *isinstance():* Returns True if a specified object is an instance of a
+  specified object
+- *issubclass():* Returns True if a specified class is a subclass of a
+  specified object
+- *iter():* Returns an iterator object
+- *len():* Returns the length of an object
+- *list():* Returns a list
+- *locals():* Returns an updated dictionary of the current local symbol
+  table
+- *map():* Returns the specified iterator with the specified function
+  applied to each item
+- *max():* Returns the largest item in an iterable
+- *memoryview():* Returns a memory view object
+- *min():* Returns the smallest item in an iterable
+- *next():* Returns the next item in an iterable
+- *object():* Returns a new object
+- *oct():* Converts a number into an octal
+- *open():* Opens a file and returns a file object
+- *ord():* Convert an integer representing the Unicode of the specified
+  character
+- *pow():* Returns the value of x to the power of y
+- *print():* Prints to the standard output device
+- *property():* Gets, sets, deletes a property
+- *range():* Returns a sequence of numbers, starting from 0 and
+  increments by 1 (by default)
+- *repr():* Returns a readable version of an object
+- *reversed():* Returns a reversed iterator
+- *round():* Rounds a numbers
+- *set():* Returns a new set object
+- *setattr():* Sets an attribute (property/method) of an object
+- *slice():* Returns a slice object
+- *sorted():* Returns a sorted list
+- *@staticmethod():* Converts a method into a static method
+- *str():* Returns a string object
+- *sum():* Sums the items of an iterator
+- *super():* Returns an object that represents the parent class
+- *tuple():* Returns a tuple
+- *type():* Returns the type of an object
+- *vars():* Returns the dict property of an object
+- *zip():* Returns an iterator, from two or more iterators
+
+** Opening a file with Python
+
+Opening a file is possible, you just need to use the correct function to
+do so, such as =myfile = open("filename.txt", "w")=. It is also possible
+to pass a 2nd argument to specify how to open the file, such as *w* for
+write mode, *r* for read mode and *wb* for binary write mode. It's also
+possible you can add extra modes by using a PLUS(+) sign.
+
+#+BEGIN_SRC python
+  myfile = open('myfile.txt')
+#+END_SRC
+
+#+BEGIN_QUOTE
+  ✔️ *NOTE:* You must use =myfile.close()= when you are done, to tell
+  python to close the file. Otherwise it'll leave the file open.
+#+END_QUOTE
+
+There are more efficient ways of opening files, that'll close the file
+when it's done running whatever code you have in it's block. That way is
+using the =with open= statement.
+
+#+BEGIN_SRC python
+  with open("myfile.csv") as file:
+      contents = file.read()
+#+END_SRC
+
+** Filter
+
+The filter function will only return a list that returns *True* in a
+function's condition statement.
+
+#+BEGIN_EXAMPLE
+  def check_even(num):
+      return num%2 == 0
+  mynums = [1,2,3,4,5,6]
+  list(filter(check_even,mynums))
+
+  # or use a for iterate
+  for n in filter(check_even,mynums):
+      print(n)
+#+END_EXAMPLE
+
+** Map
+
+Map would expect a function to work
+
+#+BEGIN_EXAMPLE
+  def square(num):
+      return num**2
+
+  my_nums = [1,2,3,4,5]
+
+  for item in map(square,my_nums):
+      print(item)
+
+  # if you want the list bck
+  list(map(square,my_nums))
+#+END_EXAMPLE
+
+Another example using strings
+
+#+BEGIN_EXAMPLE
+  def splicer(mystring):
+      if len(mystring)%2 == 0:
+          return 'EVEN'
+      else:
+          return mystring[0]
+
+  names = ['Andy', 'Eve', 'Sally']
+
+  list(map(splicer,names))
+#+END_EXAMPLE
+
+** Type
+
+Returns type of object
+
+#+BEGIN_EXAMPLE
+  string = "hello"
+  type(string)
+
+  <class 'str'>
+#+END_EXAMPLE
+
+** File Handling
+
+- *References:*
+  [[https://docs.python.org/3/library/functions.html#open][open
+  references]]
+
+*** File Methods
+
+- *close():* Closes the file
+- *detach():* Returns the separated raw stream from the buffer
+- *fileno():* Returns a number that represents the stream, from the
+  operating system's perspective
+- *flush():* Flushes the internal buffer
+- *isatty():* Returns whether the file stream is interactive or not
+- *read():* Returns the file content
+- *readable():* Returns whether the file stream can be read or not
+- *readline():* Returns one line from the file
+- *readlines():* Returns a list of lines from the file
+- *seek():* Change the file position
+- *seekable():* Returns whether the file allows us to change the file
+  position
+- *tell():* Returns the current file position
+- *truncate():* Resizes the file to a specified size
+- *writable():* Returns whether the file can be written to or not
+- *write():* Writes the specified string to the file
+- *writelines():* Writes a list of strings to the file
+
+*** Reading Files
+
+**** Reading an entire file
+
+#+BEGIN_EXAMPLE
+  infile = "test.txt"
+
+  with open(infile) as text:
+      return(text.read().strip())
+
+  Example Data
+  For some intersting results
+
+  Check out the new blog site
+
+  Factual checking...
+#+END_EXAMPLE
+
+**** Reading one line at a time
+
+#+BEGIN_EXAMPLE
+  infile = "test.txt"
+
+  with open(infile) as text:
+      return(text.readline())
+      text.close()
+
+  Example Data
+#+END_EXAMPLE
+
+**** Read line by line
+
+#+BEGIN_EXAMPLE
+  infile = "test.txt"
+
+  with open(infile) as text:
+      return(text.readlines())
+
+  ['Example Data\n', 'For some intersting results\n', '\n', 'Check out the new blog site\n', '\n', 'Factual checking...\n']
+#+END_EXAMPLE

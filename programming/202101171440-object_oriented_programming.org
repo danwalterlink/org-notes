@@ -1,0 +1,24 @@
+#+title: object-oriented programming
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 14:40]
+
+Object-oriented programming (OOP) is a programming paradigm based on the concept
+of [[[[file:202101171444-object.org][object]]]], which can contain data and code: data in the form of [[[[file:202101171504-fields.org][fields]]]]
+(often known as attributes or properties), and code, in the form of
+[[[[file:202101171418-subroutine.org][subroutine]]]].
+
+A feature of [[[[file:202101171444-object.org][object]]]] is that an object's own procedures can access and often
+modify the data fields of itself (objects have a notion of ~this~ or ~self~). In
+OOP, computer programs are designed by making them out of objects that interact
+with one another. OOP languages are diverse, but the most popular ones are
+class-based, meaning that objects are instances of [[[[file:202101171505-class.org][class]]]], which also determine
+their types.
+
+Many of the most widely used programming languages (such as C++, Java, Python,
+etc.) are multi-paradigm and they support object-oriented programming to a
+greater or lesser degree, typically in combination with imperative, procedural
+programming. Significant object-oriented languages include: (list order based on
+TIOBE index) Java, C++, C#, Python, R, PHP, Visual Basic.NET, JavaScript, Ruby,
+Perl, Object Pascal, Objective-C, Dart, Swift, Scala, Kotlin, Common Lisp,
+MATLAB, and Smalltalk.

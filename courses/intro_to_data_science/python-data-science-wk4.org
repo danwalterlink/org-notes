@@ -1,0 +1,105 @@
+#+TITLE: Answering Questions with Messy Data
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
+
+This lecture is going to cover topics around some basics of *Statistical* testing
+in python. There's also going to be talks about *hypothesis testing*, *statistical
+significance* and using *scipy* to run student's t-tests.
+
+* Introduction to Data Science with Python - week 4
+
+So first example is looking at the stats function from scipy. Scipy is a module
+which includes most of the other modules you would need for scientific data,
+such as pandas, numpy, matplotlib and a number of other modules.
+
+When we are running [[[[file:../../../202101031336-hypothesis_testing.org][hypothesis testing]]]], we have two statements of interest:
+The first is our actual explanation, which we call the alternative hypothesis,
+and the second is that the explanation we have is not sufficient, and we call
+this the *null hypothesis*. Our actual testing method is to determine if the null
+hypothesis is true or not. If we find that there is a difference between the two
+groups, then we reject our null hypothesis and accept our alternative
+hypothesis.
+
+When it comes to [[[[file:../../../202101031336-hypothesis_testing.org][hypothesis testing]]]] we have to choose a threshold for how
+much we are willing to accept. This significance level is usually called the
+*alpha*. For this example, we will use a threshold of *0.05* or *5%*. For this test,
+we are going to use a scipy function called ~ttest_ind()~ which does an
+independent t-test. The results of this test are returned as *t-statistics* and a
+*p-value*. This p-value is what we are interested in, and is our probability
+result (ranging from 0 to 1) and indicates how likely are calculation being
+True.
+
+#+begin_src python :results output code :exports both
+import pandas as pd
+import numpy as np
+from scipy import stats
+from scipy.stats import ttest_ind
+
+df=pd.read_csv("../week2/class_grades.csv")
+print(f"There are {df.shape[0]} rows and {df.shape[1]} columns.")
+
+high_performers=df[df['homewk1'] > 70.0]
+low_performers=df[df['homewk1'] < 70.0]
+print(f"\n# High performer final exam average: {high_performers['exam'].mean()}")
+print(f"# Low performer final example average: {low_performers['exam'].mean()}\n")
+
+print(ttest_ind(high_performers['exam'], low_performers['exam']))
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+There are 20 rows and 6 columns.
+
+# High performer final exam average: 85.9090909090909
+# Low performer final example average: 77.71428571428571
+
+Ttest_indResult(statistic=1.1495341186577355, pvalue=0.26722953201710753)
+#+end_src
+
+As we can see from our result, when we compare final exam results between high
+and low performers, we can see that we get a pvalue of *0.26* back.
+
+It would seem that here recently the *p-value* method has come under fire by the
+community for being an insufficient for telling us enough about the interactions
+which are happening, and two other techniques, confidence intervalues and
+bayesian analyses, are being used more regularly.
+
+One issue with p-value is that as you run more tests, you are likely to get a
+value which is statistically greater just by chance. Here's a simulation to show
+this in the works.
+
+#+begin_src python :results output html :exports both
+import pandas as pd
+import numpy as np
+from scipy import stats
+from scipy.stats import ttest_ind
+
+df1=pd.DataFrame([np.random.random(100) for x in range(100)])
+df2=pd.DataFrame([np.random.random(100) for x in range(100)])
+
+def test_columns(alpha=0.05):
+    num_diff=0
+    for col in df1.columns:
+        teststat,pval=ttest_ind(df1[col],df2[col])
+        if pval<=alpha:
+            print("Col {} is statistically significantly different at alpha={}, pval={}.".format(col,alpha,pval))
+            num_diff=num_diff+1
+    print("Total number different was {}, which is {}%".format(num_diff,float(num_diff)/len(df1.columns)*100))
+
+test_columns()
+#+end_src
+
+In this example, we can see that our p-value is less than our alpha so we would
+reject our null hypothesis.
+
+#+RESULTS:
+#+begin_export html
+Col 16 is statistically significantly different at alpha=0.05, pval=0.041629784132939524.
+Col 23 is statistically significantly different at alpha=0.05, pval=0.039623450888033.
+Col 38 is statistically significantly different at alpha=0.05, pval=0.02485382454530837.
+Col 53 is statistically significantly different at alpha=0.05, pval=8.472780804179343e-05.
+Col 56 is statistically significantly different at alpha=0.05, pval=0.022336554095196564.
+Col 73 is statistically significantly different at alpha=0.05, pval=0.0019153153064714742.
+Col 82 is statistically significantly different at alpha=0.05, pval=0.04240826232018342.
+Total number different was 7, which is 7.000000000000001%
+#+end_export

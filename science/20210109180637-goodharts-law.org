@@ -1,0 +1,17 @@
+#+title: goodharts law
+#+author: nick martin
+#+email: nmartin84@gmail.com
+
+#+begin_quote
+When a measure becomse a target, it ceases to be a good measure.
+#+end_quote
+
+* What is Goodhart's Law?
+
+So essentially it's like saying, you want to measure the success of your sales
+team by measuring their revenues over the quarter. When you introduce this as a
+measure, that point of reference is not influencing the sales reps to hit the
+mark, because its just that a measure. However if you were to introduce that
+measure as a target, saying your sales reps have to hit target... Well then you
+have inflation, because then you have those who are just going to aim for that
+target value and that's it.

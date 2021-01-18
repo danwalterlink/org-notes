@@ -1,0 +1,21 @@
+#+title: cons
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-16 09:55]
+#+roam_tags: datatypes
+
+Cons is basically pair values, which are left and right of one another, they are
+another [[[[file:202101172013-elisp_datatypes.org][elisp datatypes]]]] for elisp and you can define or createa cons like so:
+
+#+begin_src emacs-lisp
+(cons 1 2)
+#+end_src
+
+The great thing is you can build large lists like so:
+
+#+begin_src emacs-lisp
+(cons 1 (cons 2 (cons 3 (cons 4 nil))))
+(cons '(1 2 3) 4)
+(append '(1 2 3) 4)
+(append '(1 2 3) '(4))
+#+end_src

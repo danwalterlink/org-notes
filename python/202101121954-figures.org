@@ -1,0 +1,7 @@
+#+title: figures
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-12 19:54]
+#+roam_tags: matplotlib
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://raw.githack.com/nmartin84/raw-files/master/htmlpro.css" />
+#+OPTIONS: toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil

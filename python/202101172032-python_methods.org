@@ -1,0 +1,10 @@
+#+title: python methods
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:32]
+
+A method in [[[[file:202101171320-python.org][python]]]] is somewhat similar to a [[[[file:202101172028-python_functions.org][python functions]]]], except it is associated
+with object/classes. Methods in python are very similar to functions except for
+two major differences.
++ The method is implicitly used for an object for which it is called.
++ The method is accessible to data that is contained within the class.

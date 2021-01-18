@@ -1,0 +1,10 @@
+#+title: modular programming
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-16 10:24]
+#+roam_tags: programming
+
+Modular Programming is essentially breaking up your code, into specific
+sections, or smaller packages that aim to tackle a specific problem or function.
+The idea behind modular programming is to provide these modules with minimal
+dependencies to simplify its needs (See [[[[file:202101161933-computer_programming.org][computer programming]]]]).

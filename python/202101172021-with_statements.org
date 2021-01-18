@@ -1,0 +1,26 @@
+#+title: with statements
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:21]
+
+With statements is a [[[[file:202101021249-python_control_structures.org][python control structures]]]], which has a ~__ENTER__~ and
+~__EXIT__~ function that it calls at the start and end of its statement.
+
+It's commonly used for unmanaged resources, such as opening a file to ensure the
+file is then closed when you're done with the resource.
+
+#+begin_src python
+try:
+    file = open("myFile.txt", "r")
+    print(file.read())
+except:
+    print("An error has occurred!")
+finally:
+    file.close()
+#+end_src
+
+Or another example:
+#+begin_src python
+with open("myFile.txt", "r") as file:
+    print(file.read())
+#+end_src

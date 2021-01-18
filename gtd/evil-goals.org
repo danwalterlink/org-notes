@@ -1,0 +1,156 @@
+#+TITLE: Evil Goals
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
+
+This file will essentially contain all of my long term goals, and tracking my
+progress to getting to those goals.
+
+* Finances
+:PROPERTIES:
+:CATEGORY: finances
+:END:
+-----
+** Monthly Calcuations
+#+caption: months expected expenses
+| Name        | Price |
+|-------------+-------|
+| Rent        | -1595 |
+| Jeep        |  -367 |
+| Harley      |  -120 |
+| Insurance   |  -120 |
+| Internet    |   -60 |
+| LA Fitness  |   -25 |
+| Water       |   -50 |
+| Gas         |   -40 |
+| Electric    |   -80 |
+| Credit Card |  -750 |
+| Paychecks   |  4682 |
+|-------------+-------|
+| Total       |  1475 |
+#+TBLFM: @13$2=vsum(@I..II)
+
+#+caption: end of month expected balances
+| Name         | Price |
+|--------------+-------|
+| Balance      | 28600 |
+| End of Month |  1475 |
+|--------------+-------|
+| Total        | 30075 |
+#+TBLFM: @4$2=vsum(@I..II)
+** Long Term Stability
+Some time, and somewhere in the near distant future i'd like to become
+financially free from the bounds of an 8-5 daily job. That means I would want to
+have some sort of investment plan that'll pull in enough residual cash that I
+don't need to bust my ass off so much in a daily job.
+
+Ok then, so what investment options do we know of and what should we look into?
+1. Day Trader
+
+* Long Term Goals
+** Getting a handle on my anxiety
+[2020-11-01 Sun 12:46] Found an interesting article, which i'm going to dive
+into more depth on in this task -> [[id:6207608d-618c-4776-8397-be6fc170fc12][Anxiety and when it comes to learning and
+analyzing difficult situations]]
+** Moving to Colorado
+
+* Notes
+:PROPERTIES:
+:CATEGORY: notes
+:END:
+
+** Overview of my Life
+- What is it that increases my quality of life? What do I find I am struggling with, or need to move towards?
+  + More time on the bike is a definite one.
+  + Music that gets me moving.
+- Focus on your passions, and how to get there?
+  + Well, probably getting back on the bike racing. If I go for this though, i've decided that I need to prove to myself I can do it by committing to working out and getting back into shape.
+  + Remembering that you are *GOING* to die, helps pull you out of the trap thinking you have *something* to lose. You are already naked.
+  + Some of the most impactful things in my life have been tied back to how *Alan Watts* puts his perspective on what we call life. One of the most meaningful sayings 'Life is an illusion'. We create our illusion. Who are we to call this 'thing' reality? If we have nothing else to compare it to, then how could we define that thing as being what we claim it to be?
+  + The way we experience life are in neurons that are fired in our brain for our senses (vision, hearing, touch, smell and feel) and our emotions. Emotions can have a big impact on how we perceive life.
+- Improving my mental health and well-being for the long run
+  + https://www.banyanmentalhealth.com/wp-content/uploads/2018/08/blog-august-1200x480.jpg
+  + Mental health is a very important aspect to maintaining a positive vibe and not letting things rock your core. So what are some of the key things that either *(I)mpact* your mental health for a positive growth or *(D)rive* positive change?
+- Slowing down the perception of time passing by.
+  + Engage in new things.
+  + Learn in new things.
+  + Meet new people.
+  + Put yourself in completely new experiences.
+- Getting proper sleep
+  + It's important to get a full night of sleep, such as 7-8 hours a night to be fully functional the following day. Anything less and it plays a huge impact on your performance and cognitive abilities.
+  + Lack of sleep can lead to some problems:
+    + memory issues
+    + mood changes
+    + weakened immunity
+    + risk for diabetes
+    + trouble with thinking and concentration
+    + accidents
+    + high blood pressure
+    + weight gain
+    + heart disease
+    + low sex drive
+    + poor balance
+- Conquering ADHD
+  + How can it be conquered? What are some ways to get around ADHD?
+    + Build motivation :: motivation does not seem to be much of an issue, I can usually power through things.
+    + Provide rewards for acomplish tasks :: not a bad idea, may need to explore this and see what options I can come up with.
+    + Keep tasks small :: good idea
+    + 10 Minute breaks
+    + 3+ Minutes of relaxation
+    + Routine physical exercise
+    + Glucose ingestion
+- Engaging in new hobbies
+  + aviation :: likely not, low percent chance of this being a probability.
+  + motocross :: more likely, but required a lot of endurance.
+  + storm chasing :: I do not have the gear for this, so there would be a huge under taking in cost.
+  + woodworking :: its been in the family, so I could probably pickup tricks and learn the trade quickly.
+  + guitar playing :: high probability chance, since I have a strong passion for music and I love jamming.
+  + firearms :: well, hell yeah why not?
+  + freelance photography :: would seem ok, but i'm not sure it would be very exciting? \\
+    [[https://www.bhphotovideo.com/c/product/1473086-reg/canon_3453c001_eos_rebel_sl3_dslr.html?sid=trd-1785141654766412500][good starter camera]]
+  + working out :: meh?
+  + architecture :: required a degree to really do anything substantial.
+  + base jumping :: eh?
+  + bbq'ing :: really?
+  + beadwork :: wtf?
+  + cooking :: probably just need to keep it simple
+  + gaming :: hard to stay engaged
+  + hiking :: there's a high probably for this being a success considering we've already done it for some time.
+  + paragliding :: would be fun, but there's not a lot of hills in the area.
+  + racing :: cost is high, but it's all sorts of fun!
+
+* Special Dates
+
+** Birthdays
+
+*** NEXT Joshie's Birthday
+SCHEDULED: <2021-02-01 Mon ++1y>
+:PROPERTIES:
+:ID:       07347d91-e736-4536-a589-5dc53c360583
+:END:
+
+*** NEXT Elaine's Birthday
+SCHEDULED: <2021-07-07 Wed ++1y>
+:PROPERTIES:
+:LAST_REPEAT: [2020-07-09 Thu 10:06]
+:ID:       53f01a40-53ea-4aa0-a883-9f124406f1df
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-07-09 Thu 10:06]
+:END:
+
+*** TODO Emma's Birthday
+SCHEDULED: <2021-12-05 Sun ++1y>
+:PROPERTIES:
+:LAST_REPEAT: [2020-12-06 Sun 10:22]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2020-12-06 Sun 10:22]
+:END:
+
+*** Mom's Birthday
+
+*** Scott's Birthday
+
+*** Cory's Birthday
+
+** Holidays

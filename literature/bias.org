@@ -1,0 +1,12 @@
+#+title: What are the different BIAS in decision making
+
+[[[[file:../psychology/202101091301-biases.org][biases]]]] affects all of us in how our decision making process helps us
+determine what it is we need to do, or how we decide something. So this will
+outline some of those biases you may come across, and how to avoid them in your
+decision making.
+
+* Anchoring Bias
+
+When you first see something, if it fits with your beliefs or wants, then you
+tend to make a decision based off this initial piece of data rather than
+weighing in other data. This is what's known as /anchoring bias/.

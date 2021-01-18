@@ -1,0 +1,214 @@
+#+title: strings
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:03]
+
+* Strings in Python
+Strings for python are pretty self explanatory, which are a [[[[file:202101171358-python_datatypes.org][python
+datatypes]]]], but this should cover some of the basics and fundamentals for
+strings. Strings for python are no different than most other strings you are
+probably use to dealing with, where the set of characters are enclosed in double
+quotes ~"This is a string"~.
+
+** f-strings: A new and improved way to format strings
+:PROPERTIES:
+:ID:       59a8bfff-918a-4d5e-95f4-4218fe3cc7e4
+:END:
+
+Instead of the traditional way, which is using the =.format()= method,
+there's a new and improved way:
+
+#+BEGIN_EXAMPLE
+  x = "Hello"
+  print(f"{x} world!")
+#+END_EXAMPLE
+
+** Arbitrary expressions
+
+You can use the f-strings to do some other nifty things, such as call
+functions or methods on the object.
+
+#+BEGIN_EXAMPLE
+  def to_lowercase(input):
+      return input.lower()
+
+  name = "Tony Poncho"
+  print(f"{to_lowercase(name)} is funny")
+  # returns "tony poncho is funny"
+
+  print(f"{name.lower()} is funny")
+  # returns "tony poncho is funny"
+#+END_EXAMPLE
+
+Another example of using arbitrary expressions by calling operations:
+
+#+BEGIN_EXAMPLE
+  f"{2 * 37}"
+  #  returns '74'
+#+END_EXAMPLE
+
+** formatting strings
+:PROPERTIES:
+:ID:       29da0497-31c1-4a08-9c39-f3f0930f5ccc
+:END:
+
+Traditional methods use the =.format()= to pass in arguments:
+
+#+BEGIN_EXAMPLE
+  name = "Bob"
+  print("Hello, my name is {}".format(name))
+#+END_EXAMPLE
+
+** assigning strings to variables
+
+#+BEGIN_EXAMPLE
+  x = "Hello"
+  print(x)
+#+END_EXAMPLE
+
+** multiline strings
+
+#+BEGIN_EXAMPLE
+  a = """Lorem ipsum dolor sit amet,
+  consectetur adipiscing elit,
+  sed do eiusmod tempor incididunt
+  ut labore et dolore magna aliqua."""
+#+END_EXAMPLE
+
+** string concatenation
+
+#+BEGIN_EXAMPLE
+  x = "Hello"
+  y = "world"
+  print(x + " " + y)
+  #Hello World
+#+END_EXAMPLE
+
+** strings are arrays
+
+Meaning you can extract the character at index =print(x[1])=
+
+#+BEGIN_EXAMPLE
+  mystring = "Hello"
+  print(mystring[1])
+#+END_EXAMPLE
+
+** slicing strings
+
+#+BEGIN_EXAMPLE
+  x = 'hello'
+  print(x[0:4])
+  # hell
+
+  # Use negative numbers to start from the end of the string
+  print(x[-4:-2])
+  # hell
+#+END_EXAMPLE
+
+** length of string
+
+#+BEGIN_EXAMPLE
+  x = "Hello"
+  return(len(x))
+  # 5
+#+END_EXAMPLE
+
+** double splitting strings
+
+The below example would return *nick-dev* from the string: *From:
+nick-dev@test.us.com Sat Jan 5 09:14:16 2008*
+
+#+BEGIN_EXAMPLE
+  x = 'From: nick-dev@test.us.com Sat Jan 5 09:14:16 2008'
+  split = x.split()
+  email = split[1]
+  user = email.split('@')
+  return(user[0])
+#+END_EXAMPLE
+
+** splitting strings
+
+The =.split= method allows you to pass a delimeter as the argument to
+split your strings:
+
+#+BEGIN_EXAMPLE
+  x = 'first;second;third'
+  x_split = x.split(';')
+  return(x_split)
+
+  ['first', 'second', 'third']
+#+END_EXAMPLE
+
+Another example of how we can use the =string.split= method is taking
+the header line from an email, and splitting the text into different
+indexes.
+
+#+BEGIN_EXAMPLE
+  fhand = open('file.txt')
+  for line in fhand:
+      line = line.rstrip() # Cleans up whitespaces
+      if not line.startswith('From ') :
+          continue
+      words = line.split()
+      print(words[2])
+#+END_EXAMPLE
+
+** using comparison operators on strings
+
+Python can do a comparison operation against strings to see if the
+letters in the word, are greater or lower in indexing than it's
+opposite. So for instance `C
+
+#+BEGIN_QUOTE
+  B = TRUE` because C is higher in the index than B.
+#+END_QUOTE
+
+#+BEGIN_EXAMPLE
+  x = 'chuck'
+  y = 'glen'
+
+  return x > y
+
+  False
+#+END_EXAMPLE
+
+** check string
+
+#+BEGIN_EXAMPLE
+  txt = "The rain in Spain stays mainly in the plain"
+  x = "ain" in txt
+  print(x)
+  # True
+#+END_EXAMPLE
+
+** .format method on strings
+
+1. Inserting a single string.
+
+   #+BEGIN_EXAMPLE
+     print("This is a string {}".format("INSERTED"))
+     # This is a string INSERTED
+   #+END_EXAMPLE
+
+2. Passing multiple strings
+
+   #+BEGIN_EXAMPLE
+     print("The {2} {1} {0}".format("fox","brown","quick"))
+     # The quick brown fox
+   #+END_EXAMPLE
+
+3. Using variables to pass arguments
+
+   #+BEGIN_EXAMPLE
+     print("The {q} {b} {f}!".format(q="quick",b="brown",f="fox"))
+
+     The quick brown fox!
+   #+END_EXAMPLE
+
+4. Using .format to limit the length of float numbers
+
+   #+BEGIN_EXAMPLE
+     value = 100/777
+     print("The value was {r:1.3f}".format(r=value))
+     # The value was 0.129
+   #+END_EXAMPLE

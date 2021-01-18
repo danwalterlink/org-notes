@@ -1,0 +1,15 @@
+* Usermod
+  :PROPERTIES:
+  :CUSTOM_ID: usermod
+  :END:
+
+Modify user account settings
+
+** Add user to group
+   :PROPERTIES:
+   :CUSTOM_ID: add-user-to-group
+   :END:
+
+#+BEGIN_SRC sh
+  usermod -aG sudo username
+#+END_SRC

@@ -1,0 +1,25 @@
+#+TITLE: Journal
+
+* Journal
+** Nov '20
+*** TODO [2020-11-22 Sun] passing arguments to org-capture-templates :@computer:someday:
+:PROPERTIES:
+:CREATED: [2020-11-22 Sun 20:32]
+:END:
+You can specify your own properties in the property list for the template, and
+then you can access those properties with ~plist-get~ and ~org-capture-plist~.
+Here's a brief example:
+[[https://emacs.stackexchange.com/questions/12900/passing-a-variable-to-template-function-in-org-capture-templates][org mode - Passing a variable to template function in org-capture-templates]]
+#+begin_src emacs-lisp
+(defun my/expense-template ()
+  (format "Hello world %s" (plist-get org-capture-plist :account)))
+(setq org-capture-templates '(("x" "Test entry 1" plain
+                               (file "~/tmp/test.txt")
+                               (function my/expense-template)
+                               :account "Account:Bank")
+                              ("y" "Test entry 2" plain
+                               (file "~/tmp/test.txt")
+                               (function my/expense-template)
+                               :account "Account:AnotherBank")))
+#+end_src
+** Jan '21

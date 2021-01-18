@@ -1,0 +1,4 @@
+#+title: p-value less than 0.5
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 12:12]

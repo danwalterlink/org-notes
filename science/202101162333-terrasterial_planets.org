@@ -1,0 +1,4 @@
+#+title: terrasterial planets
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-16 23:33]

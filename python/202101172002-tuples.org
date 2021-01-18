@@ -1,0 +1,88 @@
+#+title: tuples
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:02]
+
+Tuples are very similar to lists, but the key difference is they have
+immutability. Tuples are in parenthesis =(1,2,3)=. (See [[[[file:202101171358-python_datatypes.org][python datatypes]]]])
+
+#+begin_src python
+thistuple = ("apple", "banana", "cherry")
+print(thistuple)
+#+end_src
+
+* Accessing tuple index
+
+#+BEGIN_EXAMPLE
+thistuple = ("apple", "banana", "cherry")
+print(thistuple[1])
+
+# Negative Indexing
+thistuple = ("apple", "banana", "cherry")
+print(thistuple[-1])
+#+END_EXAMPLE
+
+* Range of indexes
+
+#+BEGIN_EXAMPLE
+thistuple = ("apple", "banana", "cherry", "orange", "kiwi", "melon", "mango")
+print(thistuple[2:5])
+#+END_EXAMPLE
+
+* Change tuple value
+
+#+BEGIN_EXAMPLE
+x = ("apple", "banana", "cherry")
+y = list(x)
+y[1] = "kiwi"
+x = tuple(y)
+
+print(x)
+#+END_EXAMPLE
+
+* Loop through tuple
+
+#+BEGIN_EXAMPLE
+  thistuple = ("apple", "banana", "cherry")
+  for x in thistuple:
+    print(x)
+#+END_EXAMPLE
+
+* Check if item exist in tuple
+
+#+BEGIN_EXAMPLE
+  thistuple = ("apple", "banana", "cherry")
+  if "apple" in thistuple:
+    print("Yes, 'apple' is in the fruits tuple")
+#+END_EXAMPLE
+
+* Add items to tuple
+
+You cannot add items to tuple...
+
+* Remove item from tuple
+
+Tuples cannot be modified, but you can =del= the tuple.
+
+#+BEGIN_EXAMPLE
+  thistuple = ("apple", "banana", "cherry")
+  del thistuple
+  print(thistuple) #this will raise an error because the tuple no longer exists
+#+END_EXAMPLE
+
+* Join two tuples
+
+#+BEGIN_EXAMPLE
+  tuple1 = ("a", "b" , "c")
+  tuple2 = (1, 2, 3)
+
+  tuple3 = tuple1 + tuple2
+  print(tuple3)
+#+END_EXAMPLE
+
+* tuple methods
+
+- *count():* Returns the number of times a specified value occurs in a
+  tuple
+- *index():* Searches the tuple for a specified value and returns the
+  position of where it was found

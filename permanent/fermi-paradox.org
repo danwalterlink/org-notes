@@ -1,0 +1,23 @@
+* Fermi Paradox
+  :PROPERTIES:
+  :CUSTOM_ID: fermi-paradox
+  :END:
+
+The Fermi paradox, named after Italian-American physicist Enrico Fermi,
+is the apparent contradiction between the lack of evidence for
+extraterrestrial civilizations and various high estimates for their
+probability (such as some optimistic estimates for the Drake equation).
+
+The following are some of the facts that together serve to highlight the
+apparent contradiction: - There are billions of stars in the Milky Way
+similar to the Sun. - With high probability, some of these stars have
+Earth-like planets. - Many of these stars, and hence their planets, are
+much older than the sun. - If the Earth is typical, some may have
+developed intelligent life long ago. - Some of these civilizations may
+have developed interstellar travel, a step humans are investigating
+now. - Even at the slow pace of currently envisioned interstellar
+travel, the Milky Way galaxy could be completely traversed in a few
+million years. - And since many of the stars similar to the Sun are
+billions of years older, the Earth should have already been visited by
+extraterrestrial civilizations, or at least their probes. - However,
+there is no convincing evidence that this has happened.

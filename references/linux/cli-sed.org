@@ -1,0 +1,10 @@
+* SED Command
+
+** Replacing Text with String
+
+#+BEGIN_SRC sh
+  sed 's/searchstring/replacestring/' # the basics of replacing the first matched string
+  sed 's/searchstring/replacestring/g' # the global flag will replace all instances on each line
+  sed 's/searchstring/replacestring/2' # will replace the 2nd instance of the matched string and ignore the others
+  sed 's#searchstring#replacestring#2' # Anything can be used as the delimiter, long as it's a special char.
+#+END_SRC

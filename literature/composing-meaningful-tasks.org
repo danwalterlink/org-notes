@@ -1,0 +1,9 @@
+* How to write effective Tasks and Subtasks
+  :PROPERTIES:
+  :CUSTOM_ID: how-to-write-effective-tasks-and-subtasks
+  :END:
+
+Tasks are simple, and straight to the point action items. Sometimes they
+could make up a larger picture, vision, such as an EPIC or USER STORY,
+but ultimately it comes down to just creating a task defined by an
+action. > ✅ *Basic tasks*: Do this, code that, write this, analyze this.

@@ -1,0 +1,19 @@
+* Neural Correlates of Consciousness
+  :PROPERTIES:
+  :CUSTOM_ID: neural-correlates-of-consciousness
+  :END:
+
+Brain activity that corresponds with and is necessary to produce a
+particular experience. For example, the neural correlates of
+consciousness are the events that must occur in the brain for
+consciousness to become manifest.
+
+The neural correlates of consciousness (NCC) constitute the minimal set
+of neuronal events and mechanisms sufficient for a specific conscious
+percept. Neuro Scientists use empirical approaches to discover neural
+correlates of subjective phenomena; that is, neural changes which
+necessarily and regularly correlate with a specific experience.
+
+The set should be minimal because, under the assumption that the brain
+is sufficient to give rise to any given conscious experience, the
+question is which of its components is necessary to produce it.

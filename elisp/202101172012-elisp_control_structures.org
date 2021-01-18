@@ -1,0 +1,6 @@
+#+title: elisp control structures
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:12]
+
+Control structures for [[[[file:202101161002-elisp.org][elisp]]]].

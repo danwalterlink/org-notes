@@ -1,0 +1,11 @@
+* Regex Patterns
+  :PROPERTIES:
+  :CUSTOM_ID: regex-patterns
+  :END:
+
+** Global Regex Patterns
+   :PROPERTIES:
+   :CUSTOM_ID: global-regex-patterns
+   :END:
+
+Use =/g= to set the search pattern to global.

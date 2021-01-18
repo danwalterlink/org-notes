@@ -1,0 +1,237 @@
+#+title: Communication
+
+* Parts of English Language
+** Adjectives
+Functions as modifiers of nouns in that they describe and specify qualities and quantities (the articles "a", "an" and "the" are considered adjectives).
+- example :: The picture was put in *a sleet metallic* frame.
+** Adverbs
+Functions as modifiers of verbs expressing some relation of place, time, degree, cause, purpose or means.
+- example :: Don's mother *proudly* displayed the picture of the dog.
+** Conjuctions
+  Word or phrases that function as a connector between words, phrases or sentences as and, because, but, however.
+  - example :: The frame was sturdy, but the glass shattered when the picture fell off the wall
+** Interjections
+Exclamatory words expressing emotion frequently isolated via an exclamation point.
+- example :: *"Yikes!"* cried Don when he saw his broken picture.
+** Pronouns
+Substitutes for a wide variety of nouns that have very general reference, as I,
+you, he, this, who, what, etc.
+- Three types of pronouns are ::
+  - Subjective - *She* is a teacher.
+  - Possessive - Don is a student in *her* class.
+  - Objective - Don gave *her* an apple.
+** Prepositions
+Modifiers of verbs, nouns or adjectives that express a relationship as in, on,
+by, to, since.
+- example :: The picture was put *in* a sleek metallic frame and hung *on* the wall.
+** Nouns
+The main or only elements of subjects: usually referring to persons, places,
+things, states or qualities.
+- example :: Proper nouns are capitalized: Donald, New York, Bill of Rights.
+  Common nouns are not: man, town, document.
+** Verbs
+Typically expresses action, state or a relation between two things and indicates
+the time of that action or state.
+- Present - Don *draws* pictures in class.
+- Past - Don *drew* a picture of a dog yesterday.
+- Future - Don *will give* the picture to his mother tomorrow.
+* Punctuations
+** Overview
+When speaking, we can pause or change the tone of our voices to indicate emphasis. When writing, we use punctuation to indicate these places of emphases. This handout should help to clarify when and how to use various marks of punctuation.
+
+*** Comma
+Use a comma to join two independent clauses and a coordinating conjunction (and, but, or, for, nor, so).
+
+Road construction can be inconvenient, but it is necessary.
+The new house has a large fenced backyard, so I am sure our dog will enjoy it.
+Use a comma after an introductory phrase, prepositional phrase, or dependent clause.
+
+To get a good grade, you must complete all your assignments.
+Because Dad caught the chicken pox, we canceled our vacation.
+After the wedding, the guests attended the reception.
+Use a comma to separate elements in a series. Although there is no set rule that requires a comma before the last item in a series, it seems to be a general academic convention to include it. The examples below demonstrate this trend.
+
+On her vacation, Lisa visited Greece, Spain, and Italy.
+In their speeches, many of the candidates promised to help protect the environment, bring about world peace, and end world hunger.
+Use a comma to separate nonessential elements from a sentence. More specifically, when a sentence includes information that is not crucial to the message or intent of the sentence, enclose it in or separate it by commas.
+
+John's truck, a red Chevrolet, needs new tires.
+When he realized he had overslept, Matt rushed to his car and hurried to work.
+Use a comma between coordinate adjectives (adjectives that are equal and reversible).
+
+The irritable, fidgety crowd waited impatiently for the rally speeches to begin.
+The sturdy, compact suitcase made a perfect gift.
+Use a comma after a transitional element (however, therefore, nonetheless, also, otherwise, finally, instead, thus, of course, above all, for example, in other words, as a result, on the other hand, in conclusion, in addition)
+
+For example, the Red Sox, Yankees, and Indians are popular baseball teams.
+If you really want to get a good grade this semester, however, you must complete all assignments, attend class, and study your notes.
+Use a comma with quoted words.
+
+"Yes," she promised. Todd replied, saying, "I will be back this afternoon."
+Use a comma in a date.
+
+October 25, 1999
+Monday, October 25, 1999
+25 October 1999
+Use a comma in a number.
+
+15,000,000
+1614 High Street
+Use a comma in a personal title.
+
+Pam Smith, MD
+Mike Rose, Chief Financial Officer for Operations, reported the quarter's earnings.
+Use a comma to separate a city name from the state.
+
+West Lafayette, Indiana
+Dallas, Texas
+Avoid comma splices (two independent clauses joined only by a comma). Instead, separate the clauses with a period, with a comma followed by a coordinating conjunction, or with a semicolon.
+
+*** Semicolon
+Use a semicolon to join two independent clauses when the second clause restates the first or when the two clauses are of equal emphasis.
+
+Road construction in Dallas has hindered travel around town; streets have become covered with bulldozers, trucks, and cones.
+Use a semicolon to join two independent clauses when the second clause begins with a conjunctive adverb (however, therefore, moreover, furthermore, thus, meanwhile, nonetheless, otherwise) or a transition (in fact, for example, that is, for instance, in addition, in other words, on the other hand, even so).
+
+Terrorism in the United States has become a recent concern; in fact, the concern for America's safety has led to an awareness of global terrorism.
+Use a semicolon to join elements of a series when individual items of the series already include commas.
+
+Recent sites of the Olympic Games include Athens, Greece; Salt Lake City, Utah; Sydney, Australia; Nagano, Japan.
+For more information on semicolons, please see the "90-Second Semicolon" vidcast series on the Purdue OWL YouTube Channel.
+*** Colon
+Use a colon to join two independent clauses when you wish to emphasize the second clause.
+
+Road construction in Dallas has hindered travel around town: parts of Main, Fifth, and West Street are closed during the construction.
+Use a colon after an independent clause when it is followed by a list, a quotation, an appositive, or other ideas directly related to the independent clause.
+
+Julie went to the store for some groceries: milk, bread, coffee, and cheese.
+In his Gettysburg Address, Abraham Lincoln urges Americans to rededicate themselves to the unfinished work of the deceased soldiers: "It is for us the living rather to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us  that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion  that we here highly resolve that these dead shall not have died in vain, that this nation under God shall have a new birth of freedom, and that government of the people, by the people, for the people shall not perish from the earth."
+I know the perfect job for her: a politician.
+Use a colon at the end of a business letter greeting.
+
+To Whom It May Concern:
+Use a colon to separate the hour and minute(s) in a time notation.
+
+12:00 p.m.
+Use a colon to separate the chapter and verse in a Biblical reference.
+
+Matthew 1:6
+*** Parenthesis
+Parentheses are used to emphasize content. They place more emphasis on the enclosed content than commas. Use parentheses to set off nonessential material, such as dates, clarifying information, or sources, from a sentence.
+
+Muhammed Ali (1942-2016), arguably the greatest athlete of all time, claimed he would "float like a butterfly, sting like a bee."
+*** Dash
+Dashes are used to set off or emphasize the content enclosed within dashes or the content that follows a dash. Dashes place more emphasis on this content than parentheses.
+
+Perhaps one reason why the term has been so problematicso resistant to definition, and yet so transitory in those definitionsis because of its multitude of applications.
+In terms of public legitimacythat is, in terms of garnering support from state legislators, parents, donors, and university administratorsEnglish departments are primarily places where advanced literacy is taught.
+The U.S.S. Constitution became known as "Old Ironsides" during the War of 1812during which the cannonballs fired from the British H.M.S. Guerriere merely bounced off the sides of the Constitution.
+To some of you, my proposals may seem radicaleven revolutionary.
+Use a dash to set off an appositive phrase that already includes commas. An appositive is a word that adds explanatory or clarifying information to the noun that precedes it.
+
+The cousinsTina, Todd, and Samarrived at the party together.
+*** Quotation Marks
+Use quotation marks to enclose direct quotations. Note that commas and periods are placed inside the closing quotation mark, and colons and semicolons are placed outside. The placement of question and exclamation marks depends on the situation.
+
+He asked, "When will you be arriving?" I answered, "Sometime after 6:30."
+Use quotation marks to indicate the novel, ironic, or reserved use of a word.
+
+History is stained with blood spilled in the name of "justice."
+Use quotation marks around the titles of short poems, song titles, short stories, magazine or newspaper articles, essays, speeches, chapter titles, short films, and episodes of television or radio shows.
+
+"Self-Reliance," by Ralph Waldo Emerson
+"Just Like a Woman," by Bob Dylan
+"The Smelly Car," an episode of Seinfeld
+Do not use quotation marks in indirect or block quotations.
+
+*** Italics
+Underlining and italics are often used interchangeably. Before word-processing programs were widely available, writers would underline certain words to indicate to publishers to italicize whatever was underlined. Although the general trend has been moving toward italicizing instead of underlining, you should remain consistent with your choice throughout your paper. To be safe, you could check with your teacher to find out which he/she prefers. Italicize the titles of magazines, books, newspapers, academic journals, films, television shows, long poems, plays of three or more acts, operas, musical albums, works of art, websites, and individual trains, planes, or ships.
+
+Time
+Romeo and Juliet by William Shakespeare
+The Metamorphosis of Narcissus by Salvador Dali
+Amazon.com
+Titanic
+Italicize foreign words.
+
+Semper fi, the motto of the U.S. Marine Corps, means "always faithful."
+Italicize a word or phrase to add emphasis.
+
+The truth is of utmost concern!
+Italicize a word when referring to that word.
+
+The word justice is often misunderstood and therefore misused.
+** Independent and Dependent Clauses
+*** Overview
+When you want to use commas and semicolons in sentences and when you are concerned about whether a sentence is or is not a fragment, a good way to start is to be able to recognize dependent and independent clauses. The definitions offered here will help you with this.
+**** Independent Clause
+An independent clause is a group of words that contains a subject and verb and expresses a complete thought. An independent clause is a sentence.
+
+Jim studied in the Sweet Shop for his chemistry quiz.
+**** Dependent Clause
+A dependent clause is a group of words that contains a subject and verb but does not express a complete thought. A dependent clause cannot be a sentence. Often a dependent clause is marked by a dependent marker word.
+
+When Jim studied in the Sweet Shop for his chemistry quiz . . . (What happened when he studied? The thought is incomplete.)
+**** Dependent Marker Word
+A dependent marker word is a word added to the beginning of an independent clause that makes it into a dependent clause.
+
+When Jim studied in the Sweet Shop for his chemistry quiz, it was very noisy.
+Some common dependent markers are: after, although, as, as if, because, before, even if, even though, if, in order to, since, though, unless, until, whatever, when, whenever, whether, and while.
+**** Connecting independent clauses
+There are two types of words that can be used as connectors at the beginning of an independent clause: coordinating conjunctions and independent marker words.
+**** Coordinating Conjunction
+The seven coordinating conjunctions used as connecting words at the beginning of an independent clause are and, but, for, or, nor, so, and yet. When the second independent clause in a sentence begins with a coordinating conjunction, a comma is needed before the coordinating conjunction:
+
+Jim studied in the Sweet Shop for his chemistry quiz, but it was hard to concentrate because of the noise.
+**** Independent Marker Word
+An independent marker word is a connecting word used at the beginning of an independent clause. These words can always begin a sentence that can stand alone. When the second independent clause in a sentence has an independent marker word, a semicolon is needed before the independent marker word.
+
+Jim studied in the Sweet Shop for his chemistry quiz; however, it was hard to concentrate because of the noise.
+Some common independent markers are: also, consequently, furthermore, however, moreover, nevertheless, and therefore.
+**** Connecting dependent and independent clauses
+Subordinating conjunctions allow writers to construct complex sentences, which have an independent clause and a subordinate (or dependent) clause. Either clause can come first.
+
+The students acted differently whenever a substitute taught the class.
+Whenever a substitute taught the class, the students acted differently.
+Note that the clauses are separated with a comma when the dependent clause comes first.
+
+Some common subordinating conjunctions are: after, as, before, once, since, until, and while.
+**** Some Common Errors to Avoid
+***** Comma Splices
+A comma splice is the use of a comma between two independent clauses. You can usually fix the error by changing the comma to a period and therefore making the two clauses into two separate sentences, by changing the comma to a semicolon, or by making one clause dependent by inserting a dependent marker word in front of it.
+
+Incorrect: I like this class, it is very interesting.
+Correct: I like this class. It is very interesting.
+(or) I like this class; it is very interesting.
+(or) I like this class, and it is very interesting.
+(or) I like this class because it is very interesting.
+(or) Because it is very interesting, I like this class.
+***** Fused Sentences
+Fused sentences happen when there are two independent clauses not separated by any form of punctuation. This error is also known as a run-on sentence. The error can sometimes be corrected by adding a period, semicolon, or colon to separate the two sentences.
+
+Incorrect: My professor is intelligent I've learned a lot from her.
+Correct: My professor is intelligent. I've learned a lot from her.
+(or) My professor is intelligent; I've learned a lot from her.
+(or) My professor is intelligent, and I've learned a lot from her.
+(or) My professor is intelligent; moreover, I've learned a lot from her.
+***** Sentence Fragments
+Sentence fragments happen by treating a dependent clause or other incomplete thought as a complete sentence. You can usually fix this error by combining it with another sentence to make a complete thought or by removing the dependent marker.
+
+Incorrect: Because I forgot the exam was today.
+Correct: Because I forgot the exam was today, I didn't study.
+(or) I forgot the exam was today.
+*** Independent Clauses
+  An independent clause is a group of words that contains a subject and verb and expresses a complete thought. An independent clause is a sentence.
+  - example :: Jim studied in the Sweet Shop for his chemistry quiz.
+*** Dependent Clauses
+  A dependent clause is a group of words that contains a subject and verb but does not express a complete thought. A dependent clause cannot be a sentence. Often a dependent clause is marked by a dependent marker word.
+  - example :: When Jim studied in the Sweet Shop for his chemistry quiz... (What happened when he studied? The thought is incomplete.)
+*** Depedent Marker Word
+  A dependent marker word is a word added to the beginning of an independent clause that makes it into a dependent clause.
+  - example :: When Jim studied in the Sweet Shop for his chemistry quiz, it was very noisy.
+  - common markers :: Some common dependent markers are: /after, although, as, as if, because, before, even if, even though, if, in order to, since, though, unless, until, whatever, when, whenever, whether, and while/.
+*** Run on Sentences
+Run-on sentences can be divided into two types. The first occurs when a writer
+*puts no mark of punctuation* and *no coordinating conjunction* between independent
+clauses. The second is called a *comma splice*, which occurs when two or more
+*independent clauses* are joined by *just* a comma and *no* coordinating conjunction.

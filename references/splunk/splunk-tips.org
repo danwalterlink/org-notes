@@ -1,0 +1,62 @@
+* Splunk Tips
+  :PROPERTIES:
+  :CUSTOM_ID: splunk-tips
+  :END:
+
+** Escaping characters
+   :PROPERTIES:
+   :CUSTOM_ID: escaping-characters
+   :END:
+
+just like linux or bash scripting you can use =\=
+
+** Breakdown of spl or splunk language
+   :PROPERTIES:
+   :CUSTOM_ID: breakdown-of-spl-or-splunk-language
+   :END:
+
+There are five components to the splunk language:
+
+- search terms (gray)
+- commands (blue)
+- functions (purple)
+- arguments (green)
+- clauses (orange)
+
+** Running stats against 2 sources
+   :PROPERTIES:
+   :CUSTOM_ID: running-stats-against-2-sources
+   :END:
+
+#+BEGIN_EXAMPLE
+  index=someindex queryType="ts" filename=PNASC.HRBDT status=1 | dedup filename |rename filename as Daily| stats count(Daily)|appendcols  [search index=someindex queryType="ts" filename=RECON status=1 | dedup filename |rename filename as Weekly | stats count(Weekly)]
+#+END_EXAMPLE
+
+** Charting by 2 column fields
+   :PROPERTIES:
+   :CUSTOM_ID: charting-by-2-column-fields
+   :END:
+
+Use something like the blow to get started
+
+#+BEGIN_EXAMPLE
+  | chart count by column1, column2
+#+END_EXAMPLE
+
+** Boolean search parameters
+   :PROPERTIES:
+   :CUSTOM_ID: boolean-search-parameters
+   :END:
+
+#+BEGIN_EXAMPLE
+  message=failed NOT failure message=(complete OR success) AND job
+#+END_EXAMPLE
+
+** IN Operator to return results in list
+   :PROPERTIES:
+   :CUSTOM_ID: in-operator-to-return-results-in-list
+   :END:
+
+#+BEGIN_EXAMPLE
+  index=web status IN ("500", "503", "505")
+#+END_EXAMPLE

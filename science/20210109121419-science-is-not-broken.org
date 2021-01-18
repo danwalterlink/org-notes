@@ -1,0 +1,73 @@
+#+title: science is not broken
+#+author: nick martin
+#+email: nmartin84@gmail.com
+#+roam_tags: statistics
+#+source: https://fivethirtyeight.com/features/science-isnt-broken/#part1
+#+HTML_HEAD: <link rel="stylesheet" href="https://rawcdn.githack.com/nmartin84/html-style-sheets/4ff9dcc404e99220a8961027f1034f325771d1a4/docnorang.css" type="text/css" />
+#+HTML_HEAD: <style type="text/css">body{ max-width:80%; }</style>
+
+Based off what the author has to say, it sounds like there's been a lot of
+controversy stirred up due to a large portion of publications w/out any data
+validation, or put simply scientist were rubber-stamping their own work.
+
+The state of science is perfectly fine, it's just that science is hard, really
+fucking hard, hence he mentions welcoming us to the world of *p-hacking*.
+
+#+caption: hacking p-values
+[[file:../.attach/hack-way-scientific-glory.png]]
+
+If you look at this picture, this tool gives you the means of [[[[file:../fleeting/202101181210-manipulating_p_value.org][manipulating
+p-value]]]] data by changing variables until you meet your threshold for
+acceptable [[[[file:../202101091250-p_values.org][p-values]]]].  So what is wrong with this? Well, it's that when you
+have multiple variables to dictate the outcome of something, the truth is your
+science is not specific enough, and the data is too broad leaving these various
+variables open to be tweaked to impact the results.
+
+The problem with this data analysis, is that none of the variables really have
+an impact based off of the party member in office. Instead what you see, are the
+variables are what affect the outcome and not what you're testing against.
+
+So this has come under fire for the [[[[file:../202101091250-p_values.org][p-values]]]] to not hold much weight in the
+scientific community, for reasons that it can't hold well and often gets
+confused or convoluted and the results end up incorrect. As a result, one
+journal has stopped publishing p-value articles, the "Basic and Applied Social
+Psychology" due to them believe the [[[[file:../fleeting/202101181212-p_value_less_than_0_5.org][p-value less than 0.5]]]] is too easy of a
+equation to satisfy and can lead to lower qualtiy research papers.
+
+#+begin_quote
+"Scientists who fiddle around like this — just about all of them do, Simonsohn
+told me — aren’t usually committing fraud, nor are they intending to. They’re
+just falling prey to natural human biases that lead them to tip the scales and
+set up studies to produce false-positive results."
+#+end_quote
+
+P-Hacking and manipulation often is not due the scientist being a criminal, or a
+bad person, it's just they are falling victim to their [[[[file:../psychology/202101091301-biases.org][biases]]]]. You can end
+up doing this [[[[file:../psychology/202101181212-unconsciouslly.org][unconsciouslly]]]], without even knowing it. Because you believe
+that your hypothesis is true, and you want to prove that it's true.
+
+Subtle (or not-so-subtle) manipulations like these plague so many studies that
+Stanford meta-science researcher John Ioannidis concluded, in a famous 2005
+paper, that [[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1182327/][most published research findings are false]]. He goes in to mention
+that there are so many [[[[file:../psychology/202101091301-biases.org][biases]]]], errors and other variables that can interfere
+with generating reliable results.
+
+#+caption: same data, different results
+[[file:../.attach/same-data-different-results.png]]
+
+But the thought is, what if instead of it being treated as cheating, what if
+instead it's looked at in a way to explore our data's boundaries? Take for
+instance Figure-2, the same dataset was handed to 29 different teams to analyze
+and yet their results all differ. How or why is that? Well one thought is that
+it could tie back to the analysis performed at that point in time slightly
+differ.
+
+So bottom line is that over time, since around 2009 and maybe even earlier than
+that, there's been a spike in inaccurate or falsified publishings. This was also
+compounded even further by reviewers who would critique such publishings were
+cheating the system, or aiding close colleagues of theirs. This magnifified
+around 2010, even tho there was only a retraction rate of .02. Still, it has
+lead to the question of these scientific papers, and the legitimacy of their
+findings. Thankfully this has become more difficult with the internet making
+these publications more accessible, and easier to discuss and critique amongst
+the scientific community.

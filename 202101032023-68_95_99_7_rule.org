@@ -1,0 +1,5 @@
+#+title: 68-95-99.7 rule
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-03 20:23]
+#+roam_tags: hypothesis statistics

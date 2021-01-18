@@ -1,0 +1,338 @@
+#+TITLE: Python Dictionaries
+
+* dictionaries
+
+A dictionary is basically a way to index specific values inside of a
+variable, so we can always know where in the variable that data is
+stored. Dictionary items are unordered, changeable and unique.
+
+#+BEGIN_SRC python
+      thisdict = {
+        "brand": "Ford",
+        "model": "Mustang",
+        "year": 1964
+      }
+      print(thisdict)
+      print(thisdict["brand"])
+#+END_SRC
+
+** Dictionary Methods
+
+- *clear():* Removes all the elements from the dictionary
+- *copy():* Returns a copy of the dictionary
+- *fromkeys():* Returns a dictionary with the specified keys and value
+- *get():* Returns the value of the specified key
+- *items():* Returns a list containing a tuple for each key value pair
+- *keys():* Returns a list containing the dictionary's keys
+- *pop():* Removes the element with the specified key
+- *popitem():* Removes the last inserted key-value pair
+- *setdefault():* Returns the value of the specified key. If the key
+  does not exist: insert the key, with the specified value
+- *update():* Updates the dictionary with the specified key-value pairs
+- *values():* Returns a list of all the values in the dictionary
+
+** Accessing dictionaries
+
+#+BEGIN_EXAMPLE
+  thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  x = thisdict["model"]
+
+  # Use the GET method
+  x = thisdict.get("model")
+#+END_EXAMPLE
+
+** Get Dictionary Keys
+
+#+BEGIN_EXAMPLE
+   car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+  }
+
+  x = car.keys()
+
+  print(x) #before the change
+
+  car["color"] = "white"
+
+  print(x) #after the change
+#+END_EXAMPLE
+
+** Get Dictonary Values
+
+#+BEGIN_EXAMPLE
+  car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+  }
+
+  x = car.values()
+
+  print(x) #before the change
+
+  car["year"] = 2020
+
+  print(x) #after the change
+#+END_EXAMPLE
+
+** Get Dictionary Items
+
+#+BEGIN_EXAMPLE
+  car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+  }
+
+  x = car.items()
+
+  print(x) #before the change
+
+  car["year"] = 2020
+
+  print(x) #after the change
+#+END_EXAMPLE
+
+** Check if Dictionary key exist
+
+#+BEGIN_EXAMPLE
+   thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  if "model" in thisdict:
+    print("Yes, 'model' is one of the keys in the thisdict dictionary")
+#+END_EXAMPLE
+
+** Changing dictionary key value
+
+#+BEGIN_EXAMPLE
+  thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  thisdict["year"] = 2018
+#+END_EXAMPLE
+
+** Using Update method to change dictionary
+
+#+BEGIN_EXAMPLE
+   thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  thisdict.update({"year": 2020})
+#+END_EXAMPLE
+
+** Adding New Dictionary Items
+
+#+BEGIN_EXAMPLE
+   thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  thisdict["color"] = "red"
+  print(thisdict)
+#+END_EXAMPLE
+
+** Adding new Dictionary Items with Update
+
+#+BEGIN_EXAMPLE
+   thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  thisdict.update({"color": "red"})
+#+END_EXAMPLE
+
+** Remove from Dictionary with pop
+
+#+BEGIN_EXAMPLE
+  thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  thisdict.pop("model")
+  print(thisdict)
+#+END_EXAMPLE
+
+** Remove item from Dictionary with popitem
+
+#+BEGIN_EXAMPLE
+  thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  thisdict.popitem()
+  print(thisdict)
+#+END_EXAMPLE
+
+** Clear dictionary
+
+#+BEGIN_EXAMPLE
+  thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  thisdict.clear()
+  print(thisdict)
+#+END_EXAMPLE
+
+** Looping dictionary
+
+#+BEGIN_EXAMPLE
+  thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+
+  # Print all values in dictionary
+  for x in thisdict:
+    print(x)
+
+  # Print values one by one
+  for x in thisdict:
+    print(thisdict[x])
+
+  # Return value of a dictionary
+  for x in thisdict.values():
+    print(x)
+
+  # Use keys method to return keys in dictionary
+  for x in thisdict.keys():
+    print(x)
+
+  # Loop through both keys and values, using items method.
+  for x, y in thisdict.items():
+    print(x, y)
+#+END_EXAMPLE
+
+** Copy dictionary
+
+#+BEGIN_EXAMPLE
+  thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  mydict = thisdict.copy()
+  print(mydict)
+#+END_EXAMPLE
+
+** Make a copy with dict()
+
+#+BEGIN_EXAMPLE
+  thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+  }
+  mydict = dict(thisdict)
+  print(mydict)
+#+END_EXAMPLE
+
+** Nested Dictionary
+
+#+BEGIN_EXAMPLE
+  myfamily = {
+    "child1" : {
+      "name" : "Emil",
+      "year" : 2004
+    },
+    "child2" : {
+      "name" : "Tobias",
+      "year" : 2007
+    },
+    "child3" : {
+      "name" : "Linus",
+      "year" : 2011
+    }
+  }
+
+  child1 = {
+    "name" : "Emil",
+    "year" : 2004
+  }
+  child2 = {
+    "name" : "Tobias",
+    "year" : 2007
+  }
+  child3 = {
+    "name" : "Linus",
+    "year" : 2011
+  }
+
+  myfamily = {
+    "child1" : child1,
+    "child2" : child2,
+    "child3" : child3
+  }
+#+END_EXAMPLE
+
+** storing data in dictionaries
+
+The times you would want to use a *dictionary vs a regular list* is when
+you need to know where something is preceily, and call it. A dictionary
+is also *not* sort-able.
+
+The breakout of a dictionary is: ={'key':'value'}=
+
+#+BEGIN_EXAMPLE
+  my_dict = {'key1':'data1','key2':'data2'}
+  return my_dict['key1']
+#+END_EXAMPLE
+
+- condition checks against dictionaries
+
+  NOTE: about storing data... you can run a boolean test against your
+  dictionary to see if something exist in the following way:
+
+  #+BEGIN_EXAMPLE
+    d = {'key1':'data1','key2':'data2'}
+    'data1' in d.values() # will test if data1 exist as a value stored in your dictionary
+    'key1' in d.keys() # will test if key1 exist as a key in your dictionary
+  #+END_EXAMPLE
+
+** multiple data types in dictionaries
+
+You can store multiple object types, including *lists* and other
+*dictionaries*. Here's an example:
+
+#+BEGIN_EXAMPLE
+  my_dict = {'k1':123,'k2':[0,1,2,3],'k3':{'kn1':'string','kn2':'more data'}}
+  return my_dict['k2'][1:]
+  return my_dict['k3']['kn2']
+#+END_EXAMPLE
+
+** passing methods to dictionaries
+
+Calling a method with a dictionary is very similar to the way we've done
+it before, but we can call the whole operation in one function as such:
+
+#+BEGIN_EXAMPLE
+  my_dict = {'k1':'string','k2':'more data'}
+  return my_dict['k2'].upper()
+#+END_EXAMPLE
+
+** changing a dictionary
+
+#+BEGIN_EXAMPLE
+  ddd = {'age':21,'course':182}
+  ddd['age'] = 23
+  return(ddd)
+#+END_EXAMPLE

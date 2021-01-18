@@ -1,0 +1,35 @@
+#+title: methods
+#+author: nick martin
+#+email: nmartin84@gmail.com
+
+A method in [[[[file:../programming/202101171440-object_oriented_programming.org][object-oriented programming]]]] object-oriented programming (OOP) is
+a procedure associated with a message and an [[[[file:202101171444-object.org][object]]]]. An object consists of data
+and behavior; these comprise an interface, which specifies how the object may be
+utilized by any of its various consumers.
+
+Data is represented as properties of the [[[[file:202101171444-object.org][object]]]], and behaviors are
+represented as methods. For example, a Window object could have methods such as
+~open~ and ~close~, while its state (whether it is open or closed at any given point
+in time) would be a property.
+
+In class-based programming, methods are defined in a class, and objects are
+instances of a given class. One of the most important capabilities that a method
+provides is method overriding - the same name (e.g., area) can be used for
+multiple different kinds of classes. This allows the sending objects to invoke
+behaviors and to delegate the implementation of those behaviors to the receiving
+object. A method in Java programming sets the behavior of a class object. For
+example, an object can send an area message to another object and the
+appropriate formula is invoked whether the receiving object is a rectangle,
+circle, triangle, etc.
+
+Methods also provide the interface that other [[[[file:202101171505-class.org][class]]]] use to access and modify
+the properties of an object; this is known as encapsulation. Encapsulation and
+overriding are the two primary distinguishing features between methods and
+procedure calls.
+
+In Python, a method is a function that is available for a given object because
+of the object's type.
+
+For example, if you create ~my_list = [1, 2, 3]~, the append method can be applied
+to ~my_list~ because it's a Python list: ~my_list.append(4)~. All lists have an
+append method simply because they are lists.

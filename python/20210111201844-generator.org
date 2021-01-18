@@ -1,0 +1,47 @@
+#+title: generator
+#+author: nick martin
+#+email: nmartin84@gmail.com
+
+So generator [[[[file:202101172028-python_functions.org][python functions]]]] are a special kind of function that returns a
+[[[[file:../programming/202101180948-lazy_iterator.org][lazy iterator]]]]. These are objects that you can loop over like a list, but the
+contents are not stored in memory, and use the keyword [[[[file:202101181005-yield.org][yield]]]].
+
+The very basic example of a generator:
+#+begin_src python
+mygenerator = (x*x for x in range(3))
+for i in mygenerator:
+    print(i)
+#+end_src
+
+It is just the same except you used ~()~ instead of ~[]~. BUT, you cannot perform
+~for i in mygenerator~ a second time since generators can only be used once: they
+calculate 0, then forget about it and calculate 1, and end calculating 4, one by
+one.
+
+* Example of parsing a large csv file
+
+A common use-case scenario is reading large files, such as a large csv file, and
+say you wanted to count the row lines in that file. Well if the file is too big
+for your system's memory to hold those contents, it can turn into a real problem.
+
+So typically you'd run it through a for loop, to run through each line and
+increment a integer value for "row_count" yeah? Well, that's problematic,
+because when your computer executes ~file.read().split()~ it's loading all the
+content into your system memory, and could throw a ~MemoryError~ if it consumes
+all of your system memory.
+
+#+begin_src python
+def csv_reader(file_name):
+    file = open(file_name)
+    result = file.read().split("\n")
+    return result
+#+end_src
+
+So for instance, we could instead use this method below to iterate through the
+csv file without having to load its contents into memory.
+
+#+begin_src python
+def csv_reader(file_name):
+    for row in open(file_name, "r"):
+        yield row
+#+end_src

@@ -1,0 +1,159 @@
+#+title: sets
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:07]
+
+* Sets in Python
+A set is a collection [[[[file:202101171358-python_datatypes.org][python datatypes]]]] which is un-ordered, un-indexed and
+unique. In Python, sets are written with curly brackets ={}=.
+
+#+BEGIN_EXAMPLE
+  thisset = {"apple", "banana", "cherry"}
+  print(thisset)
+#+END_EXAMPLE
+
+** Sets methods
+
+- *add():* Adds an element to the set
+- *clear():* Removes all the elements from the set
+- *copy():* Returns a copy of the set
+- *difference():* Returns a set containing the difference between two or
+  more sets
+- *difference_update():* Removes the items in this set that are also
+  included in another, specified set
+- *discard():* Remove the specified item
+- *intersection():* Returns a set, that is the intersection of two other
+  sets
+- *intersection_update():* Removes the items in this set that are not
+  present in other, specified set(s)
+- *isdisjoint():* Returns whether two sets have a intersection or not
+- *issubset():* Returns whether another set contains this set or not
+- *issuperset():* Returns whether this set contains another set or not
+- *pop():* Removes an element from the set
+- *remove():* Removes the specified element
+- *symmetric_difference():* Returns a set with the symmetric differences
+  of two sets
+- *symmetric_difference_update():* inserts the symmetric differences
+  from this set and another
+- *union():* Return a set containing the union of sets
+- *update():* Update the set with the union of this set and others
+
+** Adding data to sets
+
+Just add using the =.add= method
+
+#+BEGIN_EXAMPLE
+  my_set = set()
+  my_set.add(1)
+  my_set.add('string')
+  my_set()
+#+END_EXAMPLE
+
+Another useful way of using this is passing a list back to your set
+
+#+BEGIN_EXAMPLE
+  my_list = [1,1,1,2,2,2,3,3,3,4,5]
+  set(my_list)
+  return set(my_list)
+#+END_EXAMPLE
+
+** Loop through sets
+
+#+BEGIN_EXAMPLE
+  thisset = {"apple", "banana", "cherry"}
+
+  for x in thisset:
+    print(x)
+#+END_EXAMPLE
+
+** Check if data exist in sets
+
+#+BEGIN_EXAMPLE
+  thisset = {"apple", "banana", "cherry"}
+
+  print("banana" in thisset)
+#+END_EXAMPLE
+
+** Changing items in sets
+
+You cannot change or modify what's already in the set.
+
+** Adding to sets
+
+#+BEGIN_EXAMPLE
+  thisset = {"apple", "banana", "cherry"}
+
+  thisset.add("orange")
+
+  print(thisset)
+#+END_EXAMPLE
+
+** Add multiple items with update
+
+#+BEGIN_EXAMPLE
+  thisset = {"apple", "banana", "cherry"}
+
+  thisset.update(["orange", "mango", "grapes"])
+
+  print(thisset)
+#+END_EXAMPLE
+
+** Remove item from set
+
+#+BEGIN_EXAMPLE
+  thisset = {"apple", "banana", "cherry"}
+  thisset.remove("banana")
+  print(thisset)
+#+END_EXAMPLE
+
+** Using discard to remove from sets
+
+#+BEGIN_EXAMPLE
+  thisset = {"apple", "banana", "cherry"}
+
+  thisset.discard("banana")
+
+  print(thisset)
+#+END_EXAMPLE
+
+** Using pop to remove item from sets
+
+#+BEGIN_EXAMPLE
+  thisset = {"apple", "banana", "cherry"}
+
+  x = thisset.pop()
+
+  print(x)
+
+  print(thisset)
+#+END_EXAMPLE
+
+** Clear sets
+
+#+BEGIN_EXAMPLE
+  thisset = {"apple", "banana", "cherry"}
+
+  thisset.clear()
+
+  print(thisset)
+#+END_EXAMPLE
+
+** Join two sets
+
+#+BEGIN_EXAMPLE
+  set1 = {"a", "b" , "c"}
+  set2 = {1, 2, 3}
+
+  set3 = set1.union(set2)
+  print(set3)
+#+END_EXAMPLE
+
+** Join sets with update method
+
+#+BEGIN_EXAMPLE
+  set1 = {"a", "b" , "c"}
+  set2 = {1, 2, 3}
+
+  set1.update(set2)
+  print(set1)
+#+END_EXAMPLE

@@ -1,0 +1,24 @@
+* Getting Things Done Overview
+  :PROPERTIES:
+  :CUSTOM_ID: getting-things-done-overview
+  :END:
+
+Getting things done is a [[methodology]] that turns around the focus of
+task management, and provides a simple approach to managing everything
+you need to do.
+
+** Capturing things you need to do
+   :PROPERTIES:
+   :CUSTOM_ID: capturing-things-you-need-to-do
+   :END:
+
+The whole idea behind GTD, is to not linger or hold onto the thoughts of
+things you need to get done.
+
+Instead, you should document them in a process where you can process
+those things when you are ready, and determine what next steps need to
+be taken with that thought.
+
+[[literature/composing-meaningful-tasks]]
+
+See also: [[../out/literature/gtd/gtd.png]]

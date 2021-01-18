@@ -1,0 +1,5 @@
+#+title: one-tailed test
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-03 18:37]
+#+roam_tags: hypothesis

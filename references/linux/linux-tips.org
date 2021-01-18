@@ -1,0 +1,156 @@
+* Linux Tips
+  :PROPERTIES:
+  :CUSTOM_ID: linux-tips
+  :END:
+
+- You can curl cheatsheets with =curl http://cheat.sh/command=
+- Aliases to shorten commands and go into your
+  =.bashrc profile alias aliasname="commands"=
+- Column output using command =column -t=
+- History of your commands, clear by running =history -c=; history -w
+  and re-run previous commands with =!37=
+- Re-run previous command as sudo sudo =!!=
+- Find a programs path by running =which= command
+
+** Disabling IPV6 on Ubuntu 20.04
+   :PROPERTIES:
+   :CUSTOM_ID: disabling-ipv6-on-ubuntu-20.04
+   :END:
+
+#+BEGIN_SRC sh
+  nano /etc/default/grub
+  GRUMB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1"
+  sudo update-grub
+#+END_SRC
+
+** Creating File Share between Linux and Windows
+   :PROPERTIES:
+   :CUSTOM_ID: creating-file-share-between-linux-and-windows
+   :END:
+
+1. Install Samba on Ubuntu
+
+   #+BEGIN_EXAMPLE
+     sudo apt update
+     sudo apt install samba
+   #+END_EXAMPLE
+
+2. Then go and check samba status
+
+   #+BEGIN_EXAMPLE
+     sudo systemctl status smbd
+   #+END_EXAMPLE
+
+3. Configure Samba Shares
+
+   1. First edit the config file for Samba
+   2. =sudo nano /etc/samba/smb.conf=
+   3. An example config file
+
+   #+BEGIN_EXAMPLE
+     ======================= Global Settings =======================
+     [global]
+     ## Browsing/Identification ###
+     # Change this to the workgroup/NT-domain name your Samba server will part of
+        workgroup = WORKGROUP
+        netbios name = ubuntu2004
+        security = user
+        proxy = no
+        map to guest = bad user
+     #### Networking ####
+     # The specific set of interfaces / networks to bind to
+     # This can be either the interface name or an IP address/netmask;
+     # interface names are normally preferred
+        interfaces = 127.0.0.0/8 eth0
+
+     # Only bind to the named interfaces and/or networks; you must use the
+     # 'interfaces' option above to use this.
+     bind interfaces only = yes
+
+     #Most people will want "standalone server" or "member server".
+     #Running as "active directory domain controller" will require first
+
+     server role = standalone server
+     obey pam restrictions = yes
+
+     #This boolean parameter controls whether Samba attempts to sync the Unix
+     [public]
+        path = /samba/public
+        browseable = yes
+        guest ok = yes
+        guest only = yes
+        read only = no
+        force user = nobody
+        force create mode = 0777
+        force directory mode = 0777
+   #+END_EXAMPLE
+
+   4. Once this is done, restart samba
+
+   #+BEGIN_EXAMPLE
+     sudo systemctl restart smbd
+   #+END_EXAMPLE
+
+4. Testing Samba Shares
+
+   1. Create a public folder
+   2. =sudo mkdir -p /samba/public=
+   3. Configure permissions so everyone can read/write
+
+   #+BEGIN_SRC sh
+     sudo chown -R nobody:nogroup /samba/public
+     sudo chmod -R 0775 /samba/public
+     sudo chgrp sambashare /samba/public
+   #+END_SRC
+
+   4. Now restart the samba services, and then test from Windows
+
+   #+BEGIN_EXAMPLE
+     sudo service smbd restart
+   #+END_EXAMPLE
+
+5. Configuring private share
+
+   1.  First, create a samba group called smbgroup
+   2.  =sudo addgroup smbgroup=
+   3.  Then add users to the group
+   4.  =sudo usermod -aG smbgroup richard=
+   5.  Then configure passwords for users
+   6.  =sudo smbpasswd -a richard=
+   7.  =sudo smbpasswd -e richard=
+   8.  Next, create a protected share
+   9.  =sudo mkdir -p /samba/protected=
+   10. Then give root and only members of the group access
+
+   #+BEGIN_SRC sh
+     cd /samba/
+     sudo chown -R root:smbgroup protected
+     sudo chmod -R 0770 protected
+   #+END_SRC
+
+   11. Once your done, edit your samba config file to include the new
+       change
+   12. =sudo nano /etc/samba/smb.conf=
+   13. Then add the config
+
+   #+BEGIN_EXAMPLE
+     [Protected]
+       path = /samba/protected
+       valid users = @smbgroup
+       guest ok = no
+       writable = yes
+       browsable = yes
+   #+END_EXAMPLE
+
+   14. Finally, restart samba
+   15. =sudo service smbd restart=
+
+** Passing multiple strings to command
+   :PROPERTIES:
+   :CUSTOM_ID: passing-multiple-strings-to-command
+   :END:
+
+To create a sequence of outputs using a sequence of words, you can use
+something like:
+
+=mkdir {jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec}_{2017, 2018}=

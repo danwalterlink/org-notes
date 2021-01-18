@@ -1,0 +1,57 @@
+#+title: csv
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 16:58]
+#+roam_tags: modules
+
+The CSV [[[[file:202101021701-python_modules.org][python modules]]]] allows the python interpreter to read and write CSV
+files.
+
+* reading csv file
+
+#+BEGIN_SRC python
+  import csv
+  f = open("test.csv")
+  csv_f = csv.reader(f)
+      for row in csv_f:
+      name, phone, role = row
+      return("Name: {}, Phone: {}, Role: {}".format(name, phone, role))
+  f.close()
+
+  # Name: Name: Sabrina Green, Phone:  Phone: 802-867-5309, Role:  Role: System Administrator
+#+END_SRC
+
+* generating csv file
+
+#+BEGIN_EXAMPLE
+  hosts = [["workstation.local", "192.168.25.46"], ["webserver.cloud", "10.2.5.6"]]
+  with open("hosts.csv", 'w') as hosts_csv:
+      writer = csv.writer(hosts_csv)
+      writer.writerows(hosts)
+#+END_EXAMPLE
+
+* reading csv files with dictionaries
+
+#+BEGIN_EXAMPLE
+  with open('test.csv') as software:
+      reader = csv.DictReader(software)
+      for row in reader:
+          print(("{} has {} users").format(row["name"], row["users"]))
+#+END_EXAMPLE
+
+* creating csv files from dictionaries
+
+#+BEGIN_EXAMPLE
+  import csv
+  users = [ {"name": "Sol Mansi", "username": "solm", "department": "IT Infrastructure"},
+           {"name": "Charlie Grey", "username": "greyc", "department": "Development"}]
+  keys = ["name", "username", "department"]
+
+  with open('by_department.csv', 'w') as by_department:
+      writer = csv.DictWriter(by_department, fieldnames=keys)
+      writer.writeheader()
+      writer.writerows(users)
+#+END_EXAMPLE
+
+name,username,department Sol Mansi,solm,IT Infrastructure Charlie
+Grey,greyc,Development

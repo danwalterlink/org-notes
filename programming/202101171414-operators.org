@@ -1,0 +1,8 @@
+#+title: operators
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 14:14]
+
+In [[[[file:202101161933-computer_programming.org][computer programming]]]], operators are constructs defined within
+[[[[file:202101161003-programming_language.org][programming language]]]] which behave generally like [[[[file:202101171418-subroutine.org][subroutine]]]], but which
+differ syntactically or semantically.

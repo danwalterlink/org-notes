@@ -1,0 +1,1181 @@
+#+TITLE: Elisp Handbook
+#+SETUPFILE: export/setup/theme-darksun-local.setup
+
+* EXAMPLES
+** Looping Through Lists
+Here is an example Function using ~progn~ with a loop condition to parse a list.
+#+BEGIN_SRC emacs-lisp
+(setq org-gtd-task-files '("next.org" "coding.org"))
+(prog1 (car org-gtd-task-files) (setq org-gtd-task-files (cdr org-gtd-task-files)))
+(setq org-agenda-files (list (prog1 (concat org-gtd-folder (car org-gtd-task-files))))
+#+END_SRC
+* REFERENCE MANUAL
+** Nonlocal Exits
+A nonlocal exit is a transfer of control from one point in a program to another remote point. Nonlocal exits can occur in Emacs Lisp as a result of errors; you can also use them under explicit control. Nonlocal exits unbind all variable bindings made by the constructs being exited.
+** Lists
+*** Association Lists
+#+BEGIN_SRC emacs-lisp
+(setq org-next-task-files '("next.org" "coding.org"))
+(list org-next-task-files)
+(defun print-elements-of-list (list)
+  "Print each element of LIST on a line of its own."
+  (let ((files (list list)))
+  (while files
+    (setq org-gtd-task-files (append (pop list))))))
+(print-elements-of-list org-next-task-files)
+(ivy-completing-read "Select: " (list org-next-tasks-files))
+(find-file "Select file: " (concat org-next-task-files))
+#+END_SRC
+** Buffers
+:PROPERTIES:
+:ID:       9762e42f-3606-4e44-b10c-d5100c9c5018
+:END:
+*** Overview
+Buffer is essentially a Lisp Object, which can hold text and sometimes, but not always, be manipulated (See Read Only Buffers and Indirect Buffers). Buffers that are visiting files will contain the contents of those files, also referenced as Text. Some buffers may be read-only and only provide informational data... There is always a current-buffer...
+
+Buffers can include a range of information that's provided by Variables, or in some other cases by primitive functions.
+
+Buffers also use buffer-local Variables, which essentially allow the buffers to change variables that are directly accessible by the buffer. For more details check out the Buffer Local Variables.
+
+When an editing command returns to the editor command loop, Emacs automatically calls set-buffer on the buffer shown in the selected window. This is to prevent confusion: it ensures that the buffer that the cursor is in, when Emacs reads a command, is the buffer to which that command applies (see Command Loop). Thus, you should not use set-buffer to switch visibly to a different buffer; for that, use the functions described in Switching Buffers.
+*** Buffer File Names :buffer:
+The buffer file name is the name of the file that is visited in that Buffer. When a buffer is not visiting a file, its buffer file name is ~nil~. Most of the time, the buffer name is the same as the nondirectory part of the buffer file name, but the ~buffer file name~ and ~buffer name~ are distinct and can be set independently. See Visiting Files.
+#+RESULTS:
+: /home/nick/.org/notes/programming/elisp.org
+
+**** ~buffer-file-name~ :function:
+This Function returns the absolute file name of the file that buffer is visiting. If buffer is not visiting any file, buffer-file-name returns nil. If buffer is not supplied, it defaults to the current buffer. (see Elisp Function References)
+: (buffer-file-name (other-buffer))
+**** buffer-file-name :variable:
+This Buffer Local Variable, Variable contains the name of the file being visited in the current Buffer, or nil if it is not visiting a file. It is a permanent local variable, unaffected by kill-all-local-variables.
+
+It is risky to change this variable's value without doing various other things. Normally it is better to use =set-visited-file-name= (see below); some of the things done there, such as changing the buffer name, are not strictly necessary, but others are essential to avoid confusing Emacs.
+**** buffer-file-truename :variable:
+This Buffer Local Variable holds the abbreviated truename of the file visited in the current buffer, or nil if no file is visited. It is a permanent local, unaffected by kill-all-local-variables. See Truenames and Directory Names.
+**** buffer-file-number :variable:
+This Buffer Local Variable holds the file number and directory device number of the file visited in the current buffer, or nil if no file or a nonexistent file is visited. It is a permanent local, unaffected by kill-all-local-variables.
+
+The value is normally a list of the form (filenum devnum). This pair of numbers uniquely identifies the file among all files accessible on the system. See the function =file-attributes=, in File Attributes, for more information about them.
+
+If =buffer-file-name= is the name of a symbolic link, then both numbers refer to the recursive target.
+**** get-file-buffer :function:
+This Function returns the buffer visiting file filename. If there is no such buffer, it returns nil. The argument filename, which must be a String, is expanded (see File Name Expansion), then compared against the visited file names of all live buffers. Note that the buffer's buffer-file-name must match the expansion of filename exactly. This function will not recognize other names for the same file. (See Elisp Function References)
+
+#+BEGIN_EXAMPLE
+(get-file-buffer "buffers.texi")
+⇒ #<buffer buffers.texi>
+#+END_EXAMPLE
+
+In unusual circumstances, there can be more than one buffer visiting the same file name. In such cases, this function returns the first such buffer in the buffer list.
+**** find-buffer-visiting :function:
+This Function is like =get-file-buffer=, except that it can return any buffer visiting the file possibly under a different name. That is, the buffer's =buffer-file-name= does not need to match the expansion of filename exactly, it only needs to refer to the same file. If predicate is non-nil, it should be a function of one argument, a buffer visiting filename. The buffer is only considered a suitable return value if predicate returns non-nil. If it can not find a suitable buffer to return, =find-buffer-visiting= returns nil. (See Elisp Function References)
+**** set-visited-file-name :function:
+If =filename= is a non-empty String, this Function changes the name of the file visited in the current buffer to filename. (If the buffer had no visited file, this gives it one.) The next time the buffer is saved it will go in the newly-specified file. (See Elisp Function References)
+
+This command marks the buffer as modified, since it does not (as far as Emacs knows) match the contents of filename, even if it matched the former visited file. It also renames the buffer to correspond to the new file name, unless the new name is already in use.
+
+If filename is nil or the empty string, that stands for “no visited file”. In this case, set-visited-file-name marks the buffer as having no visited file, without changing the buffer's modified flag.
+
+Normally, this function asks the user for confirmation if there already is a buffer visiting filename. If no-query is non-nil, that prevents asking this question. If there already is a buffer visiting filename, and the user confirms or no-query is non-nil, this function makes the new buffer name unique by appending a number inside of ‘<...>’ to filename.
+
+If along-with-file is non-nil, that means to assume that the former visited file has been renamed to filename. In this case, the command does not change the buffer's modified flag, nor the buffer's recorded last file modification time as reported by visited-file-modtime (see Modification Time). If along-with-file is nil, this function clears the recorded last file modification time, after which visited-file-modtime returns zero.
+
+When the function set-visited-file-name is called interactively, it prompts for filename in the minibuffer.
+**** list-buffers-directory :variable:
+This Buffer Local Variable specifies a string to display in a buffer listing where the visited file name would go, for buffers that don't have a visited file name. Dired buffers use this variable.
+*** Buffer Gap
+Essentialy, Emacs uses a "gap" on Buffers to make insertion and deletion faster. Insertion works by filling in part of hte gap, and deletion adds to it. This is why your first edit, particularly in a large buffer, after just editing in another far-away part, sometimes has a noticeable delay.
+
+This function works invisibly, and should not be seen by Functions.
+
+**** gap-position :function:
+This Function returns the current gap position in the current buffer. (See Elisp Function References)
+**** gap-size
+This Functions returns the current gap size of the current buffer. (See Elisp Function References)
+*** Buffer List
+The Buffer list is a list of active buffers, ordered by how recently the buffer was used. Creating a new buffer will put it at the end of this list, or killing a buffer will remove it. The buffer will be placed to the top of the list if it's displayed or made active. See Switching Buffers or Selecting Windows.
+
+It's also possible to move a buffer to the end of the list with =bury-buffer=. There are no Functions available that will modify this buffer list.
+
+In addition to this, Emacs also keeps a local buffer list for Frames, in which buffers that had been displayed or had their window displayed in that Frame come first. This order is recorded in the frames =buffer-list= frame parameter; see Buffer Parameters.
+
+**** buffer-list &optional frame :function:
+This Function returns the buffer list, including those that begin with a space (_Messages). (See Elisp Function References)
+
+If the optional /frame/ argument is specified, it'll return that frames local =buffer-list=, otherwise the fundamental buffer list is used. The buffers appear in most recently active or displayed, regardless of what frames they were displayed in.
+
+#+caption: example buffer-list function
+#+BEGIN_EXAMPLE
+          (buffer-list)
+               ⇒ (#<buffer buffers.texi>
+                   #<buffer  *Minibuf-1*> #<buffer buffer.c>
+                   #<buffer *Help*> #<buffer TAGS>)
+
+          ;; Note that the name of the minibuffer
+          ;;   begins with a space!
+          (mapcar (function buffer-name) (buffer-list))
+              ⇒ ("buffers.texi" " *Minibuf-1*"
+                  "buffer.c" "*Help*" "TAGS")
+#+END_EXAMPLE
+
+The list returned by buffer-list is controlled specifically by the function, here's an example of how you could change the way it's ordered though:
+
+#+caption: buffer-list alternative sorting
+#+BEGIN_EXAMPLE
+     (defun reorder-buffer-list (new-list)
+       (while new-list
+         (bury-buffer (car new-list))
+         (setq new-list (cdr new-list))))
+#+END_EXAMPLE
+
+To change the order of a specific frame's buffer-list, set that frame's buffer-list parameter with =modify-frame-parameters=. See Parameter Access.
+**** other-buffer &optional buffer visibile-ok frame :function:
+This Function displays the next buffer in the buffer-list other than what's currently active. The currently active buffer, will then get assigned to the buffer-list. (in frame =frame=, or else the selected frame, see Input Focus). Buffers whose names start with a space are not considered. (See [[file:../programming/elisp-functions-reference.org][Elisp Function References]])... If buffer is not provided, then the first buffer in the buffer-list is provided.
+
+If frame is non ~nil~, then the buffer-list will contain candidates from the specified Frame. See Buffer Parameters.
+
+If =visible-ok= is ~nil~, =other-buffer= avoids returning a buffer visible in any window, in any visible frame, except as a last resort.
+
+If no suitable buffer exists, then ~*scratch*~ buffer is called.
+**** last-buffer &optional buffer visible-ok frame :function:
+Returns the last buffer in the frame's buffer-list, other than =buffer=. Unless frame is ~nil~, then it will pull from the active frame. (See Elisp Function References)
+
+The argument =visible-ok= is handled as with =other-buffer= listed above.
+**** bury-buffer &optional buffer-or-name :function:
+This Function command puts =buffer-or-name= at the end of the list, without changing the order of the buffer-list. This function operates on each frame's buffer-list, in addition, to the active window as well. Check out Window History. (See Elisp Function References)
+
+If the Argument =buffer-or-name= is ~nil~, this means to act on the current buffer. If this buffer is currently displayed in the active Window, that active window is deleted or another buffer is set to the =current-buffer=. More precisely, if the selected window is dedicated (See Dedicated Windows) and there are other windows on its frame, the window is deleted. If it is the only window on its frame and that frame is not the only frame on its terminal, the frame is dismissed by calling the function specified by =frame-auto-hide-function= (See Quitting Windows). Otherwise, it calls =switch-to-prev-buffer= (See Window History) to show another buffer in that window.  If =buffer-or-name= is displayed in some other window, it remains displayed there.
+
+To replace a buffer in all the windows that display it, use =replace-buffer-in-windows=, see Buffers And Windows.
+**** unbury-buffer :function:
+This Functions command will return the last buffer in teh buffer-list, and make the buffer active in the current buffer by using =switch-to-buffer=. See Switching Buffers. (See Elisp Function References)
+**** buffer-list-update-hook :variable:
+This is a normal hook run whenever the =buffer-list= changes. Functions running this hook are =get-buffer-create= (See Creating Buffers), =rename-buffer= (See Buffer Names), =kill-buffer= (See Killing Buffers), =bury-buffer= (see above) and finally =select-window= (see Selecting Windows).
+*** TODO Buffer Local Variables
+*** Buffer Modification
+Emacs keeps a flag called the modified flag for each Buffer, to record whether you have changed the Text of the buffer. This flag is set to t whenever you alter the contents of the buffer, and cleared to nil when you save it. Thus, the flag shows whether there are unsaved changes. The flag value is normally shown in the Mode Line (see Mode Line Variables), and controls saving (see Saving Buffers) and auto-saving (see Auto Saving).
+
+Some Lisp programs set the flag explicitly. For example, the function =set-visited-file-name= sets the flag to t, because the text does not match the =newly-visited= file, even if it is unchanged from the file formerly visited.
+
+The functions that modify the contents of buffers are described in Text.
+
+**** buffer-modified-p &optional buffer :function:
+This Function returns t if the buffer buffer has been modified since it was last read in from a file or saved, or nil otherwise. If buffer is not supplied, the current buffer is tested. (See Elisp Function References)
+
+**** set-buffer-modified-p flag :function:
+This Function marks the current buffer as modified if flag is non-nil, or as unmodified if the flag is nil. (See Elisp Function References)
+
+Another effect of calling this function is to cause unconditional redisplay of the mode line for the current buffer. In fact, the function =force-mode-line-update= works by doing this:
+
+: (set-buffer-modified-p (buffer-modified-p))
+
+**** restore-buffer-modified-p flag :function:
+Like set-buffer-modified-p, but does not force redisplay of mode lines. (See Elisp Function References)
+
+**** not-modified &optional arg :command:
+This Function command marks the current buffer as unmodified, and not needing to be saved. If arg is non-nil, it marks the buffer as modified, so that it will be saved at the next suitable occasion. Interactively, arg is the prefix argument.
+
+Don't use this function in programs, since it prints a message in the echo area; use =set-buffer-modified-p= (above) instead.
+
+**** buffer-modified-tick &optional buffer :function:
+This Function returns buffer's modification-count. This is a counter that increments every time the buffer is modified. If buffer is nil (or omitted), the current buffer is used. The counter can wrap around occasionally. (See Elisp Function References)
+
+**** buffer-chars-modified-tick &optional buffer :function:
+This Function returns buffer's character-change modification-count. Changes to text properties leave this counter unchanged; however, each time text is inserted or removed from the buffer, the counter is reset to the value that would be returned by buffer-modified-tick. By comparing the values returned by two buffer-chars-modified-tick calls, you can tell whether a character change occurred in that buffer in between the calls. If buffer is nil (or omitted), the current buffer is used. (See Elisp Function References)
+
+Sometimes there's a need for modifying buffer in a way that doesn't really change its text, like if only its text properties are changed. If your program needs to modify a buffer without triggering any hooks and features that react to buffer modifications, use the with-silent-modifications macro.
+
+**** with-silent-modifications body :macro:
+Execute body pretending it does not modify the buffer. This includes checking whether the buffer's file is locked (see File Locks), running buffer modification hooks (see Change Hooks), etc. Note that if body actually modifies the buffer text, its undo data may become corrupted. Reference Macro.
+*** Buffer Names
+:PROPERTIES:
+:ID:       a00cc170-4cb3-44da-a126-5176442bd1d2
+:END:
+All Buffers have unique names to identify them, which is a String. Any argumed called =buffer-or-name= (?) is of this sort, and an =error= is signaled if it is neither a string nor a buffer. Any argument called =buffer= must be an actual buffer Lisp Object, not a name. Many Functions will accept a buffer or buffer-name to operate on. (See Elisp Function References)
+
+Buffers that are ephemeral (lasting for a very short time) and generally uninteresting to the user have names starting with a space, so that the =list-buffers= and =buffer-menu= commands don't mention them (but if such a buffer visits a file, it is mentioned). A name starting with space also initially disables recording undo information; see Undo.
+
+**** buffer-name :function:
+=buffer-name= Function is used to return the Buffer name as a string, =buffer= defaults to the current buffer. (See Elisp Function References)
+
+If =buffer-name= returns nil, it that buffer has been killed. See Killing Buffers.
+
+#+BEGIN_EXAMPLE
+(buffer-name)
+⇒ "buffers.texi"
+
+(setq foo (get-buffer "temp"))
+⇒ #<buffer temp>
+
+(kill-buffer foo)
+⇒ nil
+
+(buffer-name foo)
+⇒ nil
+
+foo
+⇒ #<killed buffer>
+#+END_EXAMPLE
+**** rename-buffer :function:
+This Function renames the current buffer to /newname/. An error is signaled if /newname/ is not a string. In addition, if /unique/ is set to ~non-nil~ then it modified /newname/ to make a name that is not in use. Interactively, you can make /unique/ ~non-nil~ with a prefix argument. This is how the command =(rename-uniquely)= is implemented. (See Elisp Function References)
+**** get-buffer :function:
+This Function returns the buffer specified by =buffer-or-name=. If =buffer-or-name= is a string, and there is no buffer with that name, the value is ~nil~. (See Elisp Function References)
+#+BEGIN_EXAMPLE
+(setq b (get-buffer "lewis"))
+⇒ #<buffer lewis>
+(get-buffer b)
+⇒ #<buffer lewis>
+(get-buffer "Frazzle-nots")
+⇒ nil
+#+END_EXAMPLE
+
+See also the function get-buffer-create in Creating Buffers.
+**** generate-new-buffer-name :function:
+This Function returns the buffer specified by =buffer-or-name=. If =buffer-or-name= is a string and there is no buffer with that name, the value is nil. If =buffer-or-name= is a buffer, it is returned as given; that is not very useful, so the argument is usually a name. (See Elisp Function References) For example:
+
+#+BEGIN_EXAMPLE
+          (setq b (get-buffer "lewis"))
+               ⇒ #<buffer lewis>
+          (get-buffer b)
+               ⇒ #<buffer lewis>
+          (get-buffer "Frazzle-nots")
+               ⇒ nil
+#+END_EXAMPLE
+See also the function =get-buffer-create= in Elisp Function References.
+*** TODO Buffer Parameters
+*** TODO Creating Buffers
+*** TODO Current Buffer
+*** Indirect Buffers
+:PROPERTIES:
+:ID:       c613c3e1-c3e7-46a1-9ada-623bfc43aeac
+:END:
+An _indirect buffer_ shares the text of some other Buffer, which is called the _BASE BUFFER_ of the indirect buffer. In some ways it is the analogue for buffers, of a symbolic link among files. The base buffer itself may not be an indirect buffer. The text of the indirect buffer is always the same as the base buffer, changes made in either one are seen immediately, which includes the Text Properties. In all other aspects, the two are completely seperate from one another.
+
+An indirect buffer _cannot_ visit a file, mean-while a base buffer can and does. Killing Buffers on an indirect buffer does not affect the base buffer, and you will find the base buffer, unless another Functions terminates it, will still exist.
+
+**** make-indierct-buffer base-buffer name &optional clone
+This Function will create a new indirect buffer, named =name=, with =base-buffer= pointing back to a buffer. The =clone= option will basically clone all of the base-buffers attribuets, major modes, etc to the indirect buffer. If this is used against another indirect buffer, along with the =clone= flag, it will not clone the indirect buffer you initiated from, but instead clone from the root base buffer. (See Elisp Function References)
+**** clone-indirect-buffer newname display-flag &optional
+This Function basically creates and returns a new indirect buffer that shares the current buffers base buffer. If =display-flag= is ~non-nil~, then means to display the new buffer by calling =pop-to-buffer=. If =norecord= is ~non-nil~, that means not to put the new buffer to the front of the =buffer-list=. (See Elisp Function References)
+**** buffer-base-buffer &optional buffer
+This Functions returns the ~base buffer~ of =buffer=, which defaults to the current buffer. If buffer is not indirect buffer, the value returned is ~nil~, otherwise the value returned is the buffer-name of the base buffer. (See Elisp Function References)
+*** Killing Buffers
+Killing a Buffer rids it from emacs, as well as makes the memory it occupied available for others to use again.
+
+The buffer Lisp Object that's been killed will remain available to buffer's that are using or have reference to it, but the Buffer is specially marked so that you cannot see or access it. If you kill a buffer that's currently active in your window, emacs will automatically switch to a previous buffer.
+
+If you kill a buffer that is the base buffer of one or more indierct buffers (See Fuzzy:../Elisp/Indirect Buffers), the indirect buffers are automatically killed as well.
+
+The =buffer-name= of a Buffer is ~nil~ if, and only if, the buffer is killed. A Buffer that has not been killed is called a ~live~ buffer. To test if a buffer is live or killed, use the Functions =buffer-live-p=.
+
+**** kill-buffer &optional buffer-or-name :function:
+This Function kills the buffer =buffer-or-name=, freeing all its memory for other uses or to be returned to the operating system. If =buffer-or-name= is omitted, it kills the =current-buffer=. Side note; this function will not kill the buffer if there's un-saved changes. Instead, it'll first prompt the user if they would like to save changes and then kill the buffer. To skip this, clear the modified flag before calling =kill-buffer=. See Fuzzy:../Elisp/Buffer Modification. This function will return ~t~ if it actually kills the buffer. (See Elisp Function References)
+
+Any processes that have this buffer as the =profess-buffer= are sent the ~SIGHUP~ (hangup) signal, which normally causes them to terminate. See Fuzzy:../Elisp/Signals To Processes.
+
+This buffer then calls =replace-buffer-in-windows= for cleaning up all windows currently displaying the buffer to be killed.
+
+**** kill-buffer-query-functions :variable:
+This Functions will basiaclly prompt the user to confirm before killing the buffer. If any of these questions return ~nil~ then the buffer is spared.
+**** kill-buffer-hook :variable:
+This hook will basically run just before the buffer is killed, after the user has answered all the prompts. See Hooks.
+**** buffer-offer-save :variable:
+This Variable basically offers the function =save-buffers-kill-emacs= to save that buffer, just as it offers to save file-visiting buffers.
+**** buffer-save-without-query :variable:
+This Variable basically tells the Functions =save-buffer-kill-emacs= and =save-some-buffers= to save the buffer with-out prompting the user.
+**** buffer-live-p object :function:
+This Functions returns ~t~ if the Lisp Object is a live Buffer, ~nil~ otherwise. (See Elisp Function References)
+*** Modification Time
+Emacs essentially makes note of when a file is modified, both at local disk level and by a Buffer. This comes in handy whenver you make a change to the buffer, but prior to your changes, the system or external application made a modification at the file-system level. If you were to save the buffer without this feature, Emacs would simplhy over-write the changes made at the file-system level. Check out File Attributes for more information on how to access this information.
+
+Some example functions below can help Emacs and the user determine modification times.
+
+**** verify-file-visited-modtime & optional buffer :function:
+This Function esentially compares what (usually your =current-buffer=) the buffer's visiting file has marked for modification time, vs what the operating system shows. The two should be the same prior to Emacs saving changes back to the file-system. The value of this function will return ~t~ if both systems match, otherwise it will return ~nil~, or lastly if the visited file has no last modified time. (See Elisp Function References)
+
+In other circumstances, this function will return ~t~ if the visited file does not exist yet, or for a dired buffer. Lastly, it can also return ~nil~ if the file visited no longer EXISTS!!
+**** clear-visited-file-modtime :function:
+This Function essentially clears the modified time on the visited file currently in the Buffer. As a result, the next attempt to save the file will not complain about any modified time discrepancy's. (See Elisp Function References)
+**** visited-file-modtime :function:
+This Function returns the current buffer's, last file, modification time, as a list of the form (high low microsec picosec). This is the same format that =file-attributes= uses to return file modification values. See Fuzzy:../Elisp/File Attributes. (Reference Elisp Function References)
+**** set-visited-file-modtime :function:
+This Function essentially takes a buffer's visited file, and writes to the modification time of the file set by =time=, unless =time= is ~nil~, and otherwise set to the last modification of the visited file. (See Elisp Function References)
+**** ask-user-about-supression-thread filename :function:
+This Function essentially will ask a user how to proceed if the modification time of the visited file is newer, than the buffer's modification time. Emacs detects this because the modification time is newer on disk, then what Emacs has last recorded.
+
+Depending on the users response, the function will either save the buffer text to the visited file and update the modification time, otherwise it may throw a =file-supression= error with data (filename), in which case the buffer's changes are not saved. See also Fuzzy:../Elisp/File Locks. (Referenec Elisp Function References)
+*** Operate temporarily on another buffer
+To operate temporarily on another buffer, put the set-buffer within a =save-current-buffer= form. Here, as an example, is a simplified version of the command =append-to-buffer=:
+
+#+BEGIN_EXAMPLE
+     (defun append-to-buffer (buffer start end)
+       "Append the text of the region to BUFFER."
+       (interactive "BAppend to buffer: \nr")
+       (let ((oldbuf (current-buffer)))
+         (save-current-buffer
+           (set-buffer (get-buffer-create buffer))
+           (insert-buffer-substring oldbuf start end))))
+#+END_EXAMPLE
+
+Here, we bind a local variable to record the current buffer, and then save-current-buffer arranges to make it current again later. Next, =set-buffer= makes the specified buffer current, and =insert-buffer-substring= copies the string from the original buffer to the specified (and now current) buffer.
+
+Alternatively, we can use the with-current-buffer macro:
+
+#+BEGIN_EXAMPLE
+     (defun append-to-buffer (buffer start end)
+       "Append the text of the region to BUFFER."
+       (interactive "BAppend to buffer: \nr")
+       (let ((oldbuf (current-buffer)))
+         (with-current-buffer (get-buffer-create buffer)
+           (insert-buffer-substring oldbuf start end))))
+#+END_EXAMPLE
+
+In either case, if the buffer appended to happens to be displayed in some window, the next redisplay will show how its text has changed. If it is not displayed in any window, you will not see the change immediately on the screen. The command causes the buffer to become current temporarily, but does not cause it to be displayed.
+
+If you make local bindings (with let or function arguments) for a variable that may also have buffer-local bindings, make sure that the same buffer is current at the beginning and at the end of the local binding's scope. Otherwise you might bind it in one buffer and unbind it in another!
+
+Do not rely on using =set-buffer= to change the current buffer back, because that won't do the job if a quit happens while the wrong buffer is current. For instance, in the previous example, it would have been wrong to do this:
+
+#+BEGIN_EXAMPLE
+       (let ((oldbuf (current-buffer)))
+         (set-buffer (get-buffer-create buffer))
+         (insert-buffer-substring oldbuf start end)
+         (set-buffer oldbuf))
+#+END_EXAMPLE
+
+Using =save-current-buffer= or =with-current-buffer=, as we did, correctly handles quitting, errors, and throw, as well as ordinary evaluation.
+*** Read Only Buffers
+If a Buffer is read-only, then obviously you cannot make any changes to it. You can only use it in two ways, depending on the goal of what you're trying to achieve.
+- Buffer's visiting file is read-only and locked by the file-system, or due to permissions.
+- Modes such as Dired and Rmail make buffers read-only.
+
+**** buffer-read-only :variable:
+This Buffer Local Variable specifies if the buffer is read-only, which if it's read-only the value returned is ~non-nil~. However, characters that have the =inhibit-read-only= text property can still be modified. Check out Special Properties.
+**** inhibit-read-only :variable:
+If this Variable is ~non-nil~ then read-only buffers, and depending on the actual value, some or all read-only characters may be modified. read-only text are those that have ~non-nil~ =read-only= Text Properties. See Special Properties.
+
+If =inhibit-read-only= is ~t~ then all =read-only= character properties have no affect. If =inhibit-read-only= is a List, then =read-only= character properties have no affect if they are members of the list. (comparison is done with eq)
+**** read-only-mode &optional ARG :function:
+This Function is the command for setting a Buffer to read-only mode, a Buffer local minor mode. See Fuzzy:../Elisp/Minor Mode Conventions. (Reference Elisp Function References)
+
+This minor mode servers mostly as a wrapper for =buffer-read-only=; unlike most others, there is no seperate =read-only-mode= variable. Even when =read-only-mode= is disabled, characters with non ~nil~ =read-only= Fuzzy:../Elisp/Text Properties remain read-only.
+
+When enabling =read-only-mode=, this also enables =view-mode= if the option =view-read-only= is non ~nil~. See Fuzzy:../Elisp/Miscellaneous Buffer Operations. When disabling =read-only-mode=, it also disables =view-mode= if it was enabled.
+**** barf-if-buffer-read-only &optional position :function:
+This Function signals a =buffer-read-only= error if the current buffer is =read-only=. If the Text at /position/ (which defaults to =point=) has the =inhibit-read-only= Fuzzy:../Elisp/Text Properties set, the error will not be raised. (See Elisp Function References)
+
+Check out Fuzzy:../Elisp/Using Interactive, for another way to signal an error if the current buffer is =read-only=.
+*** Swapping Text
+Basically, allow the user to access several different types of text in the Buffer. This could be implemented with multiple buffers, or with narrowing. (See Fuzzy:../Elisp/Narrowing)
+
+Another method to quickly swap text between two Buffers is by using the Function =buffer-swap-text=. This function does not move any text, it only changes the internal Data Structure of the buffer Lisp Object to point to a different chunk of text.
+
+**** buffer-swap-text buffer
+This Function will swap all of the Buffers text between the targeted and referenced buffers, unless one of the two is an indirect buffer (see Indirect Buffers) or is a base buffer of an indirect buffer. (In other words, an indirect buffer is "live" and using the base buffer). All of the buffer properties are also swapped in this process. the positions of point and mark, all the markers, the overlays, the text properties, the undo list, the value of the =enable-multibyte-characters= flag (see Text Representation), etc. (Reference Elisp Function References)
+** Byte Compilation
+** Control Structures
+A list program is essentially a list of functions that are executed, but what controls that order of execution? Well, that is what the control struture. Control structures are special forms that control *when*, *whether*, or *how many* times to execute.
+*** Sequencing
+**** ~progn~
+The simplest of ways to control the sequencing of execution, is through ~progn~. This special form evaluates all of the forms, in textual order, returning the result of the final form. Alternatively, you can also use ~prog1~ or ~prog2~. (See Elisp Function References)
+
+#+BEGIN_SRC emacs-lisp
+(progn (print "The first form")
+       (print "The second form")
+       (print "The third form"))
+#+END_SRC
+*** Conditionals
+Elisp has 5 major conditional forms: *if*, *which*, *when* and *unless*. Check out Fuzzy:../Elisp/Pattern-Matching Conditional.
+**** ~if~ /condition then-form else-forms/
+If will choose between ~then-form~ and ~else-form~ depending on if it's condition returns ~t~ or ~nil~. (See Elisp Function References)
+**** ~when~ /condition then-form/
+This is a variant of the ~if~ form, because there is no ~else-form~. The body is only executed when the condition is ~t~ or *true*. (See Elisp Function References)
+**** ~unless~ /condition forms/
+This is a variant of ~if~ in that there is no ~then-form~, essentially meaning if the condition returns *false* or ~nil~, then body is executed. (See Elisp Function References)
+**** ~cond~ /clause/
+~cond~ chooses among an arbitrary number of alternatives. Each clause in the cond must be a *list*. The car of this list is the *condition*; the remaining elements, if any, the body-forms. (See Elisp Function References) Thus, a clause looks like this: ~(condition body-forms...)~. ~cond~ tries the clauses in textual order, by evaluating the condition of each clause. If the value of condition is *non-nil*, the clause succeeds; then cond evaluates its body-forms, and returns the value of the last of body-forms. Any remaining clauses are ignored. If the value of condition is *nil*, the clause fails, so the cond moves on to the following clause, trying its condition.
+
+The following expression will return *default*, because the first clause is looking for =a= to equal =foo=, otherwise return =default=.
+#+BEGIN_SRC emacs-lisp
+(setq a 5)
+(cond ((eq a 'hack) 'foo)
+      (t "default"))
+#+END_SRC
+*** Combining Conditions
+There are three constructs that combine the results to return ~t~ or *true* before evaluating the body, they are...
+**** ~not~ /condition/
+This function tests for the falsehood of condition. It returns t if condition is nil, and nil otherwise. The function not is identical to null, and we recommend using the name null if you are testing for an empty list. (See Elisp Function References)
+**** ~and~ /condition/
+Tests rather all the conditions are *true* before evaluating the body. It works by evaluating each of the conditions, one-by-one in the order they are entered. (See Elisp Function References)
+**** ~or~ condition
+This will test and perform the body so long as one of the experssions returns *true* or ~t~. (See Elisp Function References)
+*** TODO Pattern-Matching Conditional
+Aside from the four basic conditional forms, Emacs Lisp also has a pattern-matching conditional form, the ~pcase~ macro, a hybrid of ~cond~ and ~cl-case~ (see Fuzzy:../Elisp/Conditionals) that overcomes their limitations and introduces the pattern matching programming style. The limitations that pcase overcomes are:
+
+1. The ~cond~ form chooses among alternatives by evaluating the predicate condition of each of its clauses (see Conditionals). The primary limitation is that variables let-bound in condition are not available to the clause's body-forms.
+   - Another annoyance (more an inconvenience than a limitation) is that when a series of condition predicates implement equality tests, there is a lot of repeated code. (cl-case solves this inconvenience.)
+2. The ~cl-case~ macro chooses among alternatives by evaluating the equality of its first argument against a set of specific values.
+   - Its limitations are two-fold:
+   - The equality tests use eql.
+   - The values must be known and written in advance.
+   - These render cl-case unsuitable for strings or compound data structures (e.g., lists or vectors). (cond doesn't have these limitations, but it has others, see above.)
+**** ~pcase~ /EXP &rest CASES/
+Each clause in clauses has the form: ~(pattern body-forms...)~. Evaluate expression to determine its value, =expval=. Find the first clause in clauses whose pattern matches =expval= and pass control to that clause's body-forms. If there is a match, the value of pcase is the value of the last of body-forms in the successful clause. Otherwise, pcase evaluates to =nil=. (See Elisp Function References) source -> pcase-macro
+
+So Basically, ~pcase~ will run the initial *expression* and then each clause in the forms, whichever one matches the expression, will evaluate it's body forms. (See Elisp Function References)
+**** ~pcase-defmacro~ /name args [doc] &rest body/
+Define a new kind of pattern for ~pcase~, to be invoked as (name ~actual-args~). The ~pcase~ macro expands this into a function call that *evaluates* body, whose job it is to rewrite the invoked pattern into some other pattern, in an environment where args are bound to actual-args. (See Elisp Function References)
+
+Additionally, arrange to display doc along with the docstring of pcase. By convention, doc should use ~EXPVAL~ to stand for the result of evaluating expression (first arg to pcase).
+
+#+BEGIN_EXAMPLE
+     (pcase-defmacro less-than (n)
+       "Matches if EXPVAL is a number less than N."
+       `(pred (> ,n)))
+
+     (pcase-defmacro integer-less-than (n)
+       "Matches if EXPVAL is an integer less than N."
+       `(and (pred integerp)
+             (less-than ,n)))
+#+END_EXAMPLE
+*** Iteration
+Iteration means executing a program *repeatedly*.
+**** ~while~ /condition forms/
+If the condition is *true* or ~t~, the forms are evaluated in order, and then it'll re-evaludate the *condition* and repeat this cycle so long as the condition is always *true*. In this instance, you have to be careful to make sure you do not create an endless loop. (See Elisp Function References)
+**** ~dolist~ /(var list [result] body)/
+This macro will evaluate each element of the list, and return the results of that list. (See Elisp Function References)
+**** ~dotimes~ /(var count [result] body)/
+This construct executes body once for each integer from 0 (inclusive) to count (exclusive), binding the variable var to the integer for the current iteration. Then it returns the value of evaluating result, or nil if result is omitted. Here is an example of using dotimes to do something 100 times. (See Elisp Function References)
+*** Generators
+A generator is a function that produces a *potentially-infinite* stream of values. Each time the function produces a value, it suspends itself and waits for a caller to request the next value.
+**** ~iter-defun~ /name args [doc] [declare] [interactive] body/
+iter-defun defines a generator function. A generator function has the same signature as a normal function, but works differently. Instead of executing body when called, a generator function returns an iterator object. That iterator runs body to generate values, emitting a value and pausing where iter-yield or iter-yield-from appears. When body returns normally, iter-next signals iter-end-of-sequence with body's result as its condition data. (See Elisp Function References)
+** Forms
+*** Special Forms
+**** save-current-buffer
+The =save-current-buffer= Special Form saves the identity of the current Buffer, evaluates the body forms, and finally restores that buffer as current. The return value is the value of the last form in body. The current buffer is restored even in case of an abnormal exit via throw or error (see Nonlocal Exits).
+
+If the buffer that used to be current has been killed by the time of exit from =save-current-buffer=, then it is not made current again, of course. Instead, whichever buffer was current just before exit remains current.
+** Hash Tables
+A hash table is a very fast kind of lookup table, somewhat like an alist (see Fuzzy:../Elisp/Association Lists) in that it maps keys to corresponding values. It differs from an alist in these ways:
+1. Lookup is very fast in a hash-table, but for smaller tables it may be faster to use an Fuzzy:../Elisp/Association Lists.
+2. The data in hash tables are in no particular order.
+3. There is no way to share structure between two hash tables.
+
+Hash tables have a special Printed Representation, which consists of =#s= followed by a list specifying the hash tables properties and contents, see Creating Hash. (The initial =#= used in the Printed Representation of objects with no Read represenation, has nothing to do with hash tables.)
+
+Obarrays, are also a kind of hash table, but they are a different type of object and are used only for recording interned Symbols. (See Fuzzy:../Elisp/Creating Symbols)
+
+*** Creating Hash
+The main Function for creating hash tables is ~make-hash-table~.
+
+**** make-hash-table /&rest keyword-args/ :function:
+This Function creates a new hash table specified by the arguments given. The arguments should consist of alternating keywords and values corresponding them. (See Elisp Function References)
+
+Several keywords make sense in ~make-hash-table~, but the only two that you really need to know about are ~:test~ and ~:weakness~
+
+You can also create a new hash table using the Printed Representation for hash tables. The Lisp reader can read this printed representation, provided each element in the specified hash table has a valid read syntax. For instance, the following specifies a new hash table containing the keys =key1= and =key2= (_both symbols_) associated with =val1= (_a symbol_) and =300= (_a number_) respectively.
+
+#+BEGIN_EXAMPLE
+#s(hash-table size 30 data (key1 val1 key2 300))
+#+END_EXAMPLE
+
+The Printed Representation for a hash table consists of =#s= followed by a list beginning with =hash-table=. The rest of the list should consist of zero or more property-value pairs specifying the hash table's properties and initial contents. The properties and values are read literally. Valid property names are _size, test, weakness, rehash-size, rehash-threshold, and data_. The data property should be a list of key-value pairs for the initial contents; the other properties have the same meanings as the matching make-hash-table keywords (=:size=, =:test=, etc.), described above.
+
+Note that you cannot specify a hash table whose initial contents include objects that have no _read syntax_, such as _buffers and frames_. Such objects may be added to the hash table after it is created.
+***** ~:test~ test
+this specifies the method of lookup for this has table, some options available are =eq=, =equal= or =eql=
+
+You can also use ~define-hash-table-test~ (See Defining Hash) to define additional possibilities for test.
+
+****** ~eql~
+Keys which are numbers are the same if they are equal, that is, if they are equal in value and either both are integers or both are floating point; otherwise, two distinct objects are never the same.
+
+****** ~eq~
+Any two distinct Lisp objects are different as keys.
+
+****** ~equal~
+Two Lisp objects are the same, as keys, if they are equal according to equal.
+
+***** ~:weakness~ weak
+The _weakness_ of a hash table specifics whether a key or value in the hash table protects it from garbage collection.
+
+The value, /weak/, must be one of =nil=, =key=, =value=, =key-or-value=, =key-and-value=, or =t= which is an Alias for =key-and-value=. If /weak/ is _key_ then the hash table does not prevent its _keys_ from being collected as _garbage_ (if they are not referenced anywhere else); if a particular _key does get collected_, the corresponding association is removed from the hash table.
+
+If /weak/ is =value=, then the hash table _does not prevent values from being collected as garbage_ (if they are not referenced anywhere else); if a particular value _does get collected_, the corresponding association is removed from the hash table.
+
+If /weak/ is =key-and-value= or =t=, _both the key and the value must be live_ in order to preserve the association. Thus, the hash table _does not protect_ either keys or values from garbage collection; if either one is collected as garbage, that removes the association.
+
+If /weak/ is =key-or-value=, either the key or the value _can preserve the association_. Thus, associations _are removed from the hash table_ when both their key and value would be collected as garbage (if not for references from weak hash tables).
+
+The default for /weak/ is =nil=, so that _all keys and values referenced_ in the hash table are preserved from garbage collection.
+
+***** ~size~ /size/
+This _specifies a hint_ for _how many associations_ you plan to store in the hash table. If you know the approximate number, you can make things a little more efficient by specifying it this way. If you specify too small a size, the hash table will grow automatically when necessary, but doing that takes some extra time.
+
+The default size is =65=
+
+***** ~rehash-size~ /rehash-size/
+When you add an association to a hash table and the table is full, _it grows automatically_. This value specifies how to make the hash table larger, at that time. _If rehash-size is an integer_, it should be positive, and the hash table grows by adding approximately that much to the nominal size. If _rehash-size is floating point_, it had better be greater than 1, and the hash table grows by multiplying the old size by approximately that number.
+
+The default value is =1.5=
+
+***** ~rehash-threshold~ /threshold/
+This specifies the _criterion_ for when the hash table is full (so it should be made larger). The value, =threshold=, should be a _positive floating-point number_, no greater than 1. The hash table is full whenever the actual number of entries exceeds the nominal size multiplied by an approximation to this value. The default for threshold is =0.8125=.
+*** Hash Access
+Described the Functions for accessing and storing Associations in a hash table.
+
+**** get-hash /key table &optional default/ :function:
+This Functions looks up key in table, and returns its associated value - or /default/, if key has no association in table. (See Elisp Function References)
+
+**** put-hash /key value table/ :function:
+This Function enters an association for key in table, with value =value=. If key _already has an association in table_, value replaces the old associated value. (See Elisp Function References)
+
+**** remhash /key table/ :function:
+This Function removes the association for key from table, if there is one. If key has no association, remhash does nothing. (See Elisp Function References)
+
+*Common Lisp note:* In Common Lisp, ~remhash~ returns non-nil if it actually removed an association and nil otherwise. In Emacs Lisp, remhash always returns nil.
+
+**** clrhash /table/ :function:
+This Function removes all the associations from hash table table, so that it becomes empty. This is also called clearing the hash table. (See Elisp Function References)
+
+*Common Lisp note:* In Common Lisp, clrhash returns the empty table. In Emacs Lisp, it returns nil.
+
+**** maphash /function table/ :function:
+This Function calls =function= once for each of the associations in table. The function =function= should accept two arguments -- key listed in table, and its associated value. ~maphash~ returns nil. (See Elisp Function References)
+*** Defining Hash
+You can define new methods of key lookup by means of ~define-hash-table-test~. In order to use this feature, you need to understand how hash tables work, and what a hash code means.
+
+You can think of a hash table conceptually as a _large array of many slots_, each capable of holding one association. To look up a key, ~gethash~ first computes an integer, _the hash code_, from the key. It reduces this integer modulo the length of the array, to produce an index in the array. Then it looks in that slot, and if necessary in other nearby slots, to see if it has found the key being sought.
+
+Therefore, to define a new method of key lookup, you need to specify two Functions to a) compute the hash code from a key and b) compare the two keys directly.
+
+**** define-hash-table-test /name test-fn hash-fn/ :function:
+This function defins a new hash table test, named =name= (See Elisp Function References)
+** Lisp Data Types
+A Lisp Object is a piece of data used and manipulated by Lisp programs. For our purposes, a type or data type is a set of possible ojects. Every object belongs to at-least one type. Objects of the same type have similar structures, and can be used in the same contexts. Types can overlap, and a Lisp Object can contain multiple types.
+
+A few fundamental object types are built into emacs. These, from which all other types are constructed, are called Primitive types.
+- integer
+- float
+- cons
+- symbol
+- string
+- vector
+- hash-table
+- subr
+- byte-code function
+- record
+- buffer
+
+Lisp is unlike many other languages in that its objects are self-typing: the primitive type of each object is implicit in the object itself. For example, if an object is a vector, nothing can treat it as a number; Lisp knows it is a vector, not a number.
+
+In most languages, the programmer must declare the data type of each Variable, and the type is known by the compiler but not represented in the data. Such type declarations do not exist in Emacs Lisp. A Lisp variable can have any type of value, and it remembers whatever value you store in it, type and all. (Actually, a small number of Emacs Lisp variables can only take on values of a certain type.
+
+*** Printed Representation
+The printed representation of an object is the format of the output generated by the Lisp printer (the function prin1) for that object. Every Data Type has a unique printed representation. The read syntax of an object is the format of the input accepted by the Lisp reader (the function read) for that object. This is not necessarily unique; many kinds of object have more than one syntax.
+
+In most cases, an object's printed representation is also a read syntax for the object. However, some types have no read syntax, since it does not make sense to enter objects of these types as constants in a Lisp program. These objects are printed in hash notation, which consists of the characters ‘#<’, a descriptive string (typically the type name followed by the name of the object), and a closing ‘>’. For example:
+
+#+BEGIN_EXAMPLE
+(current-buffer)
+ > #<buffer objects.texi>
+#+END_EXAMPLE
+
+Hash notation cannot be read at all, so the Lisp reader signals the error invalid-read-syntax whenever it encounters ‘#<’. In other languages, an expression is text; it has no other form. In Lisp, an expression is primarily a Lisp object and only secondarily the text that is the object's read syntax. Often there is no need to emphasize this distinction, but you must keep it in the back of your mind, or you will occasionally be very confused.
+
+When you evaluate an expression interactively, the Lisp interpreter first reads the textual representation of it, producing a Lisp object, and then evaluates that object (see Fuzzy:../Elisp/Evaluation). However, evaluation and reading are separate activities. Reading returns the Lisp object represented by the text that is read; the object may or may not be evaluated later. See Fuzzy:../Elisp/Input Functions, for a description of =read=, the basic function for reading objects.
+*** Comments
+A comment is represented with a =;= before the text.
+*** Programmy Types
+Types found in all lisp systems
+**** Integer Type
+The range of values for an integer depends on the machine. The minimum range is =−536,870,912= to =536,870,911= (30 bits; i.e., −2**29 to 2**29 − 1) but many machines provide a wider range. Emacs Lisp arithmetic functions do not check for integer overflow. Thus (1+ 536870911) is −536,870,912 if Emacs integers are 30 bits.
+
+As a special exception, if a number is too large to be read as a integer-type, the Lisp reader reads is as a Floating Point Type.
+
+**** Floating Point Type
+Floating-point numbers are the computer equivalent of scientific notation; you can think of a floating-point number as a fraction together with a power of ten. The precise number of significant figures and the range of possible exponents is machine-specific; Emacs uses the C data type double to store the value, and internally this records a power of 2 rather than a power of 10.
+
+The Printed Representation of a floating point, requires a *decimal* point, an exponent or both. Such as =930.0=, =+15e2= or =15.0e+2=.
+
+See Fuzzy:../Elisp/Numbers for more information.
+**** Character Type
+Characters are nothing more than integers, that Emacs will convert over to a alpha character. These characters are represented by their character codes. For example, the letter =A= character code is =65=.
+
+Characters for the most part are rarely ever used in programs, but it is more common to work with _strings_, which are sequences composed of characters. See Fuzzy:../Elisp/String Type.
+
+Characters in Strings and Characters, along with Buffers are limited to the range of =0 to 4194303-twenty= two bits (see Fuzzy:../Elisp/Character Codes). Codes 0 through 127 are ASCII codes; the rest are Fuzzy:../Elisp/Non-Ascii Characters. Characters that represent keyboard input have a much wider range, to encode modifier keys such as _Control, Shift and Meta_.
+
+There are special functions for producing a human-readable textual description of a character for the sake of messages. See Fuzzy:../Elisp/Describing Characters.
+
+***** Basic Char Syntax
+Printed Representation of a character is a decimal number (not sure what they mean by decimal number?). You should _always_ use the special read syntax formats that Emacs Lisp provides for characters. These syntax formats start with a question mark.
+
+The usual read syntax for alphanumeric characters is a =?= question mark followed by the character; thus =?A= for the character =A=, or =?B= for the character =B=, or finally =?a= for the character =a=.
+
+For example: (you can evaluate the below to present your character code)
+#+BEGIN_EXAMPLE
+?Q > 81
+?q > 113
+#+END_EXAMPLE
+
+Another thing to note, is that you can also use punctuation, but if the punctuation has a special meaning to Lisp, then you'll need to Escape with =\=.
+
+You can express the characters _control-g, backspace, tab, newline, vertical tab, formfeed, space, return, del and escape_ as =?\a, ?\b, ?\t, ?\n, ?\v, ?\f, ?\s, ?\r, ?\d and ?\e= respectively. (=?\s= followed by a dash has a different meaning-it applies the super modifier to the following character)
+
+These sequences which with with a backslash =\= are also known as Escape sequences, because backslash plays the role of an escape character; this has nothing to do with the character =ESC=.
+
+A backslash is allowed, for a character that's not interpreted by Emacs Lisp reader and treated as a normal character. You should also use a backslash to the previously mentioned ASCII ones, to avoid confusing people reading your code.
+***** General Escape Syntax
+In addition to the specific escape sequences for special important control characters, Emacs provides several types of escape syntax that you can use to specify non-ASCII text characters.
+
+You can specify characters by their Unicode names, if any. =\N{NAME}= represents the unicode character named _NAME_. Thus, =\N{LATIN SMALL LETTER A WITH GRAVE}= is equivelant to =?à= and notes the Unicode character U+00E0.
+
+You can specify characters by their Unicode values. =?\N{U+X}= repreesnts a character with Unicode code point X, where X is a hexadecimal number.
+
+You can also specify characters by their hexadecimal character codes. A hexadecimal escape sequence consists of a backslash, =x= and the hexadecimal character code. Thus =?\x41= is the character =A=.
+
+You can specify characters by their character code in octal. An octal escape sequence consists of a backslash followed by up to three octal digits; thus, =?\101= for the character =A=.
+
+See also Non-ASCII in Strings.
+***** Ctl-Char Syntax
+Control characters can also be represented using another method, using a question mark followed by a backslash, caret and the corresponding non-control character, in either upper or lower case. For example, both =?\^I= and =?\^i= are valid read syntax for the character ~C-i~, the character whose value is 9.
+***** Meta-Char Syntax
+A _meta character_ is a character typed with the <META> modifier key. The integer that represents such a character has the _2**27_ bit set. In a string, the _2*27_ bit attached to an ASCII character indicates a meta character; thus, the meta character that can fit in a string have codes in the range from 128 to 255. See Strings of Events.
+
+The read syntax for meta characters uses =\M-=
+***** Other Char Bits
+The case of a graphic character is indicated by its character code; for example, ASCII distinguishes between the characters ‘a’ and ‘A’.  But ASCII has no way to represent whether a control character is upper case or lower case.  Emacs uses the 2**25 bit to indicate that the shift key was used in typing a control character.  This distinction is possible only when you use X terminals or other special terminals; ordinary text terminals do not report the distinction.  The Lisp syntax for the shift bit is ‘\S-’; thus, ‘?\C-\S-o’ or ‘?\C-\S-O’ represents the shifted-control-o character.
+**** Symbol Type
+***** What is a symbol
+A Symbol is an object with a name referenced to it. The symbol name serves as the Printed Representation of the symbol. (See Fuzzy:../Elisp/Creating Symbols), no two symbols are the same. A symbol can serve as a variable, a function or to hold a property list. A Symbol whose name starts with a _:_ is called a _Keyword Symbol_. These symbols act automatically as Fuzzy:../Elisp/Constants, and are normally used only by comparing an unknown symbol with a few specific alternatives. See Fuzzy:../Elisp/Constant Variables.
+
+***** Symbol Names
+A symbol name can contain any characters, but if the symbol name appears to be a number, you may need to Escape the character so that Elisp reader does not interpret it as the number.
+**** Sequence Types
+A sequence is a Lisp Object that represents an ordered set of elements. There are two kinds of sequence in Emacs Lisp, Lists and Arrays. Thus, an object of type list or of type array is also considered a sequence.
+
+Arrays are further subdivided into strings, vectors, char-tables and bool-vectors. Vectors can hold elements of any type, but string elements must be characters, and bool-vector elements must be =t= or =nil=. The characters in a string can have text properties like characters in a buffer (see Fuzzy:../Elisp/Text Properties); vectors and bool-vectors do not support text properties even when their elements happen to be characters. Char-tables are like vectors except that they are indexed by any valid character code.
+**** Cons Cell and List Types
+A cons cell is an object that consists of two pointers or slots, called the CAR slot and the CDR slot (See CAR CDR & CONS). Each slot can point to or hold to any Lisp Object. We also say that the "the CAR of this cons cell is" whatever object its CAR slot currently points to, and likewise for the CDR.
+
+Lists is a series of cons cells, linked together so that the CDR slot of each cons cell holds either the next cons cell or the empty list. See section Lists, for functions that work on lists. Because most cons cells are used as part of lists, the phrase list structure has come to refer to any structure made out of cons cells.
+
+The names CAR and CDR derive from the history of Lisp. The original Lisp implementation ran on an IBM 704 computer which divided words into two parts, called the "address" part and the "decrement"; CAR was an instruction to extract the contents of the address part of a register, and CDR an instruction to extract the contents of the decrement. By contrast, "cons cells" are named for the function cons that creates them, which in turn is named for its purpose, the construction of cells. Reference CAR CDR & CONS
+
+Because cons cells are so central to Lisp, we also have a word for "an object which is not a cons cell". These objects are called Atoms.
+
+***** Dotted pair lists
+Dotted pair notation is an alternative syntax for cons cells that represents the CAR and CDR explicitly. In this syntax, =(a . b)= stands for a cons cell whose CAR is the object a, and whose CDR is the object b. Dotted pair notation is therefore more general than list syntax. In the dotted pair notation, the list =`(1 2 3)'= is written as =`(1 . (2 . (3 . nil)))'=. For nil-terminated lists, you can use either notation, but list notation is usually clearer and more convenient. When printing a list, the dotted pair notation is only used if the CDR of a cons cell is not a list.
+
+***** Association list type
+An association list or a-list is a specially-constructed list whose elements are cons cells. In each element, the CAR is considered a key, and the CDR is considered an associated value. (In some cases, the associated value is stored in the CAR of the CDR.) Association lists are often used as stacks, since it is easy to add or remove associations at the front of the list.
+
+For example for an a-list =(setq alist-of-colors '((rose . red) (lily . white)  (buttercup . yellow)))=, sets the variable =alist-of-colors= to an alist of three elements. In the first element, rose is the key and red is the value.
+**** Array Type
+An array is made up of an arbituary slots, starting with _0_ and incrementing up. Elisp uses 4 types of Arrays via: Strings and Characters, Vectors, Bool-Vectors, and Char-Tables. The first element has a index of ~0~, the 2nd element has a index of ~1~ and so-on.
+**** String Type
+A String is an array of characters. Strings are used for many purposes in Emacs, as can be expected in a text editor; for example, as the names of Symbols, as messages for the user, and to represent text extracted from buffers. Strings in Lisp are Constants: evaluation of a string returns the same string.
+
+See section on Strings and Characters.
+***** Syntax for Strings
+The read syntax for a string is double quote, the string of characters, and a closing double quote: ="string message"=. If your string includes double quotes, then escape them so the Lisp reader does not interpret them as a new string as such ~"\"Some mesage i'm quoting\""~
+***** Non-ASCII in Strings
+***** Nonprinting Characters
+***** Text Props and Strings
+**** Vector Type
+Is a one dimensional array of elements of any type. It's representation is by a left square bracket, and closed by a right square bracket.
+
+=[1 "two" (three)]=
+
+Examples:
+#+begin_src emacs-lisp :results code
+(setq avector [1 two '(three) "four" [five]])
+(eval avector)
+#+end_src
+
+#+begin_src emacs-lisp
+[1 two
+   '(three)
+   "four"
+   [five]]
+#+end_src
+
+**** Char-Table Type
+#+begin_src emacs-lisp :results code
+(make-char-table 'syntax-table nil)
+#+end_src
+**** Bool-Vector Type
+#+begin_src emacs-lisp
+(read-from-minibuffer "Enter your name: ")
+#+end_src
+**** Hash Table Type
+A Hash Table is a very fast kind of lookup table, somewhat like an alist in that it maps keys to corresponding values, but much faster. The printed representation of a hash table specifies its properties and contents, like this:
+**** Function Type
+**** Macro Type
+**** Primitive Function Type
+**** Byte-Code Function Type
+**** Autoload Type
+*** TODO Editing Types
+*** TODO Circular Objects
+*** TODO Type Predicates
+*** TODO Equality Predicates
+** Modes
+*** Mode Line Format
+This section describes Variables incorporated by the standard value of Fuzzy:../Elisp/Mode Line Format into the text of the mode line. There is nothing inherently special about these variables; any other variables could have the same effects on the mode line if the value of mode-line-format is changed to use them. However, various parts of Emacs set these variables on the understanding that they will control parts of the mode line; therefore, practically speaking, it is essential for the mode line to use them. Also see Optional Mode Line.
+
+**** mode-line-mule-info :variable:
+This variable holds the value of the mode line construct that displays information about the language environment, buffer coding system, and current input method. See Non-Ascii Characters.
+**** mode-line-modified :variable:
+This variable holds the value of the mode line construct that displays whether the current buffer is modified. Its default value displays ‘**’ if the buffer is modified, ‘--’ if the buffer is not modified, ‘%%’ if the buffer is read only, and ‘%*’ if the buffer is read only and modified.
+
+Changing this variable does not force an update of the mode line.
+**** mode-line-frame-identification :variable:
+This variable identifies the current Frame. Its default value displays " " if you are using a window system which can show multiple frames, or "-%F " on an ordinary terminal which shows only one frame at a time.
+**** mode-line-buffer-identification :variable:
+This variable identifies the buffer being displayed in the Window. Its default value displays the buffer name, padded with spaces to at least 12 columns.
+**** mode-line-position :variable:
+This variable indicates teh position in the Buffer. It's default value displays the buffer percentage and, optionally, the buffer size, the line number and the column number.
+**** mode-line-percent-position :user_option:
+This option is used in =mode-line-position=. Its value specifies both the buffer percentage to Display (one of nil, "%o", "%p", "%P" or "%q", see %-Constructs) and a width to space-fill or truncate to. You are recommended to set this option with the customize-variable facility.
+**** vc-mode :variable:
+The variable =vc-mode=, Buffer Local Variable in each buffer, records whether the buffer's visited file is maintained with version control, and, if so, which kind. Its value is a string that appears in the mode line, or nil for no version control.
+**** mode-line-modes :variable:
+This variable displays the buffer's major and minor Modes. Its default value also displays the recursive editing level, information on the process status, and whether narrowing is in effect.
+**** mode-line-remote :variable:
+This variable is used to show whether =default-directory= for the current buffer is remote.
+**** mode-line-client :variable:
+This variable is used to identify emacsclient frames.
+
+The following three variables are used in mode-line-modes:
+**** mode-name :variable:
+This buffer-local variable holds the “pretty” name of the current buffer's major mode. Each major mode should set this variable so that the mode name will appear in the mode line. The value does not have to be a string, but can use any of the data types valid in a mode-line construct (see Mode Line Data). To compute the string that will identify the mode name in the mode line, use format-mode-line (see Emulating Mode Line).
+This Buffer Local Variables holds the “pretty” name of the current buffer's major mode. Each major mode should set this variable so that the mode name will appear in the mode line. The value does not have to be a string, but can use any of the Data Types valid in a mode-line construct (see Mode Line Data). To compute the string that will identify the mode name in the mode line, use format-mode-line (see Emulating Mode Line).
+**** mode-line-process :variable:
+This Buffer Local Variable contains the mode line information on process status in modes used for communicating with sub-processes. It is displayed immediately following the major mode name, with no intervening space. For example, its value in the *shell* buffer is (":%s"), which allows the shell to display its status along with the major mode as: ‘(Shell:run)’. Normally this variable is nil.
+**** mode-line-front-space :variable:
+This variable is displayed at the front of the mode line. By default, this construct is displayed right at the beginning of the mode line, except that if there is a memory-full message, it is displayed first.
+**** mode-line-end-spaces :variable:
+This variable is displayed at the end of the mode line.
+**** mode-line-misc-info :variable:
+Mode line construct for miscellaneous information. By default, this shows the information specified by =global-mode-string=.
+**** minor-mode-alist :variable:
+This variable holds an a-list whose elements specify how the mode line should indicate that a minor mode is active. Each element of the =minor-mode-alist= should be a two-element list:
+
+: (minor-mode-variable mode-line-string)
+
+More generally, =mode-line-string= can be any mode line construct. It appears in the mode line when the value of minor-mode-variable is non-nil, and not otherwise. These strings should begin with spaces so that they don't run together. Conventionally, the minor-mode-variable for a specific mode is set to a non-nil value when that minor mode is activated.
+
+minor-mode-alist itself is not buffer-local. Each variable mentioned in the alist should be buffer-local if its minor mode can be enabled separately in each buffer.
+**** global-mode-string :variable:
+This variable holds a mode line construct that, by default, appears in the mode line just after the which-func-mode minor mode if set, else after mode-line-modes. The command display-time sets global-mode-string to refer to the variable display-time-string, which holds a string containing the time and load information.
+
+The ‘%M’ construct substitutes the value of global-mode-string, but that is obsolete, since the variable is included in the mode line from mode-line-format.
+
+Here is a simplified version of the default value of mode-line-format. The real default value also specifies addition of text properties.
+
+#+BEGIN_EXAMPLE
+("-"
+mode-line-mule-info
+mode-line-modified
+mode-line-frame-identification
+mode-line-buffer-identification
+"   "
+mode-line-position
+(vc-mode vc-mode)
+"   "
+mode-line-modes
+(which-func-mode ("" which-func-format "--"))
+(global-mode-string ("--" global-mode-string))
+"-%-")
+#+END_EXAMPLE
+** Positions
+*** Narrowing
+Narrowing makes parts of the Buffer invisible to edits, to get around this look at the =what-line= funciton which can see outside of narrowing. Contrary, =count-lines= will narrow a buffer to only what it's interested in.
+
+**** save-restriction :function:
+The use of =save-restriction= comes in handy with narrowing, as any code inside of this symbol will return the buffer to its original narrowed state. (See Elisp Function References)
+
+If you use both =save-restriction= and =save-excursion=, restriction should be in the inner-list.
+#+BEGIN_SRC emacs-lisp
+(save-excursion
+  (save-restriction
+    body...))
+#+END_SRC
+**** what-line :function:
+This function will print the current line number in the buffer at point. (See Elisp Function References)
+#+BEGIN_SRC emacs-lisp
+(defun what-line ()
+  "Print the current line number (in the buffer) of point."
+  (interactive)
+  (save-restriction
+    (widen)
+    (save-excursion
+      (beginning-of-line)
+      (message "Line %d"
+               (1+ (count-lines 1 (point)))))))
+(what-line)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+(defun show-limitation (&optional arg)
+  "Display only the first 60 lines, or otherwise the number passed in as argument."
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (widen)
+      (buffer-substring (goto-char (point-min)) 60))))
+(show-limitation)
+(count-lines (goto-char (point-min)) 60)
+#+END_SRC
+** Strings and Characters
+*** Syntax for strings
+The read syntax for strings is a double-quote, an arbitrary number of characters, and another double-quote, ="like this"=. To include a double-quote in a string, precede it with a backslash; thus, "\"" is a string containing just a single double-quote character. Likewise, you can include a backslash by preceding it with another backslash, like this: "this \\ is a single embedded backslash". Reference Evaluation and Lists.
+
+The newline character is not special in the read syntax for strings; if you write a new line between the double-quotes, it becomes a character in the string. But an Escape newline--one that is preceded by `\'---does not become part of the string; i.e., the Lisp reader ignores an escaped newline while reading a string. An escaped space `\ ' is likewise ignored.
+*** Non-ASCII Characters in Strings
+You can include a non ASCII international character in a string Constants by writing it literally. There are two text representations for non-ASCII characters in Emacs strings (and in buffers): unibyte and multibyte.
+
+If the string constant is read from a Multibyte source, such as a multibyte buffer or string, or a file that would be visited as multibyte, then the character is read as a multibyte character, and that makes the string multibyte.
+
+If the string constant is read from a Unibyte source, then the character is read as unibyte and that makes the string unibyte.
+
+You can also represent a Multibyte non-ASCII character with its character code, using a hex escape, =`\xnnnnnnn'=, with as many digits as necessary. (Multibyte non-ASCII character codes are all greater than 256.) Any character which is not a valid hex digit terminates this construct. If the character that would follow is a hex digit, write `\ ' (backslash and space) to terminate the hex escape--for example, `\x8e0\ ' represents one character, `a' with grave accent. `\ ' in a string constant is just like backslash-newline; it does not contribute any character to the string, but it does terminate the preceding hex escape.
+*** Nonprinting Characters in Strings
+Properly speaking, strings cannot hold Meta Characters; but when a string is to be used as a key sequence, there is a special convention that provides a way to represent meta versions of ASCII characters in a string. If you use the =`\M-'= syntax to indicate a meta character in a string constant, this sets the bit of the character in the string. If the string is used in define-key or lookup-key, this numeric code is translated into the equivalent meta character. See section Character Type.
+
+Strings cannot hold characters that have the hyper, super, or alt modifiers.
+*** Text Properties in Strings
+A string can hold properties for the characters it contains, in addition to the characters themselves. This enables programs that copy text between Strings and Buffers to copy the text's properties with no special effort. See section Text Properties, for an explanation of what text properties mean. Strings with text properties use a special read and print syntax: =#("characters" property-data...)=
+** Variables
+*** Variable Aliases
+*** Colon
+Colon is sort of like the single-quote prefix to a symbol, it tells the interpreter that this is a literal symbol, not a variable to be immediately looked-up and substituted with the associated value in the variable table.
+* FUNCTION REFERENCES
+** DONE Buffers
+CLOSED: [2020-11-06 Fri 22:54]
+*** get-buffer
+Find a named buffer or create one if a buffer of that name does not exist. The get-buffer function returns nil if the named buffer does not exist.
+*** mark-whole-buffer
+Mark the whole buffer as a region. Normally bound to =C-x h=
+*** save-restriction
+Basically save whatever narrowing is in use, then perform the actions inside the BODY and return the narrowing to its original state.
+*** set-buffer
+Switch the attention of Emacs to another buffer, but do not change the window being displayed. Used when the program rather than a human is to work on a different buffer.
+*** insert-buffer-substring
+Copy a region of text from a buffer that is passed to the function as an argument and insert the region into the current buffer.
+** Comparisons
+*** equal
+*** greater than
+*** less than
+*** strings
+You can perform comparisons against strings to see if they are greater, less or equal to.
+#+BEGIN_SRC emacs-lisp :results code
+(when (string> "<2020-09-26 Sat>" "<2020-09-23 Wed>")
+  (print "String is greater than the later."))
+#+END_SRC
+
+#+begin_src emacs-lisp
+"String is greater than the later."
+#+end_src
+
+** Conditions
+*** if
+#+BEGIN_SRC emacs-lisp
+(if (eq 1 1)
+    (print "good job")
+  (print "sorry"))
+#+END_SRC
+*** when
+Is basically an if conditions statement without the else argument.
+*** y-or-n-p
+#+BEGIN_SRC emacs-lisp
+(let ((pos1 (if (y-or-n-p "Do this?")
+                (concat "true")
+              (concat "false"))))
+  (print pos1))
+#+END_SRC
+*** when-let
+*** unless
+Basically do not execute the code in the body UNLESS the condition meets the statement
+*** if-let
+*** not
+** Copying & Pasting
+*** kill-region
+'cut' text between point and mark
+*** delete-and-extract-region
+Delete the text between START and END and return it.
+*** copy-region-as-kill
+=copy-region-as-kill= copies the text between point and mark into the kill ring, from which you can get it by yanking. The function does not cut or remove the text from the buffer.
+** DOOM Emacs
+*** Project
+**** ~doom-project-root~
+References the currently visiting project folder path
+#+BEGIN_SRC emacs-lisp
+(doom-project-root)
+#+END_SRC
+** File System
+*** file-in-directory-p
+*** file-name-handler-alist
+** Data Types
+*** type-of
+Returns type for OBJECT
+#+begin_src emacs-lisp :results code
+(type-of org-directory)
+#+end_src
+
+#+begin_src emacs-lisp
+string
+#+end_src
+
+** Evaluate
+*** eval
+*** eval-and-compile
+*** progn
+Evaluate each argument in sequence and then return the value of the last.
+#+BEGIN_SRC emacs-lisp
+(progn 1 2 3 4)
+#+END_SRC
+** Functions
+*** defun
+:PROPERTIES:
+:ID:       cdd30314-fc37-4df5-9495-42bd73f42a37
+:END:
+*** interactive options
+These are options you'll pass to your =defun= when writing a new function.
+- ="p"= to passs a prefix argument
+- ="r"= appears to pass two arguments, for instance =beg= and =end=
+** Getting User Input
+- source :: [[http://ergoemacs.org/emacs/elisp_idioms_prompting_input.html][Elisp: Get User Input]]
+
+You can get user input by multiple symbols:
+#+BEGIN_SRC emacs-lisp
+(read-directory-name "Directory: " "~/")
+(read-string "string: ")
+(read-regexp "pattern: ")
+#+END_SRC
+
+To select from a list
+#+BEGIN_SRC emacs-lisp
+(defun my-pick-one ()
+  "Prompt user to pick a choice from a list."
+  (interactive)
+  (let ((choices '("New" "Existing")))
+    (message "%s" (org-completing-read "File type: " choices ))))
+(my-pick-one)
+#+END_SRC
+*** read-multiple-choice
+Provides a prompt returning options to the user.
+#+BEGIN_SRC emacs-lisp
+(defun org-gtd--process-inbox-element ()
+  "With point on an item, choose which GTD action to take."
+  (let ((action
+         (read-multiple-choice
+          "What to do with this item?"
+          '((?q "quick" "quick item: < 2 minutes, done!")
+            (?t "throw out" "this has no value to me")
+            (?p "project" "multiple steps required to completion")
+            (?c "calendar" "do this at a certain time")
+            (?d "delegate it" "give it to someone")
+            (?s "single action" "do this when possible")
+            (?a "archive this knowledge" "Store this where you store knowledge")
+            (?i "incubate it" "I'll come back to this later")))))
+    (cl-case (car action)
+      (?q (org-gtd--quick-action))
+      (?t (org-gtd--trash))
+      (?p (org-gtd--project))
+      (?c (org-gtd--calendar))
+      (?d (org-gtd--delegate))
+      (?s (org-gtd--single-action))
+      (?a (org-gtd--archive))
+      (?i (org-gtd--incubate)))))
+#+END_SRC
+** Lists
+*** Setting Lists
+**** setq
+Define a variable value to a symbol name, seq will also quote the symbol's name for you unlike ~set~.
+**** set
+Same as ~setq~ but it requires you to quote the symbol's name.
+**** mapcar
+According to [[https://emacs.stackexchange.com/questions/57909/adding-string-to-each-item-in-list/57910#57910][this post]], ~mapconcat~ and ~mapcar~ are the best way of doing this... here's an example:
+
+#+BEGIN_SRC emacs-lisp
+(setq list '("Sample Data" "More Fun"))
+
+(setq list (mapcar (lambda (str)
+                     (concat str " is great")) list))
+
+(let ((list '("Sample Data" "More Fun"))
+      (tail "is great"))
+  (setq list (mapcar (lambda (str)
+                       (mapconcat #'identity (list str tail) " ")) list)))
+#+END_SRC
+**** mapcan
+**** setcar
+Sets the first item in a list
+**** setcdr
+Sets the remaining items in a list to what you specify
+**** cons
+#+BEGIN_SRC emacs-lisp
+(cons)
+(let ((var '("Data")))
+  (car var))
+#+END_SRC
+**** append
+#+BEGIN_SRC emacs-lisp
+(setq my-test-var (append (list (concat doom-private-dir (read-string "Enter String: ")))))
+#+END_SRC
+**** push
+*** Reading Lists
+**** car
+returns the first element of a list
+#+BEGIN_SRC emacs-lisp
+(car '("First" "Second" "Third"))
+#+END_SRC
+**** cdr
+returns everything after the first element of a list
+#+BEGIN_SRC emacs-lisp
+(cdr '("First" "Second" "Third"))
+#+END_SRC
+**** nthcdr
+Returns the Nth place in a list
+#+BEGIN_SRC emacs-lisp
+(nthcdr 3 '("Some" "First" "Data" "to" "Consider"))
+#+END_SRC
+**** nth
+read from a index value of a list.
+#+BEGIN_SRC emacs-lisp :results code
+(nth 2 '("Emacs" "great" "tool" "for" "everyone"))
+#+END_SRC
+
+#+begin_src emacs-lisp
+"tool"
+#+end_src
+
+** Loops
+*** cl-loop
+#+BEGIN_SRC emacs-lisp
+(cl-loop for i from 1 to 5
+         collect i)
+#+END_SRC
+*** while
+While is basically like if, however, if the evaluation is false, then it skips the body. If however, it is true, then it executes what is in the body and then re-runs the evaluation. This is *important* to note because, this essentially creates a loop until the statement is false. EG: *Asking a user to input something until nil*
+
+It is also noted, that you can use cdr to shorten a list while running a while loop. You do so, by assigning a statement like so in your while loop =(setq animals (cdr animals))=
+*** do-list
+** Position
+*** goto-char
+Set point to the location specified by the value of the argument, which can be a number, a marker, or an expression that returns the number of a position, such as =(point-min)=.
+*** push-mark
+Set mark at a location and record the value of the previous mark on the mark ring. The mark is a location in the buffer that will keep its relative position even if text is added to or removed from the buffer.
+*** save-excursion
+Save the location of point and restore its value after the arguments to save-excursion have been evaluated. Also, remember the current buffer and return to it.
+*** save-restriction
+Comes in hand
+*** register
+Stores the location in it's buffer and position
+** Read From
+*** thing-at-point
+Will read whatever is at point.
+#+BEGIN_SRC emacs-lisp :results code
+(thing-at-point 'line t)
+#+END_SRC
+
+#+begin_src emacs-lisp
+"(thing-at-point 'line t)\n"
+#+end_src
+
+** Searching
+*** string-match
+*** search-forward
+Basically search for a string, and if found, move point to that string.
+** Strings
+*** match-string
+*** split-string
+Splits the string into indexes.
+#+BEGIN_SRC emacs-lisp :results code
+(split-string "Emacs is awesome")
+#+END_SRC
+
+#+begin_src emacs-lisp
+("Emacs" "is" "awesome")
+#+end_src
+*** substring
+Breaks a string into a range specified by arguments.
+#+BEGIN_SRC emacs-lisp :results code
+(substring "Emacs is awesome" 6 16)
+#+END_SRC
+
+#+begin_src emacs-lisp
+"is awesome"
+#+end_src
+
+** Variables
+*** defvar
+Define a variable, unless a value is already assigned to the symbol's name. If you're expecting this to be customizable, use ➤ ~defcusotm~
+#+BEGIN_SRC emacs-lisp
+(defvar my-symbol '"hello")
+#+END_SRC
+*** defcustom
+Useful to create a symbol variable, that's also available via the customization group. (see Widgets)
+#+BEGIN_SRC emacs-lisp
+(defcustom my-new-symbol "value"
+  "Documentation."
+  :type 'string)
+#+END_SRC
+*** let
+Assign temporary variables, commonly used in functions and maybe lambda functions.
+*** let*
+** catch
+#+BEGIN_SRC emacs-lisp
+(defun foo-catch ()
+  "Catch my throw"
+  (catch 'foo
+    (foo-inner)))
+
+(foo-catch)
+(foo-throw)
+
+(defun foo-throw ()
+  "Throw my catch"
+  (if x
+      (throw 'foo t)
+    (print "Good throw")))
+#+END_SRC
+** condition-case
+:PROPERTIES:
+:ID:       db12ee10-cbaa-485f-8a9a-f422cce6b502
+:END:
+kill-region explains in more detail what condition-case does with an example. But basically, if your first argument is =nil= then the error is not stored and will not be passed to anything else in the body. The second argument tells elisp what to do if all goes well. The third argument tells elisp what to do if an error is encountered.
+** declare
+** defalias
+** error
+** funcall
+evaluated first argument as a function, passes remaining arguments to its first argument (feeding arguments into a function)
+#+BEGIN_SRC elisp
+(funcall (intern "-") 1 2 3)
+(funcall (intern "+") 1 2 3)
+#+END_SRC
+** intern
+Return the canonical symbol whose name is STRING.
+#+BEGIN_SRC emacs-lisp
+(intern "string")
+#+END_SRC
+
+*** TODO what is canonical symbol?
+** keywordp
+** last command
+Provides the last command that was ran
+** memq
+** pcase
+** plist
+** plist-get
+** plist-put
+** prependq!
+** puthash
+** save-match-data
+** signal
+** with-eval-after-load
+:PROPERTIES:
+:ID:       d8609736-44fe-403c-97a6-119d02d4ff57
+:END:

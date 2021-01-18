@@ -1,0 +1,40 @@
+#+title: principles of information visualization
+#+author: nick martin
+#+email: nmartin84@gmail.com
+#+source: https://www.coursera.org/learn/python-plotting/lecture/qrqqa/tools-for-thinking-about-design-alberto-cairo
+#+HTML_HEAD: <link rel="stylesheet" href="http://dakrone.github.io/org.css" type="text/css" />
+#+HTML_HEAD: <style type="text/css">body{ max-width:80%; }</style>
+
+* Visualization Wheel Dimensions
+
++ Abstraction - Figuration :: Boxes and Charts (Abstraction) or real-world
+  physical objects (figuration)
++ Functionality - Decoration :: No embellishments (functionality) or artistic
+  embellishments (decoration)
++ Density - Lightness :: Must be studied in depth (density) or understandable at
+  a glance (lightness)
++ Multidimensional - Unidimensional :: Different aspects of phenomena
+  (multidimensional) or single or few items of phenomena (unidimensional)
++ Originality - Familiarity :: Novel methods of visualization (originality) or
+  established and well understood methods of visualization (familiarity)
++ Novelty - Redundancy :: Explaining each item once (novelty) or encoding
+  multiple explanations of the same phenomena (redundancy)
+
+* Graphical heuristics:
+
+** Data-ink ratio
+
+So one thing that's brought up or mentioned, is the [[[[file:../../../statistics/202101091842-heuristic.org][heuristic]]]] proces: which is
+a process or rule that is meant to guide or help you in decision making; known
+to not be perfect, but to be practical in nature. They are meant to help until
+you have a reason to not follow them anymore.
+
+This comes along to the point of the data-ink ratio, and essentially it's the
+removal of ink, "noise", or un-needed data from the visualization. For instance,
+you may have a chart that's got a particular background pattern that surrounds
+the chart, a legend along the bottom and legend on the side, the background of
+the chart itself is a light grey color. The bars are then color coded for each
+representation of the comparison categories. So the data-ink ratio essentially
+is to remove the background grey, remove the background pattern that surrounds
+your chart, remove the redundant legend on the side, etc.
+

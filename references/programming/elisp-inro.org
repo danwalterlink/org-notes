@@ -1,0 +1,877 @@
+#+TITLE: Elisp Intro
+#+INFOJS_OPT: view:t toc:t ltoc:t mouse:underline buttons:0 path:http://thomasf.github.io/solarized-css/org-info.min.js
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://thomasf.github.io/solarized-css/solarized-dark.min.css" />
+
+* List Processing
+** Lisp Lists
+#+begin_src emacs-lisp :results code
+;;;; Simple strings
+'(rose violet red) ; => (rose violet red)
+(setq my-list '(rose violet red)) ; => (rose violet red)
+my-list ; (rose violet red)
+
+;;;; Lists inside of lists
+'(rose violet red '(purple green yellow)) ; => (rose violet red (purple green yellow))
+(setq my-list '(rose violet red '(purple green yellow)) ; => (rose violet red (purple green yellow))
+my-list ; (rose violet red (purple green yellow))
+
+;;;; Numbers
+(+ 1 1)
+(setq my-numbers '(2 3)) ; => (2 3)
+my-numbers ; (2 3)
+
+;;;; Substringsg
+(substring "The dog is quiet" 0 7) ; => "The dog"
+
+;;;; Concat
+(concat "string" " more") ; => "string more"
+#+end_src
+
+*** Lisp Atoms
+Atoms make up a words, each atom is seperated by whitespace and enclosed in
+paraenthesis, strings inside double quotes are treated as a single atom. ~(word)~,
+the "word" is an atom. A lisp object can only have _one_ atom in it, or nothing at
+all.
+
+Words in Elisp are called _atoms_, the term comes from the historical meaning of
+the word atom, which means "indivisible". See Elisp Words.
+
+The Printed Representation of both atoms and lists are called symbolic
+expressions, or more precisely, s-expressions. Words inside double quotes, are
+treated as an atom. Whitespace does not really matter, except maybe if it's in
+double quotes.  Otherwise, whitespace will seperate your atoms.
+
+** Run a Program
+Evaluate the symbol the run a program, often this means putting the cursor at
+the end closing parenthesis. See [[id:da49f021-ea2c-482a-8b93-4eafbfc3955f][Evaluation]].
+** Making Errors
+Causing an error will generate a backtrace with some debugging details as to why
+the evaluation failed to run the program.
+#+BEGIN_EXAMPLE
+     ---------- Buffer: *Backtrace* ----------
+     Debugger entered--Lisp error: (void-function this)
+       (this is an unquoted list)
+       eval((this is an unquoted list) nil)
+       elisp--eval-last-sexp(nil)
+       eval-last-sexp(nil)
+       funcall-interactively(eval-last-sexp nil)
+       call-interactively(eval-last-sexp nil nil)
+       command-execute(eval-last-sexp)
+     ---------- Buffer: *Backtrace* ----------
+#+END_EXAMPLE
+** Names & Definitions
+The names of functions (also called symbols), are not the instructions in
+itself, but a means of the Elisp interpreter to look up those instructions. So
+you could very well have two lists, defined by the same symbol, called in two
+different areas of a function and behave entirely different. The Elisp
+interpreter will simply run through the list, executing each list one at a time,
+and evaluate the results. Becaues of this, the symbol can only have one
+definition tied to it at a time.
+** Lisp Interpreter
+Some important things to remember, is how the interpreter reads, and what things it looks for when evaluating a list:
+1. Is there a single quote in-front of the list? if so _evaluate as its written_
+2. Otherwise, check the first atom in the list, and do a look-up for a function by its name, if so it carries out its instructions.
+3. If both of these fail, it returns an _error_
+
+*** Complications
+1. The first complication, the interpreter can evaluate a symbol that is not quoted and does not have parenthesis around it, Elisp will try and interpret it as a variable and return its value. This is described more in the Variables section. See Elisp Words.
+2. The second complication, some functions that are called _special forms_, can cause this type of issue, for example like the one used to define a new function. See Elisp Words.
+3. Lastly, there are also what is called _macros_. A macro is a construct defined in Lisp, which differs from a function in that it translates a Lisp expression into another expression that is to be evaluated in plaec of hte original expression. See Lisp Macro.
+4. Last complication, if there is a list inside of the outer list, it'll work on the inner list first.
+
+*** Byte Compiling
+One other aspect of interpreting: the Lisp interpreter is able to interpret two kinds of entity: humanly readable code, on which we will focus exclusively, and specially processed code, called byte compiled code, which is not humanly readable. Byte compiled code runs faster than humanly readable code.
+
+You can transform humanly readable code into byte compiled code by running one of the compile commands such as ~byte-compile-file~. Byte compiled code is usually stored in a file that ends with a .elc extension rather than a .el extension. You will see both kinds of file in the emacs/lisp directory; the files to read are those with .el extensions.
+
+Check out Byte Compilation in the Elisp References Manual.
+** Arguments
+Just as you would think, arguments are what's passed to a function to perform
+the operation. Such as ~(+ 2 2)~ your arguments would be your 2's and your =+= is
+your symbol that looks up the function for the add operation. There are
+different data types that can be used as arguments to pass to your functions.
+Such as *add*, *concat*, *substring* and *arguments with lists*.
+
+Arguments are defined in defun as such =(defun new-func-name (arg))=
+
+** Variables
+:PROPERTIES:
+:ID:       bccf02f4-1e45-43da-91ef-2e570cb0b67f
+:END:
+In Elisp, a variable will basically store a value attached to a symbol, just as
+a function with instructions can be attached to a symbol.
+
+Variables do not have to be surrounded by parenthesis to be evaluated.
+
+*** ~fill-column~ example
+Fill Column is a variable that's used by emacs, to use the value it returns, as
+the column number that buffers will use when wrapping text. To set *values* to a
+~symbol~, you can take a look at set & setq..
+
+*** Void Variable
+This is similar to the Void Function, but if we try to evaluate a function as a variable, we'll get a _backtrace_ error for *void variable* because that variable does not exist.
+
+*** ~set~ & ~setq~
+:PROPERTIES:
+:ID:       6e5ad639-c0d0-4f83-b144-f6a4db98fa4d
+:END:
+There are two methods to assigning variables to a symbol, one is by using =set= or =setq= and the other is by using =let=.
+
+**** Using ~set~
+*set* is an older funciton and not used too often anymore, but it does much of the same thing that ~setq~ does. ~set~ does not quote the variable, so to specify a new variable you'll have to:
+: (set 'carnivor '(lizard alligator))
+
+**** ~setq~ is the preferred method
+The big difference between ~set~ and ~setq~ is that ~setq~ will quote your symbol for you, so you don't have to.
+: (set carnivor '(lizard alligator))
+* Evaluation
+:PROPERTIES:
+:ID:       da49f021-ea2c-482a-8b93-4eafbfc3955f
+:END:
+When the Lisp Interpreter works, or runs an expression, the term for the
+activity is called _evaluation_. We say that the interpreter _evaluates the
+expression_.
+
+** How the Lisp Interpreter Acts
+After evaluating an expression, the Lisp interpreter will most likely return the
+value that the computer produces by carrying out the instructions it found in
+the function definition, or perhaps it will give up on that function and produce
+an error message. (The interpreter may also find itself tossed, so to speak, to
+a different function or it may attempt to repeat continually what it is doing
+for ever and ever in an infinite loop. These actions are less common; and we can
+ignore them.) Most frequently, the interpreter returns a value.
+
+At the same time the interpreter returns a value, it may do something else as
+well, such as *move a cursor* or *copy a file*; this other kind of action is called
+a _side effect_. Actions that we humans think are important, such as *printing
+results*, are often _side effects_ to the Lisp interpreter. It is fairly easy to
+learn to use _side effects_.
+
+** Evaluating Inner Lists
+Outer lists may rely or use the values returned from inner lists, which is why
+inner lists are processed first.
+** Practicing Evaluation
+Evaluation is in other words, how you can run and execute the symbol, rather it
+be a set of instructions or variable. And if you want a function to be
+interactive, or in other words, be callable as a command, then you need to add
+=(interactive)= to the function.
+* Writing Defuns
+Defun is the macro used to build new functions, it has 5 basic principles.
+1. The name of the symbol to which the function definition should be attached.
+2. A list of the arguments that will be passed to the function. If no arguments will be passed to the function, this is an empty list, ().
+3. Documentation describing the function. (Technically optional, but strongly recommended.)
+4. Optionally, an expression to make the function interactive so you can use it by typing M-x and then the name of the function; or by typing an appropriate key or keychord.
+5. The code that instructs the computer what to do: the body of the function definition.
+
+Any function required to be surrounded by parenthesis, before evaluated,
+otherwise you'll get back =void-variable=.
+
+#+begin_src emacs-lisp
+(defun $1 ($2)
+ "$3"
+ (interactive "$4")
+ ($5))
+
+** Primitive Functions
+Primitive functions in Elisp, are basically some of the original source code
+that built with ~C~ to get the basics of Emacs to work. These are some of the
+oldest building blocks.
+* Buffer Walkthrough
+* More Complex
+** copy-to-buffer :function:
+#+BEGIN_SRC emacs-lisp
+(interactive "BCopy to buffer: \nr")
+(let ((oldbuf (current-buffer)))
+  (with-current-buffer (get-buffer-create buffer)
+    (barf-if-buffer-read-only)
+    (erase-buffer)
+    (save-excursion
+      (insert-buffer-substring oldbuf start end))))
+#+END_SRC
+** insert-buffer :function:
+- Here is the older code
+  #+BEGIN_SRC emacs-lisp
+(defun insert-buffer (buffer)
+  "Insert after point the contents of BUFFER.
+     Puts mark after the inserted text.
+     BUFFER may be a buffer or a buffer name."
+  (interactive "*bInsert buffer: ")
+  (or (bufferp buffer)
+      (setq buffer (get-buffer buffer)))
+  (let (start end newmark)
+    (save-excursion
+      (save-excursion
+        (set-buffer buffer)
+        (setq start (point-min) end (point-max)))
+      (insert-buffer-substring buffer start end)
+      (setq newmark (point)))
+    (push-mark newmark)))
+  #+END_SRC
+- =(interactive "*bInsert buffer: ")=
+  - The =*= looks to see if the buffer is read-only? But how? It'll essentially print a message to the echo area.
+  - The lowercase =b= tells emacs the function insert-buffer should be an existing buffer or else it's name.
+  - [ ] How does =*= work for interactive?
+*** or
+It can have any number of arguments, and it returns the first value of the argument that is not =nil=
+#+BEGIN_SRC emacs-lisp
+(or (bufferp buffer)
+    (setq buffer (get-buffer buffer)))
+#+END_SRC
+*** let
+#+BEGIN_SRC emacs-lisp
+(save-excursion
+  (set-buffer buffer)
+  (setq start (point-min) end (point-max)))
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+(let (start end newmark)
+  (save-excursion
+    (save-excursion
+      (set-buffer buffer)
+      (setq start (point-min) end (point-max)))
+    (insert-buffer-substring buffer start end)
+    (setq newmark (point)))
+  (push-mark newmark))
+#+END_SRC
+** beginning-of-buffer :function:
+#+BEGIN_SRC emacs-lisp
+(defun beginning-of-buffer (&optional arg)
+  "documentation..."
+  (interactive "P")
+  (or (is-the-argument-a-cons-cell arg)
+      (and are-both-transient-mark-mode-and-mark-active-true)
+      (push-mark))
+  (let (determine-size-and-set-it)
+    (goto-char
+     (if-there-is-an-argument
+      figure-out-where-to-go
+      else-go-to
+      (point-min))))
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+(if (> (buffer-size) 10000)
+    ;; Avoid overflow for large buffer sizes!
+    (* (prefix-numeric-value arg)
+       (/ size 10))
+  (/
+   (+ 10
+      (*
+       size (prefix-numeric-value arg))) 10)))
+#+END_SRC
+** Review
+Symbols to make note of
+*** or :function:
+Return the value of the first argument that is not nil
+*** and :function:
+If none of the arguments return nil, return value of the last argument. Otherwise, return nil.
+*** &optional :function:
+Argument is optional such as =(defun symbol (&optional arg))=
+*** prefix-numeric-value :function:
+Convert the raw prefix argument produced by =(interactive "P")= to a numeric value.
+*** forward-line :function:
+As it sounds, move point to the beginning of the next line, or if the argument is greater than 1, forward that many lines.
+*** erase-buffer :function:
+Delete teh entire contents of the current buffer
+*** bufferp :function:
+Return =t= if its arguemnt is a buffer, otherwise return nil.
+* Narrowing & Widening
+Narrowing will allow you to narrow the buffer contents to the headline selected,
+and its subtrees. While widening will return the buffer to show all content.
+
+** save-excursion
+Is a function that allows you to widen a buffer temporarily, to run or execute the set of instructions in the funtion, and then return the buffer to its original narrowed state.
+* car, cdr and cons
+In Lisp, ~car~, ~cdr~, and ~cons~ are *fundamental functions*. The cons function is used
+to *construct lists*, and the car and cdr functions are used to *take them apart*.
+In the walk through of the copy-region-as-kill function, we will see cons as
+well as two variants on cdr, namely, setcdr and nthcdr. (See
+copy-region-as-kill.)
+1. =cons= is used to construct lists, and the =car= and =cdr= functions take them apart.
+2. =cons= is the short word for *construct*
+
+** copy-region-as-kill
+#+BEGIN_SRC emacs-lisp
+(defun copy-region-as-kill (beg end)
+  "Save the region as if killed, but don't kill it.
+     In Transient Mark mode, deactivate the mark.
+     If `interprogram-cut-function' is non-nil, also save the text for a window
+     system cut and paste."
+  (interactive "r")
+  (if (eq last-command 'kill-region)
+      (kill-append (filter-buffer-substring beg end) (< end beg))
+    (kill-new (filter-buffer-substring beg end)))
+  (if transient-mark-mode
+      (setq deactivate-mark t))
+  nil)
+#+END_SRC
+
+** car and cdr
+
+~car~ simply gives you the first object in a list - *note:* after =car= is ran, the list remains the same.
+
+#+BEGIN_SRC emacs-lisp
+(car '(rose violet daisy buttercup))
+#+END_SRC
+
+~cdr~ will return the remaining items in a list
+
+#+BEGIN_SRC emacs-lisp
+(cdr '(rose violet daisy buttercup))
+#+END_SRC
+
+** cons
+This Function constructs Lists.
+
+#+BEGIN_SRC emacs-lisp
+(defvar wood-types 'pine)
+(cons wood-types '(oak fir maple))
+#+END_SRC
+
+building a list
+#+BEGIN_SRC emacs-lisp
+(setq my-list '(buttercup))
+(setq my-list (cons my-list '(more data coming)))
+(length my-list)
+(car my-list)
+(cdr my-list)
+#+END_SRC
+
+** nthcdr
+- Similar to =cdr=, this will print the *integer* number in the slot number and everything after it.
+  #+BEGIN_SRC emacs-lisp
+(defvar my-list '(buttercup))
+(setq my-list (cons my-list '(more data coming)))
+(nthcdr 2 my-list)
+  #+END_SRC
+
+** nth
+- =nth= will return the value in it's slot, and nothing more.
+  #+BEGIN_SRC emacs-lisp
+(defvar my-list '(buttercup))
+(setq my-list (cons my-list '(more data coming)))
+(nth 2 my-list)
+  #+END_SRC
+** setcar
+- =setcar= will essentially replace the first value in your list.
+  #+BEGIN_SRC emacs-lisp
+(setq my-list '(buttercup data for reals))
+(setcar my-list 'more)
+(list my-list)
+  #+END_SRC
+** setcdr
+- =setcdr= will do the opposite, and replace the remaining values in your list with your new values.
+  #+BEGIN_SRC emacs-lisp
+(setq my-list '(buttercup data for reals))
+(setcdr my-list '(get rich fast))
+(list my-list)
+  #+END_SRC
+* Cutting & Storing Text
+Whenever you cut or clip text out of a Buffer with a kill command in GNU Emacs, it is stored in a list and you can bring it back with a yank command. =kill= essentially cuts your text, and =killed= is competing the action.
+
+** storing text in list
+The function =cons= can be used to construct a new list, such as
+
+#+BEGIN_SRC emacs-lisp
+(cons "another piece"
+      '("a piece of text" "previous piece"))
+#+END_SRC
+
+#+RESULTS:
+| another piece | a piece of text | previous piece |
+
+#+BEGIN_SRC emacs-lisp
+(car (nthcdr 1 '("another piece"
+                 "a piece of text"
+                 "more text to read")))
+#+END_SRC
+
+#+RESULTS:
+: a piece of text
+
+** zap-to-char
+#+BEGIN_SRC emacs-lisp
+(defun zap-to-char (arg char)
+  "Kill up to and including ARG'th occurrence of CHAR.
+     Case is ignored if `case-fold-search' is non-nil in the current buffer.
+     Goes backward if ARG is negative; error if CHAR not found."
+  (interactive "p\ncZap to char: ")
+  (if (char-table-p translation-table-for-input)
+      (setq char (or (aref translation-table-for-input char) char)))
+  (kill-region (point) (progn
+                         (search-forward (char-to-string char)
+                                         nil nil arg)
+                         (point))))
+#+END_SRC
+- See interactive for more details on =p= and =c=
+*** char-table-p
+- Determined whether its argument is a character table. When it is, it passes the character to the function =zap-to-char=.
+*** kill-region
+- Kill 'cut' text between point and mark.
+  #+BEGIN_EXAMPLE
+(kill-region BEG END &optional REGION)
+  #+END_EXAMPLE
+*** aref
+- Return the element of array at index IDX. Array may be a *vector*, *string*, *char-table*, *bool-vector*, a *record*, or a *byte-code* object.
+*** char-to-string
+=zap-to-char= uses the =search-forward= function, which requires a string to search and not a character. This is where =char-to-string= comes in handy by converting the *char* to a *string*.
+*** progn
+- =progn= is a special form that causes each of its arguments to be evaluated in sequence and then returns the value of the last one.
+  #+BEGIN_SRC emacs-lisp
+(progn 'BODY
+       'Data)
+  #+END_SRC
+** kill-region
+Kill region cuts the text from the region and stored it in the kill ring.
+#+BEGIN_EXAMPLE
+     (defun kill-region (beg end)
+       "Kill (\"cut\") text between point and mark.
+     This deletes the text from the buffer and saves it in the kill ring.
+     The command \\[yank] can retrieve it from there. ... "
+
+       ;;  Since order matters, pass point first.
+       (interactive (list (point) (mark)))
+       ;;  And tell us if we cannot cut the text.
+       ;; 'unless' is an 'if' without a then-part.
+       (unless (and beg end)
+         (error "The mark is not set now, so there is no region"))
+
+       ;;  'condition-case' takes three arguments.
+       ;;    If the first argument is nil, as it is here,
+       ;;    information about the error signal is not
+       ;;    stored for use by another function.
+       (condition-case nil
+
+           ;;  The second argument to 'condition-case' tells the
+           ;;    Lisp interpreter what to do when all goes well.
+
+           ;;    It starts with a 'let' function that extracts the string
+           ;;    and tests whether it exists.  If so (that is what the
+           ;;    'when' checks), it calls an 'if' function that determines
+           ;;    whether the previous command was another call to
+           ;;    'kill-region'; if it was, then the new text is appended to
+           ;;    the previous text; if not, then a different function,
+           ;;    'kill-new', is called.
+
+           ;;    The 'kill-append' function concatenates the new string and
+           ;;    the old.  The 'kill-new' function inserts text into a new
+           ;;    item in the kill ring.
+
+           ;;    'when' is an 'if' without an else-part.  The second 'when'
+           ;;    again checks whether the current string exists; in
+           ;;    addition, it checks whether the previous command was
+           ;;    another call to 'kill-region'.  If one or the other
+           ;;    condition is true, then it sets the current command to
+           ;;    be 'kill-region'.
+           (let ((string (filter-buffer-substring beg end t)))
+             (when string                    ;STRING is nil if BEG = END
+               ;; Add that string to the kill ring, one way or another.
+               (if (eq last-command 'kill-region)
+                   ;;    − 'yank-handler' is an optional argument to
+                   ;;    'kill-region' that tells the 'kill-append' and
+                   ;;    'kill-new' functions how deal with properties
+                   ;;    added to the text, such as 'bold' or 'italics'.
+                   (kill-append string (< end beg) yank-handler)
+                 (kill-new string nil yank-handler)))
+             (when (or string (eq last-command 'kill-region))
+               (setq this-command 'kill-region))
+             nil)
+
+         ;;   The third argument to 'condition-case' tells the interpreter
+         ;;    what to do with an error.
+         ;;    The third argument has a conditions part and a body part.
+         ;;    If the conditions are met (in this case,
+         ;;             if text or buffer are read-only)
+         ;;    then the body is executed.
+         ;;    The first part of the third argument is the following:
+         ((buffer-read-only text-read-only) ;; the if-part
+          ;; ...  the then-part
+          (copy-region-as-kill beg end)
+          ;;    Next, also as part of the then-part, set this-command, so
+          ;;    it will be set in an error
+          (setq this-command 'kill-region)
+          ;;    Finally, in the then-part, send a message if you may copy
+          ;;    the text to the kill ring without signaling an error, but
+          ;;    don't if you may not.
+          (if kill-read-only-ok
+              (progn (message "Read only text copied to kill ring") nil)
+            (barf-if-buffer-read-only)
+            ;; If the buffer isn't read-only, the text is.
+            (signal 'text-read-only (list (current-buffer)))))
+#+END_EXAMPLE
+** copy-region-as-kill
+
+Copied a region of text from a buffer and (via either kill-append or kill-new) saves in the kill ring.
+
+#+BEGIN_EXAMPLE
+     (defun copy-region-as-kill (beg end)
+       "Save the region as if killed, but don't kill it.
+     In Transient Mark mode, deactivate the mark.
+     If `interprogram-cut-function' is non-nil, also save the text for a window
+     system cut and paste."
+       (interactive "r")
+       (if (eq last-command 'kill-region)
+           (kill-append (filter-buffer-substring beg end) (< end beg))
+         (kill-new (filter-buffer-substring beg end)))
+       (if transient-mark-mode
+           (setq deactivate-mark t))
+       nil)
+#+END_EXAMPLE
+** defvar
+Define Variable, slightly different from ~setq~, in that ~defvar~ has a documentation string that's required and it will only assign the variable if there is not variable defined by the symbol's name.
+
+While you can use ~defvar~ to create a variable, if you expect this to be customized by the user, its better to use ~defcustom~ instead so that it's accessible by the customization group.
+** setcdr
+
+#+BEGIN_SRC emacs-lisp :results code :export t
+(setq triple '(1 2 3))
+(setcar triple '37)
+(setcdr triple '("foo" "bar"))
+(print triple)
+#+END_SRC
+
+#+RESULTS:
+#+begin_src emacs-lisp
+(37 "foo" "bar")
+#+end_src
+* List Implementation
+
+** Lists diagrammed
+This will basically break-down the way lists are stored in computer memory to help visually describe how this works.
+
+Evaluating the list ~(rose violet buttercup)~
+#+BEGIN_EXAMPLE
+         ___ ___      ___ ___      ___ ___
+        |___|___|--> |___|___|--> |___|___|--> nil
+          |            |            |
+          |            |            |
+           --> rose     --> violet   --> buttercup
+#+END_EXAMPLE
+
+Mean while, if we do ~(setq bouquet '(rose violet buttercup))~
+#+BEGIN_EXAMPLE
+     bouquet
+          |
+          |     ___ ___      ___ ___      ___ ___
+           --> |___|___|--> |___|___|--> |___|___|--> nil
+                 |            |            |
+                 |            |            |
+                  --> rose     --> violet   --> buttercup
+#+END_EXAMPLE
+
+In addition, when using ~cdr~ like such ~(setq flowers (cdr bouquet))~
+#+BEGIN_EXAMPLE
+     bouquet        flowers
+       |              |
+       |     ___ ___  |     ___ ___      ___ ___
+        --> |   |   |  --> |   |   |    |   |   |
+            |___|___|----> |___|___|--> |___|___|--> nil
+              |              |            |
+              |              |            |
+               --> rose       --> violet   --> buttercup
+#+END_EXAMPLE
+
+The function ~cons~ adds a new pair of addresses to the front of a series of addresses like that shown above. For example, evaluating the expression ~(setq bouquet (cons 'lily bouquet))~
+#+BEGIN_EXAMPLE
+     bouquet                       flowers
+       |                             |
+       |     ___ ___        ___ ___  |     ___ ___       ___ ___
+        --> |   |   |      |   |   |  --> |   |   |     |   |   |
+            |___|___|----> |___|___|----> |___|___|---->|___|___|--> nil
+              |              |              |             |
+              |              |              |             |
+               --> lily      --> rose       --> violet    --> buttercup
+#+END_EXAMPLE
+** Symbols as a chest of drawers
+Actually, what is put in each drawer is the address of the value or function definition. It is as if you found an old chest in the attic, and in one of its drawers you found a map giving you directions to where the buried treasure lies.
+
+#+BEGIN_EXAMPLE
+                 Chest of Drawers            Contents of Drawers
+
+                 __   o0O0o   __
+               /                 \
+              ---------------------
+             |    directions to    |            [map to]
+             |     symbol name     |             bouquet
+             |                     |
+             +---------------------+
+             |    directions to    |
+             |  symbol definition  |             [none]
+             |                     |
+             +---------------------+
+             |    directions to    |            [map to]
+             |    variable value   |             (rose violet buttercup)
+             |                     |
+             +---------------------+
+             |    directions to    |
+             |    property list    |             [not described here]
+             |                     |
+             +---------------------+
+             |/                   \|
+#+END_EXAMPLE
+* Yanking
+Yank will paste the content from the ~kill-ring~. Similar to cut & paste.
+
+** ~kill-ring~
+The kill ring is a list of strings like such \\
+~("some text" "a different piece of text" "yet more text")~ \\
+
+If you were to run the command ~yank~ you would end up pulling the first string from the list ~"some text"~ and so-on until the list was emptied. Generally there are 3 commands to pull text back which are ~yank~, ~yank-pop~ and ~rotate-yank-pointer~.
+
+** The ~kill-ring-yank-pointer~ Variable
+Thus, if the value of the kill ring is: ~("some text" "a different piece of text" "yet more text")~ and the ~kill-ring-yank-pointer~ points to the second clause, the value of ~kill-ring-yank-pointer~ is: ~("a different piece of text" "yet more text")~
+* Loops & Recursion
+There are basically two loops, ~while~ and ~recursion~.
+
+** The ~while~ loop
+While will run it's first symbol to determine if it returns *true* or *false*. If it returns *false*, then the rest of the /body/ is skipped. Otherwise if it returns *true* then the body is evaluated and then re-tests the first argument to see if it returns *true* or *false* until it eventually returns *false* and exits the function.
+
+The one catch to this is the ~while~ loop will never return a *true* value if it runs the /body/. It'll always return ~nil~ or ~false~.
+
+*** An example ~while~ loop that outputs a list and sets the value to ~cdr~
+~(setq animals '(gazelle giraffe lion tiger))~ and then run
+#+begin_src emacs-lisp
+(defun while-list-print ()
+ "WHILE loop is t return car output and set list to cdr"
+ (while animals
+  (print (car animals))
+  (setq (cdr animals))))
+#+end_src
+
+*** Incrementing loop
+You can use a counter to make a ~while~ loop eventually return *false* can help ensure the while loop exits.
+#+begin_src emacs-lisp
+set-count-to-initial-value
+(while (< count desired-number)
+  body...
+  (setq count (1+ count)))
+#+end_src
+
+Another example
+#+BEGIN_EXAMPLE
+     (defun triangle (number-of-rows)
+       "Add up the number of pebbles in a triangle.
+     The first row has one pebble, the second row two pebbles,
+     the third row three pebbles, and so on.
+     The argument is NUMBER-OF-ROWS."
+       (let ((total 0)
+             (row-number 1))
+         (while (<= row-number number-of-rows)
+           (setq total (+ total row-number))
+           (setq row-number (1+ row-number)))
+         total))
+#+END_EXAMPLE
+
+** ~dolist dotimes~
+~dolist~ works like a ~while~ loop that cdrs down a list: dolist automatically shortens the list each time it loopstakes the cdr of the listand binds the car of each shorter version of the list to the first of its arguments.
+
+~dotimes~ loops a specific number of times: you specify the number.
+
+*** ~dolist~
+The ~dolist~ expression does very much the same as the while expression, except that the dolist macro does some of the work you have to do when writing a while expression. For example, the dolist will automatically *shorten* the list for you.
+
+And here is how you could use the dolist macro:
+#+BEGIN_EXAMPLE
+     (setq animals '(gazelle giraffe lion tiger))
+
+     (defun reverse-list-with-dolist (list)
+       "Using dolist, reverse the order of LIST."
+       (let (value)  ; make sure list starts empty
+         (dolist (element list value)
+           (setq value (cons element value)))))
+
+     (reverse-list-with-dolist animals)
+#+END_EXAMPLE
+
+*** ~dotimes~
+The ~dotimes~ macro is similar to dolist, except that it loops a specific number of times.
+#+BEGIN_EXAMPLE
+     (defun triangle-using-dotimes (number-of-rows)
+       "Using `dotimes', add up the number of pebbles in a triangle."
+     (let ((total 0))  ; otherwise a total is a void variable
+       (dotimes (number number-of-rows total)
+         (setq total (+ total (1+ number))))))
+
+     (triangle-using-dotimes 4)
+#+END_EXAMPLE
+** TODO ~recursion~
+A recursive function contains code that tells the Lisp interpreter to call a program that runs exactly like itself, but with slightly different arguments. The code runs exactly the same because it has the same name. However, even though the program has the same name, it is not the same entity. It is different. In the jargon, it is a different *“instance”*.
+
+*** Building Robots: Extending the Metaphor
+:PROPERTIES:
+:ID:       64197c30-e071-469a-a326-4d6dc05ea050
+:END:
+It is sometimes helpful to think of a running program as a robot that does a job. In doing its job, a recursive function *calls on a second robot* to help it. The second robot is *identical* to the first in every way, except that the second robot helps the first and has been passed different arguments than the first.
+
+In a recursive function, the second robot *may call a third*; and the third may call a fourth, and so on. Each of these is a different entity; but *all are clones*. The last robot *should also know when to stop*.
+
+#+BEGIN_EXAMPLE
+     (defun name-of-recursive-function (argument-list)
+       "documentation..."
+       (if do-again-test
+         body...
+         (name-of-recursive-function
+              next-step-expression)))
+#+END_EXAMPLE
+* Regexp Search
+Two functions ~forward-sentence~ and ~forward-paragraph~ are examples of using *regex* patterns. Check out these two articles online Regexp Search and Regular Expressions.
+
+** ~sentence-end~
+Clearly, a sentence may be ended by a period, a question mark, or an exclamation mark. Indeed, in English, only clauses that end with one of those three characters should be considered the end of a sentence. This means that the pattern should include the character set: ~[.?!]~
+
+Typically, the way you would indicate the end of a sentence is by a double space after a period, question or exclamation mark. But sometimes, it may also be the end of a line or a tab. So we'll teach regex to search for these three patterns.
+#+BEGIN_EXAMPLE
+     \\($\\| \\|  \\)
+            ^   ^^
+           TAB  SPC
+#+END_EXAMPLE
+
+Here *$* by regex means, the end of a line, the first backslash quotes the following backslash in Emacs; and the second indicates that the following character, the parenthesis or the vertical bar, is special. Also, a sentence may be followed by one or more carriage returns, like this:
+#+BEGIN_EXAMPLE
+[
+]*
+#+END_EXAMPLE
+
+The asterisk indicates that the =<RET>= is repeated zero or more times. But a sentence end does not consist only of a period, a question mark or an exclamation mark followed by appropriate space: a closing quotation mark or a closing brace of some kind may precede the space. Indeed more than one such mark or brace may precede the space. These require a expression that looks like this:
+#+BEGIN_EXAMPLE
+[]\"')}]*
+#+END_EXAMPLE
+
+In this expression, the first =]= is the first character in the expression; the second character is ="= which is preceded by a =\= to tell Emacs the ="= is not special. The last three characters are ='=, =)=, and =}=.
+
+All this suggests what the regular expression pattern for matching the end of a sentence should be; and, indeed, if we evaluate sentence-end we find that it returns the following value:
+#+BEGIN_EXAMPLE
+     sentence-end
+          "[.?!][]\"')}]*\\($\\|     \\|  \\)[
+     ]*"
+#+END_EXAMPLE
+
+** ~forward-sentence~
+Here is the code for ~forward-sentence~:
+#+BEGIN_EXAMPLE
+     (defun forward-sentence (&optional arg)
+       "Move forward to next end of sentence.  With argument, repeat.
+     With negative argument, move backward repeatedly to start of sentence.
+
+     The variable `sentence-end' is a regular expression that matches ends of
+     sentences.  Also, every paragraph boundary terminates sentences as well."
+       (interactive "p")
+       (or arg (setq arg 1))
+       (let ((opoint (point))
+             (sentence-end (sentence-end)))
+         (while (< arg 0)
+           (let ((pos (point))
+                 (par-beg (save-excursion (start-of-paragraph-text) (point))))
+            (if (and (re-search-backward sentence-end par-beg t)
+                     (or (< (match-end 0) pos)
+                         (re-search-backward sentence-end par-beg t)))
+                (goto-char (match-end 0))
+              (goto-char par-beg)))
+           (setq arg (1+ arg)))
+         (while (> arg 0)
+           (let ((par-end (save-excursion (end-of-paragraph-text) (point))))
+            (if (re-search-forward sentence-end par-end t)
+                (skip-chars-backward " \t\n")
+              (goto-char par-end)))
+           (setq arg (1- arg)))
+         (constrain-to-field nil opoint t)))
+#+END_EXAMPLE
+* Counting Words
+Repetition and regular expression searches are powerful tools that you often use when you write code in Emacs Lisp. This chapter illustrates the use of regular expression searches through the construction of word count commands using while loops and recursion.
+
+** Why count words
+Certain types of writing ask you to count words. Thus, if you write an essay, you may be limited to 800 words; if you write a novel, you may discipline yourself to write 1000 words a day. It seems odd, but for a long time, Emacs lacked a word count command. Perhaps people used Emacs mostly for code or types of documentation that did not require word counts; or perhaps they restricted themselves to the operating system word count command, wc. Alternatively, people may have followed the publishers' convention and computed a word count by dividing the number of characters in a document by five.
+
+** The ~count-words-example~ Function
+Clearly, counting words is a repetitive act: starting from the beginning of the region, you count the first word, then the second word, then the third word, and so on, until you reach the end of the region. This means that word counting is ideally suited to *recursion* or to a *while* loop.
+
+*** Designing ~count-words-example~
+We'll want to pass 2 arguments that specify our *start* and *end* points in the marked region.
+
+#+BEGIN_EXAMPLE
+     ;;; First version; has bugs!
+     (defun count-words-example (beginning end)
+       "Print number of words in the region.
+     Words are defined as at least one word-constituent
+     character followed by at least one character that
+     is not a word-constituent.  The buffer's syntax
+     table determines which characters these are."
+       (interactive "r")
+       (message "Counting words in region ... ")
+
+     ;;; 1. Set up appropriate conditions.
+       (save-excursion
+         (goto-char beginning)
+         (let ((count 0))
+
+     ;;; 2. Run the while loop.
+           (while (< (point) end)
+             (re-search-forward "\\w+\\W*")
+             (setq count (1+ count)))
+
+     ;;; 3. Send a message to the user.
+           (cond ((zerop count)
+                  (message
+                   "The region does NOT have any words."))
+                 ((= 1 count)
+                  (message
+                   "The region has 1 word."))
+                 (t
+                  (message
+                   "The region has %d words." count))))))
+#+END_EXAMPLE
+
+*** The whitespace bug in ~count-words-example~
+The count-words-example command described in the preceding section has two bugs, or rather, one bug with two manifestations. First, if you mark a region containing only whitespace in the middle of some text, the count-words-example command tells you that the region contains one word! Second, if you mark a region containing only whitespace at the end of the buffer or the accessible portion of a narrowed buffer, the command displays an error message that looks like this: ~Search failed: "\\w+\\W*"~
+
+The new updated function would look like this:
+#+BEGIN_EXAMPLE
+     ;;; Final version: while
+     (defun count-words-example (beginning end)
+       "Print number of words in the region."
+       (interactive "r")
+       (message "Counting words in region ... ")
+
+     ;;; 1. Set up appropriate conditions.
+       (save-excursion
+         (let ((count 0))
+           (goto-char beginning)
+
+     ;;; 2. Run the while loop.
+           (while (and (< (point) end)
+                       (re-search-forward "\\w+\\W*" end t))
+             (setq count (1+ count)))
+
+     ;;; 3. Send a message to the user.
+           (cond ((zerop count)
+                  (message
+                   "The region does NOT have any words."))
+                 ((= 1 count)
+                  (message
+                   "The region has 1 word."))
+                 (t
+                  (message
+                   "The region has %d words." count))))))
+#+END_EXAMPLE
+* TODO Words in a ~defun~
+* TODO Readying a Graph
+* TODO Emacs Initialization
+** ~defcustom~
+Allows you to specify a variable that's customizable by users. Here is an example ~defcustom~ macro:
+#+BEGIN_EXAMPLE
+     (defcustom text-mode-hook nil
+       "Normal hook run when entering Text mode and many related modes."
+       :type 'hook
+       :options '(turn-on-auto-fill flyspell-mode)
+       :group 'wp)
+#+END_EXAMPLE
+* TODO Debugging
+* TODO Conclusion
+* TODO ~the-the~
+* TODO Kill Ring
+* TODO Full Graph
+#+BEGIN_SRC emacs-lisp
+(after! org
+  (set-company-backend! 'org-mode 'company-capf '(company-dabbref :with company-yasnippet)))
+
+
+#+END_SRC

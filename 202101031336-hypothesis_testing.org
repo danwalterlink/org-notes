@@ -1,0 +1,6 @@
+#+title: hypothesis testing
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-03 13:36]
+#+roam_tags: programming data-mining
+

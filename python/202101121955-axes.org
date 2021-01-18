@@ -1,0 +1,5 @@
+#+title: axes
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-12 19:55]
+#+roam_tags: matplotlib

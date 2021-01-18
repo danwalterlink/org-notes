@@ -1,0 +1,24 @@
+#+title: control structure
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 10:32]
+#+roam_alias: "control structure" "control flow"
+
+Within an imperative [[[[file:202101161003-programming_language.org][programming language]]]], a control flow statement is a
+statement that results in a choice being made as to which of two or more paths
+to follow. For non-strict functional languages, [[[[file:202101171418-subroutine.org][function]]]] and language
+constructs exist to achieve the same result, but they are usually not termed
+control flow statements.
+
+A set of statements is in turn generally structured as a block, which in
+addition to grouping, also defines a lexical scope.
+
+Interrupts and signals are low-level mechanisms that can alter the flow of
+control in a way similar to a subroutine, but usually occur as a response to
+some external stimulus or event (that can occur asynchronously), rather than
+execution of an in-line control flow statement.
+
+At the level of machine language or assembly language, control flow instructions
+usually work by altering the program counter. For some central processing units
+(CPUs), the only control flow instructions available are conditional or
+unconditional branch instructions, also termed jumps.

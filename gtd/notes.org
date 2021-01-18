@@ -1,0 +1,198 @@
+#+title: Technical
+
+* EMACS
+** copy/paste on term
+#+BEGIN_SRC emacs-lisp
+(defun copy-to-clipboard ()
+  (interactive)
+  (if (display-graphic-p)
+      (progn
+    (message "Yanked region to x-clipboard!")
+    (call-interactively 'clipboard-kill-ring-save))
+    (if (region-active-p)
+    (progn
+      (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+      (message "Yanked region to clipboard!")
+      (deactivate-mark))
+      (message "No region active; can't yank to clipboard!"))))
+
+(defun paste-from-clipboard ()
+  (interactive)
+  (if (display-graphic-p)
+      (progn
+    (clipboard-yank)
+    (message "graphics active"))
+    (insert (shell-command-to-string "xsel -o -b"))))
+
+(global-set-key [f8] 'copy-to-clipboard)
+(global-set-key [f9] 'paste-from-clipboard)
+#+END_SRC
+** Embedding Images into HTML exports
+#+BEGIN_SRC emacs-lisp
+(defun replace-in-string (what with in)
+  (replace-regexp-in-string (regexp-quote what) with in nil 'literal))
+
+(defun org-html--format-image (source attributes info)
+  (progn
+    (setq source (replace-in-string "%20" " " source))
+    (format "<img src=\"data:image/%s;base64,%s\"%s />"
+            (or (file-name-extension source) "")
+            (base64-encode-string
+             (with-temp-buffer
+               (insert-file-contents-literally source)
+              (buffer-string)))
+            (file-name-nondirectory source))))
+#+END_SRC
+
+*** Alternatively embedding into pandoc exports
+:PROPERTIES:
+:ID:       642fc427-55f4-44b6-9e8d-203d651c572c
+:END:
+#+BEGIN_SRC emacs-lisp
+# to embed on html5
+(setq org-pandoc-options-for-html5 '((standalone . t) (self-contained . t)))
+# For html4
+(setq org-pandoc-options-for-html4 '((standalone . t) (self-contained . t)))
+# Or to use --self-contained for all pandoc:
+(setq org-pandoc-options '((standalone . t) (self-contained . t)))
+#+END_SRC
+* ORG-MODE
+** Clocktables
+Call a clocktable by adding this to your org file ~#+BEGIN: clocktable :scope subtree :maxlevel 2~
+
+#+BEGIN: clocktable
+#+CAPTION: Clock summary at [2020-05-03 Sun 20:13]
+| Headline       | Time |      |
+|----------------+------+------|
+| *Total time*     | *1:10* |      |
+|----------------+------+------|
+| example usages | 1:10 |      |
+| \_  babel      |      | 1:10 |
+#+END:
+
+*** setting different scopes
+
+Scope defines where to look for entries.
++ ~:scope ("~/orgs/diary.org")~
++ ~:scope file~
++ ~:scope subtree~
++ ~:scope file-with-archives ("~/orgs/diary.org")~
+*** changing time format
+#+BEGIN_EXAMPLE
+#+begin_src emacs-lisp
+(setq org-duration-format 'h:mm)
+#+end_src
+#+END_EXAMPLE
+
+Will produce:
+#+BEGIN_EXAMPLE
+#+BEGIN: clocktable :scope file :maxlevel 2
+#+CAPTION: Clock summary at [2020-05-11 Mon 22:10]
+| Headline     |    Time |
+|--------------+---------|
+| *Total time* | *27:00* |
+|--------------+---------|
+| A            |   23:00 |
+| D            |    4:00 |
+#+END:
+#+END_EXAMPLE
+** Columntables
+Call a columnview in your orgfile with ~#+BEGIN: columnview~. In addition, you can also specify what COLUMNS are available for a subtree by specifying ~:COLUMNS:~ property.
+
+For ~:COLUMNS:~ you can define it in a few ways:
+
+#+BEGIN: columnview
+| ITEM             | \TODO | PRIORITY | TAGS | TIME |
+|------------------+-------+----------+------+------|
+| Columntables     | \TODO | B        |      |   12 |
+| defining options |       | B        |      |   18 |
+#+END:
+
+TODO: Add columntables to snippet templates.
+** Easy Templates
+With just a few keystrokes, Org’s easy templates inserts empty pairs of structural elements, such as #+BEGIN_SRC and #+END_SRC. Easy templates use an expansion mechanism, which is native to Org, in a process similar to yasnippet and other Emacs template expansion packages.
+
+Org comes with these pre-defined easy templates:
+#+BEGIN_EXAMPLE
+s #+BEGIN_SRC ... #+END_SRC
+e #+BEGIN_EXAMPLE ... #+END_EXAMPLE
+q #+BEGIN_QUOTE ... #+END_QUOTE
+v #+BEGIN_VERSE ... #+END_VERSE
+c #+BEGIN_CENTER ... #+END_CENTER
+C #+BEGIN_COMMENT ... #+END_COMMENT
+l #+BEGIN_EXPORT latex ... #+END_EXPORT
+L #+LATEX:
+h #+BEGIN_EXPORT html ... #+END_EXPORT
+H #+HTML:
+a #+BEGIN_EXPORT ascii ... #+END_EXPORT
+A #+ASCII:
+i #+INDEX: line
+I #+INCLUDE: line
+#+END_EXAMPLE
+
+More templates can added by customizing the variable org-structure-template-alist, whose docstring has additional details.
+
+#+BEGIN_WARNING
+Oh shit
+#+END_WARNING
+** Evaluating a function in your capture template.
+So you can use a =,= before the function to tell elisp to treat the following as a
+function. Such as ~(setq org-capture-templates '(("i" "Inbox" entry (file
+,(concat org-directory)))))~.
+** Forcing breakline
+Add the below to your org file to enforce new lines:
+#+BEGIN_EXAMPLE
+#+OPTIONS: \n:t
+#+END_EXAMPLE
+** Hyperlinks
+Link to other areas in org files like regular links, but you'll have to add directives to the orgfiles to make them callable such as =#+NAME:= on tables or other items or =<<name>>=. Some other ways of searching and linking to other files are:
+  #+BEGIN_EXAMPLE
+     [[file:~/code/main.c::255]]
+     [[file:~/xx.org::My Target]]
+     [[file:~/xx.org::*My Target]]
+     [[file:~/xx.org::#my-custom-id]]
+     [[file:~/xx.org::/regexp/]]
+  #+END_EXAMPLE
+
+Link abbreviations allow you to shorten urls to common links like =[[goog:searchterm]]=
+  #+BEGIN_EXAMPLE
+(setq org-link-abbrev-alist
+      '(("bugzilla"  . "http://10.1.2.9/bugzilla/show_bug.cgi?id=")
+        ("url-to-ja" . "http://translate.google.fr/translate?sl=en&tl=ja&u=%h")
+        ("google"    . "http://www.google.com/search?q=")
+        ("gmap"      . "http://maps.google.com/maps?q=%s")
+        ("omap"      . "http://nominatim.openstreetmap.org/search?q=%s&polygon=1")
+        ("ads"       . "http://adsabs.harvard.edu/cgi-bin/nph-abs_connect?author=%s&db_key=AST")))
+  #+END_EXAMPLE
+** Mapping to Modes
+The following example will allow you to map keys to ~org-agenda-mode-map~.
+#+BEGIN_SRC emacs-lisp
+(map! :map org-agenda-mode-map
+	  "i" #'org-agenda-clock-in
+	  "r" #'jethro/org-process-inbox
+	  "R" #'org-agenda-refile
+	  "c" #'jethro/org-inbox-capture)
+#+END_SRC
+** Tables
+*** Table Lookup
+By specifying a source with ~#+source: name~ you can then call and define a table in another srcblock via ~#+begin_src emacs-lisp :var table=this-is-another-table~
+#+BEGIN_EXAMPLE
+#+source: this-table
+| Table | Data |
+|-------|------|
+| Name  |   13 |
+
+#+begin_src emacs-lisp :var table=this-table
+(* 3 table)
+#+end_src
+#+END_EXAMPLE
+
+*** Table Formulas
+#+BEGIN_EXAMPLE
+| Student  | Maths | Physics | Mean |
+|----------+-------+---------+------|
+| Bertrand |    13 |      09 |   11 |
+| Henri    |    15 |      37 |   26 |
+| Arnold   |    17 |      13 |   15 |
+#+TBLFM: $4=vmean($2..$3)
+#+END_EXAMPLE

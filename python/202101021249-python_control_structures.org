@@ -1,0 +1,115 @@
+#+title: python control structures
+#+roam_tags: controlstucture
+
+[[[[file:202101171320-python.org][python]]]] comes with its own set of control structures, which will help the
+coder execute code based on a number of conditions.
+
++ Use =while= loops for booleans, or while something is true/false.
++ Use =for= loops to iterate over elements of a sequence.
++ Recursion repetive function where it calls itself until it reaches a
+  base condition.
++ Use =if= loops to execute an arbitrary piece of code when a condition
+  is true.
+
+* using returns with a for loop and logical operators
+
+The important thing to note here is that the return *cannot* be on the same
+indented line as the if condition, otherwise as soon as it finds a False
+condition it will exit the loop.
+
+#+BEGIN_EXAMPLE
+  def check_even_list(num_list):
+      for number in num_list:
+          if number % 2 == 0:
+              return True
+          else:
+              pass
+      return False
+#+END_EXAMPLE
+
+Another example is to print every even number in a list.. Another note to make
+here is the use of *return*, which is required in a function to return it's
+results so you can later assign them to a variable. Without using the return
+function, you would simply get the output from the function but cannot use it
+anywhere else.
+
+#+BEGIN_EXAMPLE
+  def check_even_list(num_list):
+      # here we define our static variables for the function
+      even_numbers = []
+      for nums in num_list:
+          if number % 2 == 0:
+              even_numbers.append(nums)
+          else:
+              pass
+      return even_numbers
+#+END_EXAMPLE
+
+** returning tuples
+
+#+BEGIN_EXAMPLE
+  work_hours = [('Abby',100),('Billy',400),('Cassie',800)]
+
+  def employee_check(work_hours):
+      # Set some max value to intially be at, like zero hours
+      current_max = 0
+      # Set some empty value before the loop
+      employee_of_month = ''
+
+      for employee,hours in work_hours:
+          if hours > current_max:
+              current_max = hours
+              employee_of_month = employee
+          else:
+              pass
+
+      # Notice the indentation here
+      return (employee_of_month,current_max)
+
+  return employee_check(work_hours)
+
+  ('Cassie', 800)
+#+END_EXAMPLE
+
+** returning variables from your function
+
+#+BEGIN_EXAMPLE
+  x = 50
+
+  def func(x):
+      print(f'X is {x}')
+
+      x = 'NEW VALUE'
+      return x
+  return func(x)
+
+  NEW VALUE
+#+END_EXAMPLE
+
+** nested statements
+
+So let's dive into an example, where we define two =def= inside one
+another.
+
+#+BEGIN_EXAMPLE
+  def greet():
+
+      name = 'Sammy'
+
+      def hello():
+          print('Hello '+name)
+
+      hello()
+
+  greet()
+#+END_EXAMPLE
+
+* Recursion
+
+#+BEGIN_EXAMPLE
+  def factorial(n):
+      if n < 2:
+          return 1
+      return n * factory(n-1)
+#+END_EXAMPLE
+

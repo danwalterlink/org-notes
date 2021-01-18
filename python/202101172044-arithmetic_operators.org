@@ -1,0 +1,16 @@
+#+title: arithmetic operators
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:44]
+
+Arithmetic [[[[file:202101021700-python_operators.org][python operators]]]] are used with numeric values to perform common
+mathematical operations:
+
+| Operator | Name           | Example |
+|----------+----------------+---------|
+| +        | Addition       | =x + y=   |
+| -        | Subtraction    | =x - y=   |
+| *        | Multiplication | =x * y=   |
+| %        | Modulus        | =x % y=   |
+| **       | Exponentiation | =x ** y=  |
+| //       | Floor Division | =x // y=  |

@@ -1,0 +1,57 @@
+#+title: os and re
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 16:59]
+
+The "os and re" [[[[file:202101021701-python_modules.org][python modules]]]] is what allows python to interact with the OS
+and use regex patterns.
+
+* Move Files
+
+#+BEGIN_EXAMPLE
+  #!/usr/bin/env python
+  import os
+  import re
+
+  fname = input('Enter filename: ')
+  fh = open(fname)
+  fh_read = fh.readlines()
+
+  folder = os.listdir('./')
+  files2 = [f for f in os.listdir("./") if os.path.isfile(f)]
+
+  # Create the needed directories
+  for tf in fh_read:
+      command = 'mkdir -p %s'%(tf)
+      os.system(command)
+
+  # Move files to their respective folders
+  for files in files2:
+      for tags in fh_read:
+          pattern = re.findall(tags.rstrip(),files)
+          if pattern:
+              command = 'mv "%s" %s'%(files,tags)
+              os.system(command)
+#+END_EXAMPLE
+
+* Apply command from lists in file
+
+#+BEGIN_EXAMPLE
+  #!/usr/bin/env python
+  import os
+  import re
+
+  fname = input('File with list of tags: ')
+  if (len(fname) < 1):
+      fname = 'test.txt'
+  fh = open(fname)
+  fh_read = fh.readlines()
+  folder = os.listdir('./')
+
+  for files in folder:
+      for tags in fh_read:
+          pattern = re.findall(tags.rstrip(),files)
+          if pattern:
+              command = 'iptc "%s" -a Keywords -v "%s" '%(files,tags)
+              os.system(command)
+#+END_EXAMPLE

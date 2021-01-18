@@ -1,0 +1,925 @@
+#+title: Basic Data Processing with Pandas
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
+
+* Basic Data Processing with Pandas
+
+** Introduction to Pandas
+
+Essentially, pandas introduces a new series object via Pandas. You can
+think of a series object as a cross between list and a dictionary. You
+can picture the series object like two columns, the first is your
+special index, much like a key in your dictionary, while the second
+column is your actual data.
+
+#+BEGIN_QUOTE
+  ✔️ *NOTE:* It's important to note, that the data column can be
+  retrieved using the .name() method. this is important later on when
+  you want to combine results.
+#+END_QUOTE
+
+*** Creating a simple series object with Pandas
+
+It's also good to know that a series object can be created directly from
+a dictionary object, and the index key is passed as the special index.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  students = ['Alice', 'Jack', 'Molly']
+  print(pd.Series(students))
+
+  # 0    Alice
+  # 1     Jack
+  # 2    Molly
+  # dtype: object
+
+  numbers = [1, 2, 3]
+  print(pd.Series(numbers))
+
+  # 0    1
+  # 1    2
+  # 2    3
+  # dtype: int64
+#+END_SRC
+
+If you pass in a /None/ value in your list of numbers, it'll get
+converted over to /NaN/ which stands for *Not a Number*. Another thing
+to note with *NaN*, python treats it as a floating point number, so even
+though you passed integers, they will be converted to floating points
+because of the *NaN*.
+
+#+BEGIN_QUOTE
+  ✔️ *NOTE:* It's also important to note, this could be a way to
+  indicate missing data by running a condition check against your dtype
+  returned.
+#+END_QUOTE
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  numbers = [1, 2, None]
+  print(pd.Series(numbers))
+
+  # 0    1.0
+  # 1    2.0
+  # 2    NaN
+  # dtype: float64
+#+END_SRC
+
+Another key note here, is that *NaN* cannot be tested by most
+traditional methods you would normally think /should/ work.
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  print(np.nan == None)
+  # False
+
+  print(np.isnan(np.nan))
+  # True
+#+END_SRC
+
+*** Creating series object from dictionary
+
+We see that when we print this series object, the /dtype/ is *object*
+and our first column, the special index is the dictionaries index key
+which in this case is our students first name.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  student_scores = {'Alice': 'Physics', 'Jack': 'Chemistry', 'Molly': 'English'}
+  s = pd.Series(student_scores)
+  print(s)
+
+  # Alice      Physics
+  # Jack     Chemistry
+  # Molly      English
+  # dtype: object
+#+END_SRC
+
+So now to get our index objects, we can print them out using the
+=.index= method.
+
+#+BEGIN_SRC python
+  print(s.index)
+
+  # Index(['Alice', 'Jack', 'Molly'], dtype='object')
+#+END_SRC
+
+Now let's say we wanted to pass tuples as our input for the series
+object:
+
+#+BEGIN_SRC python
+  students = [('Alice', 'Brown'),('Jack', 'White'), ('Molly', 'Green')]
+  print(pd.Series(students))
+
+  # 0    (Alice, Brown)
+  # 1     (Jack, White)
+  # 2    (Molly, Green)
+  # dtype: object
+#+END_SRC
+
+You can also bypass your index creation by passing in your index to the
+function.
+
+#+BEGIN_SRC python
+  s = pd.Series(['Physics', 'Chemistry', 'English'], index=['Alice', 'Jack', 'Molly'])
+#+END_SRC
+
+So another thing to make note of, is when you create this series and
+bass an index that holds no values in your series object, pandas will
+return it as *NaN* or *None*. So even though Jack is part of the
+original series, it's skipped and then the index of /Sam/ returns *NaN*
+because he holds no value.
+
+#+BEGIN_SRC python
+  students = {'Alice': 'Physics', 'Jack': 'Chemistry', 'Molly': 'English'}
+  s = pd.Series(students, index=['Alice', 'Molly', 'Sam'])
+  print(s)
+
+  # Alice    Physics
+  # Molly    English
+  # Sam          NaN
+  # dtype: object
+#+END_SRC
+
+*** Querying a series
+
+Essentially you can query by the Index Position or the Index Label. To
+do this, you will use the =.iloc= attribute to call the position and
+it's data with an integer number to specify the position. Otherwise we
+can instead use the =loc= attribute to call the Index's value by it's
+name.
+
+#+BEGIN_QUOTE
+  💡*NOTE:* iloc and loc are not methods, they are attributes so you do
+  not need to put () after them, but [] instead, which is called the
+  indexing operator. ✔️
+#+END_QUOTE
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  students = {'Alice': 'Physics', 'Jack': 'Chemistry', 'Molly': 'English'}
+  s = pd.Series(students)
+
+  print(s.iloc[2])
+  # English
+
+  print(s.loc['Molly'])
+  # English
+#+END_SRC
+
+Keep in mind, you can also pass an integer or index name directly on the
+series object as an index operator and this will work just the same.
+This can get a bit tricky when your dealing with integer numbers in your
+series object, so it's often better to use the =iloc= and =loc=
+attributes directly.
+
+#+BEGIN_SRC python
+  print(s['Molly'])
+  print(s[2])
+#+END_SRC
+
+Here's an example where we are dealing with integers, and we try to call
+directly with an integer against the series object.
+
+#+BEGIN_SRC python
+  class_code = {99: 'Physics',100: 'Chemistry',101: 'English',102: 'History'}
+  s = pd.Series(class_code)
+
+  print(s[0])
+  # KeyError: 0
+
+  print(s.iloc[0])
+  # Physics
+#+END_SRC
+
+*** Performing Operations on series objects
+
+So the whole goal of collectin this data is likely to figure something
+out, such as finding the average, multiplying the values by something,
+etc. Here's two ways of coming up with the mean to a set of numbers.
+
+#+BEGIN_SRC python
+  grades = pd.Series([90, 80, 70, 60])
+
+  print(grades.mean())
+  # 75.0
+
+  total = 0
+  for grade in grades:
+      total +=grade
+  print(total/len(grades))
+  # 75.0
+#+END_SRC
+
+But we can do this using an easier method with numpy:
+
+#+BEGIN_SRC python
+  import numpy as np
+  import pandas as pd
+
+  grades = pd.Series([90, 80, 70, 60])
+
+  total = np.sum(grades)
+
+  print(total/len(grades))
+  # 75.0
+#+END_SRC
+
+Now let's throw some random numbers in and run some calculations:
+
+#+BEGIN_SRC python
+  numbers = pd.Series(np.random.randint(1, 1000, 10000))
+
+  print(np.mean(numbers))
+  # 499.5892
+
+  print(np.min(numbers))
+  # 1
+#+END_SRC
+
+So another thing to keep in mind while doing these type of larger
+operations, is the number of cycles or how long it takes the computer to
+run the given operation. This helps to fine-tune your function so that
+it runs efficiently. To do this you will need Jupyter Notebook and the
+function will look something like this:
+
+#+BEGIN_SRC python
+  import numpy as np
+  import pandas as pd
+
+  %%timeit -n 100
+  total = 0
+  numbers = pd.Series(np.random.randint(1, 1000, 10000))
+
+  for number in numbers:
+      total +=number
+  print(total/len(numbers))
+
+  %%timeit -n 100
+  total = np.sum(numbers)
+  total/len(numbers)
+#+END_SRC
+
+*** Modifying every value in the series object with Broadcasting
+
+Broadcasting essentially allows you to run an operation against every
+value in the series object. So say for example you wanted to add *+2* to
+every value in the series:
+
+#+BEGIN_SRC python
+  import numpy as np
+  import pandas as pd
+
+  numbers = pd.Series([135, 453, 234, 657, 345, 412])
+  numbers+=2
+
+  print(numbers.head())
+
+  # 0    137
+  # 1    455
+  # 2    236
+  # 3    659
+  # 4    347
+#+END_SRC
+
+*** Appending to a series object
+
+#+BEGIN_SRC python
+  classes = pd.Series({'Alice':'Physics', 'Jack':'Chemistry', 'Molly':'English', 'Sam':'History'})
+  kelly_classes = pd.Series(['Philosophy', 'Arts', 'Math'], index=['Kelly', 'Kelly', 'Kelly'])
+  all_classes = classes.append(kelly_classes)
+
+  print(all_classes)
+  # Alice       Physics
+  # Jack      Chemistry
+  # Molly       English
+  # Sam         History
+  # Kelly    Philosophy
+  # Kelly          Arts
+  # Kelly          Math
+  # dtype: object
+
+  print(all_classes.loc['Kelly'])
+  # Kelly    Philosophy
+  # Kelly          Arts
+  # Kelly          Math
+#+END_SRC
+
+** Dataframe Introduction
+
+Dataframe is essentially a two-dimensional object, one is your index and
+the other are your columns of data. Dataframes allows multiple columns
+to be passed into the object.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  record1 = pd.Series({'Name': 'Alice', 'Class': 'Physics', 'Score': 85})
+  record2 = pd.Series({'Name': 'Jack', 'Class': 'Chemistry', 'Score': 82})
+  record3 = pd.Series({'Name': 'Helen', 'Class': 'Biology', 'Score': 90})
+
+  df = pd.DataFrame([record1, record2, record3], index=['school1', 'school2', 'school1'])
+
+  print(df)
+  #           Name      Class  Score
+  # school1  Alice    Physics     85
+  # school2   Jack  Chemistry     82
+  # school1  Helen    Biology     90
+#+END_SRC
+
+Another method is to make a list of dictionaries, and pass this back to
+=DataFrame=.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  students = [{'Name': 'Alice', 'Class': 'Physics', 'Score': 85}, {'Name': 'Jack', 'Class': 'Chemistry', 'Score': 82}, {'Name': 'Helen', 'Class': 'Biology', 'Score': 90}]
+  df = pd.DataFrame(students, index=['school1', 'school2', 'school1'])
+
+  print(df.head())
+  #           Name      Class  Score
+  # school1  Alice    Physics     85
+  # school2   Jack  Chemistry     82
+  # school1  Helen    Biology     90
+#+END_SRC
+
+*** Querying from DataFrames
+
+Similar to querying a series object, you can use =loc= and =iloc=
+attributes to call from the object.
+
+#+BEGIN_SRC python
+  print(df.loc['school2'])
+
+  # Name          Jack
+  # Class    Chemistry
+  # Score           82
+  # Name: school2, dtype: object
+
+  print(df.loc['school1', 'Name'])
+  # school1    Alice
+  # school1    Helen
+  # Name: Name, dtype: object
+
+  print(df.iloc[0])
+  # Name       Alice
+  # Class    Physics
+  # Score         85
+  # Name: school1, dtype: object
+
+  print(df.iloc[0,1])
+  # Physics
+#+END_SRC
+
+*** Checking the data type of a Pandas object
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  students = [{'Name': 'Alice', 'Class': 'Physics', 'Score': 85}, {'Name': 'Jack', 'Class': 'Chemistry', 'Score': 82}, {'Name': 'Helen', 'Class': 'Biology', 'Score': 90}]
+  df = pd.DataFrame(students, index=['school1', 'school2', 'school1'])
+
+  print(type(df.iloc[0]))
+  # <class 'pandas.core.series.Series'>
+
+  print(type(df))
+  # <class 'pandas.core.frame.DataFrame'>
+#+END_SRC
+
+*** Select only a single column of data
+
+Well, the first thing we can do is use the =T= attribute to flip the
+headers and rows around. Then we can use =.loc= to call our =Name=
+column.
+
+#+BEGIN_SRC python
+  print(df.T)
+  #        school1    school2  school1
+  # Name     Alice       Jack    Helen
+  # Class  Physics  Chemistry  Biology
+  # Score       85         82       90
+
+  print(df.T.loc['Name'])
+  # school1    Alice
+  # school2     Jack
+  # school1    Helen
+  # Name: Name, dtype: object
+#+END_SRC
+
+One thing to note, is DataFrames always have labels assigned to them for
+your columns, so calling the index operator without =.loc= and =.iloc=
+is not as problematic as it was with a series. And in fact, if you try
+calling =.loc['Name']= will return an error. This does not affect your
+Index though, which can and should still be called by =.loc['school1']=.
+Another key note to help you remember this, =.loc= will return an error
+for a series data type, while it's required for a DataFrame data type.
+So you can call =type()= to check your data type if you get confused.
+
+#+BEGIN_SRC python
+  print(df['Name'])
+  # school1    Alice
+  # school2     Jack
+  # school1    Helen
+  # Name: Name, dtype: object
+#+END_SRC
+
+*** Selecting all rows
+
+If we wanted a full row, we include a colon *:* which will include
+everything from beginning to end. The list in the second argument
+position is the list of columns we want to get back.
+
+#+BEGIN_SRC python
+  print(df.loc[:,['Name', 'Score']])
+#+END_SRC
+
+*** Returnin Dataframe object while dropping an index
+
+There are two other arguments to the =.drop()= method you should be
+aware of... The first is *inplace=* true|false, which will drop the
+results from the object entirely, and then *axis=* 1|0, which if you
+specify 1 will drop a column.
+
+#+BEGIN_QUOTE
+  🛑 *WARNING:* You should consider before using inplace=True, and
+  instead create a copy with the dropped instance so your original data
+  remains intact.
+#+END_QUOTE
+
+#+BEGIN_SRC python
+  print(df.drop('school1'))
+  #          Name      Class  Score
+  # school2  Jack  Chemistry     82
+#+END_SRC
+
+There is another way to delete a column from your dataframe object, and
+that's using the =del= function.
+
+#+BEGIN_SRC python
+  del copy_df['Class']
+#+END_SRC
+
+*** Adding a new column to a dataframe
+
+This is easily done by simply using the indexing operator and assignment
+operator
+
+#+BEGIN_SRC python
+  df['ClassRanking'] = None
+  print(df)
+
+  #           Name      Class  Score ClassRanking
+  # school1  Alice    Physics     85         None
+  # school2   Jack  Chemistry     82         None
+  # school1  Helen    Biology     90         None
+#+END_SRC
+
+*** DataFrame indexing and loading
+
+Changing or modifying columns from a csv header:
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week1/Admission_predict.csv", delimiter=",")
+  renamed_df = df.rename(columns={'Serial No.':'Serial No.', 'GRE Score':'GRE Score', 'TOEFL Score':'TOEFL Score', 'University Rating': 'University Rating', 'SOP':'Statement of Purpose', 'LOR':'Letter of Recommendation', 'CGPA':'CGPA', 'Research':'Research', 'Chance of Admit':'Chance of Admit'})
+  print(renamed_df.head())
+
+  #    Serial No.  GRE Score  TOEFL Score  University Rating  Statement of Purpose  Letter of Recommendation  CGPA  Research  Chance of Admit
+  # 0           1        337          118                  4                   4.5                       4.5  9.65         1              0.92
+  # 1           2        324          107                  4                   4.0                       4.5  8.87         1              0.76
+  # 2           3        316          104                  3                   3.0                       3.5  8.00         1              0.72
+  # 3           4        322          110                  3                   3.5                       2.5  8.67         1              0.80
+  # 4           5        314          103                  2                   2.0                       3.0  8.21         0              0.65
+#+END_SRC
+
+To get an output of the header only rows:
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  print(df.columns)
+  # Index(['Serial No.', 'GRE Score', 'TOEFL Score', 'University Rating', 'SOP',
+  #        'LOR ', 'CGPA', 'Research', 'Chance of Admit '],
+  #       dtype='object')
+#+END_SRC
+
+**** Using mapper to rename a csv headers
+
+Ok, so that is great but there's a better way to rename the header
+whenever it contains a whitespace on the end, rather than manually
+editing stuff we can use a function to clean it up. This is where we
+pass in the =.mapper()= function to do the job.
+
+#+BEGIN_SRC python
+  new_df = df.rename(mapper=str.strip, axis='columns')
+  new_df = new_df.rename(columns={'Serial No.':'Serial No.', 'GRE Score':'GRE Score', 'TOEFL Score':'TOEFL Score', 'University Rating': 'University Rating', 'SOP':'Statement of Purpose', 'LOR':'Letter of Recommendation', 'CGPA':'CGPA', 'Research':'Research', 'Chance of Admit':'Chance of Admit'})
+
+  print(new_df.columns)
+  # Index(['Serial No.', 'GRE Score', 'TOEFL Score', 'University Rating',
+  #        'Statement of Purpose', 'Letter of Recommendation', 'CGPA', 'Research',
+  #        'Chance of Admit'],
+  #       dtype='object')
+#+END_SRC
+
+Another useful way of doing this is by using a list comprehension, see
+[[python.datatypes.lists]].
+
+#+BEGIN_SRC python
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week1/Admission_predict.csv", delimiter=",")
+  cols = list(df.columns)
+  cols = [x.lower().strip() for x in cols]
+
+  df.columns = cols
+  print(df.head())
+#+END_SRC
+
+*** Querying DataFrames
+
+**** Finding unique values on a DataFrame or series
+
+The =unique()= function will outprovide and provide you all of the
+unique values. This is particularly useful if you need to see a list of
+all the expected output that are inside a column.
+
+#+BEGIN_SRC python
+  print(df['stname'].unique())
+#+END_SRC
+
+**** Selecting multiple columns to keep in DataFrames
+
+#+BEGIN_SRC python
+  columns_to_keep = ['STNAME', 'CTYNAME', 'BIRTHS2010', 'BIRTHS2011', 'BIRTHS2012', 'BIRTHS2013', 'BIRTHS2014', 'BIRTHS2015', 'POPESTIMATE2010', 'POPESTIMATE2011', 'POPESTIMATE2012', 'POPESTIMATE2013', 'POPESTIMATE2014', 'POPESTIMATE2015']
+  df = df[columns_to_keep]
+#+END_SRC
+
+**** Querying a DataFrame with Boolean Masking
+
+Boolean masking is at the heart the quickest and most efficient querying
+in numpy and pandas. A boolean mask can essentially be one dimensional
+like a series, or two dimensional like a DataFrame, where each of the
+values in the array are either *True* or *False*. So as you can see from
+our example below, we get back a list of results of values that are True
+or False. So how can this really help us when we want to see the results
+of the values which were True?
+
+#+BEGIN_SRC python
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week1/Admission_predict.csv", delimiter=",", index_col=0)
+  df.columns = [x.lower().strip() for x in df.columns]
+
+  admit_mask=df['chance of admit'] > 0.7
+  print(admit_mask.head())
+
+  # 1     True
+  # 2     True
+  # 3     True
+  # 4     True
+  # 5    False
+  # Name: chance of admit, dtype: bool
+#+END_SRC
+
+This is where the =where()= function comes into play with pandas. The
+where function will return the values which evaluated true, and return
+the false values back as *NaN*.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week1/Admission_predict.csv", delimiter=",", index_col=0)
+  df.columns = [x.lower().strip() for x in df.columns]
+  admit_mask=df['chance of admit'] > 0.7
+
+  print(df.where(admit_mask).head())
+  #             gre score  toefl score  university rating  sop  lor  cgpa  research  chance of admit
+  # Serial No.
+  # 1               337.0        118.0                4.0  4.5  4.5  9.65       1.0             0.92
+  # 2               324.0        107.0                4.0  4.0  4.5  8.87       1.0             0.76
+  # 3               316.0        104.0                3.0  3.0  3.5  8.00       1.0             0.72
+  # 4               322.0        110.0                3.0  3.5  2.5  8.67       1.0             0.80
+  # 5                 NaN          NaN                NaN  NaN  NaN   NaN       NaN              NaN
+#+END_SRC
+
+So now you may ask, how do you remove the *NaN* results from the view?
+Well that is where the =dropna()= function comes into play.
+
+#+BEGIN_SRC python
+  print(df.where(admit_mask).dropna().head())
+#+END_SRC
+
+However, Pandas has included a shorthand syntax that combines both
+=where()= and =dropna()= together which is something we've done before,
+and it's just overloading our indexing operator.
+
+#+BEGIN_SRC python
+  print(df[df['chance of admit'] > 0.7].head())
+#+END_SRC
+
+**** Querying a Dataframe with multiple Boolean Masks
+
+So querying with multiple booleans can get a little trick, you cannot
+use *AND* *OR* statements like you would probably hope for. Insetad you
+will need to use the *&* statement, along with combining =.gt()= and
+=.lt()= and in slew passing these into your indexing operators.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week1/Admission_predict.csv", delimiter=",", index_col=0)
+  df.columns = [x.lower().strip() for x in df.columns]
+
+  new_df = (df['cgpa'] > 8.00) & (df['chance of admit'] < 0.4)
+  print(df.where(new_df).dropna())
+  # uses the traditioanl where() and dropna() functions.
+
+  print(df['cgpa'].gt(0.8))
+  # uses .gt() and .lt() functions
+#+END_SRC
+
+But there should be a more efficient way of pulling this off using the
+indexing operators we previously worked with, and there is... That is to
+pass your comparison operators directly into the indexing operator, the
+key thing here is you need to make sure you enclosure your index
+operators in =()=.
+
+#+BEGIN_SRC python
+  print(df[(df['cgpa']>8) & (df['chance of admit']<0.4)])
+  # uses & operator to combine results
+#+END_SRC
+
+*** Indexing DataFrames
+
+You can change the index of a dataset, and specify any column to be the
+new index. But when we do this, we do want to make sure we keep a record
+of our original /Serial No./ index so that we can revert to it.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week1/Admission_predict.csv", delimiter=",", index_col=0)
+  df.columns = [x.lower().strip() for x in df.columns]
+  df['Serial Number'] = df.index
+
+  df = df.set_index('chance of admit')
+  print(df.head())
+
+  #                  gre score  toefl score  university rating  sop  lor  cgpa  research  Serial Number
+  # chance of admit                                                                                    
+  # 0.92                   337          118                  4  4.5  4.5  9.65         1              1
+  # 0.76                   324          107                  4  4.0  4.5  8.87         1              2
+  # 0.72                   316          104                  3  3.0  3.5  8.00         1              3
+  # 0.80                   322          110                  3  3.5  2.5  8.67         1              4
+  # 0.65                   314          103                  2  2.0  3.0  8.21         0              5
+#+END_SRC
+
+We can also drop, or reset our index column by using the =reset_index()=
+function. You will notice this drops the index entirely, so there is no
+longer an index to call from. This will promote the index into a column.
+
+#+BEGIN_SRC python
+  df = df.set_index('chance of admit')
+  df = df.reset_index()
+
+  #    chance of admit  gre score  toefl score  university rating  sop  lor  cgpa  research  Serial Number
+  # 0             0.92        337          118                  4  4.5  4.5  9.65         1              1
+  # 1             0.76        324          107                  4  4.0  4.5  8.87         1              2
+  # 2             0.72        316          104                  3  3.0  3.5  8.00         1              3
+  # 3             0.80        322          110                  3  3.5  2.5  8.67         1              4
+  # 4             0.65        314          103                  2  2.0  3.0  8.21         0              5
+#+END_SRC
+
+Anote neat feature is the ability to create multi-level indexes, we're
+going to switch over to looking at census data to make a better example
+of this works.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week2/census.csv")
+  df = df[df['SUMLEV'] == 50]
+  columns_to_keep = ['STNAME', 'CTYNAME', 'BIRTHS2010', 'BIRTHS2011', 'BIRTHS2012', 'BIRTHS2013', 'BIRTHS2014', 'BIRTHS2015', 'POPESTIMATE2010', 'POPESTIMATE2011', 'POPESTIMATE2012', 'POPESTIMATE2013', 'POPESTIMATE2014', 'POPESTIMATE2015']
+  df = df[columns_to_keep]
+
+  df = df.set_index(['STNAME', 'CTYNAME'])
+  print(df.head())
+
+  #                         BIRTHS2010  BIRTHS2011  BIRTHS2012  BIRTHS2013  BIRTHS2014  BIRTHS2015  POPESTIMATE2010  POPESTIMATE2011  POPESTIMATE2012  POPESTIMATE2013  POPESTIMATE2014  POPESTIMATE2015
+  # STNAME  CTYNAME                                                                                                                                                                                     
+  # Alabama Autauga County         151         636         615         574         623         600            54660            55253            55175            55038            55290            55347
+  #         Baldwin County         517        2187        2092        2160        2186        2240           183193           186659           190396           195126           199713           203709
+  #         Barbour County          70         335         300         283         260         269            27341            27226            27159            26973            26815            26489
+  #         Bibb County             44         266         245         259         247         253            22861            22733            22642            22512            22549            22583
+  #         Blount County          183         744         710         646         618         603            57373            57711            57776            57734            57658            57673
+#+END_SRC
+
+One thing to note with this is when you are querying from this, you must
+query first from the outer most index column before your later index
+column. So for instance:
+
+#+BEGIN_SRC python
+  print(df.loc['Alabama'].loc['Bibb County'])
+  print(df.loc['Alabama', 'Bibb County'])
+#+END_SRC
+
+Another great example of this is say we want to compare two counties in
+Alabama, and compare their outputs. To do so we will need to pass a list
+of indices into =.loc()=.
+
+#+BEGIN_SRC python
+  print(df.loc[[('Alabama', 'Walker County'), ('Alabama', 'Blount County')]])
+#+END_SRC
+
+*** Missing Data in DataFrames
+
+There are different types of missing data, for instance you can have a
+survey where a user does not answer a question on purpose which we could
+say is an *omission*, this is what we call *Missing at Random(MAR)*.
+This most commonly is true when the missing data has some correlation
+with another data field. This may not always be the case though.
+
+In the cases where the missing data has no correlation to another data
+field, then it's what we call *Missing completely at Random(MCAR)*.
+There are other examples beyond this, but these are just 2 prime
+examples.
+
+Sometimes this missing data will come in multiple different values such
+as *("NaN" "None" "null" "N/A")*, but some data scientist may also
+assign a value of *("99")* for binary categories. The =read_csv()=
+function also comes with a argument =na_values= to allow us to specify
+what our value should be.
+
+So to start off, you can use =.isnull()= to return a Boolean masking of
+values that return *NaN*, *None* or *N/A*. This can be useful if you
+want to see what results were missing values or to drop those *NaN*
+values. Well to drop those values, we can use the =.dropna()= function.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week2/class_grades.csv")
+  mask=df.isnull()
+
+  print(mask.where(mask))
+  print(df.dropna().head())
+#+END_SRC
+
+Finally, if we instead wanted to fill in all *NaN* values with a static
+value, we could use the =.fillna()= function to fill in those *NaN*
+values with a static value.
+
+#+BEGIN_SRC python
+  df = df.fillna(0)
+#+END_SRC
+
+When dealing with missing values it can make looking at our data kind of
+hard, or difficult to follow. So for this we can a function that'll fill
+the *NaN* values with predetermined values.
+
+#+BEGIN_SRC python
+  df = df.fillna(method='ffill')
+  df.head()
+#+END_SRC
+
+Another thing to make note of we can use the =.replace()= method to
+replace a value with something else:
+
+#+BEGIN_SRC python
+  df = pd.DataFrame({'A': [1,1,2,3,4], 'B': [3,6,3,8,9], 'C': ['a', 'b', 'c', 'd', 'e']})
+  df = df.replace(1, 100)
+
+  print(df.head())
+  #      A  B  C
+  # 0  100  3  a
+  # 1  100  6  b
+  # 2    2  3  c
+  # 3    3  8  d
+  # 4    4  9  e
+
+  df = df.replace([1, 3], [100, 300])
+  #      A    B  C
+  # 0  100  300  a
+  # 1  100    6  b
+  # 2    2  300  c
+  # 3  300    8  d
+  # 4    4    9  e
+#+END_SRC
+
+Now there is another option to use regex patterns to match a pattern,
+and then replace it with the string we provide, the 3rd and final
+argument will be =regex=True= to tell the function we want to use regex.
+
+#+BEGIN_SRC python
+  df = pd.DataFrame({'Source': ['html', 'html', 'csv', 'csv', 'pdf'], 'B': [3,6,3,8,9], 'C': ['a', 'b', 'c', 'd', 'e']})
+  df = df.replace("^html$", "webpage", regex=True)
+  print(df.head())
+
+  #     Source  B  C
+  # 0  webpage  3  a
+  # 1  webpage  6  b
+  # 2      csv  3  c
+  # 3      csv  8  d
+  # 4      pdf  9  e
+#+END_SRC
+
+One final key piece about missing data, when you run Arithmetic
+Operators you should make note that it will ignore anything that has
+*NaN* or *None* so that it does not affect your calcuation, this is
+typically what you would want but you should be aware of it in-case it
+comes up, and also it's very important to understand /why/ you have
+missing data.
+
+*** Manipulating DataFrames
+
+First thing is when you pull in CSV data, there may be times when you
+want to change the header to a different name which we have the
+=.rename()= function to help us with.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week2/presidents.csv",index_col=0)
+  df.columns = [x.lower().strip() for x in df.columns]
+  df['first_name']=df['president']
+  df['last_name']=df['president']
+  df['first_name']=df['first_name'].replace("[\s].*", "", regex=True)
+  df['last_name']=df['last_name'].replace("\w+ ", "", regex=True)
+  del(df['president'])
+  print(df.head())
+#+END_SRC
+
+This will give us something like this:
+
+#+BEGIN_EXAMPLE
+                                              wikipedia entry took office left office                   party              portrait                  thumbnail     home state first_name   last_name
+  Presidency                                                                                                                                                                                        
+  1            http://en.wikipedia.org/wiki/George_Washington  30/04/1789   4/03/1797            Independent   GeorgeWashington.jpg  thmb_GeorgeWashington.jpg       Virginia     George  Washington
+  2                   http://en.wikipedia.org/wiki/John_Adams   4/03/1797   4/03/1801             Federalist          JohnAdams.jpg         thmb_JohnAdams.jpg  Massachusetts       John       Adams
+  3             http://en.wikipedia.org/wiki/Thomas_Jefferson   4/03/1801   4/03/1809  Democratic-Republican    Thomasjefferson.gif   thmb_Thomasjefferson.gif       Virginia     Thomas   Jefferson
+  4                http://en.wikipedia.org/wiki/James_Madison   4/03/1809   4/03/1817  Democratic-Republican       JamesMadison.gif      thmb_JamesMadison.gif       Virginia      James     Madison
+  5                 http://en.wikipedia.org/wiki/James_Monroe   4/03/1817   4/03/1825  Democratic-Republican        JamesMonroe.gif       thmb_JamesMonroe.gif       Virginia      James      Monroe
+#+END_EXAMPLE
+
+This is great and works well, but it takes a bit of work to make this
+happen when we could simplify this with a function. Basically how this
+works, is it uses the function =.apply()= and your 1st argument is a
+function to run, the 2nd being the axis, *columns* in this case, and
+parses the data back into the DataFrame.
+
+#+BEGIN_SRC python
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week2/presidents.csv",index_col=0)
+  df.columns = [x.lower().strip() for x in df.columns]
+
+  def splitname(row):
+      row['first_name']=row['president'].split(" ")[0]
+      row['last_name']=row['president'].split(" ")[1]
+      return row
+
+  df=df.apply(splitname, axis='columns')
+#+END_SRC
+
+and now we get the following output:
+
+#+BEGIN_EXAMPLE
+                       president                                 wikipedia entry took office left office                   party              portrait                  thumbnail     home state first_name   last_name
+  Presidency                                                                                                                                                                                                           
+  1            George Washington  http://en.wikipedia.org/wiki/George_Washington  30/04/1789   4/03/1797            Independent   GeorgeWashington.jpg  thmb_GeorgeWashington.jpg       Virginia     George  Washington
+  2                   John Adams         http://en.wikipedia.org/wiki/John_Adams   4/03/1797   4/03/1801             Federalist          JohnAdams.jpg         thmb_JohnAdams.jpg  Massachusetts       John       Adams
+  3             Thomas Jefferson   http://en.wikipedia.org/wiki/Thomas_Jefferson   4/03/1801   4/03/1809  Democratic-Republican    Thomasjefferson.gif   thmb_Thomasjefferson.gif       Virginia     Thomas   Jefferson
+  4                James Madison      http://en.wikipedia.org/wiki/James_Madison   4/03/1809   4/03/1817  Democratic-Republican       JamesMadison.gif      thmb_JamesMadison.gif       Virginia      James     Madison
+  5                 James Monroe       http://en.wikipedia.org/wiki/James_Monroe   4/03/1817   4/03/1825  Democratic-Republican        JamesMonroe.gif       thmb_JamesMonroe.gif       Virginia      James      Monroe
+#+END_EXAMPLE
+
+While this is great, there's an even better way of doing this with the
+=.str.extract()= function, using regex patterns and grouping matches,
+this is using the regex groups to group our results by the name we want
+to define as our column name. Along with this, pandas has a way of
+treating fields as dates, so we can use a fucntion called
+=pd.to_datetime()= to convert that column to date fields.
+
+#+BEGIN_SRC python
+  import pandas as pd
+
+  df = pd.read_csv("/home/nick/projects/notes/courses/intro_to_data_science/week2/presidents.csv",index_col=0)
+  df.columns = [x.lower().strip() for x in df.columns]
+
+  # Clean up our columns for president names
+  name_pattern = "(?P<first_name>^[\w]*)(?:.* )(?P<last_name>[\w]*$)"
+  names=df['president'].str.extract(name_pattern)
+  df['first_name']=names['first_name']
+  df['last_name']=names['last_name']
+
+  # remove unwanted columns
+  del(df['portrait'])
+  del(df['thumbnail'])
+
+  # convert columns with dates so pandas recognizes them as date fields
+  df['took office']=pd.to_datetime(df['took office'])
+  df['left office']=df['left office'].replace("Incumbent ", None)
+  df['left office']=pd.to_datetime(df['left office'])
+
+  print(df.head())
+#+END_SRC

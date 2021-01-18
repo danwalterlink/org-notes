@@ -1,0 +1,825 @@
+#+title: Introduction to Data Science in Python
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
+
+* Introduction to Python Data Science
+
+** Python Functions
+
+One call-out made in the video is passing arguments with a requirement
+statement, where you can specify in a in condition inside your block.
+
+#+BEGIN_EXAMPLE
+  def my_fun(x, y, z=None):
+      if z == None:
+          return x + y
+      else:
+          return x + y + z
+
+  return(my_fun(12, 37))
+#+END_EXAMPLE
+
+** Python Type and Sequences
+
+Breaks out slicing, and how slicing works. Slicing essentially slices up
+a string between two integer numbers. Your starting point always starts
+at 1, and you can use -1 to point at the last character in the string.
+
+The slice method takes two integers, the first is the starting position,
+and the 2nd is the end position. When you do not call a integer in
+either position, it ignores the start position and abstracts up to or
+from that position. For instance, if you leave the starting integer
+blank but provide a ending integer, then the whole string is read from
+start to the end position integer.
+
+#+BEGIN_EXAMPLE
+  x = 'String'
+  return(x[:3])
+#+END_EXAMPLE
+
+*** In Operators
+
+Essentially if it finds the condition true, will return True.
+
+** Python Demonstration: Reading and Writing CSV files
+
+Reading from a CSV file is similar to strings, or other object types.
+The data gets assigned to an object which is read by the csv module.
+
+#+BEGIN_EXAMPLE
+  import csv
+
+  with open('cars.csv') as csvfile:
+      mpg = list(csv.DictReader(csvfile))
+      return(mpg[0].keys())
+#+END_EXAMPLE
+
+Using this information, we then do some operations to perform
+calcuations with those keys.
+
+#+BEGIN_EXAMPLE
+  import csv
+
+  with open('cars.csv') as csvfile:
+      mpg = list(csv.DictReader(csvfile))
+      return(sum(float(d['Fuel Information.City mpg']) for d in mpg) / len(mpg))
+#+END_EXAMPLE
+
+Now say we want to group results by another key in the CSV file, we can
+do so by return those results to a set and then run a for loop against
+the set.
+
+#+BEGIN_SRC python
+  import csv
+
+  with open('cars.csv') as csv_file:
+      mpg = list(csv.DictReader(csv_file))
+      cylinders = set(d['Engine Information.Number of Forward Gears'] for d in mpg) # TODO How does the set(d) format work?
+      mpg_by_cyl = []
+
+      for c in cylinders:
+          sum_mpg = 0
+          cyl_type_count = 0
+
+          for d in mpg:
+
+              if d['Engine Information.Number of Forward Gears'] == c:
+                  sum_mpg += float(d['Fuel Information.City mpg'])
+                  cyl_type_count += 1
+                  mpg_by_cyl.append((c, sum_mpg / cyl_type_count)) # This is a lambda function
+
+  mpg_by_cyl.sort(key=lambda x: x[0])
+  print(mpg_by_cyl)
+
+  [('4', 16.945767195767196), ('5', 18.138558986539984), ('6', 17.015280739161337), ('7', 16.57894736842105), ('8', 17.263736263736263)]
+#+END_SRC
+
+** Python Dates and Times
+
+Dates and times can come in all sorts of types, so it's important to
+know how to convert them.
+
+#+BEGIN_EXAMPLE
+  import datetime as dt
+  import time as tm
+
+  return(tm.time())
+
+  1607900177.1597934
+#+END_EXAMPLE
+
+Printing in a bit more clearer, or easier to understand format.
+
+#+BEGIN_EXAMPLE
+  import datetime as dt
+  import time as tm
+
+  dtnow = dt.datetime.fromtimestamp(tm.time())
+  return(dtnow)
+
+  2020-12-13 16:57:42.319125
+#+END_EXAMPLE
+
+** Advanced Python Objects, map()
+
+The map function essentially has 2 arguments =(function, iteration)=.
+The map function then runs through it's iteration, and for each
+iteration returned applies the function against it.
+
+#+BEGIN_EXAMPLE
+  # Return double of n
+  def addition(n):
+      return n + n
+
+  # We double all numbers using map()
+  numbers = (1, 2, 3, 4)
+  result = map(addition, numbers)
+  print(list(result))
+
+  [2, 4, 6, 8]
+#+END_EXAMPLE
+
+** Advanced Python Lambda and List Comprehension
+
+Lambda is an anonymous function, but is limited to a single expression,
+so often it's fairly simple.
+
+#+BEGIN_EXAMPLE
+  my_function = lambda a, b, c: a + b * c
+  print(my_function(6, 12, 2))
+
+  30
+#+END_EXAMPLE
+
+** Numerical Python Library (NumPy)
+
+*** arrays
+
+When creating a new array, you can pass it a list such as:
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+  a = np.array([1, 2, 3])
+  return(a)
+
+  # print number of dimensions
+  print(a.ndim)
+
+  [1 2 3]
+  1
+#+END_EXAMPLE
+
+If we pass in a list of lists to the array caller, then we create
+multiple dimensions.
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+  b = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+  return(b, b.ndim)
+
+  (array([[1, 2, 3],
+         [4, 5, 6],
+         [7, 8, 9]]), 2)
+#+END_EXAMPLE
+
+Float numbers are also accepted:
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+  c = np.array([1.25, 3.17, 4.18])
+  return(c, c.dtype.name)
+
+  (array([1.25, 3.17, 4.18]), 'float64')
+#+END_EXAMPLE
+
+*** Initial values
+
+Numpy gives you the ability to assign initial values to a new object:
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+  d = np.zeros((2, 3))
+  e = np.ones((2, 3))
+  return(d, e)
+
+  (array([[0., 0., 0.],
+         [0., 0., 0.]]), array([[1., 1., 1.],
+         [1., 1., 1.]]))
+#+END_EXAMPLE
+
+*** Assigning random values
+
+Much like the standard function in Python to generate random numbers:
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+  f = np.random.rand(2, 3)
+  return(f)
+
+  [[0.36586694 0.04646496 0.04905482]
+   [0.65707073 0.09196868 0.83618105]]
+#+END_EXAMPLE
+
+*** Sequences
+
+You can use the =arange()= function to create a range of numbers. The
+first argument is the starting number, the 2nd argument is your ending
+and your 3rd argument is the sequence of numbers to increase until it
+hits the 2nd argument.
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+  g = np.arange(50, 100, 4)
+  return(g)
+#+END_EXAMPLE
+
+To generate floats, you will use something called =linspace()=, the way
+it works is slightly different in that your 3rd argument is the number
+of numbers to generate between your first 2 arguments.
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  h = np.linspace(2, 5, 6)
+  print(h)
+
+  [2.  2.6 3.2 3.8 4.4 5. ]
+#+END_SRC
+
+*** Array Operations
+
+Arithmetic operations apply elementwise (?)
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  x = np.array([10, 20, 30])
+  y = np.array([4, 5, 6])
+
+  z = x-y
+  print(z)
+
+  [ 6 15 24]
+#+END_SRC
+
+Another example of converting farenheit to celsius
+
+#+BEGIN_SRC python
+  import numpy as np
+  farenheit = np.array([0, -10, -5, -15, 0])
+  celsius = (farenheit - 31) * (5/9)
+  print(celsius)
+
+  [-17.22222222 -22.77777778 -20.         -25.55555556 -17.22222222]
+#+END_SRC
+
+Using boolean operations against an array:
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+
+  farenheit = np.array([0, -10, -5, -15,-2])
+  celsius = (farenheit - 31) * (5/9)
+  print(celsius > -20)
+
+  [ True False False False  True]
+#+END_EXAMPLE
+
+Performing operations against an array:
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  a = np.array([[1, 3],[5, 7]])
+  b = np.array([[15, 30],[100, 11]])
+  print(a*b)
+
+  [[15 90]
+  [500 77]]
+
+  print(a@b)
+  [[315  63]
+  [775 227]]
+#+END_SRC
+
+When manipulating two arrays of different [[python.datatypes]], it'll
+generally take on the common of the two, which is called upcasting.
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  array1 = np.array([1, 2, 3, 4, 5])
+  array2 = np.array([1.37, 2.18, 3.47, 4.68, 5.29])
+
+  print(f"Array 1 is type {array1.dtype}, it's values are {array1}. Array 2 is type {array2.dtype}, it's values are {array2}.")
+
+  array3 = array1 + array2
+  print(f"Now we add the values {array1} and {array2}, and return those values to Array 3.")
+  print(f"Array 3 is type {array3.dtype}, it's values are {array3}.")
+
+  print(array3.sum()) # sum 31.99
+  print(array3.max()) # max 10.29
+  print(array3.min()) # min 2.37
+  print(array3.max()) # max 10.29
+
+  # Array 1 is type int64, it's values are [1 2 3 4 5]. Array 2 is type float64, it's values are [1.37 2.18 3.47 4.68 5.29].
+  # Now we add the values [1 2 3 4 5] and [1.37 2.18 3.47 4.68 5.29], and return those values to Array 3.
+  # Array 3 is type float64, it's values are [ 2.37  4.18  6.47  8.68 10.29].
+#+END_SRC
+
+Now let's say we want to create a multidimensional object, ranging from
+1 to 16 with a 3x5 array.
+
+#+BEGIN_QUOTE
+  ✅ *NOTE:* the arguments in =.reshape()= define the shape of our array,
+  the *3* is the number of arrays and *5* is the number of values in
+  each array. The size must match the values returned, otherwise it'll
+  thrown an exception.
+#+END_QUOTE
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  b = np.arange(1,16,1).reshape(3,5)
+  print(b)
+
+  [[ 1  2  3  4  5]
+  [ 6  7  8  9 10]
+  [11 12 13 14 15]]
+#+END_SRC
+
+*** Indexing with NumPy
+
+Getting the index is very similar to a list, you will want to specify
+the index position you want to grab.
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  a = np.array([1, 2, 3, 4, 5])
+  print(a[1])
+  # returns 2i
+#+END_SRC
+
+Similary, we can use multi dimensions and return values from each one.
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  a = np.array([[1, 2, 3],[4, 5, 6],[7, 8, 9]])
+
+  print(a[1,0], a[0,2], a[2,2])
+  # returns 4 3 9
+#+END_SRC
+
+*** Returning Booleans on conditions
+
+You can have results returned based on conditions:
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  a = np.array([[1, 2],[3, 4],[5, 6]])
+
+  print(a > 5)
+
+  [[False False]
+  [False False]
+  [False  True]]
+
+  print(a[a>5])
+
+  [6]
+#+END_SRC
+
+*** Slicing with Arrays
+
+Slicing is very similar to slicing with strings:
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  a = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12],[13,14,15]])
+  print(a[0:2])
+
+  [[1 2 3]
+  [4 5 6]]
+
+  print(a[:3, 0:1])
+
+  [[1]
+  [4]
+  [7]]
+#+END_SRC
+
+*** Trying NumPy with Data Sets
+
+So to create a data set, we can use the function =genfromtxt()=
+function. The first 2 arguments are going to be your /filename/ and
+/delimiter/, the later part being optional. There's an additional
+parameter called /dtype/ which allows you to specify the data type for
+each column, which is optional.
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  wines = np.genfromtxt("/home/nick/projects/notes/scratchpad/winequality-red.csv", delimiter=";", skip_header=1)
+
+  print("Print newline for each record: \n", wines[:, 0:1])
+
+  Print newline for each record:
+   [[7.4]
+   [7.8]
+   [7.8]
+   ...
+   [6.3]
+   [5.9]
+   [6. ]]
+#+END_SRC
+
+If we wanted non consecutive columns we could do something like:
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  print(wines[:, [0, 2, 4]])
+
+  [[7.4   0.    0.076]
+   [7.8   0.    0.098]
+   [7.8   0.04  0.092]
+   ...
+   [6.3   0.13  0.076]
+   [5.9   0.12  0.075]
+   [6.    0.47  0.067]]
+#+END_SRC
+
+Let's say we wanted to take the average quality of red wines, well we
+can do so with something like this:
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  wines = np.genfromtxt("/home/nick/projects/notes/scratchpad/winequality-red.csv", delimiter=";", skip_header=1)
+
+  print(wines[:,-1].mean())
+
+  5.6360225140712945
+#+END_SRC
+
+Now let's take another look at how everything returned is a single
+array:
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  graduate_admission = np.genfromtxt("/home/nick/projects/notes/scratchpad/Admission_predict.csv", delimiter=",", skip_header=1, names=('Serial No', 'GRE Score', 'TOEFL Score', 'University Rating', 'SOP', 'LOR', 'CGPA', 'Research', 'Chance of Admit'))
+
+  print(graduate_admission[0:15])
+
+  [( 1., 337., 118., 4., 4.5, 4.5, 9.65, 1., 0.92)
+   ( 2., 324., 107., 4., 4. , 4.5, 8.87, 1., 0.76)
+   ( 3., 316., 104., 3., 3. , 3.5, 8.  , 1., 0.72)
+   ( 4., 322., 110., 3., 3.5, 2.5, 8.67, 1., 0.8 )
+   ( 5., 314., 103., 2., 2. , 3. , 8.21, 0., 0.65)
+   ( 6., 330., 115., 5., 4.5, 3. , 9.34, 1., 0.9 )
+   ( 7., 321., 109., 3., 3. , 4. , 8.2 , 1., 0.75)
+   ( 8., 308., 101., 2., 3. , 4. , 7.9 , 0., 0.68)
+   ( 9., 302., 102., 1., 2. , 1.5, 8.  , 0., 0.5 )
+   (10., 323., 108., 3., 3.5, 3. , 8.6 , 0., 0.45)
+   (11., 325., 106., 3., 3.5, 4. , 8.4 , 1., 0.52)
+   (12., 327., 111., 4., 4. , 4.5, 9.  , 1., 0.84)
+   (13., 328., 112., 4., 4. , 4.5, 9.1 , 1., 0.78)
+   (14., 307., 109., 3., 4. , 3. , 8.  , 1., 0.62)
+   (15., 311., 104., 3., 3.5, 2. , 8.2 , 1., 0.61)]
+#+END_SRC
+
+And then we can use Column name in our lookup to find all the values for
+that column:
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+
+  graduate_admission = np.genfromtxt("/home/nick/projects/notes/scratchpad/Admission_predict.csv", delimiter=",", skip_header=1, names=('Serial No', 'GRE Score', 'TOEFL Score', 'University Rating', 'SOP', 'LOR', 'CGPA', 'Research', 'Chance of Admit'))
+
+  print(graduate_admission['CGPA'][0:15])
+
+  [9.65 8.87 8.   8.67 8.21 9.34 8.2  7.9  8.   8.6  8.4  9.   9.1  8.
+   8.2 ]
+#+END_EXAMPLE
+
+Since GPA is commonly scored by 1-4, instead of 1-10, one thing we may
+want to do is take our CGPA values and find our GPA score. We do this by
+dividing the result by 10, and then multiply by 4.
+
+#+BEGIN_SRC python
+  import numpy as np
+
+  graduate_admission = np.genfromtxt("/home/nick/projects/notes/scratchpad/Admission_predict.csv", delimiter=",", skip_header=1, names=('Serial No', 'GRE Score', 'TOEFL Score', 'University Rating', 'SOP', 'LOR', 'CGPA', 'Research', 'Chance of Admit'))
+
+  graduate_admission['CGPA'] = graduate_admission['CGPA'] /10 *4
+  print(graduate_admission['CGPA'][0:15])
+
+  [3.86  3.548 3.2   3.468 3.284 3.736 3.28  3.16  3.2   3.44  3.36  3.6
+   3.64  3.2   3.28 ]
+#+END_SRC
+
+Return the total number of students who have taken the research course:
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+
+  graduate_admission = np.genfromtxt("/home/nick/projects/notes/scratchpad/Admission_predict.csv", delimiter=",", skip_header=1, names=('Serial No', 'GRE Score', 'TOEFL Score', 'University Rating', 'SOP', 'LOR', 'CGPA', 'Research', 'Chance of Admit'))
+
+  print(len(graduate_admission[graduate_admission['Research'] == 1]))
+
+  # 219
+#+END_EXAMPLE
+
+Let's get a mean return on *GRE_Score* for students who have a
+*Chance_of_Admit* greater than *0.8*.
+
+#+BEGIN_EXAMPLE
+  import numpy as np
+
+  graduate_admission = np.genfromtxt("/home/nick/projects/notes/scratchpad/Admission_predict.csv", delimiter=",", skip_header=1, names=('Serial No', 'GRE Score', 'TOEFL Score', 'University Rating', 'SOP', 'LOR', 'CGPA', 'Research', 'Chance of Admit'))
+
+  print("The mean of students GRE_Score with a chance of admit greater than 0.8 is: {}".format(graduate_admission[graduate_admission['Chance_of_Admit'] > 0.8]['GRE_Score'].mean()))
+  print("The mean of students GRE_Score with a chance of admit less than 0.4 is: {}".format(graduate_admission[graduate_admission['Chance_of_Admit'] < 0.4]['GRE_Score'].mean()))
+
+  # The mean of students GRE_Score with a chance of admit greater than 0.8 is: 328.7350427350427
+  # The mean of students GRE_Score with a chance of admit less than 0.4 is: 302.2857142857143
+#+END_EXAMPLE
+
+** Manipulating Text with Regular Expressions
+
+Using the split function to split up a string:
+
+#+BEGIN_SRC python
+  import re
+
+  string = "David works diligently. David gets good grades. David pays his bills on time."
+  print(re.split("\.", string))
+
+  # ['David works diligently', ' David gets good grades', ' David pays his bills on time', '']
+#+END_SRC
+
+Returning a count the number of times an instance is found:
+
+#+BEGIN_SRC python
+  import re
+
+  string = "David works diligently. David gets good grades. David pays his bills on time."
+  print(len(re.findall("David", string)))
+
+  # 3
+#+END_SRC
+
+Searching will return a new object with a boolean value if the value was
+found or not, and then the span of where it was found, and the matching
+term.
+
+#+BEGIN_SRC python
+  import re
+
+  string = "David works diligently. David gets good grades. David pays his bills on time."
+  print(re.search("David", string))
+
+  # <re.Match object; span=(0, 5), match='David'>
+#+END_SRC
+
+Now let's say we want to search the string, use split and return the 1st
+index of that new object.
+
+#+BEGIN_SRC python
+  import re
+
+  string = "David works diligently. David gets good grades. David pays his bills on time."
+
+  if re.search("David", string):
+      string_split = re.split("\.", string)
+      print(f"{string_split[0]}.")
+
+  # David works diligently.
+#+END_SRC
+
+Another option is to use a for loop to iterate through your new split
+string and return each item:
+
+#+BEGIN_SRC python
+  import re
+
+  string = "David works diligently. David gets good grades. David pays his bills on time."
+
+  if re.search("David", string):
+      string_split = re.split("\.", string)
+      for x in string_split:
+          print(f"{x}.")
+
+  # David works diligently.
+  # David gets good grades.
+  # David pays his bills on time.
+#+END_SRC
+
+How to get a count on two or more separate matches:
+
+#+BEGIN_SRC python
+  import re
+
+  grades = "ABAACBACBABBCAACCBA"
+  print(len(re.findall("[AB]",grades)))
+
+  # 14
+#+END_SRC
+
+Another example is where a student received an A grade, followed by B or
+C.
+
+#+BEGIN_SRC python
+  import re
+
+  grades = "ABAACBACBABBCAACCBA"
+  print(re.findall("[A][B-C]",grades), len(re.findall("[A][B-C]",grades)))
+
+  # ['AB', 'AC', 'AC', 'AB', 'AC'] 5
+#+END_SRC
+
+*** Quantifiers
+
+Quantifiers basically allow you to specify the required number of
+matches found for a given search term.
+
+#+BEGIN_SRC python
+  import re
+
+  grades = "ABAACBACBABBCAACCBA"
+  print(re.findall("[A]{2,4}",grades))
+  ['AA', 'AA']
+
+  print(re.findall("[BA]{2,4}",grades))
+  ['ABAA', 'BA', 'BABB', 'AA', 'BA']
+
+  print(re.findall("[A]{1,1}A{1,1}",grades))
+
+  print(re.findall("AC{1,1}",grades))
+  ['AC', 'AC', 'AC']
+#+END_SRC
+
+Now let's say we want to find all the headlines from a Wiki article
+output, and print those out. Well we know the *[edit]* keyword always
+appears at the end of the headline, followed by a *\n** for newline. So
+essentially what we can do is search for any word matching up to the
+*[edit]** phrase. We then use =.split()= to split at the *[* character.
+
+#+BEGIN_SRC python
+  import re
+
+  with open("/home/nick/projects/notes/scratchpad/ferpa.txt") as wiki:
+      wiki_data = wiki.read()
+      for title in re.findall("[\w ]*\[edit\]", wiki_data):
+          print(re.split("[\[]", title)[0].strip().capitalize())
+
+  # Progress
+  # Beginning with the collapse of the lisp
+  # Motion interface for the xbox 360 and the xbox
+#+END_SRC
+
+But we can also findall using groups in regex, that's where we use =()=
+to group our matches. The benefit here is our headline will return as
+one index, and our *[edit]* will return as a 2nd index. So essentially
+this saves us from having to split the output, because we just tell
+python to return the first index *[0]*.
+
+#+BEGIN_SRC python
+  import re
+
+  with open("/home/nick/projects/notes/scratchpad/ferpa.txt") as wiki:
+      wiki_data = wiki.read()
+      for title in re.findall("([\w ]*)(\[edit\])", wiki_data):
+          print(title[0].strip().capitalize())
+
+  # Progress
+  # Beginning with the collapse of the lisp
+  # Motion interface for the xbox 360 and the xbox
+#+END_SRC
+
+Another way of doing this, and get back a list of matches back is to use
+the =finditer()= function that'll return results back to their groups,
+which you can access using the =groups()= method. And then to access
+say, just the headline information you can use the =group(int)= method,
+where *int* is the index number of the group you want to access.
+
+#+BEGIN_SRC python
+  import re
+
+  with open("/home/nick/projects/notes/scratchpad/ferpa.txt") as wiki:
+      wiki_data = wiki.read()
+      for title in re.finditer("([\w ]*)(\[edit\])", wiki_data):
+          print(title.groups())
+
+  # (' Progress', '[edit]')
+  # (' beginning with the collapse of the Lisp', '[edit]')
+  # ('motion interface for the Xbox 360 and the Xbox', '[edit]')
+
+  for title in re.finditer("([\w ]*)(\[edit\])", wiki_data):
+      print(title.group(1))
+
+  #  Progress
+  #  beginning with the collapse of the Lisp
+  # motion interface for the Xbox 360 and the Xbox
+#+END_SRC
+
+Now using index numbers can be hard, because it's hard to put an
+association of *Headline Titles* to the number 0. So instead, what you
+can do is use regex labelling to return that group capture back to a
+dictionary labeled accordingly.
+
+Essentially to create a label, or naming group, you specify
+=(?P<_name_>searchpattern)= in your regex search. Check out ->>
+[[regex-labelling]]. It's also important to note here, that when we
+print the data we are using the =.groupdict()['dict_name']= function.
+
+#+BEGIN_SRC python
+  import re
+
+  with open("/home/nick/projects/notes/scratchpad/ferpa.txt") as wiki:
+      wiki_data = wiki.read()
+      for title in re.finditer("(?P<headline>[\w ]*)(?P<edit_link>\[edit\])", wiki_data):
+          print(title.groupdict()['headline'].strip().capitalize())
+#+END_SRC
+
+Another way of capturing data with regex, is we can use *look-ahead* and
+*look-behind* to essentially capture the output before or after the
+pattern. So for our example here, we really only care about the data
+before the *[edit]* link. So if we use a regex look-behind we can
+capture everything behind the [edit] link.
+
+#+BEGIN_SRC python
+  import re
+
+  with open("/home/nick/projects/notes/scratchpad/ferpa.txt") as wiki:
+      wiki_data = wiki.read()
+      for title in re.finditer("(?P<headline>[\w ]*)(?P<edit_link>\[edit\])", wiki_data):
+          print(title.groupdict()['headline'].strip().capitalize())
+
+  # Progress
+  # Beginning with the collapse of the lisp
+  # Motion interface for the xbox 360 and the xbox
+#+END_SRC
+
+Now let's dive into something else, let's look at a new file called
+*buddhist.txt* that has a list of universities in it. Let's say we want
+to return a list of all those university names, and their location. A
+key note here, is we define our /PATTERN/ as a variable, and then we
+pass the argument =re.VERBOSE= to the =re.finditer()= function so it
+treats it verbatim.
+
+#+BEGIN_SRC python
+  import re
+
+  with open("/home/nick/projects/notes/scratchpad/buddhist.txt") as wiki:
+      pattern = """
+      (?P<title>.*)       # the univeristy title
+      (\s–\slocated\sin\s|\sis\slocated\sin)  # located in stringf
+      (?P<city>.*)
+      (,\s)
+      (?P<state>\w*)"""
+
+      wiki_data = wiki.read()
+      for title in re.finditer(pattern,wiki_data,re.VERBOSE):
+          print(title.groupdict())
+
+  {'title': 'Dhammakaya Open University', 'city': 'Azusa, California', 'state': 'part'}
+  {'title': 'Dharmakirti College', 'city': 'Tucson', 'state': 'Arizona'}
+  {'title': 'Dharma Realm Buddhist University', 'city': 'Ukiah', 'state': 'California'}
+  {'title': 'Ewam Buddhist Institute', 'city': 'Arlee', 'state': 'Montana'}
+  {'title': 'Naropa University', 'city': ' Boulder', 'state': 'Colorado'}
+  {'title': 'Institute of Buddhist Studies', 'city': 'Berkeley', 'state': 'California'}
+  {'title': 'Maitripa College', 'city': 'Portland', 'state': 'Oregon'}
+  {'title': 'Soka University of America', 'city': 'Aliso Viejo', 'state': 'California'}
+  {'title': 'University of the West', 'city': 'Rosemead', 'state': 'California'}
+  {'title': 'Won Institute of Graduate Studies', 'city': 'Glenside', 'state': 'Pennsylvania'}
+#+END_SRC
+
+Now let's say we want to find all the keywords from twitter posts for NY
+Times Health, well to do that we know most keywords start with the *#*
+symbol followed by a word and a space, maybe a period.
+
+#+BEGIN_SRC python
+  import re
+
+  with open("/home/nick/projects/notes/courses/intro_to_data_science/week1/nytimeshealth.txt", "r") as health:
+      health_data = health.read()
+      pattern = '(#[\w\d]*)(?=\s)'
+      for title in re.finditer("#[\w\d]*", health_data):
+          print(title.group(0).lower())
+
+  #askwell
+  #pregnancy
+  #ayotzinap
+  #colorado
+  #vegetarianthanksgiving
+  #brittanymaynard
+  #fallprevention
+  #ebola
+  #ebola
+#+END_SRC

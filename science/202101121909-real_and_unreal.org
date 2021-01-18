@@ -1,0 +1,51 @@
+#+title: real and unreal
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-12 19:09]
+#+source: https://archive.briankoberlein.com/2015/06/04/real-and-unreal/index.html#:~:text=Quantum%20theory%20is%20strange%2C%20but,like%20and%20wave%2Dlike%20properties.&text=The%20claims%20arise%20from%20a,as%20the%20delayed%2Dchoice%20experiment
+metadata = [[file:202101121855-delayed_choice_theory.org][delayed choice theory]]
+
+In quantum theory, with countless tests, we have found that quantum objects have
+both particle-like and wave-like properties. In some tests, the wave-like
+properties dominate, while in others the wave-like properties dominate. The
+duality between the two is deeply counterintuitive, which means often times the
+results of quantum theory testing are interprid wrong.
+
+#+begin_quote
+Wheeler’s idea was to imagine a “cosmic interferometer.” Suppose light from a
+distant distant quasar were to be gravitationally lensed by closer galaxy. As a
+result, light from a single quasar would appear as coming from two slightly
+different locations. Wheeler then noted that this light could be observed in two
+different ways. The first would be to have a detector aimed at each lensed
+image, thus making a particle measurement. The second would be to combine light
+from these two images in an interferometer, thus making a wave measurement.
+According to quantum theory, the results of these two types of experiments
+(particle or wave) would be exactly as we’ve observed in their standard form.
+But the light began its journey billions of years ago, long before we decided on
+which experiment to perform. Through this “delayed choice” it would seem as if
+the quasar light “knew” whether it would be seen as a particle or wave billions
+of years before the experiment was devised.
+#+end_quote
+
+In 2007 a delayed-choice experiment was conducted using laser light, to create a
+delayed choice double split experiement. In this new paper, the team responsible
+ran a test using an ultracold helium atom to do a similar delayed choice
+interference experiment. With both experiments, both results were exactly what
+was predicted by quantum theory. So both matter and light exhibit this strange
+quantum effect.
+
+#+begin_quote
+While this is great work, the result isn’t unexpected. Quantum theory made a
+very clear prediction about this kind of experiment, and its prediction has been
+confirmed. Where things get fuzzy is in the interpretation. One popular way to
+interpret quantum theory is to presume quanta have a potential wavefunction,
+which then collapses into a definite state when observed. In this view the act
+of measurement gives reality to the quantum. In the delayed-choice experiment
+that would mean the quantum doesn’t become “real” until you measure it, which
+could be billions of years after its origin in the case of quasar light. But
+this is an overly simplistic take on things. Quantum objects are real, but
+simply have indefinite properties. These properties are defined by the
+experiments we do. What the delayed choice experiments really show is that
+quanta don’t exist as particles or waves, but are truly unique objects which can
+exhibit particle and wave properties in certain experiments.
+#+end_quote

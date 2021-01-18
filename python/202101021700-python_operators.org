@@ -1,0 +1,16 @@
+#+title: python operators
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 17:00]
+
+[[[[file:202101171320-python.org][python]]]] uses operators to apply different operations on values, such as
+comparison or arithmetic type, and more. The following operators exist in
+python:
+
++ Arithmetic operators
++ Assignment operators
++ Comparison operators
++ Logical operators
++ Identity operators
++ Membership operators
++ Bitwise operators

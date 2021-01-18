@@ -1,0 +1,8 @@
+#+title: member variable
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 15:07]
+
+In [[[[file:202101171440-object_oriented_programming.org][object-oriented programming]]]], a member variable (sometimes called a member
+field) is a variable that is associated with a specific [[[[file:202101171444-object.org][object]]]], and accessible
+for all its [[[[file:20210110172957-methods.org][methods]]]] (member functions).

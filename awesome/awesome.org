@@ -1,0 +1,62 @@
+#+title: Awesome Resources
+#+author: Nicholas Martin
+#+email: nmartin84@gmail.com
+
+- [[https://github.com/alebcay/awesome-shell][awesome shell]]
+- [[https://github.com/herrbischoff/awesome-command-line-apps][awesome command line apps]]
+- [[https://github.com/agarrharr/awesome-cli-apps][awesome cli apps]]
+- [[https://www.reddit.com/r/selfhosted/comments/fxg1lj/you_can_now_install_70_selfhosted_apps_and/][script to install 70 self hosted apps]]
+
+* Issue Trackers
+
+- JIRA
+- Youtrack
+- Phabricator
+
+* Wikis
+
+- MediaWiki
+- Confluence
+- Dokuwiki
+
+* Backup
+
+- Syncthing
+
+* Video Downloaders
+
+** Youtubedl
+
+Downloading multiple sources at once: - download playlist:
+=youtube-dl -f FORMAT -ciw -o "%(title)s.%(ext)s" -v <url-of-playlist>= -
+to see available formats:
+=youtube-dl -F 'http://www.youtube.com/some-alphanumeric-string'= - to
+download channel:
+=youtube-dl -f FORMAT -ciw -o "%(title)s.%(ext)s" -v <url-of-channel>=
+
+* Music Downloaders
+
+** spotdl
+
+Allows one to download entire playlists from Spotify, by specifying the
+playlist link. To install the app simply run =pip install spotdl=. Then,
+you typically run two commands to download a playlist. The first is to
+fetch the list and store the results into a .txt file, then the 2nd step
+will feed the contents of that list to spotdl. -
+=spotdl --playlist https://open.spotify.com/playlist/5WzC1SaZeGJKUEvtxPA43M?si=XFeQPHQ7QCuWAtSOToyAsQ= -
+=spotdl --list paradise-lost.txt=
+
+* Task Management
+
+** Watson
+
+Watson is a task tracking tool that's CLI based and focused on easy use.
+More information can be found here.
+
+- To start tracking time =watson add projectname +tag=
+- To stop tracking the time =watson stop=
+- To cancel a tracker =watson cancel=
+- To add time that was not tracked live
+  =watson add --from "YYYY-MM-DD HH:MM:SS" --to "YYYY-MM-DD HH:MM:SS"=
+- To get a daily report run =watson aggregate=
+- To get a summarized report =watson report=

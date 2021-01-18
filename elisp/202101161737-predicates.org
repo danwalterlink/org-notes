@@ -1,0 +1,12 @@
+#+title: predicates
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-16 17:37]
+#+roam_tags: datatypes
+
+Predicates are functions in [[[[file:202101161002-elisp.org][elisp]]]] that takes an argument, to tests if that
+argument is the specified object type. For instance a list:
+
+#+begin_src emacs-lisp
+(listp '(1))
+#+end_src

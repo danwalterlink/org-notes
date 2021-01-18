@@ -1,0 +1,30 @@
+#+title: delayed choice theory
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-12 18:55]
+#+source: https://en.wikipedia.org/wiki/Wheeler%27s_delayed-choice_experiment
+
+Basically it's several thought experiments in [[[[file:202101121938-quantum_physics.org][quantum physics]]]], proposed by
+John Wheeler. Basically it's a test to see rather or not light senses the
+experimental apparatus in the [[[[file:../sciencec/202101121940-double_slit_experiment.org][double-slit experiment]]]] it will travel through,
+and adjust its behavior to fit by assuming the determinate state for it, or
+whether light remains in an indeterminate state, neither wave nor particle until
+measured.
+
+Common intentions was to do something, amongst hidden models, that would make
+each photon "decide" rather it was going to behave as a particle or as a
+wave, and then, before the photon had time to reach the detection device, create
+another change in the system that would make it seem that the photon had
+"chosen" to behave in the opposite direction.
+
+This lead to several experiements to test this, and what has lead to
+"increasingly sophisticated demonstrations of the wave particle duality of
+quanta". And one experiment explains, that "Wave and Particle behavior can
+co-exist simutaneously." [fn:1]
+
+* Footnotes
+
+[fn:1] Kaiser, Florian; Coudreau, Thomas; Milman, Pérola; Ostrowsky, Daniel B.;
+Tanzilli, Sébastien (2012). "Entanglement-Enabled Delayed-Choice Experiment".
+Science. 338 (6107): 637–640. arXiv:1206.4348. Bibcode:2012Sci...338..637K.
+CiteSeerX 10.1.1.592.8022. doi:10.1126/science.1226755. PMID 23118184.

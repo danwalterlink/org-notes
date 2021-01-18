@@ -1,0 +1,19 @@
+#+title: dolist
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 10:31]
+#+roam_tags: controlstructure
+
+dolist is a [[[[file:202101172012-elisp_control_structures.org][elisp control structures]]]] in the elisp language, which allows you
+to loop through a list while applying a function to each iteration of that list.
+
+#+begin_src emacs-lisp :results output code :exports both
+(let ((mylist '("something new" "something older" "something beautiful" "something ugly")))
+  (dolist (i mylist) (print i)))
+(dolist (i org-level-faces) (set-face-attribute i nil :family "Victor Mono"))
+#+end_src
+
+#+RESULTS:
+#+begin_src emacs-lisp
+"\n\"something new\"\n\n\"something older\"\n\n\"something beautiful\"\n\n\"something ugly\"\n"
+#+end_src

@@ -1,0 +1,31 @@
+#+title: is life an illusion
+#+author: nick martin
+#+email: nmartin84@gmail.com
+#+source: https://www.express.co.uk/news/science/738402/life-an-ILLUSION-reality-does-not-exist-if-you-are-not-looking-at-it
+metadata = [[file:202101121855-delayed_choice_theory.org][delayed choice theory]]
+
+They describe, the universe as not existing when we are not looking at it. This
+is later described to be at the quantum level, finally tested and proven.
+
+This is in relation to *John Wheeler's* [[[[file:202101121855-delayed_choice_theory.org][delayed choice theory]]]] and concluded that
+he was right. At-least according to the publishers of this article. It looks
+like more can be read on [[https://archive.briankoberlein.com/2015/06/04/real-and-unreal/index.html#:~:text=Quantum%20theory%20is%20strange%2C%20but,like%20and%20wave%2Dlike%20properties.&text=The%20claims%20arise%20from%20a,as%20the%20delayed%2Dchoice%20experiment.][this subject]] which may incline to disagree.
+
+Mr. Wheeler's proposed experiment involved giving an object the choice to act
+like a wave or a particle - the former acting as a vibration with a frequency
+that can distinguish it from other waves and the latter having no frequency to
+determin its position in space, unlike a wave - and at what point does it decide
+to act like one or the other.
+
+Quantum theory has basically suggested this can only be measured at the end of
+an objects journey, which is what researchers have found. It proves that
+measurement is *everything*. At the quantum level, reality does not exist if you
+are not looking at it.
+
+To carry out the test, researchers from the Australian institute placed a number
+of helium atoms in a suspended state known as a [[[[file:202101121902-bose_einstein_condensate.org][bose-einstein condensate]]]].
+
+Only a single atom was passed through a grating, which resembled a sort of cross
+roads, with a second light grating to recombine light paths. When the second
+light path was not added, there was no interference observed as if the atom had
+only chosen the one path.

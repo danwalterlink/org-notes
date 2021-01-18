@@ -1,0 +1,8 @@
+#+title: programming language
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-16 10:03]
+
+A programming language is a formal language comprising a set of instructions
+that produce various kinds of output. Programming language are used in
+[[[[file:202101161933-computer_programming.org][computer programming]]]] to implement [[[[file:202101162109-algorithm.org][algorithm]]]].

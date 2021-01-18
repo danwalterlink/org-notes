@@ -1,0 +1,149 @@
+#+title: python functions
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:28]
+
+Functions in python are associated with [[[[file:202101021701-python_modules.org][python modules]]]], in that they are
+portable pieces of code that aim to complete a specific task.
+
+* Finding help on functions
+
+Call help to see the built-in documentation for a function.
+
+#+BEGIN_EXAMPLE
+  mylist = {'key1':'string1','key2':'string2'}
+  help(mylist.insert)
+#+END_EXAMPLE
+
+* building new functions
+
+Functions are essentially a bunch of instructions that are bundled and
+defined by an object name. Once you assign or create a new function,
+when you execute that function it'll carry out all the instructions
+inside of that function. So for example:
+
+#+BEGIN_EXAMPLE
+  def hello_world(name):
+      "Function that prints hello world + NAME."
+      print(f'Hello {name}')
+
+  hello_world('Nick')
+#+END_EXAMPLE
+
+If you want to pass a default argument value, you can arrange it so
+
+#+BEGIN_EXAMPLE
+  def hello_world(name='User'):
+      "Function."
+      print(f'Hello {name}')
+  hello_world()
+#+END_EXAMPLE
+
+You can also use the =return= function to save the results of your
+function to a variable, so it's stored in memory.
+
+#+BEGIN_EXAMPLE
+  def sum_numbers(num1,num2):
+      return num1+num2
+  result = sum_numbers(10,37)
+  return result
+
+  47
+#+END_EXAMPLE
+
+** docstrings
+
+Can contain multiple lines of comments, that will not be read by the
+compiler and used to help explain a function. You often need to start
+and end the docstring with 3 ="""= on a single line before and after
+your docstring.
+
+* interactions between functions
+
+Sometimes you'll want to pass results from one function back to
+another...
+
+#+BEGIN_EXAMPLE
+  def shuffle_list(mylist):
+      # Take in list, and returned shuffle versioned
+      shuffle(mylist)
+
+      return mylist
+
+
+  def player_guess():
+
+      guess = ''
+
+      while guess not in ['0','1','2']:
+
+          # Recall input() returns a string
+          guess = input("Pick a number: 0, 1, or 2:  ")
+
+      return int(guess)
+
+  def check_guess(mylist,guess):
+      if mylist[guess] == 'O':
+          print('Correct Guess!')
+      else:
+          print('Wrong! Better luck next time')
+          print(mylist)
+
+  # Initial List
+  mylist = [' ','O',' ']
+
+  # Shuffle It
+  mixedup_list = shuffle_list(mylist)
+
+  # Get User's Guess
+  guess = player_guess()
+
+  # Check User's Guess
+  #------------------------
+  # Notice how this function takes in the input
+  # based on the output of other functions!
+  check_guess(mixedup_list,guess)
+#+END_EXAMPLE
+
+* *args and **kwargs
+
+What if you need to allow an unlimited number of arguments to be passed
+to a function? Well adding those by hand is not very efficient, but
+instead what you can do is use a method to tell the function to accept
+all those arguments.
+
+** the *args method
+
+This seems to be efficient when dealing with numbers, and treats the
+results as a *tuples* list.
+
+#+BEGIN_EXAMPLE
+  def myfunc(*args):
+      results = *args * 0.15
+      return results
+#+END_EXAMPLE
+
+** the **kwargs method
+
+So what about passing a number of strings?
+
+#+BEGIN_EXAMPLE
+  def myfunc(**kwargs):
+      print(kwargs)
+      if 'fruit' in kwargs:
+          print('My fruit of choice is {}.'.format(kwargs['fruit']))
+      else:
+          print('I did not find any fruit here.')
+
+  myfunc(fruit='apple',veggie='lettuce')
+#+END_EXAMPLE
+
+** accepting both *args and **kwargs
+
+#+BEGIN_EXAMPLE
+  def myfunc(*args,**kwargs):
+      print('I would like {} of {}.'.format(args[0],kwargs['food']))
+
+  myfunc(10,20,30,fruit='oranges',food='eggs',food='tacos')
+#+END_EXAMPLE
+

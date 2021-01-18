@@ -1,0 +1,20 @@
+* Visual Editor with MediaWiki
+  :PROPERTIES:
+  :CUSTOM_ID: visual-editor-with-mediawiki
+  :END:
+
+** Adding Visual Editor to all Modes
+   :PROPERTIES:
+   :CUSTOM_ID: adding-visual-editor-to-all-modes
+   :END:
+
+A hack that redirects users to the visual editor when clicking a redlink
+rather that to the wikicode editor. Add to your Index.php file
+
+#+BEGIN_EXAMPLE
+  if(isset($_GET['redlink']) && isset($_GET['action']) && isset($_GET['title']) && $_GET['redlink'] == 1 && $_GET['action']=='edit')
+  {
+          header('Location: index.php?title='.$_GET['title'].'&veaction=edit&redlink=1');
+          die();
+  }
+#+END_EXAMPLE

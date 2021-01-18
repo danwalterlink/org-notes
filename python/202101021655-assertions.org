@@ -1,0 +1,74 @@
+#+title: assertions
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-02 16:55]
+
+An assertion in [[[[file:202101171320-python.org][python]]]] is a sanity-check that you can turn on or turn off
+when you have finished testing the program. An expression is tested, and if the
+result comes up false, an exception is raised. Assertions are carried out
+through use of the assert statement.
+
+* assertions in python
+
+#+BEGIN_EXAMPLE
+  print(1)
+  assert 2 + 2 == 4
+  print(2)
+  assert 1 + 1 == 3
+  print(3)
+
+  # Results
+  >>>
+  1
+  2
+  AssertionError
+  >>>
+#+END_EXAMPLE
+
+Assertions can take more than one argument, so for instance you can run
+something like this: =assert(temp >= 0), "Colder than absolute zero!"=.
+
+** Using raise to call an exception
+
+You can use raise as a way to call an exception.
+
+#+BEGIN_EXAMPLE
+  print(1)
+  raise ValueError
+  print(2)
+#+END_EXAMPLE
+
+** Try Exceptions for Python
+
+The *try* block contains code that may throw an exception, if it does
+not, then the code in the *try:* block, otherwise if an exception
+occurrs, the code in the *exception name:* is ran instead. There can
+also be multiple exception blocks, to handle different exceptions.
+Alternatively, you can specify a generic *exception:* which doesn't call
+the exception type, and if any exceptions occurr it'll catch and return
+output from the exception block. This should be treated carefully as it
+can mask programming mistakes.
+
+#+BEGIN_EXAMPLE
+  try:
+     num1 = 7
+     num2 = 0
+     print (num1 / num2)
+     print("Done calculation")
+  except ZeroDivisionError:
+     print("An error occurred")
+     print("due to zero division")
+  except (ValueError, TypeError):
+     print("Error Occurred")
+#+END_EXAMPLE
+
+To ensure a piece of code regardless if there's an exception or not, you
+can use the *final:* block. It should be noted, that if an exception is
+encountered in the except: block, it'll throw an additional exception.
+
+** Python Exceptions & Files
+
+Exceptions are errors when the compiler evaluates the code in your
+python file, which can be due to a number of reasons. For one example, a
+multiplication of *7 x 0* would throw an exception *ZeroDivisionError:
+division by zero*.

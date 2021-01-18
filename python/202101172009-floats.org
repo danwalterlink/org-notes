@@ -1,0 +1,18 @@
+#+title: floats
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:09]
+
+* Floats in Python
+Floats are another [[[[file:202101171358-python_datatypes.org][python datatypes]]]] which are numbers with decimal places.
+
+#+BEGIN_EXAMPLE
+  x = 1.10
+  y = 1.0
+  z = -35.59
+
+  # Float can also be scientific numbers with an "e" indicate the power of 10.
+  x = 35e3
+  y = 12E4
+  z = -87.7e100
+#+END_EXAMPLE

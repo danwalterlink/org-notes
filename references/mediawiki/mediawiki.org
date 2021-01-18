@@ -1,0 +1,320 @@
+* MediaWiki Overview
+  :PROPERTIES:
+  :CUSTOM_ID: mediawiki-overview
+  :END:
+
+** Installation with Extensions
+   :PROPERTIES:
+   :CUSTOM_ID: installation-with-extensions
+   :END:
+
+Install packages
+
+#+BEGIN_SRC sh
+  sudo apt update
+  sudo apt install apache2 -y
+  sudo apt-get install mariadb-server mariadb-client -y
+  sudo add-apt-repository ppa:ondrej/php -y
+  sudo apt update -y
+  sudo apt install php7.1 libapache2-mod-php7.1 php7.1-common php7.1-mbstring php7.1-xmlrpc php7.1-soap php7.1-gd php7.1-xml php7.1-intl php7.1-mysql php7.1-cli php7.1-mcrypt php7.1-zip php7.1-curl software-properties-common curl git imagemagick -y
+  sudo apt-get install \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      gnupg-agent \
+      software-properties-common -y
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  sudo apt-key fingerprint 0EBFCD88
+  sudo add-apt-repository \
+     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+     $(lsb_release -cs) \
+     stable"
+  sudo apt-get update
+  sudo apt-get install docker-ce docker-ce-cli containerd.io
+#+END_SRC
+
+SETUP MYSQL
+
+#+BEGIN_SRC sh
+  echo "Setting up 'mediawikiuser' account with GRANT all privileges in SQL"
+  read -p "Enter new password for SQL: " sqlpswd
+  sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'mediawikiuser'@'localhost' IDENTIFIED BY '$sqlpswd';"
+  sudo mysql -e "DROP USER ''@'localhost'"
+  sudo mysql -e "DROP DATABASE test;"
+  sudo mysql -e "CREATE DATABASE mediawiki;"
+  sudo mysql -e "CREATE DATABASE cargo;"
+  sudo mysql -e "GRANT ALL PRIVILEGES ON mediawiki.* TO 'root'@'localhost';"
+  sudo mysql -e "GRANT ALL PRIVILEGES ON cargo.* TO 'root'@'localhost';"
+  sudo mysql -e "FLUSH PRIVILEGES;"
+
+  echo "Configure APACHE"
+#+END_SRC
+
+Configure apache virutal hosts
+
+#+BEGIN_SRC sh
+  sudo sed -i "s#/html#/html/mediawiki#g" /etc/apache2/sites-available/000-default.conf
+  sudo curl https://raw.githubusercontent.com/nmartin84/scripted-installs-repo/master/mwiki/php.ini -o /etc/php/7.1/apache2/php.ini
+  sudo sed -i "s/Options Indexes FollowSymLinks/Options FollowSymLinks/" /etc/apache2/apache2.conf
+  sudo /etc/init.d/apache2 restart
+
+  echo "installing mediawiki..."
+#+END_SRC
+
+Install mediawiki
+
+#+BEGIN_SRC sh
+  sudo wget https://releases.wikimedia.org/mediawiki/1.33/mediawiki-1.33.0.tar.gz
+  sudo tar -xzf mediawiki-1.33.0.tar.gz
+  sudo mv mediawiki-1.33.0 mediawiki
+  sudo mv mediawiki /var/www/html/mediawiki
+  sudo chown -R www-data:www-data /var/www/html/mediawiki/
+  sudo chmod -R 755 /var/www/html/mediawiki/
+  cd /var/www/html/mediawiki/extensions
+  sudo git clone -b REL1_33 https://github.com/wikimedia/mediawiki-extensions-Cargo.git
+  sudo git clone -b REL1_33 https://github.com/wikimedia/mediawiki-extensions-PageForms.git
+  sudo git clone -b REL1_33 https://github.com/wikimedia/mediawiki-extensions-TemplateData.git
+  sudo git clone -b REL1_33 https://github.com/wikimedia/mediawiki-extensions-Echo.git
+  sudo git clone -b REL1_33 https://github.com/wikimedia/mediawiki-extensions-TextExtracts.git
+  sudo git clone -b REL1_33 https://github.com/wikimedia/mediawiki-extensions-PageImages.git
+  sudo git clone -b REL1_33 https://github.com/wikimedia/mediawiki-extensions-Popups.git
+#+END_SRC
+
+RESTART EVERYTHING
+
+#+BEGIN_SRC sh
+  sudo /etc/init.d/mysql restart
+  sudo /etc/init.d/apache2 restart
+#+END_SRC
+
+Install parsoid container
+
+#+BEGIN_SRC sh
+  sudo docker run -d -p 8080:8000 -e PARSOID_DOMAIN_localhost=http://localhost/api.php thenets/parsoid:0.10
+#+END_SRC
+
+** Install Parsoid with Visual Editor
+   :PROPERTIES:
+   :CUSTOM_ID: install-parsoid-with-visual-editor
+   :END:
+
+#+BEGIN_SRC sh
+  sudo nano /etc/mediawiki/parsoid/config.yaml
+
+  # Change the following line:
+  uri: 'http://localhost/api.php'
+  sudo service parsoid restart
+#+END_SRC
+
+You'll need to add the following to your LocalSettings.php file
+
+#+BEGIN_SRC sh
+  sudo nano /var/www/html/mediawiki/LocalSettings.php
+#+END_SRC
+
+Add to bottom of file
+
+#+BEGIN_EXAMPLE
+  wfLoadExtension( 'VisualEditor' );$wgDefaultUserOptions['visualeditor-enable'] = 1;$wgHiddenPrefs[] = 'visualeditor-enable';$wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
+  $wgVirtualRestConfig['modules']['parsoid'] = array(
+      'url' => 'http://localhost:8000',
+      'domain' => 'localhost',
+      'prefix' => 'localhost'
+  );
+  $wgVisualEditorAvailableNamespaces = [
+      "Help" => true,
+      "Extra" => true
+  ];
+#+END_EXAMPLE
+
+*** Enable redlinks redirect to Visual Editor
+    :PROPERTIES:
+    :CUSTOM_ID: enable-redlinks-redirect-to-visual-editor
+    :END:
+
+- Visit the Special:AllMessages page and modify (noarticletext)
+
+=veaction=edit=
+
+*** Enable redlinks redirect to forms
+    :PROPERTIES:
+    :CUSTOM_ID: enable-redlinks-redirect-to-forms
+    :END:
+
+=$wgPageFormsLinkAllRedLinksToForms = true;=
+
+*** Protect Tags from Visual Editor
+    :PROPERTIES:
+    :CUSTOM_ID: protect-tags-from-visual-editor
+    :END:
+
+Modify the following file
+
+#+BEGIN_SRC sh
+  sudo nano /usr/lib/parsoid/src/lib/config/WikitextConstants.js
+#+END_SRC
+
+Adjust this section to include custom tags
+
+#+BEGIN_EXAMPLE
+  TagWhiteList: new Set([
+      // In case you were wondering, explicit <a .. > HTML is NOT allowed in wikitext.
+      // That is why the <a> tag is missing from the white-list.
+      'ABBR', 'A',
+      'B', 'BDI', 'BDO', 'BIG', 'BLOCKQUOTE', 'BR',
+      'CAPTION', 'CENTER', 'CITE', 'CODE',
+      'DATA', 'DD', 'DEL', 'DFN', 'DIV', 'DL', 'DT',
+      'EM',
+      'FONT',
+      'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'HR',
+      'I', 'INS', 'INPUTBOX',
+      'KBD',
+      'LI',
+      'MARK',
+      'OL',
+      'P', 'PRE',
+      'Q',
+      'RB', 'RP', 'RT', 'RTC', 'RUBY', 'REF',
+      'S', 'SAMP', 'SMALL', 'SPAN', 'STRIKE', 'STRONG', 'SUB', 'SUP', 'SYNTAXHIGHLIGHT',
+      'TABLE', 'TD', 'TH', 'TIME', 'TR', 'TT',
+      'U', 'UL',
+      'VAR',
+      'WBR',
+      ]),
+  },
+#+END_EXAMPLE
+
+** MediaWiki Hacks
+   :PROPERTIES:
+   :CUSTOM_ID: mediawiki-hacks
+   :END:
+
+*** Authenticate if Local Host
+    :PROPERTIES:
+    :CUSTOM_ID: authenticate-if-local-host
+    :END:
+
+Add to your LocalSettings.php
+
+#+BEGIN_EXAMPLE
+  if ( $_SERVER['REMOTE_ADDR'] == '127.0.0.1' ) {
+      $wgGroupPermissions['*']['read'] = true;
+      $wgGroupPermissions['*']['edit'] = true;
+  }
+#+END_EXAMPLE
+
+*** Cargo Compound Query
+    :PROPERTIES:
+    :CUSTOM_ID: cargo-compound-query
+    :END:
+
+You may want to have the results of more than one query within the same
+display; this is possible using the #cargo_compound_query function. The
+main usage for such "compound queries" is to display multiple sets of
+points on a map or calendar, with a different icon (in maps) or a
+different color (in calendars) for each set; though it's also possible
+to use it to show multiple result sets within simpler formats like
+tables and lists.
+
+#cargo_compound_query is called by passing in the sets of parameters of
+one or more calls to #cargo_query, with the overall sets separated by
+pipes, and the internal parameters now separated by semicolons.
+
+Here is an example call, that would show two groups of pages in a map,
+with a different icon for each:
+
+#+BEGIN_EXAMPLE
+  {{#cargo_compound_query:
+  tables=Restaurants;where=City='Lisbon';fields=_pageName,Address,Rating,Coords;icon=Fork.jpg
+  |tables=Bars;where=City='Lisbon';fields=_pageName,Address,Hours,Coords;icon=Martini.png
+  |format=openlayers
+  }}
+#+END_EXAMPLE
+
+Essentially, each sub-query functions as its own "parameter". These
+sub-queries have their own sub-parameters that are a subset of the
+allowed parameters of =#cargo_query=: only the parameters directly
+related to querying - ="tables", "join on"=, etc. - are allowed, plus
+two more parameters related to display in calendars and maps: "color"
+and "icon".
+
+*** Example Cargo Query
+    :PROPERTIES:
+    :CUSTOM_ID: example-cargo-query
+    :END:
+
+#+BEGIN_EXAMPLE
+  {{#cargo_query:
+  tables=table1=tableAlias1, table2=tablesAlias2, etc.
+  |join on=table1.fieldA = table2.fieldB,table2.fieldC=table3.fieldD, etc.
+  |fields=field1=fieldAlias1,field2=Alias2, etc.
+  |where=table1.fieldE='some value' AND/OR etc.
+  |group by=table1.fieldG
+  |having=table1.fieldG='some value', etc.
+  |order by=table2.fieldF, etc.
+  |limit=some number
+  |offset=some number
+  |intro=some text
+  |outro=some text
+  |default=some text
+  |more results text=some text
+  |no html
+  |max display chars=some number
+  |format=format
+  ...additional format-based parameters
+  }}
+#+END_EXAMPLE
+
+| Parameter | Description                                                                                                                                                                                                             |
+|-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| tables=   | corresponds to the FROM clause (with the optional "alias" values corresponding to AS clauses); "table=" can be used instead.                                                                                            |
+| join on=  | corresponds to the JOIN...ON clauses.                                                                                                                                                                                   |
+| fields=   | corresponds to the SELECT clause (with the optional "alias" values corresponding to AS clauses). Its default value is "_pageName".                                                                                      |
+| where=    | corresponds to the WHERE clause.                                                                                                                                                                                        |
+| group by= | corresponds to the GROUP BY clause. Note that DISTINCT does not work in Cargo (except within a function like COUNT()) so in most cases you must use group by to eliminate duplicates.                                   |
+| having=   | corresponds to the HAVING clause (similar to WHERE, but applies to values computed for "groups").                                                                                                                       |
+| order by= | corresponds to the ORDER BY clause, which sorts the answer set. Its default value is "_pageName ASC" which does an ascending sort on page name. Setting it to "_rowID" should sort by the same order they were entered. |
+| limit=    | corresponds to the LIMIT clause.                                                                                                                                                                                        |
+| offset=   | corresponds to the OFFSET clause.                                                                                                                                                                                       |
+
+Example display formats:
+
+| Display Format                                 | Required Parameters | Notes |
+|------------------------------------------------+---------------------+-------|
+| lists                                          |                     |       |
+| ul                                             |                     |       |
+| ol                                             |                     |       |
+| category                                       |                     |       |
+| template                                       |                     |       |
+| embedded                                       |                     |       |
+| outline                                        |                     |       |
+| tree                                           |                     |       |
+| table                                          |                     |       |
+| dynamic table                                  |                     |       |
+| tag cloud                                      |                     |       |
+| gallery                                        |                     |       |
+| slideshow                                      |                     |       |
+| calendar                                       |                     |       |
+| timeline                                       |                     |       |
+| bar chart                                      |                     |       |
+| pie chart                                      |                     |       |
+| googlemaps                                     |                     |       |
+| openlayer                                      |                     |       |
+| map                                            |                     |       |
+| exhibit                                        |                     |       |
+| ----------------+---------------------+------- |                     |       |
+
+*** Modify Allowed File Extensions
+    :PROPERTIES:
+    :CUSTOM_ID: modify-allowed-file-extensions
+    :END:
+
+Allows you to change what file extensions are allowed...
+
+#+BEGIN_EXAMPLE
+  $wgFileExtensions = array_merge(
+      $wgFileExtensions, [
+          'pdf', 'php', 'jpeg', 'jpg', 'doc','docx', 'xls', 'xlsx', 'zip', 'txt'
+      ]
+  );
+#+END_EXAMPLE

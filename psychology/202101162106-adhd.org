@@ -1,0 +1,15 @@
+#+title: adhd
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-16 21:06]
+
+- Brain-based disorder which often impacts executive functions including
+  working memory and emotional regulation
+- Difficulty in planning/organizing
+- Forgetful in daily activities such as forgets essential material to
+  complete task
+- Difficulty starting tasks on their own/with motivation
+- Difficulty focusing on one task for extended periods of time
+- Difficulty listening to instructions
+- Avoids or dislikes tasks that are challenging
+- Difficulty understanding social nuances

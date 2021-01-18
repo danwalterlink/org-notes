@@ -1,0 +1,5 @@
+#+title: probability density function
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-03 19:47]
+#+roam_tags: hypothesis

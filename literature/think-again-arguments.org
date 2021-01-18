@@ -1,0 +1,45 @@
+* What are arguments
+  :PROPERTIES:
+  :CUSTOM_ID: what-are-arguments
+  :END:
+
+When we decide something, or make an argument, the ideal thing is to be
+reasonable. We want to have reasoning for our arguments. So just what is
+an argument? We know it's not a verbal fight, like many couples have, to
+show dominance over the other person. An argument is a number of
+connected statements that establish a definite proposition. They put
+these statements into a structure that fits the reasoning for that
+proposition. Another example, is an arguments are a number of statements
+with reasoning to stand behind the proposition.
+
+By definition, an argument is:
+
+1. a series of sentences, statements, or propositions.
+2. where some are the premises
+3. and one is the conclusion
+4. where the premises are intended to give a reason for the conclusion.
+
+** How to analyze arguments
+   :PROPERTIES:
+   :CUSTOM_ID: how-to-analyze-arguments
+   :END:
+
+One key thing to remember is that, when we give an argument, even if
+it's very compelling, if it's not understood then it's not going to be
+accepted.
+
+1. Is this person trying to change my mind? If so, this is persuasion.
+2. Is the arguer trying to give some kind of reason to believe
+   something? This is justification.
+3. Sometimes this may not always be the case, and arguments may simply
+   be to help our understanding.
+
+** How to Evaluate Deductive Arguments
+   :PROPERTIES:
+   :CUSTOM_ID: how-to-evaluate-deductive-arguments
+   :END:
+
+** How to Evaluate Inductive Arguments
+   :PROPERTIES:
+   :CUSTOM_ID: how-to-evaluate-inductive-arguments
+   :END:

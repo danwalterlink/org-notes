@@ -1,0 +1,40 @@
+* SQL Privileges
+  :PROPERTIES:
+  :CUSTOM_ID: sql-privileges
+  :END:
+
+** Reloading Grant Tables (Permissions)
+   :PROPERTIES:
+   :CUSTOM_ID: reloading-grant-tables-permissions
+   :END:
+
+=FLUSH PRIVILEGES;= This tells the server to reload the grant tables. If
+you don't use it, then you won't be able to connect to MySQL using the
+new user account at least until the server is rebooted.
+
+** Privileges Operations
+   :PROPERTIES:
+   :CUSTOM_ID: privileges-operations
+   :END:
+
+You can also specify other privileges to a new user by setting the
+values of following columns in user table to 'Y' when executing the
+INSERT query or you can update them later using UPDATE query.
+
+- Select_priv
+- Insert_priv
+- Update_priv
+- Delete_priv
+- Create_priv
+- Drop_priv
+- Reload_priv
+- Shutdown_priv
+- Process_priv
+- File_priv
+- Grant_priv
+- References_priv
+- Index_priv
+- Alter_priv
+
+You can you something like the below to set all privileges to a user
+=GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';=

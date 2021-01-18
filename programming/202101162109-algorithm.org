@@ -1,0 +1,28 @@
+#+title: algorithm
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-16 21:09]
+
+In mathematics and computer science, an algorithm (/ˈælɡərɪðəm/ (About this
+soundlisten)) is a finite sequence of well-defined, computer-implementable
+instructions, typically to solve a class of problems or to perform a
+computation. Algorithms are always unambiguous and are used as specifications
+for performing calculations, data processing, automated reasoning, and other
+tasks.
+
+As an effective method, an algorithm can be expressed within a finite amount of
+space and time, and in a well-defined formal language for calculating a
+function. Starting from an initial state and initial input (perhaps empty), the
+instructions describe a computation that, when executed, proceeds through a
+finite number of well-defined successive states, eventually producing "output"
+and terminating at a final ending state. The transition from one state to the
+next is not necessarily deterministic; some algorithms, known as randomized
+algorithms, incorporate random input.
+
+The concept of algorithm has existed since antiquity. Arithmetic algorithms,
+such as a division algorithm, was used by ancient Babylonian mathematicians c.
+2500 BC and Egyptian mathematicians c. 1550 BC. Greek mathematicians later used
+algorithms in 240 BC in the sieve of Eratosthenes for finding prime numbers, and
+the Euclidean algorithm for finding the greatest common divisor of two numbers.
+Arabic mathematicians such as al-Kindi in the 9th century used cryptographic
+algorithms for code-breaking, based on frequency analysis.

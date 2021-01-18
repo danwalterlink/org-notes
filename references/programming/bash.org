@@ -1,0 +1,1206 @@
+#+TITLE: Bash
+
+* BASH BASICS
+env                 # displays all environment variables
+echo $SHELL         # displays the shell you're using
+echo $BASH_VERSION  # displays bash version
+bash                # if you want to use bash (type exit to go back to your previously opened shell)
+whereis bash        # locates the binary, source and manual-page for a command
+which bash          # finds out which program is executed as 'bash' (default: /bin/bash, can change across environments)
+clear               # clears content on window (hide displayed lines)
+* Bash loop from David
+
+Something cool David gave me, need to test and see how it works though.
+
+#+BEGIN_SRC shell
+printIP_list=$(cat /tmp/copied_me.txt |grep -A 2 print |grep Private |awk '{print $3}');
+printarray=($printIP_list)
+
+for i in "${printarray[@]}"
+do
+	host_name="${WHID}-print-${i}.${WHID}";
+	echo "$host_name" >> ./"$WHID-audit-$DATE".txt;
+	r_cmd=$(ssh $i "hostname;sudo ps aux |grep flex"; 2>/dev/null || { echo; echo "Failed to reach $i";echo; };)
+	(
+		while read -r line; do
+			echo "$line";
+		done <<< "$r_cmd"
+	) >> ./"$WHID-audit-$DATE".txt;
+	echo " " >> ./"$WHID-audit-$DATE".txt;
+done
+#+END_SRC
+* Case...esca
+
+#+BEGIN_SRC shell
+#!/bin/sh
+
+option="${1}"
+case ${option} in
+	-f) FILE="${2}"
+		echo "File name is $FILE"
+		;;
+	-d) DIR="${2}"
+		echo "Dir name is $DIR"
+		;;
+	,*)
+		echo "`basename ${0}`:usage: [-f file] | [-d directory]"
+		exit 1 # Command to come out of the program with status 1
+		;;
+esac
+#+END_SRC
+
+Example Output
+#+BEGIN_SRC shell
+$./test.sh
+test.sh: usage: [ -f filename ] | [ -d directory ]
+$ ./test.sh -f index.htm
+$ vi test.sh
+$ ./test.sh -f index.htm
+File name is index.htm
+$ ./test.sh -d unix
+Dir name is unix
+$
+#+END_SRC
+* COMMAND-LINE PROCESSING CYCLE
+
+# The default order for command lookup is functions, followed by built-ins, with scripts and executables last.
+# There are three built-ins that you can use to override this order: `command`, `builtin` and `enable`.
+
+command  # removes alias and function lookup. Only built-ins and commands found in the search path are executed
+builtin  # looks up only built-in commands, ignoring functions and commands found in PATH
+enable   # enables and disables shell built-ins
+
+eval     # takes arguments and run them through the command-line processing steps all over again
+
+* Conditions
+- source :: [[https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Looping-Constructs]]
+
+Sequential execution of commands is one thing, but to achieve any advanced logic in your scripts or your command line one-liners, you'll need tests and conditionals. Tests determine whether something is true or false. Conditions are used to make decisions which determine the execution flow of a script. [[file:../bash/Bash Scripting.org][Quoting]]
+
+\\ In bash you can run a test by enclosing a statement inside ~[ command ]~
+
+** Exit Status
+Exit status can tell us a few things if a script runs successfully or not, and you can find your exit status code with ~$?~
+#+BEGIN_EXAMPLE
+$ ping God
+ping: unknown host God
+$ echo $?
+2
+$ ping -c 1 -W 1 1.1.1.1
+PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+--- 1.1.1.1 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+$ echo $?
+1
+#+END_EXAMPLE
+** Control Operators (&& and ||)
+The controler operator ~&&~ is treated as *AND* while ~||~ is treated as *OR*.
+#+BEGIN_EXAMPLE
+$ mkdir d && cd d
+
+$ rm /etc/some_file.conf || echo "I couldn't remove the file"
+rm: cannot remove `/etc/some_file.conf': No such file or directory
+I couldn't remove the file
+#+END_EXAMPLE
+** Grouping Statements
+Suppose you want to delete a file if it contains a certain "good" word but also doesn't contain another "bad" word. Using grep (a command that checks its input for patterns), we translate these conditions to:
+#+BEGIN_EXAMPLE
+grep -q goodword "$file"            # exit status 0 (success) if "$file" contains 'goodword'
+! grep -q "badword" "$file"         # exit status 0 (success) if "$file" does not contain 'badword'
+#+END_EXAMPLE
+The ! in front of a command causes Bash to negate the command's exit status. If the command returns 0 (success), the ! turns it into a failure. Likewise, if the command returns non-zero (failure), the ! turns it into a success.
+\\ Now put these together:
+#+BEGIN_EXAMPLE
+$ grep -q goodword "$file" && ! grep -q badword "$file" && rm "$file"
+#+END_EXAMPLE
+This example will output a message if the exit status returns anything but 0:
+#+BEGIN_EXAMPLE
+$ grep -q goodword "$file" && ! grep -q badword "$file" && rm "$file" || echo "Couldn't delete: $file" >&2
+#+END_EXAMPLE
+However, there's a better way to do this that's more efficient. The failure in our logic is in the fact that we want the rm and the echo statements to belong together. The echo is related to the rm, not to the greps. So what we need is to group them. Grouping is done using curly braces:
+#+BEGIN_EXAMPLE
+$ grep -q goodword "$file" && ! grep -q badword "$file" && { rm "$file" || echo "Couldn't delete: $file" >&2; }
+#+END_EXAMPLE
+** Conditional Blocks (test [ and [[)
+~if~ : evalues a condition and if true performs then *THEN* otherwise performs *ELSE* commands
+#+BEGIN_EXAMPLE
+$ if true
+> then echo "It was true."
+> else echo "It was false."
+> fi
+It was true.
+#+END_EXAMPLE
+*An improved method of testing*:
+Another way to run this check is by using test ~[~
+#+BEGIN_EXAMPLE
+$ if [ a = b ]
+> then echo "a is the same as b."
+> else echo "a is not the same as b."
+> fi
+a is not the same as b.
+#+END_EXAMPLE
+Here's an example of a common pitfall when ~[~ is used:
+#+BEGIN_EXAMPLE
+$ myname='Greg Wooledge' yourname='Someone Else'
+$ [ $myname = $yourname ]
+-bash: [: too many arguments
+#+END_EXAMPLE
+The correct method to test this:
+#+BEGIN_EXAMPLE
+$ [ "$myname" = "$yourname" ]
+#+END_EXAMPLE
+*A new method for testing*:
+The new test condition is ~[[~ and provides a few new features over the original ~[~. One of the features of ~[[~ is *pattern matching*.
+#+BEGIN_EXAMPLE
+$ [[ $filename = *.png ]] && echo "$filename looks like a PNG file"
+#+END_EXAMPLE
+Another feature of ~[[~ helps us in dealing with parameter expansions: *NOTE*: This time ~$me~ and ~$you~ don't require double parentheses
+because ~[[~ is a shell keyword. Be aware, strings still require to be quoted with double parentheses.
+#+BEGIN_EXAMPLE
+$ [[ $me = $you ]]           # Fine.
+$ [[ I am $me = I am $you ]] # Not fine!
+-bash: conditional binary operator expected
+-bash: syntax error near `am'
+#+END_EXAMPLE
+If the right side of the ~=~ is not quoted, then bash will do pattern matching by deafult.
+*Tests supported by ~[~ (also known as test) and ~[[~ and*:
+- ~-e FILE~: True if file exists.
+- ~-f FILE~: True if file is a regular file.
+- ~-d FILE~: True if file is a directory.
+- ~-h FILE~: True if file is a symbolic link.
+- ~-p PIPE~: True if pipe exists.
+- ~-r FILE~: True if file is readable by you.
+- ~-s FILE~: True if file exists and is not empty.
+- ~-t FD~ : True if FD is opened on a terminal.
+- ~-w FILE~: True if the file is writable by you.
+- ~-x FILE~: True if the file is executable by you.
+- ~-O FILE~: True if the file is effectively owned by you.
+- ~-G FILE~: True if the file is effectively owned by your group.
+- ~FILE -nt FILE~: True if the first file is newer than the second.
+- ~FILE -ot FILE~: True if the first file is older than the second.
+- ~-z STRING~: True if the string is empty (it's length is zero).
+- ~-n STRING~: True if the string is not empty (it's length is not zero).
+*String operators*:
+- ~STRING = STRING~: True if the first string is identical to the second.
+- ~STRING != STRING~: True if the first string is not identical to the second.
+- ~STRING < STRING~: True if the first string sorts before the second.
+- ~STRING > STRING~: True if the first string sorts after the second.
+- ~! EXPR~: Inverts the result of the expression (logical NOT).
+*Numeric operators*:
+- ~INT -eq INT~: True if both integers are identical.
+- ~INT -ne INT~: True if the integers are not identical.
+- ~INT -lt INT~: True if the first integer is less than the second.
+- ~INT -gt INT~: True if the first integer is greater than the second.
+- ~INT -le INT~: True if the first integer is less than or equal to the second.
+- ~INT -ge INT~: True if the first integer is greater than or equal to the second.
+*Additional tests supported only by ~[[~ and*:
+- ~STRING = (or ==) PATTERN~: Not string comparison like with [ (or test), but pattern matching is performed. True if the string matches the glob pattern.
+- ~STRING != PATTERN~: Not string comparison like with [ (or test), but pattern matching is performed. True if the string does not match the glob pattern.
+- ~STRING =~ REGEX~: True if the string matches the regex pattern.
+- ~( EXPR )~: Parentheses can be used to change the evaluation precedence.
+- ~EXPR && EXPR~: Much like the '-a' operator of test, but does not evaluate the second expression if the first already turns out to be false.
+- ~EXPR || EXPR~: Much like the '-o' operator of test, but does not evaluate the second expression if the first already turns out to be true.
+*Tests exclusive to ~[~ (and test)*:
+- ~EXPR -a EXPR~: True if both expressions are true (logical AND).
+- ~EXPR -o EXPR~: True if either expression is true (logical OR).
+*Some Examples*:
+#+BEGIN_EXAMPLE
+$ test -e /etc/X11/xorg.conf && echo 'Your Xorg is configured!'
+Your Xorg is configured!
+$ test -n "$HOME" && echo 'Your homedir is set!'
+Your homedir is set!
+$ [[ boar != bear ]] && echo "Boars aren't bears."
+Boars aren't bears!
+$ [[ boar != b?ar ]] && echo "Boars don't look like bears."
+$ [[ $DISPLAY ]] && echo "Your DISPLAY variable is not empty, you probably have Xorg running."
+Your DISPLAY variable is not empty, you probably have Xorg running.
+$ [[ ! $DISPLAY ]] && echo "Your DISPLAY variable is not not empty, you probably don't have Xorg running."
+#+END_EXAMPLE
+** Conditional Loops (while, until and for)
+*We have two basic loops:*
+- ~while~ : Repeat so long as command is executed successfully (exit code is 0)
+- ~until~ : Repeat so long as command is executed un-successfully (exit code is not 0)
+- ~for~ variable ~in~ words : Repeat the loop for each word, setting variable to each word in turn.
+- ~for~ ((expression; expression; expression)) : Starts by evaluating the first arithmetic expression; repeats the loop so long as the second arithmetic expression is successful; and at the end of each loop evaluates the third arithmetic expression.
+Each loop form is followed by the word ~do~, then one or more commands in the body, then the keyword ~done~. These 2 words tell us where the body _starts_ and where it _ends_.
+
+The ~for~ loop is appropriate when we have a list of things, and we want to run through that list sequentially. The while loop is appropriate when we don't know exactly how many times we need to repeat something, we simply want it to keep going until we find what we're looking for.
+
+Examples of differences and similarites of loops. All three examples achieve the same result, but are completed in different methods:
+#+BEGIN_EXAMPLE
+$ while true
+> do echo "Infinite loop"
+> done
+#+END_EXAMPLE
+#+BEGIN_EXAMPLE
+$ while ! ping -c 1 -W 1 1.1.1.1; do
+> echo "still waiting for 1.1.1.1"
+> sleep 1
+> done
+#+END_EXAMPLE
+#+BEGIN_EXAMPLE
+$ (( i=10 )); while (( i > 0 ))
+> do echo "$i empty cans of beer."
+> (( i-- ))
+> done
+$ for (( i=10; i > 0; i-- ))
+> do echo "$i empty cans of beer."
+> done
+$ for i in {10..1}
+> do echo "$i empty cans of beer."
+> done
+#+END_EXAMPLE
+~for~ runs through a series of options you give it
+#+BEGIN_EXAMPLE
+$ for i in 10 9 8 7 6 5 4 3 2 1
+> do echo "$i empty cans of beer."
+> done
+#+END_EXAMPLE
+Now let's look at the ~while~ loop. The ~while~ loop is very interesting for its capacity to execute commands until something interesting happens. Here are a few examples of how while loops are very often used:
+#+BEGIN_EXAMPLE
+$ # The sweet machine; hand out sweets for a cute price.
+$ while read -p $'The sweet machine.\nInsert 20c and enter your name: ' name
+> do echo "The machine spits out three lollipops at $name."
+> done
+#+END_EXAMPLE
+#+BEGIN_EXAMPLE
+$ # Check your email every five minutes.
+$ while sleep 300
+> do kmail --check
+> done
+#+END_EXAMPLE
+#+BEGIN_EXAMPLE
+$ # Wait for a host to come back online.
+$ while ! ping -c 1 -W 1 "$host"
+> do echo "$host is still unavailable."
+> done; echo -e "$host is available again.\a"
+#+END_EXAMPLE
+The ~until~ loop is barely ever used, if only because it is pretty much exactly the same as while !. We could rewrite our last example using an ~until~ loop:
+#+BEGIN_EXAMPLE
+$ # Wait for a host to come back online.
+$ until ping -c 1 -W 1 "$host"
+> do echo "$host is still unavailable."
+> done; echo -e "$host is available again.\a"
+#+END_EXAMPLE
+** Choices (case and select)
+* DEBUGGING SHELL PROGRAMS
+
+bash -n scriptname  # don't run commands; check for syntax errors only
+set -o noexec       # alternative (set option in script)
+
+bash -v scriptname  # echo commands before running them
+set -o verbose      # alternative (set option in script)
+
+bash -x scriptname  # echo commands after command-line processing
+set -o xtrace       # alternative (set option in script)
+
+trap 'echo $varname' EXIT  # useful when you want to print out the values of variables at the point that your script exits
+
+function errtrap {
+  es=$?
+  echo "ERROR line $1: Command exited with status $es."
+}
+
+trap 'errtrap $LINENO' ERR  # is run whenever a command in the surrounding script or function exits with non-zero status
+
+function dbgtrap {
+  echo "badvar is $badvar"
+}
+
+trap dbgtrap DEBUG  # causes the trap code to be executed before every statement in a function or script
+# ...section of code in which the problem occurs...
+trap - DEBUG  # turn off the DEBUG trap
+
+function returntrap {
+  echo "A return occurred"
+}
+
+trap returntrap RETURN  # is executed each time a shell function or a script executed with the . or source commands finishes executing
+
+* DIRECTORY COMMANDS
+mkdir <dirname>  # makes a new directory
+cd               # changes to home
+cd <dirname>     # changes directory
+pwd              # tells you where you currently are
+
+* Escape Characters
+An escape character is essentially a backslash followed by the special word.
+#+BEGIN_EXAMPLE
+\\n "Escape breakline. Note the two \ that are required."
+#+END_EXAMPLE
+* Ready made scripts
+** parsing xml file
+#+BEGIN_SRC shell
+for i in *.xml; do
+	for name in $(sed -rn '/^<name>/{s/[^>]*> *([^ <]*).*/\1/p}' "$i"); do
+		sed -rn "/^<name> *$name/,/^<name>/{s/<url> *([^ <]*).*/\1/p}" "$i" > "$name.log"
+	estrangelo quenneshrindone
+done
+
+for i in commands.txt; do
+	find -type f -name "*$i*" | exiftool -@ - -iptc:keywords+="$i"
+done
+#+END_SRC
+** while loop
+#+BEGIN_SRC shell
+if [ $1 -gt 100 ]; then
+  echo "That's bigger than 100!"
+elif [ $1 -lt 99 ]; then
+   echo "Sorry but that's a small number"
+fi
+#+END_SRC
+* Explanation of operations
+
+|-------------------+-----------------------------------------------------------------------+---------------------------------------|
+| Operator          | Description                                                           | Example                               |
+| + (Addition)      | Adds values on either side of the operator                            | `expr $a + $b` will give 30           |
+| - (Subtraction)   | Subtracts right hand operand from left hand operand                   | `expr $a - $b` will give -10          |
+| *(Multiplication) | Multiplies values on either side of the operator                      | `expr $a \* $b` will give 200         |
+| / (Division)      | Divides left hand operand by right hand operand                       | `expr $b / $a` will give 2            |
+| % (Modulus)       | Divides left hand operand by right hand operand and returns remainder | `expr $b % $a` will give 0            |
+| = (Assignment)    | Assigns right operand in left operand                                 | a = $b would assign value of b into a |
+| == (Equality)     | Compares two numbers, if both are same then returns true.             | [ $a == $b ] would return false.      |
+| != (Not Equality) | Compares two numbers, if both are different then returns true.        | [ $a != $b ] would return true.       |
+|-------------------+-----------------------------------------------------------------------+---------------------------------------|
+* FILE COMMANDS
+
+ls                            # lists your files in current directory, ls <dir> to print files in a specific directory
+ls -l                         # lists your files in 'long format', which contains the exact size of the file, who owns the file and who has the right to look at it, and when it was last modified
+ls -a                         # lists all files, including hidden files (name beginning with '.')
+ln -s <filename> <link>       # creates symbolic link to file
+touch <filename>              # creates or updates (edit) your file
+cat <filename>                # prints file raw content (will not be interpreted)
+any_command > <filename>      # '>' is used to perform redirections, it will set any_command's stdout to file instead of "real stdout" (generally /dev/stdout)
+more <filename>               # shows the first part of a file (move with space and type q to quit)
+head <filename>               # outputs the first lines of file (default: 10 lines)
+tail <filename>               # outputs the last lines of file (useful with -f option) (default: 10 lines)
+vim <filename>                # opens a file in VIM (VI iMproved) text editor, will create it if it doesn't exist
+mv <filename1> <dest>         # moves a file to destination, behavior will change based on 'dest' type (dir: file is placed into dir; file: file will replace dest (tip: useful for renaming))
+cp <filename1> <dest>         # copies a file
+rm <filename>                 # removes a file
+diff <filename1> <filename2>  # compares files, and shows where they differ
+wc <filename>                 # tells you how many lines, words and characters there are in a file. Use -lwc (lines, word, character) to ouput only 1 of those informations
+chmod -options <filename>     # lets you change the read, write, and execute permissions on your files (more infos: SUID, GUID)
+gzip <filename>               # compresses files using gzip algorithm
+gunzip <filename>             # uncompresses files compressed by gzip
+gzcat <filename>              # lets you look at gzipped file without actually having to gunzip it
+lpr <filename>                # prints the file
+lpq                           # checks out the printer queue
+lprm <jobnumber>              # removes something from the printer queue
+genscript                     # converts plain text files into postscript for printing and gives you some options for formatting
+dvips <filename>              # prints .dvi files (i.e. files produced by LaTeX)
+grep <pattern> <filenames>    # looks for the string in the files
+grep -r <pattern> <dir>       # search recursively for pattern in directory
+
+* FLOW CONTROLS
+
+statement1 && statement2  # and operator
+statement1 || statement2  # or operator
+
+-a                        # and operator inside a test conditional expression
+-o                        # or operator inside a test conditional expression
+
+# STRINGS
+
+str1 == str2               # str1 matches str2
+str1 != str2               # str1 does not match str2
+str1 < str2                # str1 is less than str2 (alphabetically)
+str1 > str2                # str1 is greater than str2 (alphabetically)
+-n str1                    # str1 is not null (has length greater than 0)
+-z str1                    # str1 is null (has length 0)
+
+# FILES
+
+-a file                   # file exists
+-d file                   # file exists and is a directory
+-e file                   # file exists; same -a
+-f file                   # file exists and is a regular file (i.e., not a directory or other special type of file)
+-r file                   # you have read permission
+-s file                   # file exists and is not empty
+-w file                   # your have write permission
+-x file                   # you have execute permission on file, or directory search permission if it is a directory
+-N file                   # file was modified since it was last read
+-O file                   # you own file
+-G file                   # file's group ID matches yours (or one of yours, if you are in multiple groups)
+file1 -nt file2           # file1 is newer than file2
+file1 -ot file2           # file1 is older than file2
+
+# NUMBERS
+
+-lt                       # less than
+-le                       # less than or equal
+-eq                       # equal
+-ge                       # greater than or equal
+-gt                       # greater than
+-ne                       # not equal
+
+if condition
+then
+  statements
+[elif condition
+  then statements...]
+[else
+  statements]
+fi
+
+for x in {1..10}
+do
+  statements
+done
+
+for name [in list]
+do
+  statements that can use $name
+done
+
+for (( initialisation ; ending condition ; update ))
+do
+statements...
+done
+
+case expression in
+pattern1 )
+statements ;;
+pattern2 )
+statements ;;
+esac
+
+select name [in list]
+do
+  statements that can use $name
+done
+
+while condition; do
+  statements
+done
+
+until condition; do
+  statements
+done
+
+* For Loops
+* FUNCTIONS
+# The function refers to passed arguments by position (as if they were positional parameters), that is, $1, $2, and so forth.
+# $@ is equal to "$1" "$2"... "$N", where N is the number of positional parameters. $# holds the number of positional parameters.
+
+#+BEGIN_EXAMPLE
+function functname() {
+  shell commands
+}
+
+unset -f functname  # deletes a function definition
+declare -f          # displays all defined functions in your login session
+#+END_EXAMPLE
+
+* If Conditions
+
+*Need more examples!*
+
+#+BEGIN_SRC shell
+if [ "variable" <operator> "value" ]; then
+	action
+elif [ "variable" <operator> "diffvalue" ]; then
+	action
+else
+	last action
+fi
+#+END_SRC
+* INPUT/OUTPUT REDIRECTORS
+
+cmd1|cmd2  # pipe; takes standard output of cmd1 as standard input to cmd2
+< file     # takes standard input from file
+> file     # directs standard output to file
+>> file    # directs standard output to file; append to file if it already exists
+>|file     # forces standard output to file even if noclobber is set
+n>|file    # forces output to file from file descriptor n even if noclobber is set
+<> file    # uses file as both standard input and standard output
+n<>file    # uses file as both input and output for file descriptor n
+n>file     # directs file descriptor n to file
+n<file     # takes file descriptor n from file
+n>>file    # directs file description n to file; append to file if it already exists
+n>&        # duplicates standard output to file descriptor n
+n<&        # duplicates standard input from file descriptor n
+n>&m       # file descriptor n is made to be a copy of the output file descriptor
+n<&m       # file descriptor n is made to be a copy of the input file descriptor
+&>file     # directs standard output and standard error to file
+<&-        # closes the standard input
+>&-        # closes the standard output
+n>&-       # closes the ouput from file descriptor n
+n<&-       # closes the input from file descripor n
+
+* Keywords in bash
+** cd
+Change directory, self explanatory...
+** echo
+
+What is =echo=? Echo prints to stdout an expression or variable. Echo requires
+=-e= to print escaped characters. An =echo= can be used to feed a sequence of
+commands down a pipe. See also "/bash/printf".
+
+#+CAPTION: Example of echo
+#+BEGIN_SRC bash
+if echo "$VAR" | grep -q txt   # if [[ $VAR = *txt* ]]
+then
+	echo "$VAR containers the substring sequence \"txt\""
+fi
+#+END_SRC
+
+** eval
+
+Combines the arguments in an expression or list of expressions
+and evaluates them. Any variables contained within the expression are
+expanded. The result translates into a command. This can be useful for code
+generation from the command line or within a script.
+
+#+CAPTION: Showing example of eval
+#+BEGIN_SRC shell
+#!/bin/bash
+
+y=`eval ls -l`  #  Similar to y=`ls -l`
+echo $y         #+ but linefeeds removed because "echoed" variable is unquoted.
+echo
+echo "$y"       #  Linefeeds preserved when variable is quoted.
+
+echo; echo
+
+y=`eval df`     #  Similar to y=`df`
+echo $y         #+ but linefeeds removed.
+
+#  When LF's not preserved, it may make it easier to parse output,
+,#+ using utilities such as "awk".
+
+echo
+echo "==========================================================="
+echo
+
+# Now, showing how to "expand" a variable using "eval" . . .
+
+for i in 1 2 3 4 5; do
+	eval value=$i
+	#  value=$i has same effect. The "eval" is not necessary here.
+	#  A variable lacking a meta-meaning evaluates to itself --
+	,#+ it can't expand to anything other than its literal self.
+	echo $value
+done
+
+echo
+echo "---"
+echo
+
+for i in ls df; do
+	value=eval $i
+	#  value=$i has an entirely different effect here.
+	#  The "eval" evaluates the commands "ls" and "df" . . .
+	#  The terms "ls" and "df" have a meta-meaning,
+	,#+ since they are interpreted as commands,
+	,#+ rather than just character strings.
+	echo $value
+done
+exit 0
+#+END_SRC
+
+** export
+
+The export command makes available variables to all child processes of the
+running script or shell. One important use of the export command is in startup
+files, to initialize and make accessible environmental variables to subsequent
+user processes.
+
+#+CAPTION: Example using export to pass a variable to an embedded awk script
+#+BEGIN_SRC shell
+#!/bin/bash
+
+#  Yet another version of the "column totaler" script (col-totaler.sh)
+,#+ that adds up a specified column (of numbers) in the target file.
+#  This uses the environment to pass a script variable to 'awk' . . .
+,#+ and places the awk script in a variable.
+
+
+ARGS=2
+E_WRONGARGS=65
+
+if [ $# -ne "$ARGS" ] # Check for proper no. of command line args.
+then
+    echo "Usage: `basename $0` filename column-number"
+    exit $E_WRONGARGS
+fi
+
+filename=$1
+column_number=$2
+
+#===== Same as original script, up to this point =====#
+
+export column_number
+# Export column number to environment, so it's available for retrieval.
+
+
+# -----------------------------------------------
+awkscript='{ total += $ENVIRON["column_number"] }
+END { print total }'
+# Yes, a variable can hold an awk script.
+# -----------------------------------------------
+
+# Now, run the awk script.
+awk "$awkscript" "$filename"
+
+# Thanks, Stephane Chazelas.
+
+exit 0
+#+END_SRC
+
+** let
+
+Command carries out arithmetic operations on variables, and equivellant to
+assigning variables.
+
+#+CAPTION: Example of let command
+#+BEGIN_SRC shell
+#!/bin/bash
+echo
+let a=11            # Same as 'a=11'
+let a=a+5           # Equivalent to  let "a = a + 5"
+echo "11 + 5 = $a"  # 16
+let "a <<= 3"       # Equivalent to  let "a = a << 3"
+echo "\"\$a\" (=16) left-shifted 3 places = $a"
+# 128
+let "a /= 4"        # Equivalent to  let "a = a / 4"
+echo "128 / 4 = $a" # 32
+#+END_SRC
+
+** printf
+
+What is =printf=? printf formatted print, command is an enhanced echo. It is a
+limited variant of the C language =printf()= library function, and its syntax
+is somewhat different. ~printf format-string... parameter...~
+
+** pushd, popd, dirs
+bookmarking working directories, a mean of moving back and forth through
+directories in an orderly manner.
+
+1. ~pushd dir-name~ pushes the path =dir-name= onto the directory stack and
+   simutaneously changes the current working directory to =dir-name=
+2. ~popd~ removed the top directory path name off the directory stack and
+   simutaneously changes the current working directory to that directory
+   popped from the stack.
+3. ~dirs~ lists the contents of the directory stack (compare this with the
+   =$DIRSTACK= variable). A successful pushd or popd will automatically invoke
+   dirs.
+** pwd
+prints current directory
+** read
+
+=read= the value of a variable from stdin which is often useful to get user
+input and assign to a variable. Meanwhile, =-a= lets read get array variables.
+
++ What happens when *read* has no variable. It gets assigned to the =$VAR= variable.
++ Additional options for =read= are =-s= do not echo input, =-n= accept only
+  N characters, =-p= echo following prompt before reading input.
++ You can also feed =read= from a file using redirect as such =read <somefile=
+
+#+CAPTION: Example of read command
+#+BEGIN_SRC bash
+#!/bin/bash
+# "Reading" variables.
+echo -n "Enter the value of variable 'var1': "
+# The -n option to echo suppresses newline.
+read var1
+# Note no '$' in front of var1, since it is being set.
+echo "var1 = $var1"
+echo
+# A single 'read' statement can set multiple variables.
+echo -n "Enter the values of variables 'var2' and 'var3' "
+echo =n "(separated by a space or tab): "
+read var2 var3
+echo "var2 = $var2      var3 = $var3"
+#  If you input only one value,
+,#+ the other variable(s) will remain unset (null).
+exit 0
+#+END_SRC
+
+** set
+
+The set command changes the value of internal script variables. One use for this
+is to toggle option flags which help determine the behavior of the script.
+Another application for it is to reset the positional parameters that a script
+sees as the result of a command (set `command`). The script can then parse the
+fields of the command output. Invoking set without any options or arguments
+simply lists all the environmental and other variables that have been
+initialized.
+
+#+CAPTION: Using set command
+#+BEGIN_SRC shell
+#!/bin/bash
+
+# script "set-test"
+
+# Invoke this script with three command line parameters,
+# for example, "./set-test one two three".
+
+echo
+echo "Positional parameters before  set \`uname -a\` :"
+echo "Command-line argument #1 = $1"
+echo "Command-line argument #2 = $2"
+echo "Command-line argument #3 = $3"
+
+
+set `uname -a` # Sets the positional parameters to the output
+# of the command `uname -a`
+
+echo $_        # unknown
+# Flags set in script.
+
+echo "Positional parameters after  set \`uname -a\` :"
+# $1, $2, $3, etc. reinitialized to result of `uname -a`
+echo "Field #1 of 'uname -a' = $1"
+echo "Field #2 of 'uname -a' = $2"
+echo "Field #3 of 'uname -a' = $3"
+echo ---
+echo $_        # ---
+echo
+
+exit 0
+#+END_SRC
+
+** unset
+
+The *unset* command deletes a shell variable, effectively setting it to null. Note
+that this command does not affect positional parameters.
+
+#+CAPTION: Example of unset PATH Variable
+#+BEGIN_SRC shell
+bash$ unset PATH
+
+bash$ echo $PATH
+
+bash$
+#+END_SRC
+* Parameters
+Are a namespace to storage data. Bash also comes with special parameters already defined by bash. Parameters come in 2 flavors _variables_ and _special parameters_
+** Variable Types
+Although Bash is not a typed language, it does have a few different types of variables. These types define the kind of content they are allowed to have. Type information is stored internally by Bash.
+- *Array*: =declare -a = /variable/: The variable is an array of strings.
+- *Associative array*: =declare -A = /variable/: The variable is an associative array of strings (bash 4.0 or higher).
+- *Integer*: =declare -i = /variable/: The variable holds an integer. Assigning values to this variable automatically triggers /Arithmetic Evaluation/.
+- *Read Only*: =declare -r = /variable/: The variable can no longer be modified or unset.
+- *Export*: =declare -x = /variable/: The variable is marked for export which means it will be inherited by any child process.
+[[/BashGuide/Arrays][Arrays]] are basically indexed lists of strings. They are very convenient for their ability to store multiple strings together without relying on a /delimiter/ to split them apart (which is tedious when done correctly and error-prone when not).
+
+Defining variables as integers has the advantage that you can leave out some syntax when trying to assign or modify them:
+#+BEGIN_EXAMPLE
+   $ a=5; a+=2; echo "$a"; unset a
+   52
+   $ a=5; let a+=2; echo "$a"; unset a
+   7
+   $ declare -i a=5; a+=2; echo "$a"; unset a
+   7
+   $ a=5+2; echo "$a"; unset a
+   5+2
+   $ declare -i a=5+2; echo "$a"; unset a
+   7
+#+END_EXAMPLE
+However, in practice the use of =declare -i= is exceedingly rare. In large part, this is because it creates behavior that can be surprising to anyone trying to maintain the script, who misses the =declare= statement. Most experienced shell scripters prefer to use explicit arithmetic commands (with =((...))= or =let=) when they want to perform arithmetic.
+
+It is also rare to see an explicit declaration of an array using =declare -a=. It is sufficient to write =array=(...)= and Bash will know that the variable is now an array. The exception to this is the associative array, which /must/ be declared explicitly: =declare -A myarray=.
+- /String/: A string is a sequence of characters.
+- /Array/: An array is a list of strings indexed by numbers.
+- /Integer/: An integer is a whole number (positive, negative or zero).
+- /Read Only/: Parameters that are read-only cannot be modified or unset.
+- /Export/: Variables that are marked for export will be inherited by any child process. Variables inherited in this way are called /Environment Variables/.
+** Shell variables
+*Also see*:
+https://tiswww.case.edu/php/chet/bash/bashref.html#Shell-Variables
+
+1. *BASH_VERSION*: Contains a string describing the version of Bash.
+2. *HOSTNAME*: Contains the hostname of your computer, I swear. Either short or long form, depending on how your computer is set up.
+3. *PPID*: Contains the PID of the parent process of this shell.
+4. *PWD*: Contains the current working directory.
+5. *RANDOM*: Each time you expand this variable, a (pseudo)random number between 0 and 32767 is generated.
+6. *UID*: The ID number of the current user. Not reliable for security/authentication purposes, alas.
+7. *COLUMNS*: The number of characters that fit on one line in your terminal. (The width of your terminal in characters.)
+8. *LINES*: The number of lines that fit in your terminal. (The height of your terminal in characters.)
+9. *HOME*: The current user's home directory.
+10. *PATH*: A colon-separated list of paths that will be searched to find a command, if it is not an alias, function, builtin command, or shell keyword, and no pathname is specified.
+11. *PS1*: Contains a string that describes the format of your shell prompt.
+12. *TMPDIR*: Contains the directory that is used to store temporary files (by the shell).
+
+** Parameter Expansion
+PE is what allows us to access the data in your variables, which are called by ~echo $foo~ which will print the data stored inside of
+*$foo*. There are some other examples which seem to manipulate how you can display these results. Some examples:
+
+#+BEGIN_EXAMPLE
+$ echo "'$USER', '$USERs', '${USER}s'"
+'lhunath', '', 'lhunaths'
+#+END_EXAMPLE
+
+*Here's a summary of most of the PE tricks that are available:*
+
+*** ${parameter:-word}
+Use Default Value. If 'parameter' is unset or null, 'word' (which may be an expansion) is substituted. Otherwise, the value of 'parameter'
+is substituted.
+*** ${parameter:=word}
+Assign Default Value. If 'parameter' is unset or null, 'word' (which may be an expansion) is assigned to 'parameter'. The value of
+'parameter' is then substituted.
+*** ${parameter:+word}
+Use Alternate Value. If 'parameter' is null or unset, nothing is substituted, otherwise 'word' (which may be an expansion) is substituted.
+*** ${parameter:offset:length}
+Substring Expansion. Expands to up to 'length' characters of 'parameter' starting at the character specified by 'offset' (0-indexed). If
+':length' is omitted, go all the way to the end. If 'offset' is negative (use parentheses!), count backward from the end of 'parameter'
+instead of forward from the beginning. If 'parameter' is @ or an indexed array name subscripted by @ or *, the result is 'length' positional
+parameters or members of the array, respectively, starting from 'offset'.
+*** ${#parameter}
+The length in characters of the value of 'parameter' is substituted. If 'parameter' is an array name subscripted by ~@~ or ~*~, return the number
+of elements.
+*** ${parameter#pattern}
+The 'pattern' is matched against the beginning of 'parameter'. The result is the expanded value of 'parameter' with the shortest match
+deleted. If 'parameter' is an array name subscripted by ~@~ or ~*~ , this will be done on each element. Same for all following items.
+*** ${parameter##pattern}
+As above, but the longest match is deleted.
+*** ${parameter%pattern}
+The 'pattern' is matched against the end of 'parameter'. The result is the expanded value of 'parameter' with the shortest match deleted.
+*** ${parameter%%pattern}
+As above, but the longest match is deleted.
+*** ${parameter/pat/string}
+Results in the expanded value of 'parameter' with the first (unanchored) match of 'pat' replaced by 'string'. Assume null string when the
+'/string' part is absent.
+*** ${parameter//pat/string}
+As above, but every match of 'pat' is replaced.
+*** ${parameter/#pat/string}
+As above, but matched against the beginning. Useful for adding a common prefix with a null pattern: "${array[@]/#/prefix}".
+*** ${parameter/%pat/string}
+As above, but matched against the end. Useful for adding a common suffix with a null pattern.
+* Patterns
+
+*Pattern matching serves two purposes*: Select filenames or determining if a string conforms to a desired format.
+
+*NOTE*: Since version 3.0, Bash also supports regular expression patterns. These will be useful mainly in scripts to test user input or
+parse data. (You can't use a regular expression to select filenames; only globs and extended globs can do that.)
+
+You'll end up using Globs mostly. Globs are composed of normal characters and metacharacters. Metacharacters are characters that have a
+special meaning. These are the metacharacters that can be used in globs:
+- ~*~: Matches any string, including the null string.
+- ~?~: Matches any single character.
+- ~[...]~: Matches any one of the enclosed characters.
+
+Globs are implicitly anchored at both ends. What this means is that a glob must match a whole string (filename or data string). A glob of a*
+will not match the string cat, because it only matches the at, not the whole string. A glob of ca*, however, would match cat.
+
+*Extended Globs*:
+Extends the standard globs search patterns with extra patterns. You'll need to first enable extended globs
+
+#+BEGIN_EXAMPLE
+shopt -s extglob
+#+END_EXAMPLE
+
+Metacharacters for extraglobs:
+- ~*(list)~: Matches zero or more occurrences of the given patterns.
+- ~+(list)~: Matches one or more occurrences of the given patterns.
+- ~@(list)~: Matches one of the given patterns.
+- ~!(list)~: Matches anything but the given patterns.
+
+*Brace Expansion*: Then, there is Brace Expansion. Brace Expansion technically does not fit in the category of patterns, but it is similar.
+Globs only expand to actual filenames, but brace expansions will expand to any possible permutation of their contents. Here's how they
+work:
+
+#+BEGIN_EXAMPLE
+$ echo th{e,a}n
+then than
+$ echo {/home/*,/root}/.*profile
+/home/axxo/.bash_profile /home/lhunath/.profile /root/.bash_profile /root/.profile
+$ echo {1..9}
+1 2 3 4 5 6 7 8 9
+$ echo {0,1}{0..9}
+00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19
+#+END_EXAMPLE
+
+Brace expansion happens before filename expansion. In the second ~echo~ command above, we used a combination of brace expansion and globs.
+The brace expansion goes first, and we get:
+
+#+BEGIN_EXAMPLE
+$ echo /home/*/.*profile /root/.*profile
+#+END_EXAMPLE
+* PROCESS HANDLING
+
+# To suspend a job, type CTRL+Z while it is running. You can also suspend a job with CTRL+Y.
+# This is slightly different from CTRL+Z in that the process is only stopped when it attempts to read input from terminal.
+# Of course, to interrupt a job, type CTRL+C.
+
+myCommand &  # runs job in the background and prompts back the shell
+
+jobs         # lists all jobs (use with -l to see associated PID)
+
+fg           # brings a background job into the foreground
+fg %+        # brings most recently invoked background job
+fg %-        # brings second most recently invoked background job
+fg %N        # brings job number N
+fg %string   # brings job whose command begins with string
+fg %?string  # brings job whose command contains string
+
+kill -l               # returns a list of all signals on the system, by name and number
+kill PID              # terminates process with specified PID
+kill -s SIGKILL 4500  # sends a signal to force or terminate the process
+kill -15 913          # Ending PID 913 process with signal 15 (TERM)
+
+ps           # prints a line of information about the current running login shell and any processes running under it
+ps -a        # selects all processes with a tty except session leaders
+
+trap cmd sig1 sig2  # executes a command when a signal is received by the script
+trap "" sig1 sig2   # ignores that signals
+trap - sig1 sig2    # resets the action taken when the signal is received to the default
+
+disown <PID|JID>    # removes the process from the list of jobs
+
+wait                # waits until all background jobs have finished
+
+* Quoting
+Quoting will essentially tell bash to treat the next word verbatim, to avoid calling any special parameters. For example normally if you call the ~$HOST~ variable you would get the hostname output. But if you want to display the word verbatim, you would use a quoting character: ~\$HOST "$HOST"~
+* SHORTCUTS and HISTORY
+CTRL+A  # move to beginning of line
+CTRL+B  # moves backward one character
+CTRL+C  # halts the current command
+CTRL+D  # deletes one character backward or logs out of current session, similar to exit
+CTRL+E  # moves to end of line
+CTRL+F  # moves forward one character
+CTRL+G  # aborts the current editing command and ring the terminal bell
+CTRL+H  # deletes one character under cursor (same as DELETE)
+CTRL+J  # same as RETURN
+CTRL+K  # deletes (kill) forward to end of line
+CTRL+L  # clears screen and redisplay the line
+CTRL+M  # same as RETURN
+CTRL+N  # next line in command history
+CTRL+O  # same as RETURN, then displays next line in history file
+CTRL+P  # previous line in command history
+CTRL+R  # searches backward
+CTRL+S  # searches forward
+CTRL+T  # transposes two characters
+CTRL+U  # kills backward from point to the beginning of line
+CTRL+V  # makes the next character typed verbatim
+CTRL+W  # kills the word behind the cursor
+CTRL+X  # lists the possible filename completions of the current word
+CTRL+Y  # retrieves (yank) last item killed
+CTRL+Z  # stops the current command, resume with fg in the foreground or bg in the background
+
+ALT+B   # moves backward one word
+ALT+D   # deletes next word
+ALT+F   # moves forward one word
+ALT+H   # deletes one character backward
+
+BACKSPACE  # deletes one character backward
+DELETE     # deletes one character under cursor
+
+history   # shows command line history
+!!        # repeats the last command
+!<n>      # refers to command line 'n'
+!<string> # refers to command starting with 'string'
+
+exit      # logs out of current session
+* Special Characters
+** *Command Substitution:*
+takes one command and outputs its data to a second command. ~today=$(date)~
+** *White Space*
+Just as it sounds, it's a white space between characters. This is basically a
+tab, newline, vertical tab, form feed, carriage return or space. The first
+word is the command, after wards are additional arguments to the command.
+** *Dot* ~.~
+Equivalent to source a file into an existing script. ~. filename ARGUMENTS~ or
+~source FILENAME ARGUMENTS~.
+** *Comma Operator* ~,~
+separates commands, but it seems ~;~ is better at this than. Example (~whoami, date~)
+** *Null command* ~:~
+Do nothing for instance if a user inputs no data you can have a default value
+assigned with ~: ${name:=John Doe}~
+** *Reverse* ~!~
+Reversing the output or operation ~data !=true~
+** *Expansion* ~$var~
+introduces various types of expansion: parameter expansion ~$var~ or ~${var}~
+command substitution ~(command)~ or arithmetic expansion ~$((expression))~
+** *Single Quotes* ~''~
+protect the text inside them so that it has a literal meaning. With them,
+generally any kind of interpretation by Bash is ignored: special characters
+are passed over and multiple words are prevented from being split. ~'treat me ='~
+** *Double Quotes*
+protect the text inside them from being split into multiple words or
+arguments, yet allow substitutions to occur; the meaning of most other special
+characters is usually prevented. ~"I'm protected\~
+** *Escape Backslash*
+Prevented the next character from being treated as a special character.
+Ignored in single quotes though. ~\~
+** *Comment*
+Allows one to add comments and notes in a bash script ~# my comment~
+** *Assignment*
+Assign data to a variable ~name=user~
+** *Test*
+an evaluation of a conditional expression to determine whether it is "true" or
+"false". Tests are used in Bash to compare strings, check the existence of a
+file, etc. ~[[ -e file.dat ]]~
+** *Redirection*
+Redirect output from or to a file ~ls /home/ >>dir.log~. Available redirections
+are ~< << >> >~.
+
+** *Pipe*
+Send the output from one command to another ~ls | grep string~
+
+** *Command seperator*
+used to separate multiple commands that are on the same line ~;~
+
+** *Terminator*
+TBD
+** *Inline Group*
+commands inside the curly braces are treated as if they were one command. It
+is convenient to use these when Bash syntax requires only one command and a
+function doesn't feel warranted. ~{ command }~.
+
+** *Subshell Group*
+similar to the above but where commands within are executed in a subshell (a
+new process). Used much like a sandbox, if a command causes side effects (like
+changing variables), it will have no effect on the current shell. ~( command )~
+
+** *Arithmetic Expression*
+with an arithmetic expression, characters such as +, -, , *and / are
+mathematical operators used for calculations. They can be used for *variable
+assignments like (( a = 1 + 4 )) as well as tests like if (( a < b )).
+
+** *Arithmetic Expansion*
+Comparable to the above, but the expression is replaced
+with the result of its arithmetic evaluation. Example: echo "The average is $((
+(a+b)/2 ))".
+
+** *Globs*
+is the common name for a set of Bash features that match or expand
+specific types of patterns. ~foo*~ ~*.[ch]~
+
+** *Home Directory*
+the tilde is a representation of a home directory. When alone or
+followed by a /, it means the current user's home directory; otherwise, a
+username must be specified. ~~~ or ~~john/~
+
+** *Background*
+when used at the end of a command, run the command in the
+background ~/etc/init.d/apache2 start &~
+* SSH, SYSTEM INFO & NETWORK COMMANDS
+
+ssh user@host            # connects to host as user
+ssh -p <port> user@host  # connects to host on specified port as user
+ssh-copy-id user@host    # adds your ssh key to host for user to enable a keyed or passwordless login
+
+whoami                   # returns your username
+passwd                   # lets you change your password
+quota -v                 # shows what your disk quota is
+date                     # shows the current date and time
+cal                      # shows the month's calendar
+uptime                   # shows current uptime
+w                        # displays whois online
+finger <user>            # displays information about user
+uname -a                 # shows kernel information
+man <command>            # shows the manual for specified command
+df                       # shows disk usage
+du <filename>            # shows the disk usage of the files and directories in filename (du -s give only a total)
+last <yourUsername>      # lists your last logins
+ps -u yourusername       # lists your processes
+kill <PID>               # kills the processes with the ID you gave
+killall <processname>    # kill all processes with the name
+top                      # displays your currently active processes
+bg                       # lists stopped or background jobs ; resume a stopped job in the background
+fg                       # brings the most recent job in the foreground
+fg <job>                 # brings job to the foreground
+
+ping <host>              # pings host and outputs results
+whois <domain>           # gets whois information for domain
+dig <domain>             # gets DNS information for domain
+dig -x <host>            # reverses lookup host
+wget <file>              # downloads file
+
+* The shebang
+Literally every script needs to tell the command line interpreter where and what to use, in order to execute the script. This is done at the start of the file with: ~#!/bin/bash~
+You can quite literally use anything, even simple commands like grep. ~#!/bin/grep~
+* TIPS & TRICKS
+
+# set an alias
+cd; nano .bash_profile
+> alias gentlenode='ssh admin@gentlenode.com -p 3404'  # add your alias in .bash_profile
+
+# to quickly go to a specific directory
+cd; nano .bashrc
+> shopt -s cdable_vars
+> export websites="/Users/mac/Documents/websites"
+
+source .bashrc
+cd $websites
+
+* User Arguments
+User arguments basically pass an argument when the user runs your script, and takes the last x number of arguments as variables to be used in the script. For example:
+#+BEGIN_SRC shell
+#!/bin/bash
+sudo apt install $1
+sudo adduser $2
+#+END_SRC
+Then your user could call the script and pass 2 arguments, the first would be applied to the sudo apt install command, the second to the adduser command.
+#+BEGIN_SRC shell
+sudo ./myscript.sh mariadb john
+#+END_SRC
+* VARIABLES
+Variables are like blocks of storage, where you can store a value of something, to then recall later. Assign a variable as such: ~var=data~
+
+varname=value                # defines a variable
+varname=value command        # defines a variable to be in the environment of a particular subprocess
+echo $varname                # checks a variable's value
+echo $$                      # prints process ID of the current shell
+echo $!                      # prints process ID of the most recently invoked background job
+echo $?                      # displays the exit status of the last command
+export VARNAME=value         # defines an environment variable (will be available in subprocesses)
+
+array[0]=valA                # how to define an array
+array[1]=valB
+array[2]=valC
+array=([2]=valC [0]=valA [1]=valB)  # another way
+array=(valA valB valC)              # and another
+
+${array[i]}                  # displays array's value for this index. If no index is supplied, array element 0 is assumed
+${#array[i]}                 # to find out the length of any element in the array
+${#array[@]}                 # to find out how many values there are in the array
+
+declare -a                   # the variables are treaded as arrays
+declare -f                   # uses function names only
+declare -F                   # displays function names without definitions
+declare -i                   # the variables are treaded as integers
+declare -r                   # makes the variables read-only
+declare -x                   # marks the variables for export via the environment
+
+${varname:-word}             # if varname exists and isn't null, return its value; otherwise return word
+${varname:=word}             # if varname exists and isn't null, return its value; otherwise set it word and then return its value
+${varname:?message}          # if varname exists and isn't null, return its value; otherwise print varname, followed by message and abort the current command or script
+${varname:+word}             # if varname exists and isn't null, return word; otherwise return null
+${varname:offset:length}     # performs substring expansion. It returns the substring of $varname starting at offset and up to length characters
+
+${variable#pattern}          # if the pattern matches the beginning of the variable's value, delete the shortest part that matches and return the rest
+${variable##pattern}         # if the pattern matches the beginning of the variable's value, delete the longest part that matches and return the rest
+${variable%pattern}          # if the pattern matches the end of the variable's value, delete the shortest part that matches and return the rest
+${variable%%pattern}         # if the pattern matches the end of the variable's value, delete the longest part that matches and return the rest
+${variable/pattern/string}   # the longest match to pattern in variable is replaced by string. Only the first match is replaced
+${variable//pattern/string}  # the longest match to pattern in variable is replaced by string. All matches are replaced
+
+${#varname}                  # returns the length of the value of the variable as a character string
+
+*(patternlist)               # matches zero or more occurrences of the given patterns
++(patternlist)               # matches one or more occurrences of the given patterns
+?(patternlist)               # matches zero or one occurrence of the given patterns
+@(patternlist)               # matches exactly one of the given patterns
+!(patternlist)               # matches anything except one of the given patterns
+
+$(UNIX command)              # command substitution: runs the command and returns standard output
+* BASH EXAMPLES
+** Arrays
+-----
+Arrays are basically like indexes, or shelves that contain data in chronological
+order.
+
+#+BEGIN_SRC shell
+#!/bin/sh
+
+NAME[0]="Zara"
+NAME[1]="Qadir"
+NAME[2]="Mahnaz"
+NAME[3]="Ayan"
+NAME[4]="Daisy"
+echo "First Method: ${NAME[*]}"
+echo "Second Method: ${NAME[@]}"
+#+END_SRC

@@ -1,0 +1,169 @@
+#+title: P-Values explained by Data Scientist
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-03 18:24]
+#+roam_tags: hypothesis
+#+LATEX_HEADER: \usepackage{ntheorem}
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://raw.githack.com/nmartin84/raw-files/master/htmlpro.css" />
+#+OPTIONS: toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
+
+source: [[https://towardsdatascience.com/p-values-explained-by-data-scientist-f40a746cfc8][P-values Explained By Data Scientist | by Admond Lee | Towards Data Science]]
+
+* What are P-Values?
+
+The Wikipedia explanation for what [[[[file:../202101091250-p_values.org][p-values]]]] are:
+#+begin_quote
+In statistical hypothesis testing, the p-value or probability value is, for a
+given statistical model, the probability that, when the null hypothesis is true,
+the statistical summary (such as the absolute value of the sample mean
+difference between two compared groups) would be greater than or equal to the
+actual observed results.
+— Wikipedia
+#+end_quote
+
+There are 4 break-outs to hypothesis testing which will be covered in this
+document:
+
+** Hypothesis Testing
+:PROPERTIES:
+:ID:       e6622552-cc02-418e-838f-3137ba5a7798
+:END:
+[[file:../.attach/e6/622552-cc02-418e-838f-3137ba5a7798/_20210103_1827150*XqFCVZreewh3lATA.png][_20210103_1827150*XqFCVZreewh3lATA.png]]
+
+Our ultimate goal is to determine the statistical significance of our results,
+and this is where [[[[file:../202101031336-hypothesis_testing.org][hypothesis testing]]]] comes into play. Statistical
+significance is built on 3 simple ideas:
+1. Hypothesis Testing
+2. Normal Distribution
+3. P-Values
+
+When it comes to Hypothesis testing, there are a couple terms you should be
+familiar with:
+- Null Hypothesis :: This is what we are testing that is made about a population
+  with sample data. Generally your null hypothesis is going to align with what
+  we believe is already true.
+- Alternative Hypothesis :: Is the one you would believe if the null hypothesis
+  turns out to be false, or not true. This is generally what you suspect has
+  changed, and testing to see if this is likely or possible.
+
+Basically we will make a claim (null hypothesis), and use our sample data to
+test and see if it's true.
+
+Part of this process involves calculating our confidence level, our confidence
+to prove something true or not. For this we'll say for example we're looking for
+a 95% confidence level.
+
+To know if the null hypothesis is true or not, we use the *p-value* as a weight to
+see if it's statistically significant. However, if the evidence supports the
+alternative hypothesis, then we'll go with that.
+
+For an example let's say we are looking at delivery times from a pizza place
+which claims they deliver in 30 minutes or under, however we think this is not
+true and their delivery times are over 30 minutes.
+
+- Your null hypothesis would be :: Delivery times are 30 minutes or less.
+- Your alternative hypothesis would be :: Delivery times are greater than 30 minutes.
+
+The goal here is to determine which claim — the null or alternative — is better
+supported by the evidence found from our sample data.
+
+For this, we will use a [[[[file:../202101031837-one_tailed_test.org][one-tailed test]]]] since we only care if the mean is
+above 30 minutes. One of the common ways of testing is to use a [[[[file:../202101031841-z_test.org][Z-Test]]]], more
+details on that can come later.
+
+TODO Read the article on Z-Test and update this section, or the Z-Test article
+to cover details.
+
+** Normal Distribution
+:PROPERTIES:
+:ID:       6d949153-db6f-4802-8248-e155309e61b9
+:END:
+[[file:../.attach/6d/949153-db6f-4802-8248-e155309e61b9/_20210103_1843100*_CpITbEtFQZD45bX.png][_20210103_1843100*_CpITbEtFQZD45bX.png]]
+
+Normal distribution is a [[[[file:../202101031947-probability_density_function.org][probability density function]]]] used to see the data
+distribution.
+
+The normal distribution has two parameters — the mean (μ) and [[[[file:../202101031954-standard_deviation.org][standard deviation]]]], also called sigma (σ).
+
+The mean is the central tendency of the distribution. It defines the location of
+the peak for normal distributions. The standard deviation is a measure of
+variability. It determines how far away from the mean the values tend to fall.
+
+The normal distribution is commonly associated with the [[[[file:../202101032023-68_95_99_7_rule.org][68-95-99.7 rule]]]]
+(image above).
+1. 68% of the data is within 1 standard deviation (σ) of the mean (μ)
+2. 95% of the data is within 2 standard deviations (σ) of the mean (μ)
+3. 99.7% of the data is within 3 standard deviations (σ) of the mean (μ)
+
+The [[[[file:../202101032041-five_sigma.org][five sigma]]]] threshold for discovering the *Higgs Boson* is about a
+99.9999426696856% of the data to hit before scientists confirmed the discovery
+of Higgs Boson. That was the [[[[file:../202101032043-stringent_threshold.org][stringent threshold]]]] set to avoid any potential
+false signals.
+
+So next, we need to calculate Z-scores (to be used in our test-statistic) which
+is the number of [[[[file:../202101031954-standard_deviation.org][standard deviation]]]] from the mean a data point is. In our case,
+each data point is the pizza delivery time that we collected.
+
+standardized the variable by subtracting the mean and dividing by its standard deviation.
+\[ z
+  = \frac{x-\mu}{\sigma}
+\]
+
+Looking at the standard normal distribution curve is useful because we can
+compare results from a test to a “normal” population with a standardized unit in
+standard deviation, especially when we have a variable that comes with different
+units.
+
+A Z-score can tell us where the overall data lies compared to the average population.
+
+[[../.attach/6d/949153-db6f-4802-8248-e155309e61b9/_20210103_2124331*N1GR0w1rk3R0XZYrOUSwLQ.png]]
+
+#+begin_quote
+The higher or lower the Z-score, the more unlikely the result is to happen by
+chance and the more likely the result is meaningful.
+#+end_quote
+
+But that raises the question: *But how high (or low) is considered as
+sufficiently convincing to quantify how meaningful our results are?*
+
+This is where *P-Values* come into play, and check if our results are
+statistically significant based on the [[[[file:../202101032129-significance_level.org][significance level]]]] (also known as alpha).
+
+** What is P-Value?
+
+So basically our p-value is the probability, to indicate how likely it is that
+our data could be true. It's like saying, ok you're answer holds 10%
+creditability, or is 90% crazy so we're rejecting it.
+
+Where on the other hand, your p-value is .87 (87%), then it holds more
+significance to our null hypothesis being true.
+
+It's important to also remember, this is not saying that the *alternative*
+hypothesis is true, it's just saying that the data is showing the *null
+hypothesis* is likely false but it hasn't proven it yet.
+
+** Level of Confidence
+
+This is our confidence of how much we want to believe in our hypothesis to say
+it's true or valid. It's basically saying, I want my data to return with a 95%
+confidence level to prove my alternative hypothesis. \[ confidence=95\% \]
+
+** Level of Significance
+
+This is where we basically draw the line in our data to help us make a decision.
+
+Our level of significance is basically: \[ \alpha=1-confidence \] If $LOC=95%$
+and $Confidence=0.95$ then our equation to find our level of significance would
+be \[ \alpha=1-0.95 \] so our results would be \[ \alpha=0.05 \]
+
+** Conclusion of p-values
+
+So ultimately, p-value is what's being used to determine if our hypothesis holds
+weight. So it comes down to, if _p lessthan or equal to alpha_ then *Rejct the Ho*.
+(Check [[file:../courses/intro_to_data_science/week4/python-data-science-wk4.org][Introduction to Data Science with Python - Week 4]])
+
+\[ p \leq \alpha = Reject Ho \]
+
+Otherwise:
+
+\[ p > \alpha = Fail to Reject Ho \]

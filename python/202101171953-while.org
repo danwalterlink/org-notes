@@ -1,0 +1,75 @@
+#+title: while
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 19:53]
+
+While loops is a [[[[file:202101021249-python_control_structures.org][python control structures]]]] which will run through a body of
+code long as the condition remains *true*.
+
+#+BEGIN_SRC python
+  x = 5
+  while x < 5:
+      print(f'The value of x is {x}')
+      x = x + 1
+  else:
+      print('X is not less than 5')
+#+END_SRC
+
+* while loop list and output results
+
+#+BEGIN_EXAMPLE
+  wlist = [2,4,5,6,7,8]
+  index = 0
+
+  # One way is using pop if you want pull everything out of the list
+  while len(wlist) > 0:
+      print(list.pop(wlist))
+
+  # Another way is incrementing the index ingeger until it's higher than the length of the variable name.
+  index = 0
+  while index < len(wlist):
+      index = index + 1
+      print(wlist)
+#+END_EXAMPLE
+
+* While Break Statement
+
+With the break statement we can stop the loop even if the while
+condition is true:
+
+#+BEGIN_EXAMPLE
+  i = 1
+  while i < 6:
+    print(i)
+    if i == 3:
+      break
+    i += 1
+#+END_EXAMPLE
+
+* While Continue Statement
+
+With the continue statement we can stop the current iteration, and
+continue with the next:
+
+#+BEGIN_EXAMPLE
+  i = 0
+  while i < 6:
+    i += 1
+    if i == 3:
+      continue
+    print(i)
+#+END_EXAMPLE
+
+* While Else Statement
+
+With the else statement we can run a block of code once when the
+condition no longer is true:
+
+#+BEGIN_EXAMPLE
+  i = 1
+  while i < 6:
+    print(i)
+    i += 1
+  else:
+    print("i is no longer less than 6")
+#+END_EXAMPLE

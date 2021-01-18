@@ -1,0 +1,15 @@
+#+title: subroutine
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 14:18]
+#+roam_alias: function procedure subprogram
+
+In [[[[file:202101161933-computer_programming.org][computer programming]]]], a subroutine is a sequence of program
+instructions that performs a specific task, packaged as a unit. This unit can
+then be used in programs wherever that particular task should be performed.
+
+Subroutines may be defined within programs, or separately in libraries that can
+be used by many programs. In different [[[[file:202101161003-programming_language.org][programming language]]]], a subroutine
+may be called a routine, subprogram, function, method, or procedure.
+Technically, these terms all have different definitions. The generic, umbrella
+term callable unit is sometimes used.

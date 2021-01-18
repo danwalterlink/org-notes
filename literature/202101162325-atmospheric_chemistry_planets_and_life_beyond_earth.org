@@ -1,0 +1,29 @@
+#+title: Atmospheric Chemistry: Planets and life beyond Earth
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-16 23:25]
+#+roam_tags: science
+#+source: https://www.futurelearn.com/courses/atmospheric-chemistry-planets-and-life-beyond-earth/12/steps/915469
+#+INFOJS_OPT: view:t toc:t ltoc:t mouse:underline buttons:0 path:http://thomasf.github.io/solarized-css/org-info.min.js
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://raw.githack.com/nmartin84/html-style-sheets/master/solarized.css" />
+
+- metadata :: [[[[file:../science/202101162337-atmospheric_chemistry.org][atmospheric chemistry]]]]
+
+* How Are Atmospheres Formed?
+
+So the first thing that we need to understand, what is an [[[[file:../science/202101162327-atmosphere.org][atmosphere]]]]: At
+atmosphere is an envelope of gas held in place by a planets gravitational field.
+A planet gains an atmosphere through 2 computing processes; Capturing of
+surrounding gases, and [[[[file:../science/202101162329-outgassing.org][outgassing]]]] which is the release of dissolved,
+trapped, frozen or absorbed in some material.
+
+Just within our solar system, there is two references to the our own planets,
+which are the [[[[file:../science/202101162333-terrasterial_planets.org][terrasterial planets]]]] and [[[[file:../science/202101162342-jovian_planets.org][jovian planets]]]].
+
+Our [[[[file:../science/202101162333-terrasterial_planets.org][terrasterial planets]]]], can be categorized as; *small*, *high density*,
+*thought to have a molten core* and *hard & rocky surfaces*, but their
+[[[[file:../science/202101162327-atmosphere.org][atmosphere]]]] are not the same.
+
+The [[[[file:../science/202101162342-jovian_planets.org][jovian planets]]]] consist of our largest planets in the solar system, often
+referred to as gas giants, tend to have a [[[[file:../science/202101162327-atmosphere.org][atmosphere]]]] made up of helium,
+hydrogen, and other light gases. We also suspect they have a solid core.

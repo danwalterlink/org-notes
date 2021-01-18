@@ -1,0 +1,39 @@
+#+title: How to reduce Bias in Decision Making
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
+
+* How to reduce Bias in Decision Making
+
+When a problem, or issue arises, we need to make a decision about what
+to do. When that process kicks-in, we engage in a process to come up
+with that solution. So what does that process look like?
+
+Well, during the process, our mind will make several shortcuts to come
+up with a final decision making, known as [[[[file:../psychology/202101091301-biases.org][biases]]]]
+- Tendency to be influenced by the way a problem is formulated even though it
+  should not affect the solution.
+- Rely upon knowledge that is readily available rather than examine other
+  alternatives or procedures.
+- Selecting information or making decisions that further our own self-interests
+  instead of the organization or team.
+- Use a clear decision making process like USC-CT to reduce these errors.
+
+** The USC-CT Model:
+
+- Uncover the various potential problems, challenges & opportunities vis-à-vis
+  organizational goals.
+- Select the most critical problem(s), challenge(s) and/or opportunity(ies).
+  Prioritize.
+- Create a multitude of potential solutions.
+- Choose the solution(s) that has the potential to be the most effective.
+- Translate your solution(s) into an effective implementation plan.
+
+** Reducing Biases
+
+1. Use a process
+2. Start with a clean slate
+3. Challenge the status quo
+4. Seek multiple perspectives
+5. Search for more information & data
+6. Play Devil's Advocate
+7. Reflect on your own views & values

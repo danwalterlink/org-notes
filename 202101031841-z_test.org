@@ -1,0 +1,5 @@
+#+title: Z-Test
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-03 18:41]
+#+roam_tags: hypothesis

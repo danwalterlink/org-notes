@@ -1,0 +1,15 @@
+#+title: complex numbers
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:11]
+
+* Complex Integers in Python
+Complex integers are scientific numbers in [[[[file:202101171358-python_datatypes.org][python datatypes]]]].
+
+#+BEGIN_EXAMPLE
+  x = 3+5j
+  y = 5j
+  z = -5j
+
+  # Complex numbers are written with a "j" as the imaginary part
+#+END_EXAMPLE

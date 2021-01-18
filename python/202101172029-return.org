@@ -1,0 +1,10 @@
+#+title: return
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 20:29]
+
+A return statement is used to end the execution of the [[[[file:202101172028-python_functions.org][python functions]]]] and
+[[[[file:202101172032-python_methods.org][python methods]]]] call and "returns" the result (value of the expression
+following the return keyword) to the caller. The statements after the return
+statements are not executed. If the return statement is without any expression,
+then the special value None is returned.

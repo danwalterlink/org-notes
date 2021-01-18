@@ -1,0 +1,43 @@
+* The Science Of Well Being
+  :PROPERTIES:
+  :CUSTOM_ID: the-science-of-well-being
+  :END:
+
+SOURCE =
+https://www.coursera.org/learn/the-science-of-well-being/home/welcome
+
+TODO Finish reading this article.
+
+** Misconceptions about Happiness
+   :PROPERTIES:
+   :CUSTOM_ID: misconceptions-about-happiness
+   :END:
+
+Just knowing it doesn't help, because you can know something but you can
+still not do something.
+
+Gratitude can have a number of positive boost for our well-being, it
+helps us put things back into perspective and remind our-selves of the
+good things. You can use gratitude to take a moment and remember what
+you have to be grateful for: Your health, family, loved ones, friends,
+job, social life, etc.
+
+*** Why our expectations are so bad
+    :PROPERTIES:
+    :CUSTOM_ID: why-our-expectations-are-so-bad
+    :END:
+
+*** What stuff really increases Happiness
+    :PROPERTIES:
+    :CUSTOM_ID: what-stuff-really-increases-happiness
+    :END:
+
+*** Strategies to reset our expectations
+    :PROPERTIES:
+    :CUSTOM_ID: strategies-to-reset-our-expectations
+    :END:
+
+*** Putting strategies into practice
+    :PROPERTIES:
+    :CUSTOM_ID: putting-strategies-into-practice
+    :END:
