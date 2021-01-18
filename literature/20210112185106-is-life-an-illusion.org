@@ -2,7 +2,6 @@
 #+author: nick martin
 #+email: nmartin84@gmail.com
 #+source: https://www.express.co.uk/news/science/738402/life-an-ILLUSION-reality-does-not-exist-if-you-are-not-looking-at-it
-metadata = [[file:202101121855-delayed_choice_theory.org][delayed choice theory]]
 
 They describe, the universe as not existing when we are not looking at it. This
 is later described to be at the quantum level, finally tested and proven.

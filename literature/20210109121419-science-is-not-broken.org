@@ -3,8 +3,6 @@
 #+email: nmartin84@gmail.com
 #+roam_tags: statistics
 #+source: https://fivethirtyeight.com/features/science-isnt-broken/#part1
-#+HTML_HEAD: <link rel="stylesheet" href="https://rawcdn.githack.com/nmartin84/html-style-sheets/4ff9dcc404e99220a8961027f1034f325771d1a4/docnorang.css" type="text/css" />
-#+HTML_HEAD: <style type="text/css">body{ max-width:80%; }</style>
 
 Based off what the author has to say, it sounds like there's been a lot of
 controversy stirred up due to a large portion of publications w/out any data

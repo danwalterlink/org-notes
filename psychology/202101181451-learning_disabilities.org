@@ -1,13 +1,9 @@
-* An overview of Learning Disabilities
-  :PROPERTIES:
-  :CUSTOM_ID: an-overview-of-learning-disabilities
-  :END:
+#+title: learning disabilities
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 14:51]
 
-** Characteristics of Learning Disabilities
-   :PROPERTIES:
-   :CUSTOM_ID: characteristics-of-learning-disabilities
-   :END:
-
+* Characteristics of Learning Disabilities
 - Academic work is effortful and taxing
 - Difficulties with reading, writing, and/or math
 - Reduced motivation

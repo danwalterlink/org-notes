@@ -1,7 +1,7 @@
-* The Great Filter
-  :PROPERTIES:
-  :CUSTOM_ID: the-great-filter
-  :END:
+#+title: the great filter
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 14:52]
 
 The Great Filter, in the context of the Fermi paradox, is whatever
 prevents non-living matter from undergoing abiogenesis, in time, to

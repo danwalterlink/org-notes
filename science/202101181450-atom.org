@@ -1,7 +1,8 @@
-* Atoms
-  :PROPERTIES:
-  :CUSTOM_ID: atoms
-  :END:
+#+title: atom
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 14:50]
+#+roam_alias: atoms
 
 An atom is the smallest unit of ordinary matter that forms a chemical
 element. Every solid, liquid, gas, and plasma is composed of neutral or

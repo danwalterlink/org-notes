@@ -1,7 +1,7 @@
-* Fermi Paradox
-  :PROPERTIES:
-  :CUSTOM_ID: fermi-paradox
-  :END:
+#+title: fermi paradox
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 14:51]
 
 The Fermi paradox, named after Italian-American physicist Enrico Fermi,
 is the apparent contradiction between the lack of evidence for

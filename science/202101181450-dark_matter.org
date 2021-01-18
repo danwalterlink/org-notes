@@ -1,7 +1,7 @@
-* Dark Matter
-  :PROPERTIES:
-  :CUSTOM_ID: dark-matter
-  :END:
+#+title: dark matter
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 14:50]
 
 An elusive substance that permeates the universe exerts many detectable
 gravitational influences yet eludes direct detection.
