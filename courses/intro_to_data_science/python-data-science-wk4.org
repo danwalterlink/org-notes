@@ -12,7 +12,7 @@ So first example is looking at the stats function from scipy. Scipy is a module
 which includes most of the other modules you would need for scientific data,
 such as pandas, numpy, matplotlib and a number of other modules.
 
-When we are running [[[[file:../../../202101031336-hypothesis_testing.org][hypothesis testing]]]], we have two statements of interest:
+When we are running [[[[file:../../statistics/202101031336-hypothesis_testing.org][hypothesis testing]]]], we have two statements of interest:
 The first is our actual explanation, which we call the alternative hypothesis,
 and the second is that the explanation we have is not sufficient, and we call
 this the *null hypothesis*. Our actual testing method is to determine if the null
@@ -20,8 +20,8 @@ hypothesis is true or not. If we find that there is a difference between the two
 groups, then we reject our null hypothesis and accept our alternative
 hypothesis.
 
-When it comes to [[[[file:../../../202101031336-hypothesis_testing.org][hypothesis testing]]]] we have to choose a threshold for how
-much we are willing to accept. This significance level is usually called the
+When it comes to [[[[file:../../statistics/202101031336-hypothesis_testing.org][hypothesis testing]]]] we have to choose a threshold for how
+much we are willing to accept. This [[[[file:../../statistics/202101032129-significance_level.org][significance level]]]] is usually called the
 *alpha*. For this example, we will use a threshold of *0.05* or *5%*. For this test,
 we are going to use a scipy function called ~ttest_ind()~ which does an
 independent t-test. The results of this test are returned as *t-statistics* and a

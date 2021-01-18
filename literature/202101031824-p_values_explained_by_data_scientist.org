@@ -6,12 +6,11 @@
 #+LATEX_HEADER: \usepackage{ntheorem}
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://raw.githack.com/nmartin84/raw-files/master/htmlpro.css" />
 #+OPTIONS: toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
-
-source: [[https://towardsdatascience.com/p-values-explained-by-data-scientist-f40a746cfc8][P-values Explained By Data Scientist | by Admond Lee | Towards Data Science]]
+#+source:https://towardsdatascience.com/p-values-explained-by-data-scientist-f40a746cfc8
 
 * What are P-Values?
 
-The Wikipedia explanation for what [[[[file:../202101091250-p_values.org][p-values]]]] are:
+The Wikipedia explanation for what [[[[file:../statistics/202101091250-p_values.org][p-values]]]] are:
 #+begin_quote
 In statistical hypothesis testing, the p-value or probability value is, for a
 given statistical model, the probability that, when the null hypothesis is true,
@@ -31,7 +30,7 @@ document:
 [[file:../.attach/e6/622552-cc02-418e-838f-3137ba5a7798/_20210103_1827150*XqFCVZreewh3lATA.png][_20210103_1827150*XqFCVZreewh3lATA.png]]
 
 Our ultimate goal is to determine the statistical significance of our results,
-and this is where [[[[file:../202101031336-hypothesis_testing.org][hypothesis testing]]]] comes into play. Statistical
+and this is where [[[[file:../statistics/202101031336-hypothesis_testing.org][hypothesis testing]]]] comes into play. Statistical
 significance is built on 3 simple ideas:
 1. Hypothesis Testing
 2. Normal Distribution
@@ -67,8 +66,8 @@ true and their delivery times are over 30 minutes.
 The goal here is to determine which claim — the null or alternative — is better
 supported by the evidence found from our sample data.
 
-For this, we will use a [[[[file:../202101031837-one_tailed_test.org][one-tailed test]]]] since we only care if the mean is
-above 30 minutes. One of the common ways of testing is to use a [[[[file:../202101031841-z_test.org][Z-Test]]]], more
+For this, we will use a [[[[file:../statistics/202101031837-one_tailed_test.org][one-tailed test]]]] since we only care if the mean is
+above 30 minutes. One of the common ways of testing is to use a [[[[file:../statistics/202101031841-z_test.org][Z-Test]]]], more
 details on that can come later.
 
 TODO Read the article on Z-Test and update this section, or the Z-Test article
@@ -80,28 +79,29 @@ to cover details.
 :END:
 [[file:../.attach/6d/949153-db6f-4802-8248-e155309e61b9/_20210103_1843100*_CpITbEtFQZD45bX.png][_20210103_1843100*_CpITbEtFQZD45bX.png]]
 
-Normal distribution is a [[[[file:../202101031947-probability_density_function.org][probability density function]]]] used to see the data
+Normal distribution is a [[[[file:../statistics/202101031947-probability_density_function.org][probability density function]]]] used to see the data
 distribution.
 
-The normal distribution has two parameters — the mean (μ) and [[[[file:../202101031954-standard_deviation.org][standard deviation]]]], also called sigma (σ).
+The normal distribution has two parameters — the mean (μ) and [[[[file:../statistics/202101031954-standard_deviation.org][standard
+deviation]]]], also called sigma (σ).
 
 The mean is the central tendency of the distribution. It defines the location of
-the peak for normal distributions. The standard deviation is a measure of
+the peak for normal distributions. The [[[[file:../statistics/202101031954-standard_deviation.org][standard deviation]]]] is a measure of
 variability. It determines how far away from the mean the values tend to fall.
 
-The normal distribution is commonly associated with the [[[[file:../202101032023-68_95_99_7_rule.org][68-95-99.7 rule]]]]
+The normal distribution is commonly associated with the [[[[file:../statistics/202101032023-68_95_99_7_rule.org][68-95-99.7 rule]]]]
 (image above).
 1. 68% of the data is within 1 standard deviation (σ) of the mean (μ)
 2. 95% of the data is within 2 standard deviations (σ) of the mean (μ)
 3. 99.7% of the data is within 3 standard deviations (σ) of the mean (μ)
 
-The [[[[file:../202101032041-five_sigma.org][five sigma]]]] threshold for discovering the *Higgs Boson* is about a
+The [[[[file:../statistics/202101032041-five_sigma.org][five sigma]]]] threshold for discovering the *Higgs Boson* is about a
 99.9999426696856% of the data to hit before scientists confirmed the discovery
-of Higgs Boson. That was the [[[[file:../202101032043-stringent_threshold.org][stringent threshold]]]] set to avoid any potential
+of Higgs Boson. That was the [[[[file:../statistics/202101032043-stringent_threshold.org][stringent threshold]]]] set to avoid any potential
 false signals.
 
 So next, we need to calculate Z-scores (to be used in our test-statistic) which
-is the number of [[[[file:../202101031954-standard_deviation.org][standard deviation]]]] from the mean a data point is. In our case,
+is the number of [[[[file:../statistics/202101031954-standard_deviation.org][standard deviation]]]] from the mean a data point is. In our case,
 each data point is the pizza delivery time that we collected.
 
 standardized the variable by subtracting the mean and dividing by its standard deviation.
@@ -127,7 +127,7 @@ But that raises the question: *But how high (or low) is considered as
 sufficiently convincing to quantify how meaningful our results are?*
 
 This is where *P-Values* come into play, and check if our results are
-statistically significant based on the [[[[file:../202101032129-significance_level.org][significance level]]]] (also known as alpha).
+statistically significant based on the [[[[file:../statistics/202101032129-significance_level.org][significance level]]]] (also known as alpha).
 
 ** What is P-Value?
 
@@ -160,7 +160,6 @@ be \[ \alpha=1-0.95 \] so our results would be \[ \alpha=0.05 \]
 
 So ultimately, p-value is what's being used to determine if our hypothesis holds
 weight. So it comes down to, if _p lessthan or equal to alpha_ then *Rejct the Ho*.
-(Check [[file:../courses/intro_to_data_science/week4/python-data-science-wk4.org][Introduction to Data Science with Python - Week 4]])
 
 \[ p \leq \alpha = Reject Ho \]
 

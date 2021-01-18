@@ -10,7 +10,7 @@ Researching online can be difficult, you're faced with uncertainty of your
 sources, and question how accurate their information may be. This is most
 definitely a challenge in today's world, the [[[[file:../fleeting/202101171225-age_of_false_information.org][age of false information]]]].
 
-Part of the issue which we must tackle, is the fact that [[[[file:../202101171230-search_engines.org][search engines]]]] are
+Part of the issue which we must tackle, is the fact that [[[[file:../tech/202101171230-search_engines.org][search engines]]]] are
 great for finding articles which are popular, or getting the most hits. That
 doesn't always mean that it's going to be the best source for you though. The
 other issue with search engines, is that they rely on being able to crawl pages
