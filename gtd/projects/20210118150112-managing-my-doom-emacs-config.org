@@ -3,6 +3,9 @@
 #+email: nmartin84@gmail.com
 #+category: doomconfig
 
+My DOOM Emacs configuration is growing, and as it grows I need to keep track of
+important changes.
+
 * Requirements
 
 + Must be easy to follow
@@ -15,3 +18,7 @@
 * Tasks
 
 ** TODO Clean up old unused functions :@computer:
+** TODO Add more GTD functions to org-capture-templates :@computer:
+:PROPERTIES:
+:CREATED: [2021-01-18 Mon 15:05]
+:END:

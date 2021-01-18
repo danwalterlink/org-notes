@@ -276,5 +276,9 @@ Source = https://realpython.com/python-for-loop/
 :CREATED: [2021-01-18 Mon 09:59]
 :END:
 Source = https://realpython.com/courses/using-list-comprehensions-effectively/
+** REFILE Add more GTD functions to org-capture-templates :@computer:
+:PROPERTIES:
+:CREATED: [2021-01-18 Mon 15:05]
+:END:
 * Checklists
 - [-] Is there a way to prevent =auto-fill-mode= from breaking links?
