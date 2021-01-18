@@ -1,10 +1,23 @@
-#+title: setting data types in python
+#+title: python datatypes
 #+author: Nick Martin
 #+email: nmartin84@gmail.com
-#+created: [2021-01-16 19:18]
+#+created: [2021-01-17 13:58]
 #+roam_tags: datatypes
 
-Setting data types in [[[[file:../references/programming/python/python.org][python]]]] is relatively easy, here's some examples.
+[[[[file:202101171320-python.org][python]]]] has a number of data types which is accepts out of the box, some
+of which are already common data types you may of seen in other languages.
++ tuples :: Tuples are immutabile, and do not contain unique values.
++ strings
++ dictionaries
++ sets
++ lists
++ integers
++ floats
++ complex integers
++ booleans
+
+
+* Setting data types in python
 
 #+BEGIN_EXAMPLE
   x = str("Hello World")

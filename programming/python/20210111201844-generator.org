@@ -3,7 +3,7 @@
 #+email: nmartin84@gmail.com
 
 So generator [[[[file:202101172028-python_functions.org][python functions]]]] are a special kind of function that returns a
-[[[[file:../programming/202101180948-lazy_iterator.org][lazy iterator]]]]. These are objects that you can loop over like a list, but the
+[[[[file:../202101180948-lazy_iterator.org][lazy iterator]]]]. These are objects that you can loop over like a list, but the
 contents are not stored in memory, and use the keyword [[[[file:202101181005-yield.org][yield]]]].
 
 The very basic example of a generator:

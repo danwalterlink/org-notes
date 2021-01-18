@@ -4,8 +4,8 @@
 #+created: [2021-01-17 13:20]
 #+roam_tags:
 
-Python is a [[[[file:../programming/202101161003-programming_language.org][programming language]]]], that's heavily focused on
-[[[[file:../programming/202101171440-object_oriented_programming.org][object-oriented programming]]]].
+Python is a [[[[file:../202101161003-programming_language.org][programming language]]]], that's heavily focused on
+[[[[file:../202101171440-object_oriented_programming.org][object-oriented programming]]]].
 
 Online Sources:
 - https://www.codecademy.com/learn/learn-python-3

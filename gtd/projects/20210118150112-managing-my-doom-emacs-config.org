@@ -1,0 +1,17 @@
+#+title: managing my doom emacs config
+#+author: nick martin
+#+email: nmartin84@gmail.com
+#+category: doomconfig
+
+* Requirements
+
++ Must be easy to follow
++ Simple to implement with little dependencies
+
+* Timeframe
+
+* Notes
+
+* Tasks
+
+** REFILE Clean up old unused functions :@computer:

@@ -4,4 +4,4 @@
 #+created: [2021-01-16 10:02]
 #+roam_tags: language
 
-Elisp is a [[[[file:../programming/202101161003-programming_language.org][programming language]]]].
+Elisp is a [[[[file:../202101161003-programming_language.org][programming language]]]].
