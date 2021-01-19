@@ -1,0 +1,11 @@
+#+title: return type
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 18:40]
+#+roam_alias: "result type" "resulting value"
+
+In [[[[file:202101161933-computer_programming.org][computer programming]]]], the return type (or result type) defines and
+constrains the [[[[file:202101021326-data_types.org][data type]]]] of the value [[[[file:202101181842-returned.org][returned]]]] from a [[[[file:202101171418-subroutine.org][subroutine]]]] or
+[[[[file:20210110172957-methods.org][methods]]]]. In many [[[[file:202101161003-programming_language.org][programming language]]]] (especially statically-typed
+programming languages such as C, C++, Java) the return type must be explicitly
+specified when declaring a [[[[file:202101171418-subroutine.org][function]]]].

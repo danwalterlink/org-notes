@@ -1,0 +1,4 @@
+#+title: string
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 18:45]

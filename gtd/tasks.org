@@ -257,6 +257,8 @@ CLOSED: [2021-01-16 Sat 19:43] SCHEDULED: <2021-01-15 Fri>
 :PROPERTIES:
 :CREATED: [2021-01-14 Thu 21:46]
 :END:
+* Checklists
+- [-] Is there a way to prevent =auto-fill-mode= from breaking links?
 * Inbox
 ** REFILE Read up on Goodhart's Law and help define it :@read:
 :PROPERTIES:
@@ -276,9 +278,8 @@ Source = https://realpython.com/python-for-loop/
 :CREATED: [2021-01-18 Mon 09:59]
 :END:
 Source = https://realpython.com/courses/using-list-comprehensions-effectively/
-** REFILE Add more GTD functions to org-capture-templates :@computer:
+** TODO purchase mag training bike stand :@computer:
 :PROPERTIES:
-:CREATED: [2021-01-18 Mon 15:05]
+:CREATED: [2021-01-18 Mon 15:51]
 :END:
-* Checklists
-- [-] Is there a way to prevent =auto-fill-mode= from breaking links?
+For my in-door cycling, since I broke the cycling machine... :(

@@ -1,10 +1,10 @@
-#+title: Critical Thinking
+#+title: The process of Critical Thinking
 #+author: nicholas martin
 #+email: nmartin84@gmail.com
 
 * The Process of Critical Thinking
 
-It's about asking the right questions:
+It's about asking the right questions (see [[[[file:../psychology/202101182010-critical_thinking.org][critical thinking]]]])
 1. What if?
 2. Why not?
 

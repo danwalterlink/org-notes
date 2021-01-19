@@ -1,0 +1,11 @@
+#+title: mathematical expression
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 18:31]
+
+In mathematics, an [[[[file:202101181829-expressions.org][expression]]]] or mathematical expression is a finite
+combination of [[[[file:202101181833-symbol.org][symbol]]]] that is [[[[file:202101181834-well_formed.org][well-formed]]]] according to rules that depend
+on the context.  Mathematical symbols can designate numbers ([[[[file:202101181834-constants.org][constants]]]]),
+[[[[file:202101181834-variables.org][variables]]]], [[[[file:../mathematics/202101181836-operations.org][operations]]]], [[[[file:../mathematics/202101181835-functions.org][functions]]]], brackets, punctuation, and
+grouping to help determine [[[[file:../mathematics/202101181836-order_of_operations.org][order of operations]]]], and other aspects of
+[[[[file:../logic/202101181836-logical_syntax.org][logical syntax]]]].

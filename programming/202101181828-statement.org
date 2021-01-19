@@ -1,0 +1,15 @@
+#+title: statement
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-18 18:28]
+
+In [[[[file:202101161933-computer_programming.org][computer programming]]]], a statement is a syntactic unit of an imperative
+[[[[file:202101161003-programming_language.org][programming language]]]] that expresses some action to be carried out. A program
+written in such a language is formed by a sequence of one or more statements. A
+statement may have internal components (e.g., [[[[file:202101181829-expressions.org][expressions]]]]).
+
+Many imperative languages (e.g. C) make a distinction between statements and
+definitions, with a statement only containing executable code and a definition
+instantiating an identifier, while an expression evaluates to a value only. A
+distinction can also be made between simple and compound statements; the latter
+may contain statements as components.

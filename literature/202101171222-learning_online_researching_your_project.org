@@ -55,3 +55,7 @@ To help yourself find the right sources, one would need to apply [[[[file:critic
 of Critical Thinking]]]] which is for one to ask their-selves the right questions
 when reviewing that source, and not just unconditionally accepting what they
 tell you.
+
+The [[[[file:../psychology/202101182010-critical_thinking.org][critical thinking]]]] phase is broken down into the following; description
+(what, where, why and who), analysis (how, why and what if) and evaluation (So
+what, and what next?).

@@ -5,7 +5,7 @@
 #+roam_alias: "control structure" "control flow"
 
 Within an imperative [[[[file:202101161003-programming_language.org][programming language]]]], a control flow statement is a
-statement that results in a choice being made as to which of two or more paths
+[[[[file:202101181828-statement.org][statement]]]] that results in a choice being made as to which of two or more paths
 to follow. For non-strict functional languages, [[[[file:202101171418-subroutine.org][function]]]] and language
 constructs exist to achieve the same result, but they are usually not termed
 control flow statements.
