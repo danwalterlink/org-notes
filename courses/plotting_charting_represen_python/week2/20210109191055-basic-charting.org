@@ -364,7 +364,7 @@ them appropriately.
 
 We can also use --r to use dashes, instead of lines.
 
-#+begin_src jupyter-python :session py :results output graphics :exports both :file lineplot-basic.png
+#+begin_src jupyter-python :session py :results output graphics :exports both :file lineplot-basic.svg
 import numpy as np
 import matplotlib.pyplot as plt
 %matplotlib inline
@@ -383,4 +383,4 @@ plt.gca().fill_between(range(len(linear_data)), linear_data, quadratic_data, fac
 #+end_src
 
 #+RESULTS:
-[[file:lineplot-basic.png]]
+[[file:lineplot-basic.svg]]
