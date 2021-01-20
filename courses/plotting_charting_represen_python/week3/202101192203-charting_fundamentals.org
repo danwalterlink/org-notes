@@ -5,7 +5,7 @@
 
 * Subplots
 
-#+begin_src jupyter-python :session py :results output graphics :exports both :file
+#+begin_src jupyter-python :session py :results output graphics :exports both :file subplot-basics.png
 import matplotlib.pyplot as plt
 import numpy as np
 %matplotlib inline
@@ -31,7 +31,7 @@ axr.set_title('Another title')
 
 #+RESULTS:
 :RESULTS:
-[[file:./.ob-jupyter/9bcc077958d0396b3eb1f3f3e4408182e5bf5116.png]]
+[[file:subplot-basics.png]]
 :END:
 
 
