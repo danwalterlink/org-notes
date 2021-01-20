@@ -410,3 +410,51 @@ for item in x.get_ticklabels():
 
 #+RESULTS:
 [[file:lineplot-basic-dates.png]]
+** Bar Charts
+
+#+begin_src jupyter-python :session py :results output graphics :exports both :file barchart-basics.png
+import matplotlib.pyplot as plt
+from random import randint
+%matplotlib inline
+
+linear_data = np.array([1,2,3,4,5,6,7,8])
+quadratic_data = linear_data**2
+
+xvals=range(len(linear_data))
+plt.bar(xvals,linear_data, width=0.3, color='blue')
+
+new_xvals= []
+for item in xvals:
+    new_xvals.append(item+0.3)
+
+plt.bar(new_xvals, quadratic_data, width=0.3, color='red')
+linear_err=[randint(0,15) for x in range(len(linear_data))]
+plt.bar(xvals, linear_data, width=0.3, yerr=linear_err)
+#+end_src
+TODO: Define what ~yerr~ is.
+
+#+RESULTS:
+[[file:barchart-basics.png]]
+
+You could also do a stacked barchart by specifying ~bottom=value~ in your plot
+function:
+#+begin_src jupyter-python :session py :results output graphics :exports both :file barchart-basics-stacked.png
+import matplotlib.pyplot as plt
+from random import randint
+%matplotlib inline
+
+linear_data = np.array([1,2,3,4,5,6,7,8])
+quadratic_data = linear_data**2
+
+xvals=range(len(linear_data))
+plt.bar(xvals,linear_data, width=0.3, color='blue')
+
+new_xvals= []
+for item in xvals:
+    new_xvals.append(item+0.3)
+
+plt.bar(xvals, quadratic_data, width=0.3, bottom=linear_data,   color='r')
+#+end_src
+
+#+RESULTS:
+[[file:barchart-basics-stacked.png]]
