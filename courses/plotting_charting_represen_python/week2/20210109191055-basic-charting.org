@@ -387,7 +387,7 @@ plt.gca().fill_between(range(len(linear_data)), linear_data, quadratic_data, fac
 
 And here we are going to add some dates to the mixture:
 
-#+begin_src jupyter-python :session py :results output graphics :exports both :file lineplot-basic-dates.png
+#+begin_src jupyter-python :session py :results output graphics :exports both :file lineplot-basic-dates.svg
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -406,8 +406,7 @@ plt.plot(observation_dates, linear_data, '-o', observation_dates, quadratic_data
 x = plt.gca().xaxis
 for item in x.get_ticklabels():
     item.set_rotation(45)
-plt.subplots_adjust(bottom=0.25)
 #+end_src
 
 #+RESULTS:
-[[file:lineplot-basic-dates.png]]
+[[file:lineplot-basic-dates.svg]]
