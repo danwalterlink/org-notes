@@ -384,3 +384,30 @@ plt.gca().fill_between(range(len(linear_data)), linear_data, quadratic_data, fac
 
 #+RESULTS:
 [[file:lineplot-basic.svg]]
+
+And here we are going to add some dates to the mixture:
+
+#+begin_src jupyter-python :session py :results output graphics :exports both :file lineplot-basic-dates.png
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+%matplotlib inline
+
+linear_data = np.array([1,2,3,4,5,6,7,8])
+quadratic_data = linear_data**2
+
+observation_dates = np.arange('2017-01-01', '2017-01-09', dtype='datetime64[D]')
+observation_dates = list(map(pd.to_datetime, observation_dates))
+plt.xlabel('Some data')
+plt.ylabel('Some other data')
+plt.title('A Title')
+plt.legend(['Baseline', 'Competition', 'Us'])
+plt.plot(observation_dates, linear_data, '-o', observation_dates, quadratic_data, '-o')
+x = plt.gca().xaxis
+for item in x.get_ticklabels():
+    item.set_rotation(45)
+plt.subplots_adjust(bottom=0.25)
+#+end_src
+
+#+RESULTS:
+[[file:lineplot-basic-dates.png]]
