@@ -18,6 +18,16 @@ And to make an a-list you would do something like this:
                    (two . 2)
                    (three . 3)))
 
+(cons "~/projects/orgmode/test.org" "Test File")
+(setq some-alist '(("~/projects/orgmode/test.org" "Test")))
+(push (cons "~/projects/orgmode/newtest.org" "New Test File") some-alist)
+(rassoc '("Test") some-alist)
+(setq nm/test-list (find-lisp-find-files "~/projects/orgmode/gtd/" ".org"))
+(setq nm/test-files nil)
+(dolist (i nm/test-list) (push (cons i (file-name-nondirectory i)) nm/test-files))
+(car (rassoc "secrets.org" nm/test-files))
+(dolist (i nm/test-files) (list (cdr i)))
+
 (alist-get 'one some-alist) ; returns 1
 (assq 'one some-alist) ; returns one
 (rassq 1 some-alist) ; returns index of the value 1 (one)
@@ -26,3 +36,5 @@ And to make an a-list you would do something like this:
 (setf (alist-get 'one some-alist) 5) ; assigns the value "5" to the index "one"
 (alist-get 'one some-alist) ; returns 5
 #+end_src
+
+1234564-something_new.org

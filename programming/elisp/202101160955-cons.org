@@ -15,6 +15,7 @@ The great thing is you can build large lists like so:
 
 #+begin_src emacs-lisp
 (cons 1 (cons 2 (cons 3 (cons 4 nil))))
+(cons 1 "something-new.org")
 (cons '(1 2 3) 4)
 (append '(1 2 3) 4)
 (append '(1 2 3) '(4))

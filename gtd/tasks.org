@@ -278,8 +278,13 @@ Source = https://realpython.com/python-for-loop/
 :CREATED: [2021-01-18 Mon 09:59]
 :END:
 Source = https://realpython.com/courses/using-list-comprehensions-effectively/
-** TODO purchase mag training bike stand :@computer:
+** KILL purchase mag training bike stand :@computer:
+CLOSED: [2021-01-19 Tue 19:05]
 :PROPERTIES:
 :CREATED: [2021-01-18 Mon 15:51]
+:END:
+:LOGBOOK:
+- Note taken on [2021-01-19 Tue 19:05] \\
+  Ended up fixing the trainer with JB Weld.
 :END:
 For my in-door cycling, since I broke the cycling machine... :(
