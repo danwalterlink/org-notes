@@ -458,3 +458,26 @@ plt.bar(xvals, quadratic_data, width=0.3, bottom=linear_data,   color='r')
 
 #+RESULTS:
 [[file:barchart-basics-stacked.png]]
+
+In this example, we will convert our barchart into a horizontal chart by
+specifying the function ~plt.barh()~.
+#+begin_src jupyter-python :session py :results output graphics :exports both :file barchart-hor-basics-stacked.png
+import matplotlib.pyplot as plt
+from random import randint
+%matplotlib inline
+
+linear_data = np.array([1,2,3,4,5,6,7,8])
+quadratic_data = linear_data**2
+
+xvals=range(len(linear_data))
+plt.barh(xvals,linear_data, height=0.3, color='blue')
+
+new_xvals= []
+for item in xvals:
+    new_xvals.append(item+0.3)
+
+plt.barh(xvals, quadratic_data, height=0.3, left=linear_data, color='r')
+#+end_src
+
+#+RESULTS:
+[[file:barchart-hor-basics-stacked.png]]

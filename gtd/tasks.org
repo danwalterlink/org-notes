@@ -249,11 +249,13 @@ CLOSED: [2021-01-16 Sat 19:43] SCHEDULED: <2021-01-15 Fri>
 :PROPERTIES:
 :CREATED: [2021-01-14 Thu 20:46]
 :END:
-** TODO [#A] take the motheboard back to kohl's to return amazon :@errands:
+** DONE [#A] take the motheboard back to kohl's to return amazon :@errands:
+   CLOSED: [2021-01-19 Tue 21:58]
 :PROPERTIES:
 :CREATED: [2021-01-14 Thu 21:46]
 :END:
-** TODO [#A] return the mechanical keyboard to kohl's :@errands:
+** DONE [#A] return the mechanical keyboard to kohl's :@errands:
+   CLOSED: [2021-01-19 Tue 21:58]
 :PROPERTIES:
 :CREATED: [2021-01-14 Thu 21:46]
 :END:
