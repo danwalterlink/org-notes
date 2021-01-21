@@ -89,6 +89,20 @@ df.plot.hist(alpha=0.7);
 #+RESULTS:
 [[file:histogram-chart.png]]
 
+Putting a visual on our 'iris.csv' dataset:
+#+begin_src jupyter-python :session py :results output graphics :exports both :file iris-plotting.png
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+iris = pd.read_csv('~/projects/orgmode/courses/plotting_charting_represen_python/week4/iris.csv')
+pd.plotting.scatter_matrix(iris, alpha=0.2)
+#+end_src
+
+#+RESULTS:
+[[file:iris-plotting.png]]
+
 * Seaborn
 
 * Spurious Correlations
