@@ -27,7 +27,7 @@ df.plot();
 [[file:pandas-plotting-a.png]]
 
 Scatter plot:
-#+begin_src jupyter-python :session py :results output graphics :exports both :file
+#+begin_src jupyter-python :session py :results output graphics :exports both :file scatter-basic.png
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -45,7 +45,7 @@ df.plot('A', 'B', kind = 'scatter')
 #+end_src
 
 #+RESULTS:
-[[file:./.ob-jupyter/455b9ea2227585f2bbb63efc525f050ff7ee1cfb.png]]
+[[file:scatter-basic.png]]
 
 #+begin_src jupyter-python :session py :results output graphics :exports both :file scatter-plot.png
 import numpy as np
