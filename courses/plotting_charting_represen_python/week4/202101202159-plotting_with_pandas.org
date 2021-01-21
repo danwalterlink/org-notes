@@ -69,7 +69,7 @@ ax.set_aspect('equal')
 [[file:scatter-plot.png]]
 
 Or we can do histograms:
-#+begin_src jupyter-python :session py :results output graphics :exports both :file
+#+begin_src jupyter-python :session py :results output graphics :exports both :file histogram-chart.png
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -87,7 +87,7 @@ df.plot.hist(alpha=0.7);
 #+end_src
 
 #+RESULTS:
-[[file:./.ob-jupyter/decbdc344d3039a4af1be804923196885fd8311b.png]]
+[[file:histogram-chart.png]]
 
 * Seaborn
 
