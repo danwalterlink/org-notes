@@ -1,0 +1,94 @@
+#+title: Plotting with Pandas
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-20 21:59]
+
+
+* Plotting with Pandas
+
+#+begin_src jupyter-python :session py :results output graphics :exports both :file pandas-plotting-a.png
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+plt.style.use('seaborn-colorblind')
+
+np.random.seed(123)
+
+df = pd.DataFrame({'A': np.random.randn(365).cumsum(0),
+                   'B': np.random.randn(365).cumsum(0) + 20,
+                   'C': np.random.randn(365).cumsum(0) - 20},
+                   index=pd.date_range('1/1/2017', periods=365))
+df.plot();
+#+end_src
+
+#+RESULTS:
+[[file:pandas-plotting-a.png]]
+
+Scatter plot:
+#+begin_src jupyter-python :session py :results output graphics :exports both :file
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+plt.style.use('seaborn-colorblind')
+
+np.random.seed(123)
+
+df = pd.DataFrame({'A': np.random.randn(365).cumsum(0),
+                   'B': np.random.randn(365).cumsum(0) + 20,
+                   'C': np.random.randn(365).cumsum(0) - 20},
+                   index=pd.date_range('1/1/2017', periods=365))
+df.plot('A', 'B', kind = 'scatter')
+#+end_src
+
+#+RESULTS:
+[[file:./.ob-jupyter/455b9ea2227585f2bbb63efc525f050ff7ee1cfb.png]]
+
+#+begin_src jupyter-python :session py :results output graphics :exports both :file scatter-plot.png
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+plt.style.use('seaborn-colorblind')
+
+np.random.seed(123)
+
+df = pd.DataFrame({'A': np.random.randn(365).cumsum(0),
+                   'B': np.random.randn(365).cumsum(0) + 20,
+                   'C': np.random.randn(365).cumsum(0) - 20},
+                   index=pd.date_range('1/1/2017', periods=365))
+ax = df.plot.scatter('A','C', c='B', s=df['B'], colormap='viridis')
+ax.set_aspect('equal')
+#+end_src
+
+#+RESULTS:
+[[file:scatter-plot.png]]
+
+Or we can do histograms:
+#+begin_src jupyter-python :session py :results output graphics :exports both :file
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+plt.style.use('seaborn-colorblind')
+
+np.random.seed(123)
+
+df = pd.DataFrame({'A': np.random.randn(365).cumsum(0),
+                   'B': np.random.randn(365).cumsum(0) + 20,
+                   'C': np.random.randn(365).cumsum(0) - 20},
+                   index=pd.date_range('1/1/2017', periods=365))
+df.plot.hist(alpha=0.7);
+#+end_src
+
+#+RESULTS:
+[[file:./.ob-jupyter/decbdc344d3039a4af1be804923196885fd8311b.png]]
+
+* Seaborn
+
+* Spurious Correlations

@@ -34,8 +34,46 @@ axr.set_title('Another title')
 [[file:subplot-basics.png]]
 :END:
 
-
 * Histograms
+
+Probability function can be visualized as a curve, where the y-axis holds the
+probability a given value would occur, and the x-axis is the value itself. This
+is called a [[[[file:~/projects/orgmode/statistics/202101031947-probability_density_function.org][probability density function]]]]. The y-axis values are limited to
+between zero and one, where zero means there's no chance of a given value
+occurring and one means that the value will always occur. The x-axis values are
+labeled in terms of the distribution function. In the case of the normal
+distribution, this is usually in terms of [[[[file:~/projects/orgmode/statistics/202101031954-standard_deviation.org][standard deviation]]]].
+
+So a histogram is just a bar chart where the x-axis is a given observation and
+the y-axis is the frequency with which that observation occurs. So we should be
+able to plot a given [[[[file:~/projects/orgmode/fleeting/202101202103-probability_distribution.org][probability distribution]]]] by sampling from it.
+
+#+begin_src jupyter-python :session py :results output graphics :exports both :file history-chart.png
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import colors
+from matplotlib.ticker import PercentFormatter
+
+# Fixing random state for reproducibility
+np.random.seed(19680801)
+
+N_points = 100000
+n_bins = 100
+
+# Generate a normal distribution, center at x=0 and y=5
+x = np.random.randn(N_points)
+y = .4 * x + np.random.randn(100000) + 5
+
+fig, axs = plt.subplots(1, 2, sharey=True, tight_layout=True)
+
+# We can set the number of bins with the `bins` kwarg
+axs[0].hist(x, bins=n_bins)
+axs[1].hist(y, bins=n_bins)
+#+end_src
+
+#+RESULTS:
+[[file:history-chart.png]]
+
 
 * Box Plots
 

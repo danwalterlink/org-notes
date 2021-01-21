@@ -2,3 +2,16 @@
 #+author: Nick Martin
 #+email: nmartin84@gmail.com
 #+created: [2021-01-18 12:12]
+
+#+begin_src emacs-lisp
+(defun nm/review-fleeting-notes ()
+  "Returns a list of fleeting notes in my roam directory, which I need to work on."
+  (interactive)
+  (let* ((files (find-lisp-find-files (concat org-roam-directory) ".org$"))
+         (files-alist nil)
+         (file-names nil))
+    (dolist (i files) (push (cons i (capitalize (replace-regexp-in-string "[-_]" " " (replace-regexp-in-string "^[0-9]+-\\|.org$" "" (file-name-nondirectory i))))) files-alist))
+    (dolist (i files-alist) (push (cdr i) file-names))
+    (let* ((choice (ivy-completing-read "select: " file-names)))
+      (find-file (car (rassoc choice files-alist))))))
+#+end_src

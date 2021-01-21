@@ -235,7 +235,7 @@ user to enter a headline.
 :PROPERTIES:
 :CATEGORY: vehicles
 :END:
-** TODO Fix the engine misfire on the jeep wrangler :@fix:
+** TODO Fix the engine misfire on the jeep wrangler :@fix:someday:
 :PROPERTIES:
 :CREATED: [2021-01-14 Thu 20:39]
 :END:
@@ -250,12 +250,12 @@ CLOSED: [2021-01-16 Sat 19:43] SCHEDULED: <2021-01-15 Fri>
 :CREATED: [2021-01-14 Thu 20:46]
 :END:
 ** DONE [#A] take the motheboard back to kohl's to return amazon :@errands:
-   CLOSED: [2021-01-19 Tue 21:58]
+CLOSED: [2021-01-19 Tue 21:58]
 :PROPERTIES:
 :CREATED: [2021-01-14 Thu 21:46]
 :END:
 ** DONE [#A] return the mechanical keyboard to kohl's :@errands:
-   CLOSED: [2021-01-19 Tue 21:58]
+CLOSED: [2021-01-19 Tue 21:58]
 :PROPERTIES:
 :CREATED: [2021-01-14 Thu 21:46]
 :END:
@@ -290,3 +290,7 @@ CLOSED: [2021-01-19 Tue 19:05]
   Ended up fixing the trainer with JB Weld.
 :END:
 For my in-door cycling, since I broke the cycling machine... :(
+** REFILE Composing meaningful tasks :@read:
+:PROPERTIES:
+:CREATED: [2021-01-19 Tue 23:08]
+:END:
