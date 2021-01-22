@@ -1,0 +1,53 @@
+#+title: Introduction to Machine Learning with Python
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-21 21:47]
+#+source: http://noracook.io/Books/Python/introductiontomachinelearningwithpython.pdf
+
+* Introduction
+
+** Why Machine Learning
+
+*** Problems Machine Learning can Solve
+
+** scikit-learn
+
+** Essential Libraries and Tools
+
+*** NumPy
+
+*** SciPy
+
+*** Matplotlib
+
+*** Pandas
+
+*** mglearn
+
+** A first application: Classifying Iris Species
+
+*** Meet your data
+
+*** Measuring Success: Training and Testing Data
+
+*** First Things First: Look at your Data
+
+*** Building your first model: k-nearest Neighbors
+
+*** Making Predictions
+
+*** Evaluating the Model
+
+* Supervised Learning
+
+* Unsupervised Learning and Preprocessing
+
+* Representing Data and Engineering Features
+
+* Model Evaluation and Improvement
+
+* Algorithm Chains and Pipelines
+
+* Working with Text Data
+
+* Wrapping Up

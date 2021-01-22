@@ -1,0 +1,19 @@
+#+title: Fundamentals of Machine Learning - Intro to SciKit Learn
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-20 22:27]
+
+* Introduction
+
+Machine learning models can learn by example. Algorithms learn rules from
+example data. A set of labeled examples used for learning called [[[[file:~/projects/orgmode/programming/202101212124-training_data.org][training
+data]]]].
+
+The learned rules should also be able to generalize to correctly recognize or
+predict new examples not in the original [[[[file:~/projects/orgmode/programming/202101212124-training_data.org][training data]]]].
+
+So to conclude on this, it's good to understand that machine learning draws heavily
+on [[[[file:~/projects/orgmode/statistics/202101212128-statistics.org][statistics]]]] (estimate reliability of predictions, infer conclusions of
+data), in addition to [[[[file:~/projects/orgmode/programming/202101212129-computer_science.org][computer science]]]] for (large-scale computing,
+algorithms to capture, manipulate, index, combine, retrieve and perform
+predictions on data).
