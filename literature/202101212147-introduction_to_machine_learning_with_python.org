@@ -6,11 +6,53 @@
 
 * Introduction
 
+Machine learning is about extracting knowledge from data. It is a research field
+in-between statistics, artificial intelligence and computer science.
+
 ** Why Machine Learning
+
+Using hand-made decision making code is ok when the person knows all the
+conditions one could encounter, however there are disadvantages to this system:
++ Logic required to make a decision is specific to the task, and any new
+  variables or changes could hinder that decision process.
++ Designing these rules require a deep understanding by a human expert.
+
+An example of this is facial recognition, if a human were to build a decision
+making protocol to accomplish this tag would fail, because the way a human
+described a human face is different than the computer.
 
 *** Problems Machine Learning can Solve
 
+Essentially, there's a terminology called "supervised learning", in-which the
+user provides input to the computer that it uses to train, the expected outcome
+and the computer will find a way to provide the given output.
+
+Un-supervised learning on the other hand, is where the human provides input, but
+does not indicate what the expected outcome is and the computer has to figure it
+out based off the previous learned data it has.
+
+Regardless if it's supervised, or un-surprised, it's important to provide the
+data in a way that the computer can easily read it. A good way of portraying
+this is by picturing your data as a table, each data point you want to reason
+about is a row, and say the age of a customer is a column.
+
+*** Knowing your Task and Knowing your Data
+
+The most important thing to keep in mind, is it's crucial to know your data, and
+how it related to the task. Some things you could ask yourself when considering
+if machine learning can help:
++ What question(s) am I trying to solve here? Does my data hold the answer?
++ What is the best way to phrase my question as a machine learning problem?
++ Have I collected enough data to represent the problem I want to solve?
++ What features of the data did I extract, and will this enable the right
+  predictions?
++ How will I measure success in my application?
++ How will the machine learning solution interact with other parts of my
+  research or business product?
+
 ** scikit-learn
+
+
 
 ** Essential Libraries and Tools
 

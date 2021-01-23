@@ -14,40 +14,6 @@
 - [X] Python beginners course
 - [X] University of Michigan Intro to Python
 
-*** Data Scientist with Python
-**** PROJ Read the matplotlib tutorial :@read:
-:PROPERTIES:
-:CREATED: [2021-01-11 Mon 19:38]
-:END:
-Source = https://matplotlib.org/3.3.3/tutorials/index.html
-***** NEXT Build outline to structure the course material :@computer:
-:PROPERTIES:
-:CREATED: [2021-01-14 Thu 23:21]
-:END:
-**** TODO What is 'elementwise' in regards to numpy? [[file:~/.local/share/Trash/files/202012131013-introduction_to_data_science_in_python.org][Array Operations]] :@read:
-:PROPERTIES:
-:CREATED: [2020-12-17 Thu 21:33]
-:END:
-Arithmetic operations apply elementwise (?)
-**** TODO Nodes and Edges? :@read:
-:PROPERTIES:
-:CREATED: [2021-01-09 Sat 11:53]
-:END:
-
- *Note added:* [2021-01-09 Sat 11:53]
-Sometimes networks are referred to as graphs and nodes as vertices?
-**** TODO Read article on p-value problem in Nature :@read:
-:PROPERTIES:
-:CREATED: [2021-01-09 Sat 12:52]
-:END:
-- http://www.nature.com/news/scientific-method-statistical-errors-1.14700
-**** TODO Finishing reading the fundamentals of matplotlib :@read:
-:PROPERTIES:
-:CREATED: [2021-01-09 Sat 20:49]
-:END:
-source = http://www.aosabook.org/en/matplotlib.html
-
-Once done, document the updated info to our [[file:../courses/plotting_charting_represen_python/week2/20210109191055-basic-charting.org][basic charting]] document.
 *** TODO Python for Data Science :@read:
 :PROPERTIES:
 :CREATED: [2020-12-29 Tue 20:06]
@@ -55,7 +21,40 @@ Once done, document the updated info to our [[file:../courses/plotting_charting_
 :END:
 It's another course of data science that'll help progress me towards my goal.
 Link --> https://www.classcentral.com/course/edx-python-for-data-science-8209
+** Data Scientist with Python
+*** PROJ Read the matplotlib tutorial :@read:
+:PROPERTIES:
+:CREATED: [2021-01-11 Mon 19:38]
+:END:
+Source = https://matplotlib.org/3.3.3/tutorials/index.html
+**** NEXT Build outline to structure the course material :@computer:
+:PROPERTIES:
+:CREATED: [2021-01-14 Thu 23:21]
+:END:
+*** TODO What is 'elementwise' in regards to numpy? [[file:~/.local/share/Trash/files/202012131013-introduction_to_data_science_in_python.org][Array Operations]] :@read:
+:PROPERTIES:
+:CREATED: [2020-12-17 Thu 21:33]
+:END:
+Arithmetic operations apply elementwise (?)
+*** TODO Nodes and Edges? :@read:
+:PROPERTIES:
+:CREATED: [2021-01-09 Sat 11:53]
+:END:
 
+ *Note added:* [2021-01-09 Sat 11:53]
+Sometimes networks are referred to as graphs and nodes as vertices?
+*** TODO Read article on p-value problem in Nature :@read:
+:PROPERTIES:
+:CREATED: [2021-01-09 Sat 12:52]
+:END:
+- http://www.nature.com/news/scientific-method-statistical-errors-1.14700
+*** TODO Finishing reading the fundamentals of matplotlib :@read:
+:PROPERTIES:
+:CREATED: [2021-01-09 Sat 20:49]
+:END:
+source = http://www.aosabook.org/en/matplotlib.html
+
+Once done, document the updated info to our [[file:../courses/plotting_charting_represen_python/week2/20210109191055-basic-charting.org][basic charting]] document.
 * Emacs
 :PROPERTIES:
 :CATEGORY: emacs
