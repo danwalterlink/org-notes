@@ -17,3 +17,26 @@ on [[[[file:~/projects/orgmode/statistics/202101212128-statistics.org][statistic
 data), in addition to [[[[file:~/projects/orgmode/programming/202101212129-computer_science.org][computer science]]]] for (large-scale computing,
 algorithms to capture, manipulate, index, combine, retrieve and perform
 predictions on data).
+
+** Key Concepts in Machine Learning
+
+There are essentially two types of machine learning:
+- Supervised machine learning, or supervised learning.
+  + Learn to predicted target values from labelled data
+  + classification (target values are discrete classes)
+  + regression (target values are continuous values)
+
+"So if the output is a category a finite number of possibilities such as a
+fraudulent or not fraudulent prediction for a credit card transaction. Or maybe
+it's the English word associated with an audio signal for speech recognition. We
+call this a classification problem within supervised learning, and the function
+that we learn is called the classifier."
+
+If the output variable we want to predict is not a category, but a real valued
+number like the amount of time in seconds it would likely take a car to
+accelerate from 0 to 100 kilometers per hour. We call that regression problem.
+And we're learning something called a regression function. More formally we
+typically denote a table of data items using capital letter X and there's one
+data item per row. And the labels that we associate with each item are stored in
+the variable y. And our goal is to learn some function that maps data item in X
+to a label in Y.

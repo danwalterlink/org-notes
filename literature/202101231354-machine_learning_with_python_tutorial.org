@@ -1,0 +1,190 @@
+#+title: Machine Learning with Python Tutorial
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-23 13:54]
+#+source: https://www.tutorialspoint.com/machine_learning_with_python/index.htm
+
+* Machine Learning with Python
+
+** Basics
+
+Machine Learning basically allows the computer to make sense of the data. It
+extracts patterns out of data using a set of algorithm and or method.
+
+The idea behind Machine Learning, is to help humans make decisions, based on
+data.
+
+*** Machine Learning Model :ATTACH:
+:PROPERTIES:
+:ID:       741e7e44-ec35-4155-bbd9-80483d28816d
+:END:
+
+Before discussing the machine learning model, we must need to understand the
+following formal definition of ML given by professor Mitchell:
+
+#+begin_quote
+“A computer program is said to learn from experience E with respect to some
+class of tasks T and performance measure P, if its performance at tasks in T, as
+measured by P, improves with experience E.”
+#+end_quote
+
+The above quote basically calls-out the three elements to the machine learning
+objective, knowing this we can define Machine Learning as:
++ Improve their performance (P)
++ At executing some task (T)
++ Over time with Experience (E)
+
+[[attachment:machine_learning_model.jpg]]
+
+
+**** Task (T)
+
+We can define (T "[[[[file:~/projects/orgmode/fleeting/202101231438-task.org][Task]]]]") as the real-world problem to be solved. The problem
+which we are trying to solve can be finding housing prices, to marketing
+strategy, etc. On the other hand, if we talk about Machine Learning, the
+definition for (T) would be different, because our Task that we are trying to
+solve is different than the normal.
+
+So basically a (T) Task is said to be based on Machine Learning, when the (T) is
+based on the process, and the system must follow for operating on data points.
+The examples for Machine Learning are Classification, Regression, Structured
+annotation, Clustering, Transcription, etc.
+
+**** Experience (E)
+
+So (E) is essentially our data that's used to build knowledge, which in turn is
+applied towards solving our (T) by analyzing and finding patterns.
+
+**** Performance (P)
+
+Our (P) is a measure of how well our Machine Learning algorithm is performing
+based on our expectations given its output. (P) is basically a quantitative
+metric that tells how a model is performing Task (T), using its Experience (E).
+There are many metrics that help understand the Machine Learning performance
+(P), such as; accuracy score, F1 score, confusion matrix, precision, recall,
+sensitivity, etc...
+
+*** Challenges in Machine Learning
+
+Essentially Machine Learning is still in it's early primes, and has many
+improvements to be made, such as in the following areas:
++ quality of data :: Having good-quality data for ML algorithms is one of the
+  biggest challenges. Use of low-quality data leads to the problems related to
+  data preprocessing and feature extraction.
++ Time-Consuming task :: Another challenge faced by ML models is the consumption
+  of time especially for data acquisition, feature extraction and retrieval.
++ Lack of specialist persons :: As ML technology is still in its infancy stage,
+  availability of expert resources is a tough job.
++ No clear objective for formulating business problems :: Having no clear
+  objective and well-defined goal for business problems is another key
+  challenge for ML because this technology is not that mature yet.
++ Issue of overfitting & underfitting :: If the model is overfitting or
+  underfitting, it cannot be represented well for the problem.
++ Curse of dimensionality :: Another challenge ML model faces is too many
+  features of data points. This can be a real hindrance.
++ Difficulty in deployment :: Complexity of the ML model makes it quite
+  difficult to be deployed in real life.
+
+*** Applications of Machine Learning
+
+We are in the midst golden-age of AI and Machine Learning. Some example
+applications for machine learning are:
++ Emotion analysis
++ Sentiment analysis
++ Error detection and prevention
++ Weather forecasting and prediction
++ Stock market analysis and forecasting
++ Speech synthesis
++ Speech recognition
++ Customer segmentation
++ Object recognition
++ Fraud detection
++ Fraud prevention
++ Recommendation of products to customer in online shopping
+
+** Methods for Machine Learning
+:LOGBOOK:
+CLOCK: [2021-01-23 Sat 19:47]--[2021-01-23 Sat 20:12] =>  0:25
+:END:
+
+Basically there are multiple Machine Learning algorithms, techniques and methods
+that can be applied to build models for solving real-life problems by using data.
+
+*** Different types of Methods
+
+The following are various ML Methods based on some broad categories:
+
+**** Supervised Learning
+
+*Supervised Learning*: this is basically taking the input data, and associating it
+with the expected outcome results. Some examples of this:
+- x: input variables
+- y: output variable
+- ~Y=f(x)~
+
+The idea would be to approximate the output given the input data we are given.
+Supervised algorithms can be categorized as:
++ Classification
++ Regression
+
+***** Classification
+
+Predict the categorical output labels or response for the given input data. The
+output will be based on what the model has learned in the training phase.
+
+***** Regression
+
+Predict output labels or responses that are continues numeric values, for the
+given input data. The output will be based on what the model has learned in its
+training phase.
+
+**** Unsupervised Learning
+
+Opposite of supervised Machine Learning algorithms, which basically means we
+have no supervisor to provide any sort of guidance. This is for instance, which
+we do not have the liberty of having pre-labeled training data and we want to
+extract useful patterns from input data.
+
+For instance, say you have input variables, but there would be no output
+variable and the algorithms need to discover the interesting pattern in data for
+learning.
+
+Examples of unsupervised learning are: k-means clustering, k-nearest neighbors,
+etc...
+
+Unsupervised learning is categorized in the following:
+
+***** Clustering
+
+One of the most powerful unsupervised Machine Learning methods. Used to find
+similarity as well as relationship patterns among data samples and then cluster
+those samples into groups based on features. An example of this would be
+grouping customers by their purchasing behavior.
+
+***** Association
+
+Essentially is another useful algorithm for finding patterns which further
+represents the interesting relationships between various items. An example of
+this, is to analyze a customers shopping patterns.
+
+***** Dimensionality Reduction
+
+Reduce number of feature variables for each data sample by selecting set of
+principal or representative features. Question arises of why we need to reduce
+the [[[[file:~/projects/orgmode/fleeting/202101232008-dimensionality.org][dimensionality]]]]? The reason behins is the problem of [[[[file:~/projects/orgmode/fleeting/202101232009-feature_space_complexity.org][feature space
+complexity]]]] which arises when we start analyzing and extracting millions of
+features from data samples. This problem generally refers to "curse of
+[[[[file:~/projects/orgmode/fleeting/202101232008-dimensionality.org][dimensionality]]]]". Principal Component Analysis, K-nearest neighbors and
+discriminant analysis are some of the popular algorithms for this purpose.
+
+***** Anomaly Detection
+
+Used to find the occurrences of rare events or observations that generally do
+not occur. Some of the unsupervised algorithms like clustering, KNN can detect
+anomalies based on the data and its features.
+
+** Data loading for Machine Learning Projects
+** Understanding Data with Statistics
+** Understanding data with Visualization
+** Preparing data
+** Data Feature Selection

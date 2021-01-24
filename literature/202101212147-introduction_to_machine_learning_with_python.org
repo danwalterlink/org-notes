@@ -52,23 +52,36 @@ if machine learning can help:
 
 ** scikit-learn
 
+The scikit-learn module has several state of the art machine learning
+algorithms ready to go, and [[http://scikit-learn.org/stable/documentation][documentation]] to support them, along with the
+[[http://scikit-learn.org/stable/user_guide.html][scikit-learn user manual]].
 
+scikit-learn relies on two packages, *NumPy* and *SciPy* which you will need loaded
+and ready for use. For plotting you'll need matplotlib.
+
+To install all the needed components you can run:
+: pip install numpy scipy matplotlib ipython scikit-learn pandas pillow
 
 ** Essential Libraries and Tools
-
-*** NumPy
-
-*** SciPy
-
-*** Matplotlib
-
-*** Pandas
-
-*** mglearn
-
+1. NumPy
+2. SciPy
+3. Matplotlib
+4. Pandas
+5. mglearn
 ** A first application: Classifying Iris Species
 
 *** Meet your data
+
+#+begin_src jupyter-python :session py :results output graphics :exports both :file
+from sklearn.datasets import load_iris
+iris_dataset = load_iris()
+
+print("Keys from IRIS Dataset: \n{}".format(iris_dataset.keys()))
+#+end_src
+
+#+RESULTS:
+: Keys from IRIS Dataset:
+: dict_keys(['data', 'target', 'frame', 'target_names', 'DESCR', 'feature_names', 'filename'])
 
 *** Measuring Success: Training and Testing Data
 

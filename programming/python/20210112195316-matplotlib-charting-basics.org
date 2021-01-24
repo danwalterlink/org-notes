@@ -2,8 +2,6 @@
 #+author: nick martin
 #+email: nmartin84@gmail.com
 #+source: https://matplotlib.org/3.3.3/tutorials/index.html
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://raw.githack.com/nmartin84/raw-files/master/htmlpro.css" />
-#+OPTIONS: toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
 
 * Basics or getting started with Matplotlib
 
