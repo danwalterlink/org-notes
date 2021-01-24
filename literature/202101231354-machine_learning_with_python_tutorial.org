@@ -733,9 +733,29 @@ pyplot.show()
 
 [[file:../.attach/f0/229bad-2e4e-4157-8d4c-2883e4ca6858/class.jpg]]
 
-**** Scatter Matrix Plot
+From the above output of correlation matrix, we can see that it is symmetrical
+i.e. the bottom left is same as the top right. It is also observed that each
+variable is positively correlated with each other.
 
+**** Scatter Matrix Plot :ATTACH:
 
+[[[[file:../fleeting/202101241224-scatter_plots.org][scatter plots]]]] shows how much one variable is affected by another or the
+relationship between them with the help of dots in two dimensions. Scatter plots
+are very much like line graphs in the concept that they use horizontal and
+vertical axes to plot data points.
+
+#+begin_example
+from matplotlib import pyplot
+from pandas import read_csv
+from pandas.tools.plotting import scatter_matrix
+path = r"C:\pima-indians-diabetes.csv"
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(path, names=names)
+scatter_matrix(data)
+pyplot.show()
+#+end_example
+
+[[file:../.attach/f0/229bad-2e4e-4157-8d4c-2883e4ca6858/plot_scatter_matrix.jpg]]
 
 ** Preparing data
 ** Data Feature Selection
