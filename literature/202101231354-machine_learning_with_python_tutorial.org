@@ -628,6 +628,7 @@ dtype: float64
 Visualization is a good aid to see how our data correlates with one another, and
 is a good helping aide to understanding our data as well.
 
+*** Histograms
 [[[[file:../fleeting/202101241142-histograms.org][histograms]]]] group the data into bins, and is the fastest way to get an idea
 about the distribution of each attribute in the dataset. Here are some
 characteristics for a histogram:
@@ -647,6 +648,93 @@ pyplot.show()
 #+end_example
 
 [[file:../.attach/f0/229bad-2e4e-4157-8d4c-2883e4ca6858/graph.jpg]]
+
+From this, we can observe that perhaps age, pedi and test attribute may have
+[[[[file:../fleeting/202101241201-exponential_distribution.org][exponential distribution]]]] while mass and plas have [[[[file:../fleeting/202101241200-gaussian_distribution.org][gaussian distribution]]]].
+
+*** Density Plots :ATTACH:
+
+[[[[file:../fleeting/202101241201-density_plots.org][density plots]]]] is another quick and easy technique for getting each
+attributes distribution. It's very similar to a histogram, except that it draws
+a smooth curve between bins.
+
+#+begin_example
+from matplotlib import pyplot
+from pandas import read_csv
+path = r"C:\pima-indians-diabetes.csv"
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(path, names=names)
+data.plot(kind='density', subplots=True, layout=(3,3), sharex=False)
+pyplot.show()
+#+end_example
+
+[[file:../.attach/f0/229bad-2e4e-4157-8d4c-2883e4ca6858/density.jpg]]
+
+From the above output, the difference between Density plots and Histograms can
+be easily understood.
+
+*** Box and Whisker Plots :ATTACH:
+
+[[[[file:../fleeting/202101241204-boxplots.org][boxplots]]]], is another useful visualization technique for each attributes
+distribution. Some of the characteristics for boxplots are:
+- It is univariate in nature and summarizes the distribution of each attribute.
+- It draws a line for the middle value i.e. for median.
+- It draws a box around the 25% and 75%.
+- It also draws whiskers which will give us an idea about the spread of the
+  data.
+- The dots outside the whiskers signifies the outlier values. Outlier values
+  would be 1.5 times greater than the size of the spread of the middle data.
+
+#+begin_example
+from matplotlib import pyplot
+from pandas import read_csv
+path = r"C:\pima-indians-diabetes.csv"
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(path, names=names)
+data.plot(kind='box', subplots=True, layout=(3,3), sharex=False,sharey=False)
+pyplot.show()
+#+end_example
+
+[[file:../.attach/f0/229bad-2e4e-4157-8d4c-2883e4ca6858/mass.jpg]]
+
+From the example above, we can see that age, skin and test appear to be skewed
+towards smaller values.
+*** Multivariate Plots: Interaction Among Multiple Variables
+
+Multivariate is another type of visualization aide, which applies multiple
+attributes in a single plot so we can get an understand of the relation between
+our attributes.
+
+**** Correlation Matrix Plot :ATTACH:
+
+[[[[file:../fleeting/202101232304-variable_correlation.org][variable correlation]]]] in an indication about the changes between two
+variables. We can plot a correlation matrix plot to see which variable is having
+a high or low correlation in respect to another variable.
+
+#+begin_example
+from matplotlib import pyplot
+from pandas import read_csv
+import numpy
+Path = r"C:\pima-indians-diabetes.csv"
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(Path, names=names)
+correlations = data.corr()
+fig = pyplot.figure()
+ax = fig.add_subplot(111)
+cax = ax.matshow(correlations, vmin=-1, vmax=1)
+fig.colorbar(cax)
+ticks = numpy.arange(0,9,1)
+ax.set_xticks(ticks)
+ax.set_yticks(ticks)
+ax.set_xticklabels(names)
+ax.set_yticklabels(names)
+pyplot.show()
+#+end_example
+
+[[file:../.attach/f0/229bad-2e4e-4157-8d4c-2883e4ca6858/class.jpg]]
+
+**** Scatter Matrix Plot
+
 
 
 ** Preparing data
