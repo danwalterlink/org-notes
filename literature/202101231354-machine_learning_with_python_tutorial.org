@@ -182,8 +182,167 @@ discriminant analysis are some of the popular algorithms for this purpose.
 Used to find the occurrences of rare events or observations that generally do
 not occur. Some of the unsupervised algorithms like clustering, KNN can detect
 anomalies based on the data and its features.
+**** Semi-Supervised Learning
+
+Neither supervised nor unsupervised, but a mixture of both. They tend to use a
+small amount of pre-labeled annotated data and large unsupervised learning
+component, i.e. lots of unlabeled data for training.
+
++ The first and simple approach is to build with an initial small amount of
+  labeled and annotated data, and then build the unsupervised model by applying
+  the same to the large amounts of unlabeled data to get more labeled samples.
+  Now, train the model on them and repeat the process.
++ Second approach needs some extra efforts. We first use unsupervised methods to
+  cluster similar data samples, annotate these groups and then use a combination
+  of this information to train the model.
+
+**** Reinforcement Learning
+
+These methods are rarely used. In these type of algorithms, there would be an
+agent that we want to train over a period of time so that it can interact with a
+specific environment. The agent will follow a set of strategies for interacting
+with the environment, and then after observing it will take actions regards the
+current state of the environment. Following are the main steps for reinforcement
+learning:
+- Step 1 :: First, we need to prepare an agent with some initial set of
+ strategies.
+- Step 2 :: Then observe the environment and its current state.
+- Step 3 :: Next, select the optimal policy regards the current state of the
+ environment and perform important action.
+- Step 4 :: Now, the agent can get corresponding reward or penalty as per
+ accordance with the action taken by it in previous step.
+- Step 5 :: Now, we can update the strategies if it is required so.
+- Step 6 :: At last, repeat steps 2-5 until the agent got to learn and adopt the
+ optimal policies.
+
+*** Tasks suited for Machine Learning :ATTACH:
+:PROPERTIES:
+:ID:       626daac0-c76e-47ff-8a83-a939263a1224
+:END:
+
+[[attachment:task_for_ml_problems.jpg]]
+
+**** Batch Learning
+
+In many cases, we have end-to-end Machine Learning systems in which we need to
+train the model in one go by using whole available training data. Such kind of
+learning method or algorithm is called Batch or Offline learning. It is called
+Batch or Offline learning because it is a one-time procedure and the model will
+be trained with data in one single batch. The following are the main steps of
+Batch learning methods:
+- Step 1 :: First, we need to collect all the training data for start training
+  the model.
+- Step 2 :: Now, start the training of model by providing whole training data in
+  one go.
+- Step 3 :: Next, stop learning/training process once you got satisfactory
+  results/performance.
+- Step 4 :: Finally, deploy this trained model into production. Here, it will
+  predict the output for new data sample.
+
+**** Online Learning
+
+Is the opposite of batch learning, and the data is provided in multiple
+incremental batches, called mini-batches, to the algorithm. Following are the
+main steps for online learning:
+- Step 1 :: First, we need to collect all the training data for starting
+  training of the model.
+- Step 2 :: Now, start the training of model by providing a mini-batch of
+  training data to the algorithm.
+- Step 3 :: Next, we need to provide the mini-batches of training data in
+  multiple increments to the algorithm.
+- Step 4 :: As it will not stop like batch learning hence after providing whole
+  training data in mini-batches, provide new data samples also to it.
+- Step 5 :: Finally, it will keep learning over a period of time based on the
+  new data samples.
+
+**** Based on Generalization Approach
+
+***** Instance Based Learning
+:LOGBOOK:
+CLOCK: [2021-01-23 Sat 21:33]
+:END:
+
+Instance based is one of the useful Machine Learning methods, by doing
+generalization based on the input data. It is opposite of the previously
+mentioned learning methods, in that this kind of learning involves Machine
+Learning systems as well as methods that uses the raw data points themselves to
+draw the outcomes for newer data samples without building an explicit model on
+training data.
+
+Or in simpler terms, it'll basically start working by looking at the input data
+and then use a similarity metric, it will generalize and predict the new data
+points.
+
+***** Model Based Learning
+
+An iterative process takes place on the Machine Learning models that are built
+based on various model parameters, called [[[[file:~/projects/orgmode/fleeting/202101232139-hyperparameters.org][hyperparameters]]]] and in which input
+data is used to extract features.
+
+In this model, the [[[[file:~/projects/orgmode/fleeting/202101232139-hyperparameters.org][hyperparameters]]]] are used to optimize based on various
+model validation techniques.
 
 ** Data loading for Machine Learning Projects
+
+The first and foremost thing to start any Machine Learning project, is *data*. The
+most common format for any data to be used is *csv*.
+
+*** Considerations while loading CSV data
+
+When loading data from CSV into our Machine Learning project, it is imperative
+that we take into consideration the following key items:
+
+**** File Header
+
+The header contains the metadata for the given columns, to help categorize or to
+put in summarization what the data for the given column entails. One should keep
+in mind when dealing with headers:
++ If a header exists, the header data will be taken into account and labeled
+  accordingly.
++ If no header exists, then we need to define our header names to categorize our
+  data.
+
+**** Comments
+
+We need to consider that comments may be added to the csv file, comments are
+added at the beginning of a line and notated with a ~#~ hashtag.
+
+**** Delimeter
+
+Obviously, the delimeter for which will tell the interpreter how to separate the
+data from one another. This is commonly assigned to the ~,~ character.
+
+**** Quotes
+
+It's essential to keep in mind of quotes, because quotes are used to group
+together a string of words separated by white-spaces, which when not quoted could
+lead to issues.
+
+*** Methods to load CSV data file
+
+So basically this will cover a few functions which can be applied to loading CSV
+data into python.
+
+**** Loading CSV with the Python Standard Library
+
+The first and most used approach is using the [[[[file:~/projects/orgmode/programming/python/202101021658-csv.org][csv]]]] module provided with
+Python and the ~reader()~ function.
+
+#+begin_example
+import csv
+import numpy as np
+
+path=r"c:\iris.csv"
+
+with open(path, 'r') as f:
+    reader = csv.reader(f, delimter=',')
+    headers = next(reader)
+    data = list(reader)
+    data = np.array(data).astype(float)
+#+end_example
+
+
+
 ** Understanding Data with Statistics
 ** Understanding data with Visualization
 ** Preparing data
