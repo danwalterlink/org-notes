@@ -1,8 +1,5 @@
 #+TITLE: Python References
 #+startup: num
-#+INFOJS_OPT: view:t toc:t ltoc:t mouse:underline buttons:0 path:http://thomasf.github.io/solarized-css/org-info.min.js
-#+options: toc:nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://raw.githack.com/nmartin84/html-style-sheets/master/solarized.css" />
 
 * Python Interpreter
 - Interprets the code we give it, usually from a .py file with instructions to run.

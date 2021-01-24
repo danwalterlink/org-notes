@@ -1,0 +1,16 @@
+
+body {
+    overflow: auto;
+}
+
+h1.title {
+    font-size: 60px;
+    color:#fdb928;
+    padding-top: 1.5em;
+}
+
+.title {
+    font-size: 60px;
+    color:#fdb928;
+    padding-top:1.5em;
+}

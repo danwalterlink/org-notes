@@ -4,8 +4,6 @@
 #+created: [2021-01-03 18:24]
 #+roam_tags: hypothesis
 #+LATEX_HEADER: \usepackage{ntheorem}
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://raw.githack.com/nmartin84/raw-files/master/htmlpro.css" />
-#+OPTIONS: toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
 #+source:https://towardsdatascience.com/p-values-explained-by-data-scientist-f40a746cfc8
 
 * What are P-Values?

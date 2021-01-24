@@ -7,8 +7,8 @@
 * Importing fonts
 
 #+BEGIN_SRC css
-  <style>
-  @import url('https://fonts.googleapis.com/css?family=Arsenal|Crimson+Text|Dosis|Electrolize|IBM+Plex+Sans+Condensed|Jura|Karla|Maven+Pro|Quicksand|Rajdhani&display=swap');
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald|Roboto|Source+Sans+Pro&display=swap');
-  </style>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Arsenal|Crimson+Text|Dosis|Electrolize|IBM+Plex+Sans+Condensed|Jura|Karla|Maven+Pro|Quicksand|Rajdhani&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald|Roboto|Source+Sans+Pro&display=swap');
+</style>
 #+END_SRC
