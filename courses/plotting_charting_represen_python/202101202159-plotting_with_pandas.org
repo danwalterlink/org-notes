@@ -3,7 +3,6 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-20 21:59]
 
-
 * Plotting with Pandas
 
 #+begin_src jupyter-python :session py :results output graphics :exports both :file pandas-plotting-a.png

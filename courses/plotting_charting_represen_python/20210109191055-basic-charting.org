@@ -2,9 +2,6 @@
 #+author: nick martin
 #+email: nmartin84@gmail.com
 #+source: https://www.coursera.org/learn/python-plotting/lecture/bQ4Ld/matplotlib-architecture
-#+roam_tags: python charts
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://raw.githack.com/nmartin84/raw-files/master/htmlpro.css" />
-#+OPTIONS: toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
 
 * Matplotlib Architecture
 

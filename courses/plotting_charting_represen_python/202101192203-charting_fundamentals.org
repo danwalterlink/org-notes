@@ -74,7 +74,6 @@ axs[1].hist(y, bins=n_bins)
 #+RESULTS:
 [[file:history-chart.png]]
 
-
 * Box Plots
 
 * Heatmaps

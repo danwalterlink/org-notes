@@ -2,8 +2,6 @@
 #+author: nick martin
 #+email: nmartin84@gmail.com
 #+source: https://www.coursera.org/learn/python-plotting/lecture/qrqqa/tools-for-thinking-about-design-alberto-cairo
-#+HTML_HEAD: <link rel="stylesheet" href="http://dakrone.github.io/org.css" type="text/css" />
-#+HTML_HEAD: <style type="text/css">body{ max-width:80%; }</style>
 
 * Visualization Wheel Dimensions
 
