@@ -1,0 +1,4 @@
+#+title: supervised learning
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-23 23:18]

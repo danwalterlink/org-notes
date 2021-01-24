@@ -116,8 +116,8 @@ The following are various ML Methods based on some broad categories:
 
 **** Supervised Learning
 
-*Supervised Learning*: this is basically taking the input data, and associating it
-with the expected outcome results. Some examples of this:
+[[[[file:../fleeting/202101232318-supervised_learning.org][supervised learning]]]]: this is basically taking the input data, and
+associating it with the expected outcome results. Some examples of this:
 - x: input variables
 - y: output variable
 - ~Y=f(x)~

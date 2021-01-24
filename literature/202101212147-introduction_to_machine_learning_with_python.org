@@ -23,7 +23,7 @@ described a human face is different than the computer.
 
 *** Problems Machine Learning can Solve
 
-Essentially, there's a terminology called "supervised learning", in-which the
+Essentially, there's a terminology called [[[[file:../fleeting/202101232318-supervised_learning.org][supervised learning]]]], in-which the
 user provides input to the computer that it uses to train, the expected outcome
 and the computer will find a way to provide the given output.
 
