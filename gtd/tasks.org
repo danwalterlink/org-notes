@@ -1,7 +1,6 @@
 #+title: Open Tasks
 #+author: nicholas martin
 #+email: nmartin84@gmail.com
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css" />
 #+startup: overview
 
 * Goals

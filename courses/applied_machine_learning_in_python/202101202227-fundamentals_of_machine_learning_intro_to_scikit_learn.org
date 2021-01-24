@@ -21,7 +21,7 @@ predictions on data).
 ** Key Concepts in Machine Learning
 
 There are essentially two types of machine learning:
-- Supervised machine learning, or [[[[file:../../../fleeting/202101232318-supervised_learning.org][supervised learning]]]].
+- Supervised machine learning, or [[[[file:../../fleeting/202101232318-supervised_learning.org][supervised learning]]]].
   + Learn to predicted target values from labelled data
   + classification (target values are discrete classes)
   + regression (target values are continuous values)
@@ -29,7 +29,7 @@ There are essentially two types of machine learning:
 "So if the output is a category a finite number of possibilities such as a
 fraudulent or not fraudulent prediction for a credit card transaction. Or maybe
 it's the English word associated with an audio signal for speech recognition. We
-call this a classification problem within [[[[file:../../../fleeting/202101232318-supervised_learning.org][supervised learning]]]], and the
+call this a classification problem within [[[[file:../../fleeting/202101232318-supervised_learning.org][supervised learning]]]], and the
 function that we learn is called the classifier."
 
 If the output variable we want to predict is not a category, but a real valued
