@@ -517,7 +517,38 @@ max    17.00      199.00    122.00      99.00    846.00      67.10       2.42   
 
 *** Reviewing Class Distribution
 
-Class distribution statistics is useful in classification
+[[[[file:../fleeting/202101232301-class_distribution.org][class distribution]]]] statistics is useful in classification problems where we
+need to know the balance of class values. It's important to know class value
+distribution because if we have high imbalanced class distribution, i.e. one
+class is having lots more observations than another class, then it ma need
+special handling of data preperation stage of our Machine Learning project.
+
+#+begin_example
+from pandas import read_csv
+path = r"C:\pima-indians-diabetes.csv"
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(path, names=names)
+count_class = data.groupby('class').size()
+print(count_class)
+
+Class
+0  500
+1  268
+dtype: int64
+#+end_example
+
+We can see from the example output above, that our class 0 observations are
+nearly double that of class 1.
+
+*** Reviewing Correlation between Attributes
+
+The relationship between two variables is called correlation, or better yet
+[[[[file:../fleeting/202101232304-variable_correlation.org][variable correlation]]]]. In [[[[file:../statistics/202101212128-statistics.org][statistics]]]], the most efficient method for
+calculation correlation is [[[[file:../fleeting/202101232306-pearsons_correlation_coefficient.org][pearsons correlation coefficient]]]]. It can have
+three values as follows:
++ Coefficient value = 1 :: Represents full positive correlation between variables.
++ Coefficient value = -1 :: Represents full negative correlation between variables.
++ Coefficient value = 0 :: It represents no correlation at all between variables.
 
 ** Understanding data with Visualization
 ** Preparing data
