@@ -293,3 +293,12 @@ For my in-door cycling, since I broke the cycling machine... :(
 :PROPERTIES:
 :CREATED: [2021-01-19 Tue 23:08]
 :END:
+** REFILE Check out timecop (80s movie)
+:PROPERTIES:
+:CREATED: [2021-01-23 Sat 23:23]
+:END:
+** REFILE Digest the tutorialspoint intro to machine learning
+:PROPERTIES:
+:CREATED: [2021-01-23 Sat 23:24]
+:END:
+Source = https://www.tutorialspoint.com/machine_learning_with_python/index.htm
