@@ -3,7 +3,6 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-18 12:27]
 
-* Characteristics of Anxiety
 - Maladaptive thoughts that are typically consumed with fear or worry
 - Fears of not performing to the same standards as their peers
 - Fear of taking tests
