@@ -301,3 +301,13 @@ For my in-door cycling, since I broke the cycling machine... :(
 :CREATED: [2021-01-23 Sat 23:24]
 :END:
 Source = https://www.tutorialspoint.com/machine_learning_with_python/index.htm
+** REFILE See if we can adapt jethros build script to export html site
+:PROPERTIES:
+:CREATED: [2021-01-24 Sun 20:32]
+:END:
+Source = https://github.com/jethrokuan/braindump
+** REFILE How to make yourself into a learning machine
+:PROPERTIES:
+:CREATED: [2021-01-24 Sun 21:41]
+:END:
+Source = https://superorganizers.every.to/p/how-to-build-a-learning-machine
