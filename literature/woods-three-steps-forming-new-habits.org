@@ -2,10 +2,6 @@
 #+author: nicholas martin
 #+email: nmartin84@gmail.com
 
-+ author :: Ali Pattillo
-+ tags :: [[file:../psychology/202101242150-habits.org][habits]]
-+ source :: https://www.inverse.com/mind-body/the-truth-about-making-breaking-habits?utm_source=pocket-newtab
-
 #+begin_quote
 We think if we're motivated enough and have enough self-control, we'll
 follow through without realizing that the circumstances around us, the

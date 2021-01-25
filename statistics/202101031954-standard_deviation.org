@@ -1,3 +1,6 @@
+:PROPERTIES:
+:ID:       a88bafbf-ee96-4a2d-8625-2e45c14dfda9
+:END:
 #+title: standard deviation
 #+author: Nick Martin
 #+email: nmartin84@gmail.com
@@ -11,6 +14,9 @@ dispersion of a set of values. A low standard deviation indicates that the
 values tend to be close to the mean (also called the expected value) of the set,
 while a high standard deviation indicates that the values are spread out over a
 wider range.
+
+#+caption: A plot of normal distribution (or bell-shaped curve) where each band has a width of 1 standard deviation.
+[[file:../attach/a8/8bafbf-ee96-4a2d-8625-2e45c14dfda9/Standard_deviation_diagram.svg]]
 
 Standard deviation may be abbreviated SD, and is most commonly represented in
 mathematical texts and equations by the lower case Greek letter sigma σ, for the
