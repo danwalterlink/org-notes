@@ -207,6 +207,7 @@ very complex, cytoscape may help you alleviate this complexity.
 Circos was originally designed for visualizing genomic data but can create
 figures from data in any field. Circos is useful if you have data that describes
 relationships or multilayered annotations of one or more scales.
+
 * Basic Plotting with Matplotlib
 
 - pyplot will return the current figure with the function ~gcf()~.
@@ -219,7 +220,7 @@ any number of arguments, but generally speaking the arguments should be grouped
 in pairs of "x,y" or "x,y and string". The string being how we want our data to
 be rendered.
 
-#+begin_src jupyter-python :file basic-barplot.svg :session py :results raw :exports both
+#+begin_src jupyter-python :file basic-barplot.svg :session py :results raw :exports both :file basic-barplot.svg
 %matplotlib inline
 %config InlineBackend.figure_format = 'svg'
 import matplotlib.pyplot as plt

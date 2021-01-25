@@ -2,9 +2,6 @@
 #+author: Nick Martin
 #+email: nmartin84@gmail.com
 #+created: [2021-01-16 21:09]
-#+HTML_HEAD: <link href="http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Inconsolata:400,700" rel="stylesheet" type="text/css" />
-#+HTML_HEAD: <link href="https://raw.githack.com/nmartin84/html-style-sheets/master/orgspec.css" rel="stylesheet" type="text/css" />
-#+TOC: headlines 3
 
 In mathematics and computer science, an algorithm (/ˈælɡərɪðəm/ (About this
 soundlisten)) is a finite sequence of well-defined, computer-implementable

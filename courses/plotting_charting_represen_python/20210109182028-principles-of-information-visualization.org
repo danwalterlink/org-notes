@@ -22,7 +22,7 @@
 
 ** Data-ink ratio
 
-So one thing that's brought up or mentioned, is the [[[[file:../../../statistics/202101091842-heuristic.org][heuristic]]]] proces: which is
+So one thing that's brought up or mentioned, is the [[[[file:../../statistics/202101091842-heuristic.org][heuristic]]]] proces: which is
 a process or rule that is meant to guide or help you in decision making; known
 to not be perfect, but to be practical in nature. They are meant to help until
 you have a reason to not follow them anymore.
