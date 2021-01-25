@@ -253,7 +253,7 @@ plt.plot(3, 2, '.')
 [[file:basic_plot_wdot.svg]]
 
 In this instance, we can set the "x", "y" axies ranges with the axis() function.
-#+begin_src jupyter-python :session py :results output graphics :exports both
+#+begin_src jupyter-python :session py :results output graphics :exports both :file basics-plot.svg
 %matplotlib inline
 import matplotlib.pyplot as plt
 
@@ -264,7 +264,7 @@ plt.plot(2.5, 2.5, 'o')
 #+end_src
 
 #+RESULTS:
-[[file:./.ob-jupyter/72d683472cc13e20c8997ebd2c0e19493397d443.svg]]
+[[file:basics-plot.svg]]
 
 #+begin_src jupyter-python :session py :results output graphics :exports both :file basic_plot_backendagg.svg
 %matplotlib inline
@@ -292,7 +292,7 @@ plt.show()
 
 Scatterplots, well we know what those are... Nifty little diagrams eh?
 
-#+begin_src jupyter-python :session py :results output graphics :exports both
+#+begin_src jupyter-python :session py :results output graphics :exports both :file scatter-basics-plot.svg
 import numpy as np
 import matplotlib.pyplot as plt
 %matplotlib inline
@@ -308,7 +308,7 @@ plt.scatter(x, y, s=100, c=colors)
 #+end_src
 
 #+RESULTS:
-[[file:./.ob-jupyter/278cc26cf3b91cf809e32af7155eda955fbaaba8.svg]]
+[[file:scatter-basics-plot.svg]]
 
 Seperation of data points into lists which described them as components is a
 pretty common pattern in matplotlib.
@@ -385,7 +385,7 @@ plt.gca().fill_between(range(len(linear_data)), linear_data, quadratic_data, fac
 
 And here we are going to add some dates to the mixture:
 
-#+begin_src jupyter-python :session py :results output graphics :exports both :file lineplot-basic-dates.png
+#+begin_src jupyter-python :session py :results output graphics :exports both :file lineplot-basic-dates.svg
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -407,10 +407,11 @@ for item in x.get_ticklabels():
 #+end_src
 
 #+RESULTS:
-[[file:lineplot-basic-dates.png]]
+[[file:lineplot-basic-dates.svg]]
+
 ** Bar Charts
 
-#+begin_src jupyter-python :session py :results output graphics :exports both :file barchart-basics.png
+#+begin_src jupyter-python :session py :results output graphics :exports both :file barchart-basics.svg
 import matplotlib.pyplot as plt
 from random import randint
 %matplotlib inline
@@ -429,14 +430,15 @@ plt.bar(new_xvals, quadratic_data, width=0.3, color='red')
 linear_err=[randint(0,15) for x in range(len(linear_data))]
 plt.bar(xvals, linear_data, width=0.3, yerr=linear_err)
 #+end_src
-TODO: Define what ~yerr~ is.
 
 #+RESULTS:
-[[file:barchart-basics.png]]
+[[file:barchart-basics.svg]]
+
+TODO: Define what ~yerr~ is.
 
 You could also do a stacked barchart by specifying ~bottom=value~ in your plot
 function:
-#+begin_src jupyter-python :session py :results output graphics :exports both :file barchart-basics-stacked.png
+#+begin_src jupyter-python :session py :results output graphics :exports both :file barchart-basics-stacked.svg
 import matplotlib.pyplot as plt
 from random import randint
 %matplotlib inline
@@ -455,11 +457,11 @@ plt.bar(xvals, quadratic_data, width=0.3, bottom=linear_data,   color='r')
 #+end_src
 
 #+RESULTS:
-[[file:barchart-basics-stacked.png]]
+[[file:barchart-basics-stacked.svg]]
 
 In this example, we will convert our barchart into a horizontal chart by
 specifying the function ~plt.barh()~.
-#+begin_src jupyter-python :session py :results output graphics :exports both :file barchart-hor-basics-stacked.png
+#+begin_src jupyter-python :session py :results output graphics :exports both :file barchart-hor-basics-stacked.svg
 import matplotlib.pyplot as plt
 from random import randint
 %matplotlib inline
@@ -478,4 +480,4 @@ plt.barh(xvals, quadratic_data, height=0.3, left=linear_data, color='r')
 #+end_src
 
 #+RESULTS:
-[[file:barchart-hor-basics-stacked.png]]
+[[file:barchart-hor-basics-stacked.svg]]

@@ -16,7 +16,7 @@ while a high standard deviation indicates that the values are spread out over a
 wider range.
 
 #+caption: A plot of normal distribution (or bell-shaped curve) where each band has a width of 1 standard deviation.
-[[file:../attach/a8/8bafbf-ee96-4a2d-8625-2e45c14dfda9/Standard_deviation_diagram.svg]]
+[[file:../.attach/a8/8bafbf-ee96-4a2d-8625-2e45c14dfda9/Standard_deviation_diagram.svg]]
 
 Standard deviation may be abbreviated SD, and is most commonly represented in
 mathematical texts and equations by the lower case Greek letter sigma σ, for the
