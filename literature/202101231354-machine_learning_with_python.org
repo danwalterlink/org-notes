@@ -1,12 +1,8 @@
-#+title: Machine Learning with Python Tutorial
+#+title: Machine Learning with Python
 #+author: Nick Martin
 #+email: nmartin84@gmail.com
 #+created: [2021-01-23 13:54]
 #+source: https://www.tutorialspoint.com/machine_learning_with_python/index.htm
-
-+ author :: Tutorialspoint
-+ tags :: [[file:../programming/202101021925-machine_learning.org][machine learning]]
-+ source :: https://www.tutorialspoint.com/machine_learning_with_python/index.htm
 
 * Machine Learning with Python
 
@@ -918,7 +914,181 @@ Normalized data:
 ]
 #+end_example
 
+***** Binarization
+
+Essentially this will allow us to transform our data into binary. We set a value
+to our binary threshold, and then anything above or below our thresholds will
+essentially be converted to ~1.0~ or ~0.0~. This technique is useful for when we
+have probabilities in our datasets and want to convert them into crisp values.
+
+#+begin_example
+from pandas import read_csv
+from sklearn.preprocessing import Binarizer
+path = r'C:\pima-indians-diabetes.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(path, names=names)
+array = dataframe.values
+#+end_example
+
+Now we can use the ~Binarize~ class to convert our data.
+
+#+begin_example
+binarizer = Binarizer(threshold=0.5).fit(array)
+Data_binarized = binarizer.transform(array)
+#+end_example
+
+Here, we will show the first 5 rows in our dataset.
+
+#+begin_example
+print ("\nBinary data:\n", Data_binarized [0:5])
+#+end_example
+
+#+begin_example
+Binary data:
+[
+   [1. 1. 1. 1. 0. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 0. 1. 0. 1. 0.]
+   [1. 1. 1. 0. 0. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1. 1. 0. 1. 0.]
+   [0. 1. 1. 1. 1. 1. 1. 1. 1.]
+]
+#+end_example
+
+***** Standarization
+
+Standardization is useful for converting data with a Gaussian distribution. It
+differs the mean and Standard Deviation to a standard Gaussian distribution
+with a mean of 0 and a SD of 1. This is useful in linear regression, logistic
+regression that assumes a Gaussian distribution in input dataset and produce
+better results with rescales data. We can standarize the data with the help of
+the ~StandardScaler~ class from the scikit-learn Python Library.
+
+#+begin_example
+from sklearn.preprocessing import StandardScaler
+from pandas import read_csv
+from numpy import set_printoptions
+path = r'C:\pima-indians-diabetes.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(path, names=names)
+array = dataframe.values
+#+end_example
+
+Now, we use the ~StanardScaler~ class to rescale the data.
+
+#+begin_example
+data_scaler = StandardScaler().fit(array)
+data_rescaled = data_scaler.transform(array)
+#+end_example
+
+Here we are setting the precision to 2, and displaying the first 5 rows.
+
+#+begin_example
+set_printoptions(precision=2)
+print ("\nRescaled data:\n", data_rescaled [0:5])
+#+end_example
+
+#+begin_example
+Rescaled data:
+[
+   [ 0.64  0.85  0.15  0.91 -0.69  0.2   0.47  1.43  1.37]
+   [-0.84 -1.12 -0.16  0.53 -0.69 -0.68 -0.37 -0.19 -0.73]
+   [ 1.23  1.94 -0.26 -1.29 -0.69 -1.1   0.6  -0.11  1.37]
+   [-0.84 -1.   -0.16  0.15  0.12 -0.49 -0.92 -1.04 -0.73]
+   [-1.14  0.5  -1.5   0.91  0.77  1.41  5.48 -0.02  1.37]
+]
+#+end_example
 
 
+
+
+
+
+** Data Labeling
+#+source: https://aws.amazon.com/sagemaker/groundtruth/what-is-data-labeling/#:~:text=In%20machine%20learning%2C%20data%20labeling,model%20can%20learn%20from%20it.
+
+In Machine Learning, Data labelling is essentially putting a label on a piece of
+data to identify that raw data (audio, image, text files, etc). For example when
+looking at a photo, and the computer is identifying the object in that photo, it
+helps the computer to "learn" by classifying or labelling what that photo
+contains... In short, the photo could be labeled "bird" or "card" and the
+computer would learn how to identify it.
+
+*** How does Data Labeling work?
+
+So it's essentially using [[[file:../fleeting/202101232318-supervised_learning.org][supervised learning]]] to help train the computer
+to identify what object it's learning. This is essentially mapping one input to
+one output, we know what the desired output should be, and we need to train the
+computer to identify that output.
+
+In Machine Learning, a properly labeled dataset that you use as the objective
+standard to train and asses a given model is often called [[[file:../programming/machine_learning/202101252109-ground_truth.org][ground truth]]].
+
+*** What are some commong types of Data Labeling?
+
+Computer Vision: When building a computer vision system, you first need to label
+images, pixels, or key points, or create a border that fully encloses a digital
+image, known as a bounding box, to generate your training dataset. For example,
+you can classify images by quality type (like product vs. lifestyle images) or
+content (what’s actually in the image itself), or you can segment an image at
+the pixel level. You can then use this training data to build a computer vision
+model that can be used to automatically categorize images, detect the location
+of objects, identify key points in an image, or segment an image.
+
+Natural Language Processing: Natural language processing requires you to first
+manually identify important sections of text or tag the text with specific
+labels to generate your training dataset. For example, you may want to identify
+the sentiment or intent of a text blurb, identify parts of speech, classify
+proper nouns like places and people, and identify text in images, PDFs, or other
+files. To do this, you can draw bounding boxes around text and then manually
+transcribe the text in your training dataset. Natural language processing models
+are used for sentiment analysis, entity name recognition, and optical character
+recognition.
+
+Audio Processing: Audio processing converts all kinds of sounds such as speech,
+wildlife noises (barks, whistles, or chirps), and building sounds (breaking
+glass, scans, or alarms) into a structured format so it can be used in machine
+learning. Audio processing often requires you to first manually transcribe it
+into written text. From there, you can uncover deeper information about the
+audio by adding tags and categorizing the audio. This categorized audio becomes
+your training dataset.
+
+
+*** What are some best practices for Data Labeling?
+
+- Intuitive and streamlined task interfaces :: to help minimize cognitive load
+  and context switching for human labelers.
+- Labeler consensus :: to help counteract the error/bias of individual
+  annotators. Labeler consensus involves sending each dataset object to multiple
+  annotators and then consolidating their responses (called “annotations”) into
+  a single label.
+- Label auditing :: to verify the accuracy of labels and update them as
+  necessary.
+- Active learning :: to make data labeling more efficient by using machine
+  learning to identify the most useful data to be labeled by humans.
+
+*** How can data labeling be done efficiently? :ATTACH:
+:PROPERTIES:
+:ID:       d4975c6a-25e0-4e1f-9c8a-233e93d43dd2
+:END:
+
+Successful machine learning models are built on the shoulders of large volumes
+of high-quality training data. But, the process to create the training data
+necessary to build these models is often expensive, complicated, and
+time-consuming. The majority of models created today require a human to manually
+label data in a way that allows the model to learn how to make correct
+decisions. To overcome this challenge, labeling can be made more efficient by
+using a machine learning model to label data automatically.
+
+In this process, a machine learning model for labeling data is first trained on
+a subset of your raw data that has been labeled by humans. Where the labeling
+model has high confidence in its results based on what it has learned so far, it
+will automatically apply labels to the raw data. Where the labeling model has
+lower confidence in its results, it will pass the data to humans to do the
+labeling. The human-generated labels are then provided back to the labeling
+model for it to learn from and improve its ability to automatically label the
+next set of raw data. Over time, the model can label more and more data
+automatically and substantially speed up the creation of training datasets.
+
+[[file:../.attach/d4/975c6a-25e0-4e1f-9c8a-233e93d43dd2/_20210125_211455screenshot.png]]
 
 ** Data Feature Selection

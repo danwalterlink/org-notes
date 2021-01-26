@@ -1,0 +1,4 @@
+#+title: ground truth
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-25 21:09]
