@@ -27,9 +27,9 @@ Before discussing the machine learning model, we must need to understand the
 following formal definition of ML given by professor Mitchell:
 
 #+begin_quote
-“A computer program is said to learn from experience E with respect to some
-class of tasks T and performance measure P, if its performance at tasks in T, as
-measured by P, improves with experience E.” -- Somebody important?
+“A computer program is said to learn from experience (E) with respect to some
+class of tasks (T) and performance measure (P), if its performance at tasks in
+(T), as measured by (P), improves with experience (E).”
 #+end_quote
 
 The above quote basically calls-out the three elements to the machine learning
@@ -762,4 +762,163 @@ pyplot.show()
 [[file:../.attach/f0/229bad-2e4e-4157-8d4c-2883e4ca6858/plot_scatter_matrix.jpg]]
 
 ** Preparing data
+
+First and foremost, we must have clean data, that's comprehensible, and
+applicable to applying towards our solution, or to finding the solution of our
+problem.
+
+*** Data Pre-Processing
+
+Pre-processing is the method of which we clean-up and prepare our data to be
+inputted into our Machine Learning algorithm. This process is crucial to ensure
+that we have the appropriate data in a cleaned up format.
+
+There are a few methods of which we can follow through on this process, of those
+we have:
+
+**** Scaling
+
+Most probable, our dataset presents attributes in various scales, which is not
+well formed for our algorithm. So the first step in this process is rescaling.
+
+In this example we will rescale the data of Pima Indians Diabetes dataset which
+we used earlier. First, the CSV data will be loaded (as done in the previous
+chapters) and then with the help of MinMaxScaler class, it will be rescaled in
+the range of 0 and 1.
+
+#+begin_example
+from pandas import read_csv
+from numpy import set_printoptions
+from sklearn import preprocessing
+path = r'C:\pima-indians-diabetes.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(path, names=names)
+array = dataframe.values
+#+end_example
+
+Now we use ~MinMaxScaler~ class to rescale the data in the range of 0 and 1.
+
+#+begin_example
+data_scaler = preprocessing.MinMaxScaler(feature_range=(0,1))
+data_rescaled = data_scaler.fit_transform(array)
+#+end_example
+
+We can also summarize the data for output as per our choice. Here, we are
+setting the precision to 1 and showing the first 10 rows in the output.
+
+#+begin_example
+set_printoptions(precision=1)
+print ("\nScaled data:\n", data_rescaled[0:10])
+#+end_example
+
+#+begin_example
+Scaled data:
+[
+   [0.4 0.7 0.6 0.4 0.  0.5 0.2 0.5 1. ]
+   [0.1 0.4 0.5 0.3 0.  0.4 0.1 0.2 0. ]
+   [0.5 0.9 0.5 0.  0.  0.3 0.3 0.2 1. ]
+   [0.1 0.4 0.5 0.2 0.1 0.4 0.  0.  0. ]
+   [0.  0.7 0.3 0.4 0.2 0.6 0.9 0.2 1. ]
+   [0.3 0.6 0.6 0.  0.  0.4 0.1 0.2 0. ]
+   [0.2 0.4 0.4 0.3 0.1 0.5 0.1 0.1 1. ]
+   [0.6 0.6 0.  0.  0.  0.5 0.  0.1 0. ]
+   [0.1 1.  0.6 0.5 0.6 0.5 0.  0.5 1. ]
+   [0.5 0.6 0.8 0.  0.  0.  0.1 0.6 1. ]
+]
+#+end_example
+
+From the above output, all the data got rescaled into the range of 0 and 1.
+
+**** Normalization
+
+Another method is what we call normalization, where we take our dataset and
+rescale each row to be a value of max 1. It is mainly useful in Spare dataset
+where we have lots of zeros. We can rescale with the help of the scikit-learn
+python library.
+
+Some types of normalization include:
+
+***** L1 Normalization
+
+It may be defined as the normalization technique that modifies the dataset
+values in a way that in each row the sum of the absolute values will always be
+up to 1. It is also called Least Absolute Deviations.
+
+#+begin_example
+from pandas import read_csv
+from numpy import set_printoptions
+from sklearn.preprocessing import Normalizer
+path = r'C:\pima-indians-diabetes.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv (path, names=names)
+array = dataframe.values
+#+end_example
+
+Now, we can use the ~Normalize~ class with L1 to normalize the data.
+
+#+begin_example
+Data_normalizer = Normalizer(norm='l1').fit(array)
+Data_normalized = Data_normalizer.transform(array)
+#+end_example
+
+We can also summarize the data for output as per our choice. Here, we are
+setting the precision to 2 and showing the first 3 rows in the output.
+
+#+begin_example
+set_printoptions(precision=2)
+print ("\nNormalized data:\n", Data_normalized [0:3])
+#+end_example
+
+#+begin_example
+Normalized data:
+[
+   [0.02 0.43 0.21 0.1  0. 0.1  0. 0.14 0. ]
+   [0.   0.36 0.28 0.12 0. 0.11 0. 0.13 0. ]
+   [0.03 0.59 0.21 0.   0. 0.07 0. 0.1  0. ]
+]
+#+end_example
+
+***** L2 Normalization
+
+It may be defined as the normalization technique that modifies the dataset
+values in a way that in each row the sum of the squares will always be up to 1.
+It is also called least squares.
+
+#+begin_example
+from pandas import read_csv
+from numpy import set_printoptions
+from sklearn.preprocessing import Normalizer
+path = r'C:\pima-indians-diabetes.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv (path, names=names)
+array = dataframe.values
+#+end_example
+
+New, we use the L2 ~Normalizer~ class to normalize the data.
+
+#+begin_example
+Data_normalizer = Normalizer(norm='l2').fit(array)
+Data_normalized = Data_normalizer.transform(array)
+#+end_example
+
+We can also summarize the data for output as per our choice. Here, we are
+setting the precision to 2 and showing the first 3 rows in the output.
+
+#+begin_example
+set_printoptions(precision=2)
+print ("\nNormalized data:\n", Data_normalized [0:3])
+#+end_example
+
+#+begin_example
+Normalized data:
+[
+   [0.03 0.83 0.4  0.2  0. 0.19 0. 0.28 0.01]
+   [0.01 0.72 0.56 0.24 0. 0.22 0. 0.26 0.  ]
+   [0.04 0.92 0.32 0.   0. 0.12 0. 0.16 0.01]
+]
+#+end_example
+
+
+
+
 ** Data Feature Selection
