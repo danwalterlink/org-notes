@@ -122,17 +122,19 @@ analyzing difficult situations]]
 
 ** Birthdays
 
-*** NEXT Joshie's Birthday
+*** TODO Joshie's Birthday
 SCHEDULED: <2021-02-01 Mon ++1y>
 :PROPERTIES:
 :ID:       07347d91-e736-4536-a589-5dc53c360583
+:REPEAT_TO_STATE: TODO
 :END:
 
-*** NEXT Elaine's Birthday
+*** TODO Elaine's Birthday
 SCHEDULED: <2021-07-07 Wed ++1y>
 :PROPERTIES:
 :LAST_REPEAT: [2020-07-09 Thu 10:06]
 :ID:       53f01a40-53ea-4aa0-a883-9f124406f1df
+:REPEAT_TO_STATE: TODO
 :END:
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2020-07-09 Thu 10:06]
@@ -142,15 +144,24 @@ SCHEDULED: <2021-07-07 Wed ++1y>
 SCHEDULED: <2021-12-05 Sun ++1y>
 :PROPERTIES:
 :LAST_REPEAT: [2020-12-06 Sun 10:22]
+:REPEAT_TO_STATE: TODO
 :END:
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2020-12-06 Sun 10:22]
 :END:
 
 *** Mom's Birthday
+:PROPERTIES:
+:REPEAT_TO_STATE: TODO
+:END:
 
 *** Scott's Birthday
+:PROPERTIES:
+:REPEAT_TO_STATE: TODO
+:END:
 
 *** Cory's Birthday
+:PROPERTIES:
+:REPEAT_TO_STATE: TODO
+:END:
 
-** Holidays

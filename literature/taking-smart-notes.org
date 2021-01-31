@@ -1,21 +1,19 @@
-* Taking Smart Notes :ATTACH:
-  :PROPERTIES:
-  :CUSTOM_ID: taking-smart-notes
-  :ID:       697a6511-f20c-4060-8906-0850e5ce7ea9
-  :END:
+#+title: Taking Smart Notes
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
 
-- source: https://fortelabs.co/blog/how-to-take-smart-notes/
+METADATA:
+- SOURCE :: [[https://fortelabs.co/blog/how-to-take-smart-notes/][How To Take Smart Notes: 10 Principles to Revolutionize Your Note-Taking]]
 
-The article discusses about Luhmann's slip-box, or Zettelkasten. The
-idea is that your notes become your "second brain", secodary memory or
-else. He would later come about as one of the most influential
-sociologist and scientist of the 20th century.
+The article discusses about Luhmann's slip-box, or Zettelkasten. The idea is
+that your notes become your "second brain", secodary memory or else. He would
+later come about as one of the most influential sociologist and scientist of the
+20th century.
 
 #+CAPTION: picture 4
 [[file:../.attach/69/7a6511-f20c-4060-8906-0850e5ce7ea9/pic_1608775573289.png]]
 
 Here's a breakdown of how it works:
-
 - Luhmann wrote down interesting or potentially useful ideas he
   encountered in his reading on uniformly sized index cards
 - He wrote only on one side of each card to eliminate the need to flip
@@ -34,180 +32,138 @@ Here's a breakdown of how it works:
   existing ones, create new branches from existing cards, and create new
   links between cards on different "strands"
 
-One thing that it points out is about creating an index for a new idea,
-starting at 1 and then as you add new index cards tied to that idea, you
-would indicate it's branch by adding a suffix letter to the index.
-("index 1" -> "index 1a")
+One thing that it points out is about creating an index for a new idea, starting
+at 1 and then as you add new index cards tied to that idea, you would indicate
+it's branch by adding a suffix letter to the index.  ("index 1" -> "index 1a")
 
-** Principle 1: Writing is not the outcome of thinking; it is the medium
-in which thinking takes place
-   :PROPERTIES:
-   :CUSTOM_ID: principle-1-writing-is-not-the-outcome-of-thinking-it-is-the-medium-in-which-thinking-takes-place
-   :END:
+* Principle 1: Writing is not the outcome of thinking; it is the medium in which thinking takes place
 
 Essentially writing doesn't take place until we have an experience, and
-experience from the things we read, listen or involved in. Such as
-podcasts, a life experience, a piece of art and how it affects the
-person. (See How art affects our experience)
+experience from the things we read, listen or involved in. Such as podcasts, a
+life experience, a piece of art and how it affects the person. (See How art
+affects our experience)
 
-If you want to learn, or keep track of something you read, even if you
-don't write a grand theory on the thing, you still need a way to keep
-track of the things you read or learn.
+If you want to learn, or keep track of something you read, even if you don't
+write a grand theory on the thing, you still need a way to keep track of the
+things you read or learn.
 
 #+BEGIN_QUOTE
   It's Iike learning to swim -- you have to learn by doing it, not by
   merely reading about it.
 #+END_QUOTE
 
-Reading, is not so much just to learn something new, but to understand
-it and the more connections we can tie to a concept, or idea then the
-more it makes sense or we can make sense of it.
+Reading, is not so much just to learn something new, but to understand it and
+the more connections we can tie to a concept, or idea then the more it makes
+sense or we can make sense of it.
 
 #+BEGIN_QUOTE
-  For example, you could memorize the fact that arteries are red and
-  veins are blue. But it is only when you understand why -- that
-  arteries carry oxygen-rich blood from the heart to the rest of the
-  body, while veins carry blood low in oxygen back to the heart -- that
-  that fact has any value. And once we make this meaningful connection
-  between ideas, it's hard not to remember it.
+For example, you could memorize the fact that arteries are red and
+veins are blue. But it is only when you understand why -- that
+arteries carry oxygen-rich blood from the heart to the rest of the
+body, while veins carry blood low in oxygen back to the heart -- that
+that fact has any value. And once we make this meaningful connection
+between ideas, it's hard not to remember it.
 #+END_QUOTE
 
-Essentially, the meaning of something requires elaboration, and such
-elaboration that it's often times difficult to complete this in our
-head, so instead we need to lay it out into writings, things we put into
-our own words in order to comprehend its meaning.
+Essentially, the meaning of something requires elaboration, and such elaboration
+that it's often times difficult to complete this in our head, so instead we need
+to lay it out into writings, things we put into our own words in order to
+comprehend its meaning.
 
-** Principle 2: Do your work as if writing is the only thing that
-matters
-   :PROPERTIES:
-   :CUSTOM_ID: principle-2-do-your-work-as-if-writing-is-the-only-thing-that-matters
-   :END:
+* Principle 2: Do your work as if writing is the only thing that matters
 
-The idea is that any research that is not published, or publicly
-available is essentially the same as not having the idea at all. For
-what is an idea, if it's not to be shared, and challenged by others?
+The idea is that any research that is not published, or publicly available is
+essentially the same as not having the idea at all. For what is an idea, if it's
+not to be shared, and challenged by others?
 
-This does not mean you have to go publish every idea, neither great nor
-small or write a blog post about it, but what it does mean is that in
-some capacity we share these ideas with our friends, family, coworkers
-so that our ideas get out there and amongst others to stem off.
+This does not mean you have to go publish every idea, neither great nor small or
+write a blog post about it, but what it does mean is that in some capacity we
+share these ideas with our friends, family, coworkers so that our ideas get out
+there and amongst others to stem off.
 
-For us to take effective notes, is not to essentially copy every detail
-of what we consume in order to memorize it, but to break it down into
-its simplest forms so that questions can arise from it. This is where
-our critical thinking then kicks in, and allows us to build connections,
-curiosuity will then lead to more questions pertaining back to the root
-of the very topic itself.
+For us to take effective notes, is not to essentially copy every detail of what
+we consume in order to memorize it, but to break it down into its simplest forms
+so that questions can arise from it. This is where our critical thinking then
+kicks in, and allows us to build connections, curiosuity will then lead to more
+questions pertaining back to the root of the very topic itself.
 
-** Principle 3: Nobody starts from scratch
-   :PROPERTIES:
-   :CUSTOM_ID: principle-3-nobody-starts-from-scratch
-   :END:
+* Principle 3: Nobody starts from scratch
 
-Creativity is not the creation of something from nothing, but it's the
-taking of something that's already there, and exploring it in a new way.
+Creativity is not the creation of something from nothing, but it's the taking of
+something that's already there, and exploring it in a new way.
 
-So essentially, creativity first starts with understanding, and then
-allowing our creativity to expand upon that original idea into new
-ideas, new theories, and even more problems to be solved.
+So essentially, creativity first starts with understanding, and then allowing
+our creativity to expand upon that original idea into new ideas, new theories,
+and even more problems to be solved.
 
-And because of this, in order to create something new, or have
-creativitiy we often times have to make notes of these things we
-research or study, otherwise we are stuck retracing our steps or trying
-to be creative without the prior research, which can ultimately lead to
-us failing.
+And because of this, in order to create something new, or have creativitiy we
+often times have to make notes of these things we research or study, otherwise
+we are stuck retracing our steps or trying to be creative without the prior
+research, which can ultimately lead to us failing.
 
-** Principle 4: Our tools and techniques are only as valuable as the
-workflow
-   :PROPERTIES:
-   :CUSTOM_ID: principle-4-our-tools-and-techniques-are-only-as-valuable-as-the-workflow
-   :END:
+* Principle 4: Our tools and techniques are only as valuable as the workflow
 
-Essentially, we need a workflow to capture, collect, analyze and share
-our ideas. Because without an established workflow, we can end up
-backtracing our steps or trying to create something without doing our
-much needed research.
+Essentially, we need a workflow to capture, collect, analyze and share our
+ideas. Because without an established workflow, we can end up backtracing our
+steps or trying to create something without doing our much needed research.
 
-** Principle 5: Standardization enables creativity
-   :PROPERTIES:
-   :CUSTOM_ID: principle-5-standardization-enables-creativity
-   :END:
+* Principle 5: Standardization enables creativity
 
-How does this impact our modern age of technology where saving
-information is "much easier"? How can all these tools still not solve
-the problem of categorizing this data? It's the lack of a workflow, it's
-what some may refer to as the "scattered" brain, because you're thoughts
-are often scattered across multiple mediums trying to "retrace" what you
-have captured.
+How does this impact our modern age of technology where saving information is
+"much easier"? How can all these tools still not solve the problem of
+categorizing this data? It's the lack of a workflow, it's what some may refer to
+as the "scattered" brain, because you're thoughts are often scattered across
+multiple mediums trying to "retrace" what you have captured.
 
-Instead of trying to create a new system each time you take notes,
-standardize one system so that everything flows in the same method.
+Instead of trying to create a new system each time you take notes, standardize
+one system so that everything flows in the same method.
 
-Only then can we focus on the: thinking, reflecting, writing,
-discussing, testing, and sharing.
+Only then can we focus on the: thinking, reflecting, writing, discussing,
+testing, and sharing.
 
-** Principle 6: Exposing our work to high quality feedback
-   :PROPERTIES:
-   :CUSTOM_ID: principle-6-exposing-our-work-to-high-quality-feedback
-   :END:
+* Principle 6: Exposing our work to high quality feedback
 
-The idea is to take critical feedback on our ideas, theories so that
-they can help us shape them with stronger points, and ensure we have
-looked at all avenues and we are not forgetting any key concepts.
+The idea is to take critical feedback on our ideas, theories so that they can
+help us shape them with stronger points, and ensure we have looked at all
+avenues and we are not forgetting any key concepts.
 
-** Principle 7: Work on multiple, simultaneous projects
-   :PROPERTIES:
-   :CUSTOM_ID: principle-7-work-on-multiple-simultaneous-projects
-   :END:
+* Principle 7: Work on multiple, simultaneous projects
 
-When you read a new article, blog, book or whatever it may be... That
-medium which you consume will cover multiple things, and spread multiple
-topics, some relevant and others not so relevant to your current
-research.
+When you read a new article, blog, book or whatever it may be... That medium
+which you consume will cover multiple things, and spread multiple topics, some
+relevant and others not so relevant to your current research.
 
-This is why if you have multiple projects, or research topics, it'll
-broaden how much you are able to absorb in that one particular medium.
+This is why if you have multiple projects, or research topics, it'll broaden how
+much you are able to absorb in that one particular medium.
 
-In addition, it can also stem off or branch new subjects that you may
-find curious enough to look into at a later date.
+In addition, it can also stem off or branch new subjects that you may find
+curious enough to look into at a later date.
 
-** Principle 8: Organizine your notes by context, not by topic.
-   :PROPERTIES:
-   :CUSTOM_ID: principle-8-organizine-your-notes-by-context-not-by-topic.
-   :END:
+* Principle 8: Organizine your notes by context, not by topic.
 
-It's often we will want to try and add more specific topics, and
-subtopics to something we consume, so much that over-time you'll have
-such specific topics that it'll be difficult to see how they relate to
-other things.
+It's often we will want to try and add more specific topics, and subtopics to
+something we consume, so much that over-time you'll have such specific topics
+that it'll be difficult to see how they relate to other things.
 
-So essentially you want to file them away by their "context" of what
-they are going towards.
+So essentially you want to file them away by their "context" of what they are
+going towards.
 
-** Principle 9: Follow the most intresting path
-   :PROPERTIES:
-   :CUSTOM_ID: principle-9-follow-the-most-intresting-path
-   :END:
+* Principle 9: Follow the most intresting path
 
-Basically it's to take the path we find the most interesting, that'll
-keep us engaged the most over any other thing.
+Basically it's to take the path we find the most interesting, that'll keep us
+engaged the most over any other thing.
 
-** Principle 10: Save contradictory ideas
-   :PROPERTIES:
-   :CUSTOM_ID: principle-10-save-contradictory-ideas
-   :END:
+* Principle 10: Save contradictory ideas
 
-It's important to save ideas that are contradictory or paradoxical, they
-are essential to helping us raise new questions and validate our
-research. It'll also help us to ensure that the information we do have
-is valid.
+It's important to save ideas that are contradictory or paradoxical, they are
+essential to helping us raise new questions and validate our research. It'll
+also help us to ensure that the information we do have is valid.
 
-The problem does not lie with external authority, but with our own
-intertia. We have to counteract "confirmation bias" - our tendency to
-take into account only information that confirms what we already
-belielve. We need to regularly confront our errors, mistakes and
-misunderstandings. (See Being understandable)
+The problem does not lie with external authority, but with our own intertia. We
+have to counteract "confirmation bias" - our tendency to take into account only
+information that confirms what we already belielve. We need to regularly
+confront our errors, mistakes and misunderstandings. (See Being understandable)
 
-So by taking notes on a wide variety of sources, and in objective
-formats that exist outside of our heads, we practice the skill of seeing
-what is really there and describing it plainfully and factually.
+So by taking notes on a wide variety of sources, and in objective formats that
+exist outside of our heads, we practice the skill of seeing what is really there
+and describing it plainfully and factually.

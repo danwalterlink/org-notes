@@ -6,14 +6,9 @@
 My DOOM Emacs configuration is growing, and as it grows I need to keep track of
 important changes.
 
-* Requirements
-
-+ Must be easy to follow
-+ Simple to implement with little dependencies
-
-* Timeframe
-
-* Notes
+*Requirements:*
+- Must be easy to follow
+- Simple to implement with little dependencies
 
 * Tasks
 

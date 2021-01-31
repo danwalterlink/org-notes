@@ -1,0 +1,216 @@
+#+title: Introduction to Machine Learning with Python
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-30 23:53]
+
+* Chapter 2. Supervised Learning
+
+** Classification and Regression
+
+** Generalization, Overfitting, and Underfitting
+
+*** Relation of Model Complexity to Dataset Size
+
+** Supervised Machine Learning Algorithms
+
+*** Some Sample Datasets
+
+*** k-Nearest Neighbors
+
+*** Linear Models
+
+*** Naive Bayes Classifiers
+
+*** Decision Trees
+
+*** Ensembles of Decision Trees
+
+*** Kernelized Support Vector Machines
+
+*** Neural Networks (Deep Learning)
+
+** Uncertainty Estimates from Classifiers
+
+*** The Decision Function
+
+*** Predicting Probabilities
+
+*** Uncertainty in Multiclass Classification
+
+** Summary and Outlook
+
+* Chapter 3. Unsupervised Learning and Preprocessing
+
+** Types of Unsupervised Learning
+
+** Challenges in Unsupervised Learning
+
+** Preprocessing and Scaling
+
+*** Different Kinds of Preprocessing
+
+*** Applying Data Transformations
+
+*** Scaling Training and Test Data the Same Way
+
+*** The Effect of Preprocessing on Supervised Learning
+
+** Dimensionality Reduction, Feature Extraction, and Manifold Learning
+
+*** Principal Component Analysis (PCA)
+
+*** Non-Negative Matrix Factorization (NMF)
+
+*** Manifold Learning with t-SNE
+
+** Clustering
+
+*** k-Means Clustering
+
+*** Agglomerative Clustering
+
+*** DBSCAN
+
+*** Comparing and Evaluating Clustering Algorithms
+
+*** Summary of Clustering Methods
+
+** Summary and Outlook
+
+* Chapter 4. Representing Data and Engineering Features
+
+** Categorical Variables
+
+*** One-Hot-Encoding (Dummy Variables)
+
+*** Numbers Can Encode Categoricals
+
+** Binning, Discretization, Linear Models, and Trees
+
+** Interactions and Polynomials
+
+** Univariate Nonlinear Transformations
+
+** Automatic Feature Selection
+
+*** Univariate Statistics
+
+*** Model-Based Feature Selection
+
+*** Iterative Feature Selection
+
+** Utilizing Expert Knowledge
+
+** Summary and Outlook
+
+* Chapter 5. Model Evaluation and Improvement
+
+** Cross-Validation
+
+*** Cross-Validation in scikit-learn
+
+*** Benefits of Cross-Validation
+
+*** Stratified k-Fold Cross-Validation and Other Strategies
+
+** Grid Search
+
+*** Simple Grid Search
+
+*** The Danger of Overfitting the Parameters and the Validation Set
+
+*** Grid Search with Cross-Validation
+
+** Evaluation Metrics and Scoring
+
+*** Keep the End Goal in Mind
+
+*** Metrics for Binary Classification
+
+*** Metrics for Multiclass Classification
+
+*** Regression Metrics
+
+*** Using Evaluation Metrics in Model Selection
+
+** Summary and Outlook
+
+* Chapter 6. Algorithm Chains and Pipelines
+
+** Parameter Selection with Preprocessing
+
+** Building Pipelines
+
+** Using Pipelines in Grid Searches
+
+** The General Pipeline Interface
+
+*** Convenient Pipeline Creation with make_pipeline
+
+*** Accessing Step Attributes
+
+*** Accessing Attributes in a Pipeline inside GridSearchCV
+
+** Grid-Searching Preprocessing Steps and Model Parameters
+
+** Grid-Searching Which Model To Use
+
+** Summary and Outlook
+
+* Chapter 7. Working with Text Data
+
+** Types of Data Represented as Strings
+
+** Example Application: Sentiment Analysis of Movie Reviews
+
+** Representing Text Data as a Bag of Words
+
+*** Applying Bag-of-Words to a Toy Dataset
+
+*** Bag-of-Words for Movie Reviews
+
+** Stopwords
+
+** Rescaling the Data with tf–idf
+
+** Investigating Model Coefficients
+
+** Bag-of-Words with More Than One Word (n-Grams)
+
+** Advanced Tokenization, Stemming, and Lemmatization
+
+** Topic Modeling and Document Clustering
+
+*** Latent Dirichlet Allocation
+
+** Summary and Outlook
+
+* Chapter 8. Wrapping Up
+
+** Approaching a Machine Learning Problem
+
+*** Humans in the Loop
+
+** From Prototype to Production
+
+** Testing Production Systems
+
+** Building Your Own Estimator
+
+** Where to Go from Here
+
+*** Theory
+
+*** Other Machine Learning Frameworks and Packages
+
+*** Ranking, Recommender Systems, and Other Kinds of Learning
+
+*** Probabilistic Modeling, Inference, and Probabilistic Programming
+
+*** Neural Networks
+
+*** Scaling to Larger Datasets
+
+*** Honing Your Skills
+
+** Conclusion

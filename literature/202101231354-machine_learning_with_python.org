@@ -998,11 +998,6 @@ Rescaled data:
 ]
 #+end_example
 
-
-
-
-
-
 ** Data Labeling
 #+source: https://aws.amazon.com/sagemaker/groundtruth/what-is-data-labeling/#:~:text=In%20machine%20learning%2C%20data%20labeling,model%20can%20learn%20from%20it.
 
@@ -1092,3 +1087,549 @@ automatically and substantially speed up the creation of training datasets.
 [[file:../.attach/d4/975c6a-25e0-4e1f-9c8a-233e93d43dd2/_20210125_211455screenshot.png]]
 
 ** Data Feature Selection
+
+The performance of the ML Model is directly weighed upon the quality of the data
+that's used to build it. Performance of ML Model will be negatively impacted if
+the data features provided are irrelevant. Improving the data features provided
+to the ML Model will greatly increase accuracy, especially linear and logistic
+regression.
+
+*** Feature Selection Techniques
+
+The following are automatic feature selection techniques we can use to model ML
+data.
+
+**** Univariate Selection
+
+Is very useful in select those features, with the help of statistical testing,
+having strongest relation with the prediction variables. Implementation is done
+via the ~SelectKBest0class~ in the scikit-learn python library.
+
+In this example, we will use Pima Indians Diabetes dataset to select 4 of the
+attributes having best features with the help of chi-square statistical test.
+
+#+begin_example
+from pandas import read_csv
+from numpy import set_printoptions
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
+path = r'/home/nick/projects/orgmode/.attach/pima-indians-diabetes.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(path, names=names)
+array = dataframe.values
+X = array[:,0:8]
+Y = array[:,8]
+test = SelectKBest(score_func=chi2, k=4)
+fit = test.fit(X, Y)
+set_printoptions(precision=2)
+print(fit.scores_)
+featured_data = fit.transform(X)
+print ("\nFeatured data:\n", featured_data[0:4])
+#+end_example
+
+#+begin_example
+[ 111.52 1411.89 17.61 53.11 2175.57 127.67 5.39 181.3 ]
+Featured data:
+[
+   [148. 0.  33.6 50. ]
+   [ 85. 0.  26.6 31. ]
+   [183. 0.  23.3 32. ]
+   [ 89. 94. 28.1 21. ]
+]
+#+end_example
+
+*** Recursive Feature Elimination
+
+Removed features recursively and leaves the remaining attributes for the data
+model.
+
+#+begin_example
+from pandas import read_csv
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LogisticRegression
+path = r'C:\pima-indians-diabetes.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(path, names=names)
+array = dataframe.values
+X = array[:,0:8]
+Y = array[:,8]
+model = LogisticRegression()
+rfe = RFE(model, 3)
+fit = rfe.fit(X, Y)
+print("Number of Features: %d")
+print("Selected Features: %s")
+print("Feature Ranking: %s")
+#+end_example
+
+#+begin_example
+Number of Features: 3
+Selected Features: [ True False False False False True True False]
+Feature Ranking: [1 2 3 5 6 1 1 4]
+#+end_example
+
+*** Principal Component Analysis (PCA)
+
+Generally referred to as data reduction technique, uses linear algebra to
+transform dataset into a compressed form.
+
+#+begin_example
+from pandas import read_csv
+from sklearn.decomposition import PCA
+path = r'C:\pima-indians-diabetes.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(path, names=names)
+array = dataframe.values
+X = array[:,0:8]
+Y = array[:,8]
+pca = PCA(n_components=3)
+fit = pca.fit(X)
+print("Explained Variance: %s") % fit.explained_variance_ratio_
+print(fit.components_)
+#+end_example
+
+#+begin_example
+Explained Variance: [ 0.88854663 0.06159078 0.02579012]
+[
+   [
+      -2.02176587e-03 9.78115765e-02 1.60930503e-02 6.07566861e-02
+      9.93110844e-01 1.40108085e-02 5.37167919e-04 -3.56474430e-03
+   ]
+   [
+      2.26488861e-02 9.72210040e-01 1.41909330e-01 -5.78614699e-02
+      -9.46266913e-02 4.69729766e-02 8.16804621e-04 1.40168181e-01
+   ]
+   [
+      -2.24649003e-02 1.43428710e-01 -9.22467192e-01 -3.07013055e-01
+      2.09773019e-02 -1.32444542e-01 -6.39983017e-04 -1.25454310e-01
+   ]
+]
+#+end_example
+
+*** Feature Importance
+
+Used to choose the important features. Basically uses a trained supervised
+classifier to select features.
+
+#+begin_example
+from pandas import read_csv
+from sklearn.ensemble import ExtraTreesClassifier
+path = r'C:\Desktop\pima-indians-diabetes.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(data, names=names)
+array = dataframe.values
+X = array[:,0:8]
+Y = array[:,8]
+model = ExtraTreesClassifier()
+model.fit(X, Y)
+print(model.feature_importances_)
+#+end_example
+
+#+begin_example
+[ 0.11070069 0.2213717 0.08824115 0.08068703 0.07281761 0.14548537 0.12654214 0.15415431]
+#+end_example
+
+* Classification
+
+Process of predicting the classification or category from observed values or
+given data points.
+
+An example classification would be a spam filter system, there can only be two
+outputs, *spam* or *no spam*. So this would fall under a binary classification
+system.
+
+To impelement this classification, we first need to train the classifier. For
+example, *spam* and *not spam* emails would be used as training data. After
+successfully training the classifier, it can be used to detect unknown emails.
+
+** Introduction
+
+*** Types of Learnings in Classifiers
+
+**** Lazy Learners
+
+Waits for the testing data to be appears after storing the data. Lazy learners
+spend less time on training but more time on predicting. Examples of lazy
+learners are *K-nearest neighbor* and *case-based reasoning*.
+
+**** Eager Learners
+
+Construct classification model without waiting for testing data to appear after
+storing the data. Examples of eager learners are *Decision trees*, *Naive Bayes* and
+*Artificial Neural Networks*.
+
+*** Building a Classifier in Python
+
+The *scikit-learn* python library can be used to build a classifier.
+
+**** Step 1 - Import necessary python libraries
+
+#+begin_example
+import sklearn
+#+end_example
+
+**** Step 2 - Importing Dataset
+
+Next we will need to import our dataset, we can use an example dataset from
+sklearn.
+
+#+begin_src python :results output code :exports both
+import sklearn
+from sklearn.datasets import load_breast_cancer
+data = load_breast_cancer()
+label_names = data['target_names']
+labels = data['target']
+feature_names = data['feature_names']
+features = data['data']
+
+print(label_names)
+print(feature_names[0])
+print(feature_names[1])
+print(features[0])
+print(features[1])
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+['malignant' 'benign']
+mean radius
+mean texture
+[1.799e+01 1.038e+01 1.228e+02 1.001e+03 1.184e-01 2.776e-01 3.001e-01
+ 1.471e-01 2.419e-01 7.871e-02 1.095e+00 9.053e-01 8.589e+00 1.534e+02
+ 6.399e-03 4.904e-02 5.373e-02 1.587e-02 3.003e-02 6.193e-03 2.538e+01
+ 1.733e+01 1.846e+02 2.019e+03 1.622e-01 6.656e-01 7.119e-01 2.654e-01
+ 4.601e-01 1.189e-01]
+[2.057e+01 1.777e+01 1.329e+02 1.326e+03 8.474e-02 7.864e-02 8.690e-02
+ 7.017e-02 1.812e-01 5.667e-02 5.435e-01 7.339e-01 3.398e+00 7.408e+01
+ 5.225e-03 1.308e-02 1.860e-02 1.340e-02 1.389e-02 3.532e-03 2.499e+01
+ 2.341e+01 1.588e+02 1.956e+03 1.238e-01 1.866e-01 2.416e-01 1.860e-01
+ 2.750e-01 8.902e-02]
+#+end_src
+
+**** Step 3 - Organizing data into training & testing sets
+
+We will need to split up our dataset into two sets, one for training and one for
+testing, to help with testing for unseen data that can be seen. The function
+~train_test_split()~ will help us split up the datasets.
+
+#+begin_src python :results output code
+import sklearn
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+
+data = load_breast_cancer()
+label_names = data['target_names']
+labels = data['target']
+feature_names = data['feature_names']
+features = data['data']
+
+train, test, train_labels, test_labels = train_test_split(features,labels,test_size = 0.40, random_state = 42)
+#+end_src
+
+**** Step 4 - Model Evaluation
+
+Next we will build the model using the *Naive Bayes Algorithm* for this example.
+
+#+begin_src python :results output code :exports both
+from sklearn.naive_bayes import GaussianNB
+import sklearn
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+
+data = load_breast_cancer()
+label_names = data['target_names']
+labels = data['target']
+feature_names = data['feature_names']
+features = data['data']
+train, test, train_labels, test_labels = train_test_split(features,labels,test_size = 0.40, random_state = 42)
+
+gnb = GaussianNB()
+model = gnb.fit(train, train_labels)
+preds = gnb.predict(test)
+print(preds)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+[1 0 0 1 1 0 0 0 1 1 1 0 1 0 1 0 1 1 1 0 1 1 0 1 1 1 1 1 1 0 1 1 1 1 1 1 0
+ 1 0 1 1 0 1 1 1 1 1 1 1 1 0 0 1 1 1 1 1 0 0 1 1 0 0 1 1 1 0 0 1 1 0 0 1 0
+ 1 1 1 1 1 1 0 1 1 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 1 0 0 1 0 0 1 1 1 0 1 1 0
+ 1 1 0 0 0 1 1 1 0 0 1 1 0 1 0 0 1 1 0 0 0 1 1 1 0 1 1 0 0 1 0 1 1 0 1 0 0
+ 1 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 0 1 1 0 1 1 1 1 1 1 0 0
+ 0 1 1 0 1 0 1 1 1 1 0 1 1 0 1 1 1 0 1 0 0 1 1 1 1 1 1 1 1 0 1 1 1 1 1 0 1
+ 0 0 1 1 0 1]
+#+end_src
+
+**** Step 5 - Finding Accuracy
+
+We can find the accuracy of the previous test model by running a comparison
+function that returns the % of accuracy.
+
+#+begin_src python :results output code :exports both
+from sklearn.naive_bayes import GaussianNB
+import sklearn
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+data = load_breast_cancer()
+label_names = data['target_names']
+labels = data['target']
+feature_names = data['feature_names']
+features = data['data']
+train, test, train_labels, test_labels = train_test_split(features,labels,test_size = 0.40, random_state = 42)
+
+gnb = GaussianNB()
+model = gnb.fit(train, train_labels)
+preds = gnb.predict(test)
+
+print(accuracy_score(test_labels,preds))
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+0.9517543859649122
+#+end_src
+
+*** Classification Evaluation Metrics
+
+Essentially once our model is done, there is still more work that needs to be
+completed in order to determine the effectiveness of it. This next phase requires
+select the correct evaluation metrics, otherwise it could cause our model to
+perform poorly.
+
+*** Confusion Matrix :ATTACH:
+:PROPERTIES:
+:ID:       47b4dd14-9f66-4e31-92a8-7b9db6f75d6a
+:END:
+
+Measure the performance of a classification problem, where the output can be two
+or more type of classes. A confusion matrix is nothing but a table with two
+dimensions viz.
+
+[[file:../.attach/47/b4dd14-9f66-4e31-92a8-7b9db6f75d6a/_20210130_212616screenshot.png]]
+
+Explanation of those terms:
++ True Positives (TP) :: It is the class when both actual class & predicted
+  class of data point is 1.
++ True Negatives (TN) :: It is the class when both actual class & predicted
+  class of data point is 0.
++ False Positives (FP) :: Case of when actual class of data point is 0 and
+  predicted class of data point is 1.
++ False Negatives (FN) :: Case of when actual class of data point is 1 and
+  predicted class of data point is 0.
+
+The function ~confusion_matrix()~ is part of the ~sklearn~ python library:
+
+#+begin_src python
+from sklearn.metrics import confusion_matrix
+#+end_src
+
+#+begin_example
+[[ 73   7]
+ [  4 144]]
+#+end_example
+
+
+**** Accuracy
+
+It may be defined as the number of correct predictions made by our ML model.
+
+\[ Accuracy = \frac{TP+TN}{TP+FN+FN+TN} \]
+
+Hence, accuracy = ~217/228 = 0.9517~.
+
+**** Precision
+
+Number of corect documents returned by our ML Model.
+
+\[ Precision = \frac{TP}{TP+FP} \]
+
+~TP = 73~ and ~TP+FP = 73+7 = 80~. Hence, precision = ~73/80 = 0.915~.
+
+**** Recall of Sensitivity
+
+Number of positives returned by our ML Model.
+
+\[ Recall = \frac{TP}{TP+FN} \]
+
+~TP = 73~ and ~TP+FN = 73+4 = 77~, hence our precision = ~73/77 = 0.94805~.
+
+**** Specificity
+
+Contrast to recall, can be defined as number of negatives returned by our ML
+model.
+
+\[ Specificity = \frac{TN}{TN+FP} \]
+
+~TN = 144~ and ~TN+FP = 144+7 = 151~, hence precision = ~144/151 = 0.95364~.
+
+*** Classification Algorithms
+
+Some important classification algorithms to make note of are:
++ Logisitic Regression
++ Support Vector Machine
++ Decision Tree
++ Naive Bayes
++ Random Forest
+
+*** Applications
+
+Some important applications of classification algorithms:
++ Speech recognition
++ Handwriting Recognition
++ Biometric Identification
++ Document Classification
+** Logisitic Regression
+
+Is a supervised learning classification algorithm, used to predict the
+probability of a target variable. Nature of target or dependent variable is
+dichotomous, which means there would be only two possible classes.
+
+In simple terms, the variable is binary in nature having data coded as either 1
+or 0.
+
+Mathematically, a logistic regression model predicts P(Y=1) as a function of X.
+
+*** Types of Logistic Regression
+
+Generally it's a binary logisitic regression having binary target variables, but
+there can be two more categories of target variables that can be predicted by
+it.
+
+**** Binary or Binomial
+
+Only have two possible types either 1 and 0.
+
+**** Multinomial
+
+Can have 3 or more possible unordered types or the types having no quantitive
+signifiance. These variables may represent *"TYPE A" or "TYPE B" or "TYPE C"*.
+
+**** Ordinal
+
+Can have 3 or more possible *ordered* types or the types having a quantitative
+significance. These variables may represent *"poor" or "good" or "very good" or
+"excellent"*, and each category can have the scores like 0,1,2,3.
+
+*** Logistic Regression Assumptions
+
++ In case of binary logisitic regression, the target variables must be binary
+  always and the desired outcome is represented by the factory level 1.
++ There should not be any multi-collinearity in the model, which means the
+  independent variables must be independent of each other.
++ We must include meaningful variables in our model.
++ We should choose a large sample size for logistic regression.
+
+*** Binary Logistic Regression model :ATTACH:
+:PROPERTIES:
+:ID:       dc96b6a1-52ac-4d1d-967e-8d33411c1aaf
+:END:
+
+Simplest form of logisitic regression which is a binary or binomial logistic
+regression in which the target or dependent variable can have only 2 possible
+types either 1 or 0. Allows us to model a relationship between multiple
+predictor variables and a binary/binomial target variable.
+
+\[ h^0(x) = g(0^T x)where 0 \leq h_0 \leq 1 \]
+
+Here, /g/ is the logistic or sigmoid function which can be given as follows:
+
+\[ g(z) = \frac{1}{1+e^-z} where z = 0^T x \]
+
+To sigmoid curve can be represented with the help of the following graph. We can
+see the values of y-axis lie between 0 and 1 and cross the axis at 0.5.
+
+[[attachment:_20210130_220757screenshot.png]]
+
+The classes can be divided into positive or negative. The output comes under the
+probability of positive class if it lies between 0 and 1. For our
+implementation, we are interpreting the output of hypothesis function as
+positive if it is \geq 0.5, otherwise negative.
+
+We also need to define a loss function to measure how well the algorithm
+performs using the weights on fucntions, represented by theta as follows:
+
+\[ h=g(X0) \]
+
+\[ J(0) = \frac{1}{m} .(-y^T log(h) - (1-y)^T log(1-h)) \]
+
+Now after defining the loss function, our prime goal is to minimize the loss
+function. This can be done by fitting the weights which means by increasing or
+decreasing the weights. With the help of derivatives of the loss function w.r.t
+each weight, we would be able to know what parameters should have high weight
+and what should have smaller weight.
+
+*** Implementation in Python
+
+Now we will implement the above concept of binomial logisitic regression in
+python.
+
+#+begin_example
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn import datasets
+%matplotlib inline
+
+iris = datasets.load_iris()
+X = iris.data[:, :2]
+y = (iris.target != 0) * 1
+
+plt.figure(figsize=(6,6))
+plt.scatter(X[y == 0][:, 0], X[y == 0][:, 1], color='g', label='0')
+plt.scatter(X[y == 1][:, 0], X[y == 1][:, 1], color='y', label='1')
+plt.legend();
+
+class LogisticRegression:
+    def __init__(self, lr=0.01, num_iter=100000, fit_intercept=True, verbose=False):
+        self.lr = lr
+        self.num_iter = num_iter
+        self.fit_intercept = fit_intercept
+        self.verbose = verbose
+
+    def __add_intercept(self, X):
+        intercept = np.ones((X.shape[0], 1))
+        return np.concatenate((intercept, X), axis=1)
+
+    def __sigmoid(self, z):
+        return 1 / (1 + np.exp(-z))
+    def __loss(self, h, y):
+        return (-y * np.log(h) - (1 - y) * np.log(1 - h)).mean()
+
+    def fit(self, X, y):
+        if self.fit_intercept:
+            X = self.__add_intercept(X)
+
+for i in range(self.num_iter):
+    z = np.dot(X, self.theta)
+    h = self.__sigmoid(z)
+    gradient = np.dot(X.T, (h - y)) / y.size
+    self.theta -= self.lr * gradient
+
+    z = np.dot(X, self.theta)
+    h = self.__sigmoid(z)
+    loss = self.__loss(h, y)
+
+    if(self.verbose == True and i % 10000 == 0):
+        print(f'loss: {loss} \t')
+
+def predict_prob(self, X):
+    if self.fit_intercept:
+        X = self.__add_intercept(X)
+    return self.__sigmoid(np.dot(X, self.theta)
+
+def predict(self, X):
+    return self.predict_prob(X).round()
+
+model = LogisticRegression(lr=0.1, num_iter=300000)
+preds = model.predict(X)
+(preds == y).mean()
+
+plt.figure(figsize=(10, 6))
+plt.scatter(X[y == 0][:, 0], X[y == 0][:, 1], color='g', label='0')
+plt.scatter(X[y == 1][:, 0], X[y == 1][:, 1], color='y', label='1')
+plt.legend()
+x1_min, x1_max = X[:,0].min(), X[:,0].max()
+x2_min, x2_max = X[:,1].min(), X[:,1].max()
+#+end_example
+

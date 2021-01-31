@@ -3,57 +3,48 @@
 #+email: nmartin84@gmail.com
 #+startup: overview
 
-* Goals
-** Proficient at Python Programming
+* Articles
+** TODO Is Chronic Anxiety a Learning Disorder? :@read:
 :PROPERTIES:
-:CATEGORY: profpython
+:CATEGORY: articles
+:END:
+:METADATA:
+- SOURCE: [[https://getpocket.com/explore/item/is-chronic-anxiety-a-learning-disorder?utm_source=pocket-newtab][Is Chronic Anxiety a Learning Disorder?]]
 :END:
 
-*Goals Completed:* 
-- [X] Python beginners course
-- [X] University of Michigan Intro to Python
-
-*** TODO Python for Data Science :@read:
-:PROPERTIES:
-:CREATED: [2020-12-29 Tue 20:06]
-:GOAL:     prof-python
-:END:
-It's another course of data science that'll help progress me towards my goal.
-Link --> https://www.classcentral.com/course/edx-python-for-data-science-8209
-** Data Scientist with Python
-*** PROJ Read the matplotlib tutorial :@read:
-:PROPERTIES:
-:CREATED: [2021-01-11 Mon 19:38]
-:END:
-Source = https://matplotlib.org/3.3.3/tutorials/index.html
-**** NEXT Build outline to structure the course material :@computer:
-:PROPERTIES:
-:CREATED: [2021-01-14 Thu 23:21]
-:END:
-*** TODO What is 'elementwise' in regards to numpy? [[file:~/.local/share/Trash/files/202012131013-introduction_to_data_science_in_python.org][Array Operations]] :@read:
-:PROPERTIES:
-:CREATED: [2020-12-17 Thu 21:33]
-:END:
-Arithmetic operations apply elementwise (?)
-*** TODO Nodes and Edges? :@read:
-:PROPERTIES:
-:CREATED: [2021-01-09 Sat 11:53]
+** TODO Visualizing the Impact of Art: An Update and Comparison of Current Psychological
+:METADATA:
+- SOURCE: [[https://www.frontiersin.org/articles/10.3389/fnhum.2016.00160/full][Frontiers | Visualizing the Impact of Art: An Update and Comparison of Curren...]]
 :END:
 
- *Note added:* [2021-01-09 Sat 11:53]
-Sometimes networks are referred to as graphs and nodes as vertices?
-*** TODO Read article on p-value problem in Nature :@read:
+* Books
 :PROPERTIES:
-:CREATED: [2021-01-09 Sat 12:52]
+:CATEGORY: books
 :END:
-- http://www.nature.com/news/scientific-method-statistical-errors-1.14700
-*** TODO Finishing reading the fundamentals of matplotlib :@read:
+** TODO Introductory Economics (Micro and Macro) :@read:
 :PROPERTIES:
-:CREATED: [2021-01-09 Sat 20:49]
+:CREATED: [2021-01-30 Sat 23:38]
 :END:
-source = http://www.aosabook.org/en/matplotlib.html
-
-Once done, document the updated info to our [[file:../courses/plotting_charting_represen_python/week2/20210109191055-basic-charting.org][basic charting]] document.
+:METADATA:
+- SOURCE: [[file:../../../Downloads/Introductory Economics (Micro and Macro) ( PDFDrive ).pdf][PDF]]
+- AUTHOR: Subhendu Dutta
+:END:
+** TODO Economics for Investment Decision Makers :@read:
+:PROPERTIES:
+:CREATED: [2021-01-30 Sat 23:39]
+:END:
+:METADATA:
+- SOURCE: [[file:../../../Downloads/Economics for Investment Decision Makers_ Micro, Macro, and International Economics ( PDFDrive ).pdf][PDF]]
+- AUTHOR: Christopher D. Piros
+:END:
+** DOING Introduction to Machine Learning with Python :@read:
+:PROPERTIES:
+:CREATED: [2021-01-30 Sat 23:49]
+:END:
+:METADATA:
+- SOURCE: [[file:../../../Downloads/introduction_to_machine_learning_with_python.pdf][PDF]]
+- AUTHOR:
+:END:
 * Emacs
 :PROPERTIES:
 :CATEGORY: emacs
@@ -74,24 +65,6 @@ source - [[http://tuhdo.github.io/]]
 :CREATED: [2020-08-20 Thu 17:23]
 :END:
 
-** TODO Jethro's archive all DONE :@computer:someday:
-#+BEGIN_SRC emacs-lisp
-(after! org
-  (defun jethro/org-archive-done-tasks ()
-    "Archive all done tasks."
-    (interactive)
-    (org-map-entries 'org-archive-subtree "/DONE" 'file))
-  (require 'find-lisp)
-  (setq jethro/org-agenda-directory "~/Dropbox/org/gtd/")
-  (setq org-agenda-files
-        (find-lisp-find-files jethro/org-agenda-directory "\.org$")))
-#+END_SRC
-
-** TODO Check out smartparens :@computer:someday:
-:PROPERTIES:
-:CREATED: [2020-08-26 Wed 20:55]
-:END:
-
 ** TODO Check out alhassy's emacs config :@computer:someday:
 :PROPERTIES:
 :CREATED:    [2020-01-02 Thu 09:57]
@@ -99,166 +72,106 @@ source - [[http://tuhdo.github.io/]]
 :LOGBOOK:
 CLOCK: [2020-12-03 Thu 20:50]--[2020-12-03 Thu 20:59] =>  0:09
 :END:
------
 source - [[https://github.com/alhassy/emacs.d]]
 
-** PROJ function to use org-refile to fetch header link :@computer:someday:
+* Goals
+** Proficient at Python Programming
 :PROPERTIES:
-:CREATED: [2020-11-10 Tue 23:16]
+:CATEGORY: profpython
 :END:
------
 
-*** TODO add feature to fix links when change detected in buffer :@computer:
-If there's a hook I can tie into when a headline is changed, then maybe...
-Otherwise, I would have to use some sort of caching to store headlines by file
-and their index location.
+*Goals Completed:* 
+- [X] Python beginners course
+- [X] University of Michigan Intro to Python
 
-** DONE Websources capture system broke when capturing to "Hypothesis"
-CLOSED: [2021-01-03 Sun 20:33]
+** Data Scientist with Python
+*** PROJ Read the matplotlib tutorial :@read:
 :PROPERTIES:
-:CREATED: [2021-01-03 Sun 18:40]
+:CREATED: [2021-01-11 Mon 19:38]
 :END:
-At the time I was trying to capture this link: https://www.analyticsvidhya.com/blog/2015/09/hypothesis-testing-explained/
-Fixed the problem, so my function was not going back to the beginning of the
-buffer before searching for the headline.
-** DONE I need to work on restructing my orgmode task files
-CLOSED: [2021-01-07 Thu 21:48]
+
+Source = https://matplotlib.org/3.3.3/tutorials/index.html
+
+**** DONE Build outline to structure the course material :@computer:
+CLOSED: [2021-01-28 Thu 20:58]
 :PROPERTIES:
-:CREATED: [2021-01-03 Sun 20:34]
+:CREATED: [2021-01-14 Thu 23:21]
 :END:
-Because right now it's scattered around after I tried switching over to
-youtrack, so I need to reel everything back into place.
+
+*** TODO What is 'elementwise' in regards to numpy? [[file:~/.local/share/Trash/files/202012131013-introduction_to_data_science_in_python.org][Array Operations]] :@read:
+:PROPERTIES:
+:CREATED: [2020-12-17 Thu 21:33]
+:END:
+
+Arithmetic operations apply elementwise (?)
+
+*** TODO Nodes and Edges? :@read:
+:PROPERTIES:
+:CREATED: [2021-01-09 Sat 11:53]
+:END:
+
+ *Note added:* [2021-01-09 Sat 11:53]
+Sometimes networks are referred to as graphs and nodes as vertices?
+
+*** TODO Read article on p-value problem in Nature :@read:
+:PROPERTIES:
+:CREATED: [2021-01-09 Sat 12:52]
+:END:
+
+- http://www.nature.com/news/scientific-method-statistical-errors-1.14700
+
+*** TODO Finishing reading the fundamentals of matplotlib :@read:
+:PROPERTIES:
+:CREATED: [2021-01-09 Sat 20:49]
+:END:
+
+source = http://www.aosabook.org/en/matplotlib.html
+Once done, document the updated info to our [[file:../courses/plotting_charting_represen_python/week2/20210109191055-basic-charting.org][basic charting]] document.
+*** TODO Python for Data Science :@read:
+:PROPERTIES:
+:CREATED: [2020-12-29 Tue 20:06]
+:GOAL:     prof-python
+:END:
+
+It's another course of data science that'll help progress me towards my goal.
+Link --> https://www.classcentral.com/course/edx-python-for-data-science-8209
+
+** Machine Learning
+
+*PREREQUIREMENTS*: [[https://developers.google.com/machine-learning/crash-course/prereqs-and-prework][URL]]
+- Algebra
+  + [ ] [[https://www.khanacademy.org/math/algebra/introduction-to-algebra/alg1-intro-to-variables/v/what-is-a-variable][variables]], [[https://www.khanacademy.org/math/cc-sixth-grade-math/cc-6th-equivalent-exp/cc-6th-parts-of-expressions/v/expression-terms-factors-and-coefficients][coefficients]], and [[https://www.khanacademy.org/math/algebra/algebra-functions][functions]]
+  + [ ] linear equations
+  + [ ] logarithms, and logarithmic equations such as
+  + [ ] sigmoid function
+- Linear algebra
+  + [ ] tensor and tensor rank
+  + [ ] matrix multiplication
+- Trigonometry
+  + [ ] tanh (discussed as an activation function; no prior knowledge needed)
+- Statistics
+  + [ ] mean, median, outliers, and standard deviation
+  + [ ] ability to read a histogram
+- Calculus
+  + [ ] concept of a derivative (you won't have to actually calculate derivatives)
+  + [ ] gradient or slope
+  + [ ] partial derivatives (which are closely related to gradients)
+  + [ ] chain rule (for a full understanding of the backpropagation algorithm for training neural networks)
 * Projects
-** Managing my DOOM Emacs Configuration
-*** New items to check out
-*** Agenda Configuration
-The agenda's goal is to keep me focused on what I need to work on NEXT, and not
-have any type of distractions or things that would distract my focus onto other
-things.
-
-**** Staying focused on the task
-What are some important key concepts to keep in consideration for the agenda? \\
-+ Do not clutter the agenda, keep it clean.
-+ Only put what you absolutely need on the calendar
-+ Anything with an active timestamp should be intended because we need perform some sort of action on that day
-  - Absolutely for no reason, should anything else use an active timestamp and appear on the calendar.
-  - For logging, we can use org-agenda-log-mode to track activity.
-
-#+caption: Master Agenda
-| Category            | Description                                            | Distraction? |
-|---------------------+--------------------------------------------------------+--------------|
-| Agenda              | Scheduled Tasks                                        | No           |
-| Stuck Projects      | Projects which do not have a NEXT task defined.        | Yes          |
-| Projects            | Projects with a NEXT task defined.                     | Yes          |
-| Project Next Tasks  | Projects Next Tasks ready to work.                     | No           |
-| Project Subtasks    | Projects TODO tasks that need work defined.            | Yes          |
-| Standalone Tasks    | NEXT tasks that are not part of a project.             | No           |
-| Waiting & Postponed | Tasks that are in a WAIT state.                        | Yes          |
-| Inbox Bucket        | Tasks which are in TODO state with no actions defined. | Yes          |
-|---------------------+--------------------------------------------------------+--------------|
-
-**** Setting up org-ql in my workflow
-<2020-10-31 Sat 21:52> So org-ql looks promising, i'm going to give it a try and
-see how it works in my configuration...
-
-Here's what I must have:
-+ +Projects subtasks+
-+ Something else
-+ +Sub-Projects+
-+ Stuck Projects
-+ +Agenda Like+
-+ +Inbox Bucket (- SOMEDAY)+
-+ SOMEDAY Bucket
-+ Standalone NEXT tasks
-+ Recent Activity (with input for number of days)
-
-*** Task Management
-
-**** DONE Using Tasks vs Checkboxes
-CLOSED: [2020-12-08 Tue 22:54]
-
-#+caption: How checkboxes should be used
-- Don't need to keep a record or task history (ok with it being deleted)
-- Quick tasks that require little upkeep
-- Should have a way to kill your checkboxes and convert to task tho
-
-#+caption: How task items should be used
-- For anything that we need to track
-- Need a record of the item
-- Research items that we'll be tracking notes in
-
-#+caption: When to use individual task files
-- Anything that's going to impact the over-all use of that item (for records purposes)
-- Large scale projects that impact the subject
-
-| Individual Task Files                | Task Items | Checkboxes |
-|--------------------------------------+------------+------------|
-| Anything that's centralized on topic |            |            |
-
-**** DONE [#A] Improving Task States
-CLOSED: [2020-12-08 Tue 22:54]
-:LOGBOOK:
-- Note taken on [2020-11-06 Fri 22:23] \\
-  I need to look into using ~org-map-entries~ to have my function run through an org buffer and correct my task-states.
-- Note taken on [2020-11-06 Fri 21:24] \\
-  I was facing losing the ability to keep tracking of my task states, and keeping my things in order to complete certain items. So I have adopted a new system that takes my task items, and moves them into a more automated system.
-:END:
------
-So overall the automation works well, but if I want to other TASK keywords it
-becomes a problem, and could probably become a headache to try and keep track of
-tasks. Ultimately, we need to keep this system stupid simple.
-
-***** DONE Automating setting my "TODO/NEXT/WAIT/PROJ/DONE" states :@code:
-CLOSED: [2020-11-06 Fri 20:41]
-+ Updates task states when it detects a conditional statement is true.
-+ Swaps any TASK item to a PROJ when subtasks exist.
-
-***** DONE Test using ~org-map-entries~ :@test:
-CLOSED: [2020-11-11 Wed 23:52]
-It works, so i've implemented it into my config file.
-
-#+caption: recap of "testing org-map-entries" on <2020-11-14 10:09>
-Using this method has it's benefits, but there's a slight issue that it doesn't
-really indicate what headline we're focused on.
-
-**** DONE Capture notes on the fly
-CLOSED: [2020-11-16 Mon 22:23]
-
-#+caption: recap of "testing my new function" on <2020-11-15 Sun 00:33>
-So after working on this, i've got a new system to focus on capturing notes to
-my task on the fly w/out having to loose focus on my current task. It works by
-using the org-capture template system, and org-refile-get-location to prompt the
-user to enter a headline.
-* Vehicle Items
-:PROPERTIES:
-:CATEGORY: vehicles
-:END:
-** TODO Fix the engine misfire on the jeep wrangler :@fix:someday:
-:PROPERTIES:
-:CREATED: [2021-01-14 Thu 20:39]
-:END:
 * Tasks
+
 ** TODO Patch up the hole in spare bedroom :@home:
 :PROPERTIES:
 :CREATED: [2021-01-14 Thu 20:39]
 :END:
-** DONE Eat the sourdough bread before it goes bad :@home:
-CLOSED: [2021-01-16 Sat 19:43] SCHEDULED: <2021-01-15 Fri>
+
+** TODO Fix the engine misfire on the jeep wrangler :@fix:someday:
 :PROPERTIES:
-:CREATED: [2021-01-14 Thu 20:46]
+:CREATED: [2021-01-14 Thu 20:39]
 :END:
-** DONE [#A] take the motheboard back to kohl's to return amazon :@errands:
-CLOSED: [2021-01-19 Tue 21:58]
-:PROPERTIES:
-:CREATED: [2021-01-14 Thu 21:46]
-:END:
-** DONE [#A] return the mechanical keyboard to kohl's :@errands:
-CLOSED: [2021-01-19 Tue 21:58]
-:PROPERTIES:
-:CREATED: [2021-01-14 Thu 21:46]
-:END:
+
 * Checklists
-- [-] Is there a way to prevent =auto-fill-mode= from breaking links?
+- [ ] Is there a way to prevent =auto-fill-mode= from breaking links?
 * Inbox
 ** REFILE Read up on Goodhart's Law and help define it :@read:
 :PROPERTIES:
@@ -310,4 +223,38 @@ Source = https://github.com/jethrokuan/braindump
 :PROPERTIES:
 :CREATED: [2021-01-24 Sun 21:41]
 :END:
-Source = https://superorganizers.every.to/p/how-to-build-a-learning-machine
+:METADATA:
+- SOURCE: https://superorganizers.every.to/p/how-to-build-a-learning-machine
+** REFILE Return red dragon keyboard to kohls for refund
+:PROPERTIES:
+:CREATED: [2021-01-30 Sat 16:56]
+:END:
+** REFILE Configure fira-code ligeratures
+:PROPERTIES:
+:CREATED: [2021-01-30 Sat 19:42]
+:END:
+:METADATA:
+- SOURCE: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions#using-composition-mode-in-emacs-mac-port][URL]]
+- AUTHOR:
+:END:
+
+Looks like using ~ligatures.el~ may be the best method, link to [[https://github.com/mickeynp/ligature.el][repo]].
+
+#+begin_src emacs-lisp
+;; Enable the www ligature in every possible major mode
+(ligature-set-ligatures 't '("www"))
+
+;; Enable ligatures in programming modes
+(ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
+                                     ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
+                                     "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
+                                     "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
+                                     "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
+                                     "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
+                                     "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
+                                     "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
+                                     "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+                                     "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
+
+(global-ligature-mode 't)
+#+end_src
