@@ -1,0 +1,61 @@
+#+title: python classes
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-31 10:36]
+
+Essentially is like a blueprint for [[[file:202101171320-python.org][python]]] objects, or a cookie cutter, that
+outlines the possible characteristics of the object. For instance a customer,
+all customers will have an email address, phone number, and a name. So our class
+would define those 3 things.
+
+Here's a class in it's simplest of forms:
+#+begin_src python :results code output :exports both
+class Employee:
+    x = 5
+
+emp = Employee()
+print(emp.x)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+5
+#+end_src
+
+All classes use an ~__init__~ function that'll define values to your object
+properties.
+
+#+begin_src python :results code output :exports both
+class Employee:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p1 = Employee("John", 36)
+print(f'Hi, my name is {p1.name} and I am {p1.age} years old.')
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+Hi, my name is John and I am 36 years old.
+#+end_src
+
+*Methods* are another useful tool for classes:
+#+begin_src python :results code output :exports both
+class Employee:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def welcome(self):
+        print("Hello my name is " + self.name)
+
+p1 = Employee("John", 36)
+print(p1.welcome())
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+Hello my name is John
+None
+#+end_src
