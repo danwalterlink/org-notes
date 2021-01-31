@@ -1,0 +1,7 @@
+#+title: python iterators
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-31 11:04]
+
+An iterator is an object in [[[file:202101171320-python.org][python]]] that contains a number of values, which can
+be iterated upon.
