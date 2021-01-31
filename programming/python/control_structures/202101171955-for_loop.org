@@ -1,0 +1,95 @@
+#+title: for loop
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 19:55]
+
+The *for* statement is a great statement ([[[[file:../202101021249-python_control_structures.org][python control structures]]]]) to run
+through a list of items and perform an action on each of those items in the
+list.
+
+#+begin_src python :results code output :exports both
+  list = [1,2,3,4,5]
+  for num in list:
+      print(num)
+#+end_src
+
+* Ranges in For Loop
+
+To create a range of numbers. The number =0= is the start of the range,
+the =10= is the end of the range and the =2= is telling it to increment
+by this number.
+
+#+begin_src python :results code output :exports both
+  for num in range(0,10,2):
+      print(num)
+#+end_src
+
+* For loop with IF and ELSE statements
+
+The below example will print out all your event numbers, and odd numbers
+will return the string =Odd number is $var=.
+
+#+begin_src python :results code output :exports both
+  list = [1,2,3,4,5,6]
+  for num in list:
+      if num % 2 == 0:
+          print(num)
+      else:
+          print(f'Odd number is {num}')
+#+end_src
+
+* FOR loop to calculate total
+
+Another method of using this is to calculate and give you the total, or
+output the output after each loop.
+
+#+begin_src python :results code output :exports both
+  list = [1,2,3,4,5,6,7,8,9,10]
+  list_sum = 0
+  for num in list:
+      list_sum = list_sum + num
+      print(list_sum)
+  return print(list_sum)
+#+end_src
+
+* FOR loop with tuples printing both indexes
+
+And for indexing, you can pass two arguments to essentially act as the
+index number:
+
+#+begin_src python :results code output :exports both
+  list = [(1,2)(3,4)(5,6)(7,8)]
+  for a,b in list:
+      print(a)
+      print(b)
+
+  for a,b in list:
+      if a % 2 == 0:
+          print('Even number detected {a}')
+      elif b % 2 == 0:
+          print('The number is even {b}')
+      else:
+          print('No numbers returned')
+
+  return(type(list))
+#+end_src
+
+* FOR loop with Dictionaries
+
+For dictionaries it's a little different
+
+#+begin_src python :results code output :exports both
+  d = {'key1':'string1','key2':'string2'}
+  for key,value in d.items():
+      print(value)
+#+end_src
+
+* Break FOR loop when IF condition is true
+
+#+BEGIN_SRC python
+  fruits = ["apple", "banana", "cherry"]
+      for x in fruits:
+            print(x)
+      if x == "banana":
+          break
+#+END_SRC

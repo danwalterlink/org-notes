@@ -3,6 +3,6 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-18 10:05]
 
-Yield is similar to [[[[file:202101172029-return.org][return]]]], but the key difference is that it'll return
-a list of values, because it iterates through a list without storings the
-contents in memory, also referred to as a [[[[file:20210111201844-generator.org][generator]]]].
+Yield is similar to [[[[file:202101172029-return.org][return]]]], but the key difference is that it'll return a
+list of values, because it iterates through a list without storings the contents
+in memory, also referred to as a [[[[file:20210111201844-generator.org][generator]]]].

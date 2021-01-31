@@ -1,0 +1,113 @@
+#+title: if else
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-17 19:56]
+#+roam_tags:
+
+The if_else [[[[file:../202101021249-python_control_structures.org][python control structures]]]] allows more flexible control of a
+piece of code block depending on a number of arguments conditions.
+
+- Equals: =a == b=
+- Not Equals: =a ! b=
+- Less than: =a < b=
+- Less than or equal to: =a <= b=
+- Greater than: =a > b=
+- Greater than or equal to: =a >= b=
+
+These statements are your basics for running code depending on when a condition
+comes back *True* or *else*.
+
+#+begin_src python :results code output :exports both
+  if (3 > 2):
+      print('Its true!')
+#+end_src
+
+* IF ELSE
+
+#+begin_src python :results code output :exports both
+  hungry = True
+  if hungry:
+      print('Feed me!')
+  else:
+      print('Not hungry')
+#+end_src
+
+* IF ELIF ELSE
+
+#+begin_src python :results code output :exports both
+  loc = 'Bank'
+
+  if loc == 'Auto Shop':
+      print('I like cars')
+  elif loc == 'Bank':
+      print('Money is cool')
+  elif loc == 'Grocery Store':
+      print('Get me food!')
+  else:
+      print('I don\'t know much')
+#+end_src
+
+* Short Hand IF
+
+#+begin_src python :results code output :exports both
+  if a > b: print("a is greater than b")
+#+end_src
+
+* Short Hand If and Else
+
+This technique is known as *Ternary Operators*, or *Conditional
+Expressions*.
+
+#+begin_src python :results code output :exports both
+  a = 2
+  b = 330
+  print("A") if a > b else print("B")
+
+  # You can also have multiple ELSE statements
+  print("A") if a > b else print("=") if a == b else print("B")
+#+end_src
+
+* And Logical Operator with IF
+
+#+begin_src python :results code output :exports both
+  a = 200
+  b = 33
+  c = 500
+  if a > b and c > a:
+    print("Both conditions are True")
+#+end_src
+
+* Or Logical Operator with IF
+
+#+begin_src python :results code output :exports both
+  a = 200
+  b = 33
+  c = 500
+  if a > b or a > c:
+    print("At least one of the conditions is True")
+#+end_src
+
+* Nested IF
+
+#+begin_src python :results code output :exports both
+  x = 41
+
+  if x > 10:
+    print("Above ten,")
+    if x > 20:
+      print("and also above 20!")
+    else:
+      print("but not above 20.")
+#+end_src
+
+* The Pass Statement with IF
+
+Something to consider...
+
+#+begin_src python :results code output :exports both
+  a = 33
+  b = 200
+
+  if b > a:
+    pass
+#+end_src
