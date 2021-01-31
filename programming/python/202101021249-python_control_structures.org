@@ -1,15 +1,338 @@
 #+title: python control structures
 #+roam_tags: controlstucture
 
-[[[[file:202101171320-python.org][python]]]] comes with its own set of control structures, which will help the
-coder execute code based on a number of conditions.
-
-+ Use =while= loops for booleans, or while something is true/false.
-+ Use =for= loops to iterate over elements of a sequence.
-+ Recursion repetive function where it calls itself until it reaches a
+[[[file:202101171320-python.org][python]]] comes with its own set of control structures, which will help the coder
+execute code based on a number of conditions:
+- Use =while= loops for booleans, or while something is true/false.
+- Use =for= loops to iterate over elements of a sequence.
+- Recursion repetive function where it calls itself until it reaches a
   base condition.
-+ Use =if= loops to execute an arbitrary piece of code when a condition
+- Use =if= loops to execute an arbitrary piece of code when a condition
   is true.
+
+* While Loops
+While loops is a control structures which will run through a body of code long
+as the condition remains *true*.
+
+#+begin_src python :results code output :exports both
+x = 5
+while x < 5:
+    print(f'The value of x is {x}')
+    x = x + 1
+else:
+    print('X is not less than 5')
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+X is not less than 5
+#+end_src
+
+** while loop list and output results
+
+#+BEGIN_EXAMPLE
+  wlist = [2,4,5,6,7,8] index = 0
+
+  # One way is using pop if you want pull everything out of the list
+  while len(wlist) > 0: print(list.pop(wlist))
+
+  # Another way is incrementing the index ingeger until it's higher than the length of the variable name.
+  index = 0 while index < len(wlist): index = index + 1 print(wlist)
+  #+END_EXAMPLE
+
+** While Break Statement
+
+With the break statement we can stop the loop even if the while condition is
+true:
+
+#+BEGIN_EXAMPLE
+  i = 1 while i < 6: print(i) if i == 3: break i += 1 #+END_EXAMPLE
+
+** While Continue Statement
+
+With the continue statement we can stop the current iteration, and continue with
+the next:
+
+#+BEGIN_EXAMPLE
+  i = 0 while i < 6: i += 1 if i == 3: continue print(i) #+END_EXAMPLE
+
+** While Else Statement
+
+With the else statement we can run a block of code once when the condition no
+longer is true:
+
+#+BEGIN_EXAMPLE
+i = 1 while i < 6: print(i) i += 1 else: print("i is no longer less than 6")
+#+END_EXAMPLE
+* For Loops
+The *for* statement is a great statement to run through a list of items and
+perform an action on each of those items in the list.
+
+#+begin_src python :results code output :exports both
+list = [1,2,3,4,5]
+for num in list:
+    print(num)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+1
+2
+3
+4
+5
+#+end_src
+
+** Ranges in For Loop
+
+To create a range of numbers. The number =0= is the start of the range,
+the =10= is the end of the range and the =2= is telling it to increment
+by this number.
+
+#+begin_src python :results code output :exports both
+for num in range(0,10,2):
+    print(num)
+#+end_src
+
+** For loop with IF and ELSE statements
+
+The below example will print out all your event numbers, and odd numbers
+will return the string =Odd number is $var=.
+
+#+begin_src python :results code output :exports both
+list = [1,2,3,4,5,6]
+for num in list:
+    if num % 2 == 0:
+        print(num)
+    else:
+        print(f'Odd number is {num}')
+#+end_src
+
+** FOR loop to calculate total
+
+Another method of using this is to calculate and give you the total, or
+output the output after each loop.
+
+#+begin_src python :results code output :exports both
+list = [1,2,3,4,5,6,7,8,9,10]
+list_sum = 0
+for num in list:
+    list_sum = list_sum + num
+    print(list_sum)
+return print(list_sum)
+#+end_src
+
+** FOR loop with tuples printing both indexes
+
+And for indexing, you can pass two arguments to essentially act as the
+index number:
+
+#+begin_src python :results code output :exports both
+list = [(1,2)(3,4)(5,6)(7,8)]
+for a,b in list:
+    print(a)
+    print(b)
+
+for a,b in list:
+    if a % 2 == 0:
+        print('Even number detected {a}')
+    elif b % 2 == 0:
+        print('The number is even {b}')
+    else:
+        print('No numbers returned')
+
+return(type(list))
+#+end_src
+
+** FOR loop with Dictionaries
+
+For dictionaries it's a little different
+
+#+begin_src python :results code output :exports both
+d = {'key1':'string1','key2':'string2'}
+for key,value in d.items():
+    print(value)
+#+end_src
+
+** Break FOR loop when IF condition is true
+
+#+BEGIN_SRC python
+  fruits = ["apple", "banana", "cherry"]
+      for x in fruits:
+            print(x)
+      if x == "banana":
+          break
+#+END_SRC
+* IF Statement
+The if_else statement allows more flexible control of a piece of code block
+depending on a number of arguments conditions.
+
+- Equals: =a == b=
+- Not Equals: =a ! b=
+- Less than: =a < b=
+- Less than or equal to: =a <= b=
+- Greater than: =a > b=
+- Greater than or equal to: =a >= b=
+
+These statements are your basics for running code depending on when a condition
+comes back *True* or *else*.
+
+#+begin_src python :results code output :exports both
+  if (3 > 2):
+      print('Its true!')
+#+end_src
+
+** IF ELSE
+
+#+begin_src python :results code output :exports both
+  hungry = True
+  if hungry:
+      print('Feed me!')
+  else:
+      print('Not hungry')
+#+end_src
+
+** IF ELIF ELSE
+
+#+begin_src python :results code output :exports both
+  loc = 'Bank'
+
+  if loc == 'Auto Shop':
+      print('I like cars')
+  elif loc == 'Bank':
+      print('Money is cool')
+  elif loc == 'Grocery Store':
+      print('Get me food!')
+  else:
+      print('I don\'t know much')
+#+end_src
+
+** Short Hand IF
+
+#+begin_src python :results code output :exports both
+  if a > b: print("a is greater than b")
+#+end_src
+
+** Short Hand If and Else
+
+This technique is known as *Ternary Operators*, or *Conditional
+Expressions*.
+
+#+begin_src python :results code output :exports both
+  a = 2
+  b = 330
+  print("A") if a > b else print("B")
+
+  # You can also have multiple ELSE statements
+  print("A") if a > b else print("=") if a == b else print("B")
+#+end_src
+
+** And Logical Operator with IF
+
+#+begin_src python :results code output :exports both
+  a = 200
+  b = 33
+  c = 500
+  if a > b and c > a:
+    print("Both conditions are True")
+#+end_src
+
+** Or Logical Operator with IF
+
+#+begin_src python :results code output :exports both
+  a = 200
+  b = 33
+  c = 500
+  if a > b or a > c:
+    print("At least one of the conditions is True")
+#+end_src
+
+** Nested IF
+
+#+begin_src python :results code output :exports both
+  x = 41
+
+  if x > 10:
+    print("Above ten,")
+    if x > 20:
+      print("and also above 20!")
+    else:
+      print("but not above 20.")
+#+end_src
+
+** The Pass Statement with IF
+
+Something to consider...
+
+#+begin_src python :results code output :exports both
+  a = 33
+  b = 200
+
+  if b > a:
+    pass
+#+end_src
+* BREAK and CONTINUE
+These statements add more functionality to your existing control structure statements.
+
+- break: Breaks out of the current closes loop
+- continue: Goes to hte top of the closest loop
+- pass: Does nothing at all
+
+The pass keyword helps if you need to build out your loop condition, but
+want to save it for later...
+
+#+begin_src python :results code output :exports both
+  x = [1,2,3]
+  for item in x:
+      pass
+#+end_src
+
+The closest statement basically tells python to skip the current cycle
+and go back to the beginning of the sequence, while skipping the result
+if it matches your condition.
+
+#+begin_src python :results code output :exports both
+  x = 'Sammy'
+  for letters in x:
+      if letters == 'a':
+          continue
+      print(letters)
+#+end_src
+
+The break statement is a little different, if the conditon you're
+searhcing for returns true and you have a break statement, python will
+break out of that loop and move to the next piece of code:
+
+#+begin_src python :results code output :exports both
+  x = 'Sammy'
+  for letters in x:
+      if letters == 'a':
+          break
+      print(letters)
+#+end_src
+* WITH Statement
+With statements is a control structure, which has a ~__ENTER__~ and ~__EXIT__~
+function that it calls at the start and end of its statement.
+
+It's commonly used for unmanaged resources, such as opening a file to ensure the
+file is then closed when you're done with the resource.
+
+#+begin_src python
+try:
+    file = open("myFile.txt", "r")
+    print(file.read())
+except:
+    print("An error has occurred!")
+finally:
+    file.close()
+#+end_src
+
+Or another example:
+#+begin_src python
+with open("myFile.txt", "r") as file:
+    print(file.read())
+#+end_src
+* LIST Comprehension
 
 * using returns with a for loop and logical operators
 
@@ -106,10 +429,9 @@ another.
 
 * Recursion
 
-#+BEGIN_EXAMPLE
-  def factorial(n):
-      if n < 2:
-          return 1
-      return n * factory(n-1)
-#+END_EXAMPLE
-
+#+begin_src python :results code output :exports both
+def factorial(n):
+    if n < 2:
+        return 1
+    return n * factory(n-1)
+#+end_src
