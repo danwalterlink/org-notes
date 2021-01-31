@@ -3,11 +3,12 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-31 10:36]
 
-Essentially is like a blueprint for [[[file:202101171320-python.org][python]]] objects, or a cookie cutter, that
+Essentially is like a blueprint for [[[file:../202101171320-python.org][python]]] objects, or a cookie cutter, that
 outlines the possible characteristics of the object. For instance a customer,
 all customers will have an email address, phone number, and a name. So our class
 would define those 3 things.
 
+* Defining classes
 Here's a class in it's simplest of forms:
 #+begin_src python :results code output :exports both
 class Employee:
@@ -58,4 +59,87 @@ print(p1.welcome())
 #+begin_src python
 Hello my name is John
 None
+#+end_src
+
+* Inheritance
+
+Inheritance is just as it sounds, it allows us to inherit all the methods and
+properties of another [[[file:202101311036-python_classes.org][python classes]]]. So let's say we define a Person class,
+and then we want to branch off and create a student class, but we want that
+student class to inherit the properties of Person.
+
+#+begin_src python :results code output :exports both
+class Person():
+    def __init__(self, fname, lname):
+        self.firstname = fname
+        self.lastname = lname
+
+    def printname(self):
+        print(self.firstname, self.lastname)
+
+class Student(Person):
+    pass
+
+x = Student("Jack", "Miller")
+print(x.printname())
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+Jack Miller
+#+end_src
+
+When you can ~def __init__()~ you override any parent class properties, but you
+can get around this a couple ways by calling the parents init function.
+
+#+begin_src python :results code output :exports both
+class Person():
+    def __init__(self, fname, lname):
+        self.firstname = fname
+        self.lastname = lname
+
+    def printname(self):
+        print(self.firstname, self.lastname)
+
+class Student(Person):
+    def __init__(self, fname, lname):
+        Person.__init__(self, fname, lname)
+
+x = Student("Jack", "Miller")
+print(x.printname())
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+Jack Miller
+#+end_src
+
+Another way around this, is python has a function called ~super()~ which inherits
+*all* the properties and methods from its parent. Then we can also add new
+properties to our Students class.
+
+#+begin_src python :results code output :exports both
+class Person():
+    def __init__(self, fname, lname):
+        self.firstname = fname
+        self.lastname = lname
+
+    def printname(self):
+        print(self.firstname, self.lastname)
+
+class Student(Person):
+    def __init__(self, fname, lname, year):
+        super().__init__(fname, lname)
+        self.graduationyear = year
+
+    def welcome(self):
+        print(f'Welcome {self.firstname}, {self.lastname} to the class of {self.graduationyear}.')
+
+x = Student("Jack", "Miller", 2019)
+print(x.welcome())
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+Welcome Jack, Miller to the class of 2019.
 #+end_src
