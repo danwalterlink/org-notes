@@ -3,8 +3,7 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-17 20:08]
 
-* Lists in Python
-Lists is a common [[[[file:202101171358-python_datatypes.org][python datatypes]]]], which are enclosed in =[]=, *double quotes*
+Lists is a common [[[[file:../202101171358-python_datatypes.org][python datatypes]]]], which are enclosed in =[]=, *double quotes*
 for strings =,= to sepearte our indexes and yes, indexes to call different index
 slots of our list.
 
@@ -13,7 +12,7 @@ slots of our list.
   print(list[2])
 #+END_EXAMPLE
 
-** List Methods
+* List Methods
 - *append():* Adds an element at the end of the list
 - *clear():* Removes all the elements from the list
 - *copy():* Returns a copy of the list
@@ -28,7 +27,7 @@ slots of our list.
 - *reverse():* Reverses the order of the list
 - *sort():* Sorts the list
 
-** Lists indexes
+* Lists indexes
 Since these are stored at indexes, you can change parts of your list by calling
 the index number and then assigning it to a new value.
 
@@ -42,7 +41,7 @@ the index number and then assigning it to a new value.
   # last
 #+END_EXAMPLE
 
-** Lists Ranges
+* Lists Ranges
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "mango"]
@@ -54,7 +53,7 @@ the index number and then assigning it to a new value.
   #and note that the item in position 5 is NOT included
 #+END_EXAMPLE
 
-** Check if data exist in Lists
+* Check if data exist in Lists
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry"]
@@ -62,7 +61,7 @@ the index number and then assigning it to a new value.
     print("Yes, 'apple' is in the fruits list")
 #+END_EXAMPLE
 
-** Change lists data at index
+* Change lists data at index
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry"]
@@ -80,7 +79,7 @@ the index number and then assigning it to a new value.
   print(thislist)
 #+END_EXAMPLE
 
-** Insert after index retaining existing data
+* Insert after index retaining existing data
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry"]
@@ -88,7 +87,7 @@ the index number and then assigning it to a new value.
   print(thislist)
 #+END_EXAMPLE
 
-** Append to end of Lists
+* Append to end of Lists
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry"]
@@ -96,7 +95,7 @@ the index number and then assigning it to a new value.
   print(thislist)
 #+END_EXAMPLE
 
-** Insert item to Lists
+* Insert item to Lists
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry"]
@@ -104,7 +103,7 @@ the index number and then assigning it to a new value.
   print(thislist)
 #+END_EXAMPLE
 
-** Remove item from Lists
+* Remove item from Lists
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry"]
@@ -112,7 +111,7 @@ the index number and then assigning it to a new value.
   print(thislist)
 #+END_EXAMPLE
 
-** Pop removes item from Lists
+* Pop removes item from Lists
 Another method is =.pop=, which will pop off the last value of the list and return
 it.
 
@@ -125,7 +124,7 @@ it.
   list.pop(0)
 #+END_EXAMPLE
 
-** Using Del to remove from Lists
+* Using Del to remove from Lists
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry"]
@@ -137,7 +136,7 @@ it.
   del thislist
 #+END_EXAMPLE
 
-** Clear Lists
+* Clear Lists
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry"]
@@ -145,7 +144,7 @@ it.
   print(thislist)
 #+END_EXAMPLE
 
-** Loop through Lists
+* Loop through Lists
 
 #+BEGIN_EXAMPLE
   wlist = [2,4,5,6,7,8]
@@ -174,7 +173,7 @@ it.
   [print x for x in thislist]
 #+END_EXAMPLE
 
-** List Comprehension
+* List Comprehension
 List comprehension, basically just allows you to write out your code in one line
 inside =[]= brackets. The layout looks a little something like this =[expression
 for item in list]=.
@@ -193,7 +192,7 @@ for item in list]=.
   newlist = [x for x in range(10) if x < 5]
 #+END_SRC
 
-** Copy Lists
+* Copy Lists
 
 #+BEGIN_EXAMPLE
   thislist = ["apple", "banana", "cherry"]
@@ -206,7 +205,7 @@ for item in list]=.
   print(mylist)
 #+END_EXAMPLE
 
-** Join Lists
+* Join Lists
 
 #+BEGIN_EXAMPLE
   list1 = ["a", "b", "c"]
@@ -232,7 +231,7 @@ for item in list]=.
   print(list1)
 #+END_EXAMPLE
 
-** Extend List with another list
+* Extend List with another list
 
 thislist = ["apple", "banana", "cherry"] tropical = ["mango",
 "pineapple", "papaya"] thislist.extend(tropical) print(thislist)
@@ -240,13 +239,13 @@ thislist = ["apple", "banana", "cherry"] tropical = ["mango",
 thislist = ["apple", "banana", "cherry"] thistuple = ("kiwi", "orange")
 thislist.extend(thistuple) print(thislist)
 
-** Lists can hold multiple data types
+* Lists can hold multiple data types
 
 #+BEGIN_EXAMPLE
   list1 = ["abc", 34, True, 40, "male"]
 #+END_EXAMPLE
 
-** Append to Lists
+* Append to Lists
 You can also append new data to a list by using the =.append= method.
 
 #+BEGIN_EXAMPLE
@@ -255,7 +254,7 @@ You can also append new data to a list by using the =.append= method.
   return(list)
 #+END_EXAMPLE
 
-** Sort Lists
+* Sort Lists
 There's also the =.reverse= method, which like sort, will reverse sort your list.
 
 #+BEGIN_EXAMPLE

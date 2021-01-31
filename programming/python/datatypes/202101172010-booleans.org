@@ -3,9 +3,8 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-17 20:10]
 
-* Booleans in Python
 Booleans are basic operators to indicate *true* or *false*, also known as a binary,
-see [[[[file:202101171358-python_datatypes.org][python datatypes]]]]
+see [[[[file:../202101171358-python_datatypes.org][python datatypes]]]]
 
 #+BEGIN_SRC python
 print(10 > 9)

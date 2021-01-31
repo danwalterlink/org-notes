@@ -3,7 +3,7 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-17 23:03]
 
-These [[[[file:202101021700-python_operators.org][python operators]]]] compare the values on either sides of them and decide
+These [[[[file:../202101021700-python_operators.org][python operators]]]] compare the values on either sides of them and decide
 the relation among them. They are also called Relational operators.
 + ~==~ :: If the values of the 2 arguments are equal, return true.
 + ~!=~ :: If the values of the 2 arguments are _NOT_ equal, return false.

@@ -1,0 +1,4 @@
+#+title: list comprehension
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-31 12:05]

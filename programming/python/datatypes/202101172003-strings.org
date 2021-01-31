@@ -3,14 +3,13 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-17 20:03]
 
-* Strings in Python
-Strings for python are pretty self explanatory, which are a [[[[file:202101171358-python_datatypes.org][python
+Strings for python are pretty self explanatory, which are a [[[[file:../202101171358-python_datatypes.org][python
 datatypes]]]], but this should cover some of the basics and fundamentals for
 strings. Strings for python are no different than most other strings you are
 probably use to dealing with, where the set of characters are enclosed in double
 quotes ~"This is a string"~.
 
-** f-strings: A new and improved way to format strings
+* f-strings: A new and improved way to format strings
 :PROPERTIES:
 :ID:       59a8bfff-918a-4d5e-95f4-4218fe3cc7e4
 :END:
@@ -23,7 +22,7 @@ there's a new and improved way:
   print(f"{x} world!")
 #+END_EXAMPLE
 
-** Arbitrary expressions
+* Arbitrary expressions
 
 You can use the f-strings to do some other nifty things, such as call
 functions or methods on the object.
@@ -47,7 +46,7 @@ Another example of using arbitrary expressions by calling operations:
   #  returns '74'
 #+END_EXAMPLE
 
-** formatting strings
+* formatting strings
 :PROPERTIES:
 :ID:       29da0497-31c1-4a08-9c39-f3f0930f5ccc
 :END:
@@ -59,14 +58,14 @@ Traditional methods use the =.format()= to pass in arguments:
   print("Hello, my name is {}".format(name))
 #+END_EXAMPLE
 
-** assigning strings to variables
+* assigning strings to variables
 
 #+BEGIN_EXAMPLE
   x = "Hello"
   print(x)
 #+END_EXAMPLE
 
-** multiline strings
+* multiline strings
 
 #+BEGIN_EXAMPLE
   a = """Lorem ipsum dolor sit amet,
@@ -75,7 +74,7 @@ Traditional methods use the =.format()= to pass in arguments:
   ut labore et dolore magna aliqua."""
 #+END_EXAMPLE
 
-** string concatenation
+* string concatenation
 
 #+BEGIN_EXAMPLE
   x = "Hello"
@@ -84,7 +83,7 @@ Traditional methods use the =.format()= to pass in arguments:
   #Hello World
 #+END_EXAMPLE
 
-** strings are arrays
+* strings are arrays
 
 Meaning you can extract the character at index =print(x[1])=
 
@@ -93,7 +92,7 @@ Meaning you can extract the character at index =print(x[1])=
   print(mystring[1])
 #+END_EXAMPLE
 
-** slicing strings
+* slicing strings
 
 #+BEGIN_EXAMPLE
   x = 'hello'
@@ -105,7 +104,7 @@ Meaning you can extract the character at index =print(x[1])=
   # hell
 #+END_EXAMPLE
 
-** length of string
+* length of string
 
 #+BEGIN_EXAMPLE
   x = "Hello"
@@ -113,7 +112,7 @@ Meaning you can extract the character at index =print(x[1])=
   # 5
 #+END_EXAMPLE
 
-** double splitting strings
+* double splitting strings
 
 The below example would return *nick-dev* from the string: *From:
 nick-dev@test.us.com Sat Jan 5 09:14:16 2008*
@@ -126,7 +125,7 @@ nick-dev@test.us.com Sat Jan 5 09:14:16 2008*
   return(user[0])
 #+END_EXAMPLE
 
-** splitting strings
+* splitting strings
 
 The =.split= method allows you to pass a delimeter as the argument to
 split your strings:
@@ -153,7 +152,7 @@ indexes.
       print(words[2])
 #+END_EXAMPLE
 
-** using comparison operators on strings
+* using comparison operators on strings
 
 Python can do a comparison operation against strings to see if the
 letters in the word, are greater or lower in indexing than it's
@@ -172,7 +171,7 @@ opposite. So for instance `C
   False
 #+END_EXAMPLE
 
-** check string
+* check string
 
 #+BEGIN_EXAMPLE
   txt = "The rain in Spain stays mainly in the plain"
@@ -181,7 +180,7 @@ opposite. So for instance `C
   # True
 #+END_EXAMPLE
 
-** .format method on strings
+* .format method on strings
 
 1. Inserting a single string.
 

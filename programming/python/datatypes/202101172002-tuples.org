@@ -4,7 +4,7 @@
 #+created: [2021-01-17 20:02]
 
 Tuples are very similar to lists, but the key difference is they have
-immutability. Tuples are in parenthesis =(1,2,3)=. (See [[[[file:202101171358-python_datatypes.org][python datatypes]]]])
+immutability. Tuples are in parenthesis =(1,2,3)=. (See [[[[file:../202101171358-python_datatypes.org][python datatypes]]]])
 
 #+begin_src python
 thistuple = ("apple", "banana", "cherry")

@@ -3,7 +3,7 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-17 19:55]
 
-The *for* statement is a great statement ([[[[file:202101021249-python_control_structures.org][python control structures]]]]) to run
+The *for* statement is a great statement ([[[[file:../202101021249-python_control_structures.org][python control structures]]]]) to run
 through a list of items and perform an action on each of those items in the
 list.
 

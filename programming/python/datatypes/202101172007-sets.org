@@ -3,8 +3,7 @@
 #+email: nmartin84@gmail.com
 #+created: [2021-01-17 20:07]
 
-* Sets in Python
-A set is a collection [[[[file:202101171358-python_datatypes.org][python datatypes]]]] which is un-ordered, un-indexed and
+A set is a collection [[[[file:../202101171358-python_datatypes.org][python datatypes]]]] which is un-ordered, un-indexed and
 unique. In Python, sets are written with curly brackets ={}=.
 
 #+BEGIN_EXAMPLE
@@ -12,7 +11,7 @@ unique. In Python, sets are written with curly brackets ={}=.
   print(thisset)
 #+END_EXAMPLE
 
-** Sets methods
+* Sets methods
 
 - *add():* Adds an element to the set
 - *clear():* Removes all the elements from the set
@@ -38,7 +37,7 @@ unique. In Python, sets are written with curly brackets ={}=.
 - *union():* Return a set containing the union of sets
 - *update():* Update the set with the union of this set and others
 
-** Adding data to sets
+* Adding data to sets
 
 Just add using the =.add= method
 
@@ -57,7 +56,7 @@ Another useful way of using this is passing a list back to your set
   return set(my_list)
 #+END_EXAMPLE
 
-** Loop through sets
+* Loop through sets
 
 #+BEGIN_EXAMPLE
   thisset = {"apple", "banana", "cherry"}
@@ -66,7 +65,7 @@ Another useful way of using this is passing a list back to your set
     print(x)
 #+END_EXAMPLE
 
-** Check if data exist in sets
+* Check if data exist in sets
 
 #+BEGIN_EXAMPLE
   thisset = {"apple", "banana", "cherry"}
@@ -74,11 +73,11 @@ Another useful way of using this is passing a list back to your set
   print("banana" in thisset)
 #+END_EXAMPLE
 
-** Changing items in sets
+* Changing items in sets
 
 You cannot change or modify what's already in the set.
 
-** Adding to sets
+* Adding to sets
 
 #+BEGIN_EXAMPLE
   thisset = {"apple", "banana", "cherry"}
@@ -88,7 +87,7 @@ You cannot change or modify what's already in the set.
   print(thisset)
 #+END_EXAMPLE
 
-** Add multiple items with update
+* Add multiple items with update
 
 #+BEGIN_EXAMPLE
   thisset = {"apple", "banana", "cherry"}
@@ -98,7 +97,7 @@ You cannot change or modify what's already in the set.
   print(thisset)
 #+END_EXAMPLE
 
-** Remove item from set
+* Remove item from set
 
 #+BEGIN_EXAMPLE
   thisset = {"apple", "banana", "cherry"}
@@ -106,7 +105,7 @@ You cannot change or modify what's already in the set.
   print(thisset)
 #+END_EXAMPLE
 
-** Using discard to remove from sets
+* Using discard to remove from sets
 
 #+BEGIN_EXAMPLE
   thisset = {"apple", "banana", "cherry"}
@@ -116,7 +115,7 @@ You cannot change or modify what's already in the set.
   print(thisset)
 #+END_EXAMPLE
 
-** Using pop to remove item from sets
+* Using pop to remove item from sets
 
 #+BEGIN_EXAMPLE
   thisset = {"apple", "banana", "cherry"}
@@ -128,7 +127,7 @@ You cannot change or modify what's already in the set.
   print(thisset)
 #+END_EXAMPLE
 
-** Clear sets
+* Clear sets
 
 #+BEGIN_EXAMPLE
   thisset = {"apple", "banana", "cherry"}
@@ -138,7 +137,7 @@ You cannot change or modify what's already in the set.
   print(thisset)
 #+END_EXAMPLE
 
-** Join two sets
+* Join two sets
 
 #+BEGIN_EXAMPLE
   set1 = {"a", "b" , "c"}
@@ -148,7 +147,7 @@ You cannot change or modify what's already in the set.
   print(set3)
 #+END_EXAMPLE
 
-** Join sets with update method
+* Join sets with update method
 
 #+BEGIN_EXAMPLE
   set1 = {"a", "b" , "c"}
