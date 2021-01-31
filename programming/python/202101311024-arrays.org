@@ -1,0 +1,59 @@
+#+title: arrays
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-31 10:24]
+
+Arrays for python is a [[[file:202101171358-python_datatypes.org][python datatypes]]], which can be multidimensional, but it
+requires that the data inside all be the same datatype.
+
+Advantages of an array:
+1. handle very large datasets
+2. computationally-memory efficient
+3. faster calculations and analysis than lists
+4. diverse functionality
+
+You can create arrays using the ~NumPy~ library's ~array()~ function.
+
+#+begin_src python :results code output :exports both
+import numpy as np
+
+my_array = np.array([0,1,2,3,4])
+print(my_array[1:3])
+print(type(my_array))
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+[1 2]
+<class 'numpy.ndarray'>
+#+end_src
+
+Performing operations on array lists is quite simple:
+#+begin_src python :results code output :exports both
+import numpy as np
+
+array1 = np.array([1,2,3])
+array2 = np.array([4,5,6])
+
+array3 = array1 + array2
+print(array3)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+[5 7 9]
+#+end_src
+
+Converting an already existing list to an array:
+#+begin_src python :results code output :exports both
+import numpy as np
+
+mylist = [1,2,3,4,5]
+myarray = np.array(mylist)
+print(myarray)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+[1 2 3 4 5]
+#+end_src

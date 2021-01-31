@@ -7,7 +7,30 @@
 
 ** Classification and Regression
 
+There are two major types of [[[file:../fleeting/202101232318-supervised_learning.org][supervised learning]]], called classification and
+regression. 
+
++ Classification
+  - Binary classification
+  - Predict a class label, from a list of possibilities.
+  - Can have multiclass, such as determining an Iris species.
++ Regression
+  - predict a continous number, or a floating point number in programming terms.
+  - predicting persons income based on education, age, location is regression.
+
 ** Generalization, Overfitting, and Underfitting
+
+Generalization is saying our model is able to make accurate predictions on our
+test data, using our training set. The goal is to generalize as accurately as
+possible.
+
+Contrary, building a model too complex for the amount of information we have, is
+called Overfitting. This occurs when you fit a model too closely to the
+particularities of the training set and obtain a model that works well on the
+training set but is not able to generalize to new data.
+
+There's a sweet spot in-betwen the two that will yield the best generalization
+performance.
 
 *** Relation of Model Complexity to Dataset Size
 
@@ -38,7 +61,6 @@
 *** Uncertainty in Multiclass Classification
 
 ** Summary and Outlook
-
 * Chapter 3. Unsupervised Learning and Preprocessing
 
 ** Types of Unsupervised Learning
