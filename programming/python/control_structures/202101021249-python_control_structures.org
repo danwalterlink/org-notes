@@ -1,5 +1,6 @@
 #+title: python control structures
-#+roam_tags: controlstucture
+#+author: nicholas martin
+#+email: nmartin84@gmail.com
 
 [[[file:../202101171320-python.org][python]]] comes with its own set of control structures, which will help the coder
 execute code based on a number of conditions:

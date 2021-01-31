@@ -4,7 +4,7 @@
 #+created: [2021-01-17 19:56]
 #+roam_tags:
 
-The if_else [[[[file:../202101021249-python_control_structures.org][python control structures]]]] allows more flexible control of a
+The if_else [[[[file:202101021249-python_control_structures.org][python control structures]]]] allows more flexible control of a
 piece of code block depending on a number of arguments conditions.
 
 - Equals: =a == b=
