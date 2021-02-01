@@ -5,3 +5,66 @@
 
 An iterator is an object in [[[file:202101171320-python.org][python]]] that contains a number of values, which can
 be iterated upon.
+
+#+begin_src python :results code output :exports both
+class MyNumbers:
+  def __iter__(self):
+    self.a = 1
+    return self
+
+  def __next__(self):
+    if self.a <= 20:
+      x = self.a
+      self.a += 1
+      return x
+    else:
+      raise StopIteration
+
+myclass = MyNumbers()
+myiter = iter(myclass)
+
+for x in myiter:
+  print(x)
+#+end_src
+
+#+begin_src python :results code output :exports both
+class PowTwo:
+    """Class to implement an iterator
+    of powers of two"""
+
+    def __init__(self, max=0):
+        self.max = max
+
+    def __iter__(self):
+        self.n = 0
+        return self
+
+    def __next__(self):
+        if self.n <= self.max:
+            result = 2 ** self.n
+            self.n += 1
+            return result
+        else:
+            raise StopIteration
+
+
+# create an object
+numbers = PowTwo(3)
+
+# create an iterable from the object
+i = iter(numbers)
+
+# Using next to get to the next iterator element
+for i in PowTwo(5):
+    print(i)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+1
+2
+4
+8
+16
+32
+#+end_src

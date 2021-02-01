@@ -64,9 +64,9 @@ None
 * Inheritance
 
 Inheritance is just as it sounds, it allows us to inherit all the methods and
-properties of another [[[file:202101311036-python_classes.org][python classes]]]. So let's say we define a Person class,
-and then we want to branch off and create a student class, but we want that
-student class to inherit the properties of Person.
+properties of other classes. So let's say we define a Person class, and then we
+want to branch off and create a student class, but we want that student class to
+inherit the properties of Person.
 
 #+begin_src python :results code output :exports both
 class Person():

@@ -1,0 +1,26 @@
+#+title: python scope
+#+author: Nick Martin
+#+email: nmartin84@gmail.com
+#+created: [2021-01-31 19:21]
+
+A scope is essentially where your variable is defined at. For instance, you can
+define a variable at the function level, which makes that variable avialable to
+the function and anything that calls that function. It's also possible to make a
+variable global by calling the ~global~ keyword.
+
+#+begin_src python :results code output :exports both
+x = 300
+
+def myfunc():
+  global x
+  x = 200
+
+myfunc()
+
+print(x)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+200
+#+end_src

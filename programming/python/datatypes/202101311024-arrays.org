@@ -2,8 +2,10 @@
 #+author: Nick Martin
 #+email: nmartin84@gmail.com
 #+created: [2021-01-31 10:24]
+#+INFOJS_OPT: view:t toc:t ltoc:t mouse:underline buttons:0 path:http://thomasf.github.io/solarized-css/org-info.min.js
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://raw.githack.com/nmartin84/html-style-sheets/master/notes.css" />
 
-Arrays for python is a [[[file:202101171358-python_datatypes.org][python datatypes]]], which can be multidimensional, but it
+Arrays for python is a [[[file:../202101171358-python_datatypes.org][python datatypes]]], which can be multidimensional, but it
 requires that the data inside all be the same datatype.
 
 Advantages of an array:
