@@ -95,7 +95,89 @@ Lists are comprised of values enclosed in square brackets =[]=.
 ** dictionaries
 
 ** strings
+* Operators
 
+Python uses operators to apply different operations on values, such as
+comparison or arithmetic type, and more. The following operators exist in
+python:
+- [[arithmetic operators]]
+- [[assignment operators]]
+- [[bitwise operators]]
+- [[comparison operators]]
+- [[identity operators]]
+- [[logical operators]]
+- [[membership operators]]
+
+The most basic use of an operator in python is something like so:
+#+begin_src python :results code output :exports both
+x = 3 + 3
+y = 5
+my_string = 'Red Dog'
+
+if 6 == x:
+    print("x is 6")
+    if x > y:
+        print("x is also greater than y")
+
+if 'Red' in my_string:
+    print('Red is in string')
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+x is 6
+x is also greater than y
+Red is in string
+#+end_src
+
+** arithmetic operators
+Arithmetic operators for [[[file:../202101171320-python.org][python]]] are used with numeric values to perform common
+mathematical operations:
+- ~+~ :: Addition =x + y=
+- ~-~ :: Subtraction =x - y=
+- ~*~ :: Multiplication =x * y=
+- ~%~ :: Modulus =x % y=
+- ~**~ :: Exponentiation =x ** y=
+- ~//~ :: Floor Division =x // y=
+** assignment operators
+Assignment operators for [[[file:../202101171320-python.org][python]]] are used to assign values to variables:
+- = :: for example =x = 5= is the same as =x = 5=
+- += :: for example =x +=3= is the same as =x = x + 3=
+- -= :: for example =x -= 3= is the same as =x = x - 3=
+** bitwise operators
+Bitwise operators for [[[[file:../202101171320-python.org][python]]]] are used to compare (binary) numbers:
+- ~&~ :: Sets each bits to 1 if both are 1.
+- ~|~ :: Sets each bit to 1 if one of two bits is 1
+- ~^~ :: Sets each bit to 1 if only one of two bits is 1
+- ~~~ :: Inverts all the bits
+- ~<<~ :: Shift left by pushing zeros in from the right and let the leftmost bits fall off
+- ~>>~ :: Shift right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off
+** comparison operators
+The comparison operators for [[[file:../202101171320-python.org][python]]] compare the values on either sides of them
+and decide the relation among them. They are also called Relational operators:
+- ~==~ :: If the values of the 2 arguments are equal, return true.
+- ~!=~ :: If the values of the 2 arguments are _NOT_ equal, return false.
+- ~<>~ :: If values of the 2 arguemnts are NOT equal, return true.
+- ~>~ :: Returns true if the 1st argument is greater than the second argument.
+- ~<~ :: Returns false if the 1st argument is less than the second argument.
+- ~>=~ :: Returns true if the 1st argument is greater than or equal to the second argument.
+- ~<=~ :: Returns false if the 1st argument is less than or equal to the second argument.
+** identity operators
+Identity operators for [[[file:../202101171320-python.org][python]]] are used to compare the objects, not if they are
+equal, but if they are actually the same object, with the same memory location:
+
+- is :: returns true if both variables are the same.
+- is not :: returns true if both variables are not the same.
+** logical operators
+The logical operators for [[[file:../202101171320-python.org][python]]] are used to combine conditional statements:
+- AND :: operator returns true when both evaluations return 1 or true.
+- OR :: operator return true when one of the evaluations return 1 or true.
+- NOT :: operator will return false if both evaluations return 1 or true.
+** membership operators
+Membership [[[file:../202101171320-python.org][python]]] are used to test if a sequence is presented in an object:
+- in :: returns true if a sequence with the specified value is present in the object.
+- not in :: returns true if a sequence with the specified value is not present in
+  the object.
 * Interpreter
 
 - Interprets the code we give it, usually from a .py file with instructions to run.
